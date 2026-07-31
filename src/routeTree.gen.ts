@@ -10,33 +10,68 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CareKotiinRouteImport } from './routes/care-kotiin'
+import { Route as CarePalveluseteliRouteImport } from './routes/care-palveluseteli'
+import { Route as CareYrityksilleRouteImport } from './routes/care-yrityksille'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CareKotiinRoute = CareKotiinRouteImport.update({
+  id: '/care-kotiin',
+  path: '/care-kotiin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CarePalveluseteliRoute = CarePalveluseteliRouteImport.update({
+  id: '/care-palveluseteli',
+  path: '/care-palveluseteli',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareYrityksilleRoute = CareYrityksilleRouteImport.update({
+  id: '/care-yrityksille',
+  path: '/care-yrityksille',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/care-kotiin': typeof CareKotiinRoute
+  '/care-palveluseteli': typeof CarePalveluseteliRoute
+  '/care-yrityksille': typeof CareYrityksilleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/care-kotiin': typeof CareKotiinRoute
+  '/care-palveluseteli': typeof CarePalveluseteliRoute
+  '/care-yrityksille': typeof CareYrityksilleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/care-kotiin': typeof CareKotiinRoute
+  '/care-palveluseteli': typeof CarePalveluseteliRoute
+  '/care-yrityksille': typeof CareYrityksilleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/care-kotiin' | '/care-palveluseteli' | '/care-yrityksille'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/care-kotiin' | '/care-palveluseteli' | '/care-yrityksille'
+  id:
+    | '__root__'
+    | '/'
+    | '/care-kotiin'
+    | '/care-palveluseteli'
+    | '/care-yrityksille'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CareKotiinRoute: typeof CareKotiinRoute
+  CarePalveluseteliRoute: typeof CarePalveluseteliRoute
+  CareYrityksilleRoute: typeof CareYrityksilleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +83,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/care-kotiin': {
+      id: '/care-kotiin'
+      path: '/care-kotiin'
+      fullPath: '/care-kotiin'
+      preLoaderRoute: typeof CareKotiinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/care-palveluseteli': {
+      id: '/care-palveluseteli'
+      path: '/care-palveluseteli'
+      fullPath: '/care-palveluseteli'
+      preLoaderRoute: typeof CarePalveluseteliRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/care-yrityksille': {
+      id: '/care-yrityksille'
+      path: '/care-yrityksille'
+      fullPath: '/care-yrityksille'
+      preLoaderRoute: typeof CareYrityksilleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CareKotiinRoute: CareKotiinRoute,
+  CarePalveluseteliRoute: CarePalveluseteliRoute,
+  CareYrityksilleRoute: CareYrityksilleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
