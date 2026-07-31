@@ -13,21 +13,22 @@ export function SiteHeader() {
     { to: "/care-kotiin", label: tr.nav.kotiin },
     { to: "/care-yrityksille", label: tr.nav.yrityksille },
     { to: "/care-palveluseteli", label: tr.nav.palveluseteli },
+    { to: "/hinnoittelu", label: tr.nav.hinnoittelu },
   ] as const;
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <img src={logo.url} alt="Care & You Services" className="h-11 w-auto" />
+          <img src={logo.url} alt="Care & You Services" className="h-16 w-auto md:h-20" />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-6 md:flex">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="text-[0.78rem] uppercase tracking-[0.18em] text-foreground/75 transition-colors hover:text-primary"
+              className="text-[0.74rem] uppercase tracking-[0.16em] text-foreground/75 transition-colors hover:text-primary"
               activeProps={{ className: "text-primary" }}
             >
               {l.label}

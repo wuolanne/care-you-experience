@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/hero-care.jpg";
+import logo from "@/assets/cys-logo.png.asset.json";
 import { useLang } from "@/i18n/LanguageProvider";
 import { Video, FileText, ShoppingBag, ArrowRight } from "lucide-react";
 
@@ -39,34 +39,35 @@ function Index() {
 
   return (
     <>
-      <section className="relative overflow-hidden">
-        <img
-          src={heroImg}
-          alt="Hoitaja auttamassa asiakasta kotona"
-          width={1600}
-          height={1104}
-          className="absolute inset-0 size-full object-cover"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(100deg,oklch(0.3_0.14_292/0.92)_0%,oklch(0.3_0.14_292/0.72)_45%,oklch(0.3_0.14_292/0.15)_100%)]" />
-        <div className="relative mx-auto flex max-w-6xl flex-col justify-center px-6 py-32 md:py-44">
-          <p className="eyebrow text-[oklch(0.85_0.06_95)]">{tr.hero.eyebrow}</p>
-          <h1 className="mt-6 max-w-2xl text-4xl leading-[1.1] text-primary-foreground md:text-6xl">
-            {tr.hero.title}
-          </h1>
-          <p className="mt-6 max-w-xl text-base text-primary-foreground/85">{tr.hero.lead}</p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a
-              href="#aloita"
-              className="rounded-sm bg-[var(--color-gold)] px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-plum transition-opacity hover:opacity-90"
-            >
-              {tr.hero.cta}
-            </a>
-            <a
-              href="#palvelut"
-              className="rounded-sm border border-primary-foreground/40 px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-primary-foreground/10"
-            >
-              {tr.hero.secondary}
-            </a>
+      <section className="relative overflow-hidden bg-[linear-gradient(120deg,oklch(0.3_0.14_292)_0%,oklch(0.36_0.13_300)_55%,oklch(0.44_0.1_305)_100%)]">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 md:grid-cols-[1.05fr_0.95fr] md:py-32">
+          <div>
+            <p className="eyebrow text-[oklch(0.85_0.06_95)]">{tr.hero.eyebrow}</p>
+            <h1 className="mt-6 max-w-2xl text-4xl leading-[1.1] text-primary-foreground md:text-5xl">
+              {tr.hero.title}
+            </h1>
+            <p className="mt-6 max-w-xl text-base text-primary-foreground/85">{tr.hero.lead}</p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <a
+                href="#aloita"
+                className="rounded-sm bg-[var(--color-gold)] px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-plum transition-opacity hover:opacity-90"
+              >
+                {tr.hero.cta}
+              </a>
+              <a
+                href="#palvelut"
+                className="rounded-sm border border-primary-foreground/40 px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+              >
+                {tr.hero.secondary}
+              </a>
+            </div>
+          </div>
+          <div className="flex justify-center md:justify-end">
+            <img
+              src={logo.url}
+              alt="Care & You Services"
+              className="w-full max-w-md rounded-sm bg-primary-foreground/95 p-10 shadow-[var(--shadow-elegant)]"
+            />
           </div>
         </div>
       </section>
