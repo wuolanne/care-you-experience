@@ -1,0 +1,32 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { PageHero, ServiceDetail } from "@/components/site-pieces";
+import { useLang } from "@/i18n/LanguageProvider";
+
+export const Route = createFileRoute("/care-yrityksille")({
+  head: () => ({
+    meta: [
+      { title: "Care Yrityksille — Hyvinvointi- ja tukipalvelut | Care & You Services" },
+      { name: "description", content: "Henkilöstön hyvinvointi, toimitilapalvelut ja hoiva-alan sijaisuudet yrityksille." },
+      { property: "og:title", content: "Care Yrityksille | Care & You Services" },
+      { property: "og:description", content: "Hyvinvointi- ja tukipalvelut yrityksille." },
+    ],
+  }),
+  component: Page,
+});
+
+function Page() {
+  const { tr } = useLang();
+  return (
+    <>
+      <PageHero eyebrow={tr.services.eyebrow} title={tr.services.yrityksille.title} lead={tr.services.yrityksille.body} />
+      <ServiceDetail title={tr.services.yrityksille.title} body={tr.about.body} items={tr.services.yrityksille.items}>
+        <Link
+          to="/tarjouspyynto"
+          className="mt-10 inline-block rounded-sm bg-primary px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-primary-foreground"
+        >
+          {tr.actions.quote.cta}
+        </Link>
+      </ServiceDetail>
+    </>
+  );
+}
