@@ -13,6 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CareKotiinRouteImport } from './routes/care-kotiin'
 import { Route as CarePalveluseteliRouteImport } from './routes/care-palveluseteli'
 import { Route as CareYrityksilleRouteImport } from './routes/care-yrityksille'
+import { Route as OstaRouteImport } from './routes/osta'
+import { Route as TarjouspyyntoRouteImport } from './routes/tarjouspyynto'
+import { Route as VaraaRouteImport } from './routes/varaa'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +37,39 @@ const CareYrityksilleRoute = CareYrityksilleRouteImport.update({
   path: '/care-yrityksille',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OstaRoute = OstaRouteImport.update({
+  id: '/osta',
+  path: '/osta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TarjouspyyntoRoute = TarjouspyyntoRouteImport.update({
+  id: '/tarjouspyynto',
+  path: '/tarjouspyynto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VaraaRoute = VaraaRouteImport.update({
+  id: '/varaa',
+  path: '/varaa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/care-kotiin': typeof CareKotiinRoute
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
+  '/osta': typeof OstaRoute
+  '/tarjouspyynto': typeof TarjouspyyntoRoute
+  '/varaa': typeof VaraaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/care-kotiin': typeof CareKotiinRoute
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
+  '/osta': typeof OstaRoute
+  '/tarjouspyynto': typeof TarjouspyyntoRoute
+  '/varaa': typeof VaraaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,18 +77,38 @@ export interface FileRoutesById {
   '/care-kotiin': typeof CareKotiinRoute
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
+  '/osta': typeof OstaRoute
+  '/tarjouspyynto': typeof TarjouspyyntoRoute
+  '/varaa': typeof VaraaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/care-kotiin' | '/care-palveluseteli' | '/care-yrityksille'
+  fullPaths:
+    | '/'
+    | '/care-kotiin'
+    | '/care-palveluseteli'
+    | '/care-yrityksille'
+    | '/osta'
+    | '/tarjouspyynto'
+    | '/varaa'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/care-kotiin' | '/care-palveluseteli' | '/care-yrityksille'
+  to:
+    | '/'
+    | '/care-kotiin'
+    | '/care-palveluseteli'
+    | '/care-yrityksille'
+    | '/osta'
+    | '/tarjouspyynto'
+    | '/varaa'
   id:
     | '__root__'
     | '/'
     | '/care-kotiin'
     | '/care-palveluseteli'
     | '/care-yrityksille'
+    | '/osta'
+    | '/tarjouspyynto'
+    | '/varaa'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -72,6 +116,9 @@ export interface RootRouteChildren {
   CareKotiinRoute: typeof CareKotiinRoute
   CarePalveluseteliRoute: typeof CarePalveluseteliRoute
   CareYrityksilleRoute: typeof CareYrityksilleRoute
+  OstaRoute: typeof OstaRoute
+  TarjouspyyntoRoute: typeof TarjouspyyntoRoute
+  VaraaRoute: typeof VaraaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -104,6 +151,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareYrityksilleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/osta': {
+      id: '/osta'
+      path: '/osta'
+      fullPath: '/osta'
+      preLoaderRoute: typeof OstaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tarjouspyynto': {
+      id: '/tarjouspyynto'
+      path: '/tarjouspyynto'
+      fullPath: '/tarjouspyynto'
+      preLoaderRoute: typeof TarjouspyyntoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/varaa': {
+      id: '/varaa'
+      path: '/varaa'
+      fullPath: '/varaa'
+      preLoaderRoute: typeof VaraaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -112,7 +180,20 @@ const rootRouteChildren: RootRouteChildren = {
   CareKotiinRoute: CareKotiinRoute,
   CarePalveluseteliRoute: CarePalveluseteliRoute,
   CareYrityksilleRoute: CareYrityksilleRoute,
+  OstaRoute: OstaRoute,
+  TarjouspyyntoRoute: TarjouspyyntoRoute,
+  VaraaRoute: VaraaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
