@@ -8,7 +8,13 @@ export const LANGS: { code: Lang; label: string; short: string }[] = [
 ];
 
 type Dict = {
-  nav: { home: string; kotiin: string; yrityksille: string; palveluseteli: string };
+  nav: {
+    home: string;
+    kotiin: string;
+    yrityksille: string;
+    palveluseteli: string;
+    hinnoittelu: string;
+  };
   hero: { eyebrow: string; title: string; lead: string; cta: string; secondary: string };
   about: { eyebrow: string; title: string; body: string; points: string[] };
   actions: {
@@ -25,6 +31,20 @@ type Dict = {
     yrityksille: { title: string; body: string; items: string[] };
     palveluseteli: { title: string; body: string; items: string[] };
     more: string;
+  };
+  pricing: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    monthly: string;
+    hourly: string;
+    perMonth: string;
+    perHour: string;
+    hoursPerMonth: string;
+    single: string;
+    vat: string;
+    cta: string;
+    note: string;
   };
   form: {
     name: string;
@@ -44,19 +64,29 @@ type Dict = {
 
 export const t: Record<Lang, Dict> = {
   fi: {
-    nav: { home: "Etusivu", kotiin: "Care KOTIIN", yrityksille: "Care Yrityksille", palveluseteli: "Care Palveluseteli" },
+    nav: {
+      home: "Etusivu",
+      kotiin: "Care KOTIIN",
+      yrityksille: "Care Yrityksille",
+      palveluseteli: "Care Palveluseteli",
+      hinnoittelu: "Hinnoittelu",
+    },
     hero: {
-      eyebrow: "Hoivaa ihmiseltä ihmiselle",
-      title: "Laadukasta hoivaa ja huolenpitoa – kotiin ja yrityksille",
-      lead: "Care & You Services tuottaa yksilöllistä, luotettavaa ja lämmintä palvelua. Jokainen kohtaaminen on meille lupaus laadusta.",
+      eyebrow: "Kumppanuutta, johon voi luottaa",
+      title: "Laadukasta kodin ja toimistonhoitoa – ja pidämme huolta sinusta",
+      lead: "Care & You Services hoitaa kotisi ja toimistosi huolella, jotta sinulle jää aikaa olennaiseen. Kumppanuudessamme sinusta pidetään huolta.",
       cta: "Aloita yhteistyö",
       secondary: "Tutustu palveluihin",
     },
     about: {
       eyebrow: "Meistä lyhyesti",
-      title: "Pieni tiimi, suuri sydän ja korkea standardi",
-      body: "Olemme suomalainen hoiva- ja palvelualan yritys, joka yhdistää ammattitaidon ja aidon välittämisen. Palvelemme yksityisasiakkaita kotona, yrityksiä henkilöstön hyvinvoinnissa sekä palvelusetelin haltijoita.",
-      points: ["Koulutettu ja luotettava henkilöstö", "Joustavat ja yksilölliset palvelut", "Selkeä hinnoittelu, ei yllätyksiä"],
+      title: "Siisti koti, toimiva toimisto, huolehdittu arki",
+      body: "Olemme suomalainen kodin- ja toimistonhoidon yritys. Teemme siivouksen ja arjen tukipalvelut ammattitaidolla ja samalla tarkkuudella niin kotona kuin työpaikalla – luotettavasti, sovitusti ja läpinäkyvällä hinnalla.",
+      points: [
+        "Koulutettu ja luotettava henkilöstö",
+        "Kodin ja toimiston siivous samalta kumppanilta",
+        "Läpinäkyvä hinnoittelu, ei yllätyksiä",
+      ],
     },
     actions: {
       eyebrow: "Näin pääset alkuun",
@@ -70,20 +100,34 @@ export const t: Record<Lang, Dict> = {
       title: "Kolme tapaa saada Care & You -laatua",
       kotiin: {
         title: "Care KOTIIN",
-        body: "Kotihoivaa, arjen apua ja seuraa – juuri niin usein kuin tarvitset.",
-        items: ["Henkilökohtainen avustaminen", "Siivous ja kodinhoito", "Asiointiapu ja seuranpito", "Omaishoitajan tuki"],
+        body: "Kodinhoitoa ja siivousta – juuri niin usein kuin tarvitset.",
+        items: ["Ylläpitosiivous ja perussiivous", "Ikkunat, kodinkoneet ja tekstiilit", "Muutto- ja suursiivoukset", "Arjen asiointiapu"],
       },
       yrityksille: {
         title: "Care Yrityksille",
-        body: "Hyvinvointia ja tukipalveluita henkilöstöllenne sekä asiakkaillenne.",
-        items: ["Henkilöstön hyvinvointipalvelut", "Toimitilojen siisteys", "Hoiva-alan sijaisuudet", "Räätälöidyt sopimukset"],
+        body: "Toimiston ja liiketilojen siisteys sovitulla rytmillä.",
+        items: ["Toimistosiivous 1–5 krt/vko", "Majoitus- ja kohdesiivoukset", "Taukotilat ja saniteettitilat", "Räätälöidyt sopimukset"],
       },
       palveluseteli: {
         title: "Care Palveluseteli",
-        body: "Hyväksytty palveluntuottaja – käytä kuntasi palveluseteli helposti meillä.",
+        body: "Kotipalvelun tukipalvelut palvelusetelillä – helposti ja selkeästi.",
         items: ["Palvelusetelin käyttö", "Neuvonta ja hakemusapu", "Kunnan kanssa yhteistyössä", "Ei piilokuluja"],
       },
       more: "Lue lisää",
+    },
+    pricing: {
+      eyebrow: "Hinnoittelu",
+      title: "Läpinäkyvä hinnoittelu",
+      lead: "Meillä hinnoittelu on läpinäkyvää: voit valita joko kuukausipaketin tai tuntiveloituksen. Näet kaikki hinnat suoraan alta – ilman piilokuluja tai yllätyksiä.",
+      monthly: "Kuukausipaketit",
+      hourly: "Tuntiveloitus",
+      perMonth: "€ / kk",
+      perHour: "€ / h",
+      hoursPerMonth: "h / kk",
+      single: "Kertatilaus",
+      vat: "Hinnat ALV 0 %.",
+      cta: "Pyydä tarjous",
+      note: "Kotitalousvähennys huomioidaan yksityisasiakkaiden laskuilla.",
     },
     form: {
       name: "Nimi",
@@ -98,22 +142,32 @@ export const t: Record<Lang, Dict> = {
     book: { title: "Varaa videopalaveri", lead: "Sovitaan 30 minuutin etätapaaminen, jossa käymme läpi tarpeesi ja yhteistyön aloituksen." },
     quote: { title: "Jätä tarjouspyyntö", lead: "Kerro lyhyesti tilanteestasi – saat henkilökohtaisen tarjouksen kahden arkipäivän kuluessa." },
     buy: { title: "Osta palvelu", lead: "Selkeät palvelupaketit, joilla pääset alkuun heti.", from: "alkaen", select: "Valitse" },
-    footer: { tagline: "Laadukasta hoivaa ja huolenpitoa.", contact: "Yhteystiedot", rights: "Kaikki oikeudet pidätetään." },
+    footer: { tagline: "Laadukasta kodin ja toimistonhoitoa.", contact: "Yhteystiedot", rights: "Kaikki oikeudet pidätetään." },
   },
   sv: {
-    nav: { home: "Hem", kotiin: "Care HEM", yrityksille: "Care för Företag", palveluseteli: "Care Servicesedel" },
+    nav: {
+      home: "Hem",
+      kotiin: "Care HEM",
+      yrityksille: "Care för Företag",
+      palveluseteli: "Care Servicesedel",
+      hinnoittelu: "Priser",
+    },
     hero: {
-      eyebrow: "Omsorg från människa till människa",
-      title: "Högklassig omsorg och service – hem och till företag",
-      lead: "Care & You Services erbjuder individuell, pålitlig och varm service. Varje möte är ett löfte om kvalitet.",
+      eyebrow: "Ett partnerskap du kan lita på",
+      title: "Högklassig hem- och kontorsstädning – och vi tar hand om dig",
+      lead: "Care & You Services sköter ditt hem och ditt kontor med omsorg så att du får tid till det viktiga. I vårt partnerskap tas du om hand.",
       cta: "Inled samarbete",
       secondary: "Se våra tjänster",
     },
     about: {
       eyebrow: "Om oss",
-      title: "Litet team, stort hjärta och hög standard",
-      body: "Vi är ett finländskt omsorgs- och serviceföretag som förenar yrkeskunskap med äkta omtanke. Vi betjänar privatkunder i hemmet, företag inom personalens välbefinnande samt innehavare av servicesedel.",
-      points: ["Utbildad och pålitlig personal", "Flexibla och individuella tjänster", "Tydlig prissättning utan överraskningar"],
+      title: "Rent hem, fungerande kontor, omhändertagen vardag",
+      body: "Vi är ett finländskt företag inom hem- och kontorsstädning. Vi utför städning och stödtjänster med yrkeskunskap och samma noggrannhet hemma som på arbetsplatsen – pålitligt och med transparenta priser.",
+      points: [
+        "Utbildad och pålitlig personal",
+        "Hem och kontor av samma partner",
+        "Transparent prissättning utan överraskningar",
+      ],
     },
     actions: {
       eyebrow: "Så kommer du igång",
@@ -127,20 +181,34 @@ export const t: Record<Lang, Dict> = {
       title: "Tre sätt att få Care & You-kvalitet",
       kotiin: {
         title: "Care HEM",
-        body: "Hemvård, hjälp i vardagen och sällskap – så ofta du behöver.",
-        items: ["Personlig assistans", "Städning och hemvård", "Ärendehjälp och sällskap", "Stöd för närståendevårdare"],
+        body: "Hemstädning och hemservice – så ofta du behöver.",
+        items: ["Underhålls- och grundstädning", "Fönster, vitvaror och textilier", "Flytt- och storstädning", "Hjälp med vardagsärenden"],
       },
       yrityksille: {
         title: "Care för Företag",
-        body: "Välbefinnande och stödtjänster för er personal och era kunder.",
-        items: ["Välbefinnandetjänster för personal", "Städning av lokaler", "Vikarier inom vårdbranschen", "Skräddarsydda avtal"],
+        body: "Rena kontor och affärslokaler i avtalad rytm.",
+        items: ["Kontorsstädning 1–5 ggr/vecka", "Boende- och objektsstädning", "Pausrum och sanitetsutrymmen", "Skräddarsydda avtal"],
       },
       palveluseteli: {
         title: "Care Servicesedel",
-        body: "Godkänd serviceproducent – använd kommunens servicesedel enkelt hos oss.",
+        body: "Stödtjänster inom hemservice med servicesedel – enkelt och tydligt.",
         items: ["Användning av servicesedel", "Rådgivning och ansökningshjälp", "Samarbete med kommunen", "Inga dolda kostnader"],
       },
       more: "Läs mer",
+    },
+    pricing: {
+      eyebrow: "Priser",
+      title: "Transparent prissättning",
+      lead: "Hos oss är prissättningen transparent: du kan välja antingen ett månadspaket eller timdebitering. Alla priser ser du direkt nedan – utan dolda kostnader.",
+      monthly: "Månadspaket",
+      hourly: "Timdebitering",
+      perMonth: "€ / mån",
+      perHour: "€ / h",
+      hoursPerMonth: "h / mån",
+      single: "Engångsbeställning",
+      vat: "Priser moms 0 %.",
+      cta: "Begär offert",
+      note: "Hushållsavdraget beaktas på privatkunders fakturor.",
     },
     form: {
       name: "Namn",
@@ -155,22 +223,32 @@ export const t: Record<Lang, Dict> = {
     book: { title: "Boka videomöte", lead: "Vi bokar ett 30 minuters distansmöte där vi går igenom dina behov och hur vi startar samarbetet." },
     quote: { title: "Begär offert", lead: "Berätta kort om din situation – du får en personlig offert inom två vardagar." },
     buy: { title: "Köp tjänst", lead: "Tydliga servicepaket som gör att du kommer igång direkt.", from: "från", select: "Välj" },
-    footer: { tagline: "Högklassig omsorg och service.", contact: "Kontakt", rights: "Alla rättigheter förbehållna." },
+    footer: { tagline: "Högklassig hem- och kontorsstädning.", contact: "Kontakt", rights: "Alla rättigheter förbehållna." },
   },
   es: {
-    nav: { home: "Inicio", kotiin: "Care EN CASA", yrityksille: "Care para Empresas", palveluseteli: "Care Vale de Servicio" },
+    nav: {
+      home: "Inicio",
+      kotiin: "Care EN CASA",
+      yrityksille: "Care para Empresas",
+      palveluseteli: "Care Vale de Servicio",
+      hinnoittelu: "Precios",
+    },
     hero: {
-      eyebrow: "Cuidado de persona a persona",
-      title: "Cuidado y servicios de alta calidad – en casa y para empresas",
-      lead: "Care & You Services ofrece un servicio personalizado, fiable y cercano. Cada encuentro es nuestra promesa de calidad.",
+      eyebrow: "Una colaboración de confianza",
+      title: "Limpieza de alta calidad para tu hogar y tu oficina – y cuidamos de ti",
+      lead: "Care & You Services cuida tu hogar y tu oficina con esmero para que tengas tiempo para lo importante. En nuestra colaboración, cuidamos de ti.",
       cta: "Comenzar la colaboración",
       secondary: "Ver servicios",
     },
     about: {
       eyebrow: "Sobre nosotros",
-      title: "Equipo pequeño, gran corazón y alto estándar",
-      body: "Somos una empresa finlandesa de cuidados y servicios que une profesionalidad con atención genuina. Atendemos a particulares en su hogar, a empresas en el bienestar de su personal y a titulares del vale de servicio.",
-      points: ["Personal cualificado y de confianza", "Servicios flexibles y personalizados", "Precios claros, sin sorpresas"],
+      title: "Hogar limpio, oficina que funciona, día a día resuelto",
+      body: "Somos una empresa finlandesa de limpieza del hogar y de oficinas. Realizamos la limpieza y los servicios de apoyo con profesionalidad y el mismo rigor en casa y en el trabajo, con precios transparentes.",
+      points: [
+        "Personal cualificado y de confianza",
+        "Hogar y oficina con un mismo socio",
+        "Precios transparentes, sin sorpresas",
+      ],
     },
     actions: {
       eyebrow: "Cómo empezar",
@@ -184,20 +262,34 @@ export const t: Record<Lang, Dict> = {
       title: "Tres formas de recibir la calidad Care & You",
       kotiin: {
         title: "Care EN CASA",
-        body: "Cuidado en el hogar, ayuda diaria y compañía, con la frecuencia que necesites.",
-        items: ["Asistencia personal", "Limpieza y tareas del hogar", "Acompañamiento y gestiones", "Apoyo al cuidador familiar"],
+        body: "Limpieza y cuidado del hogar, con la frecuencia que necesites.",
+        items: ["Limpieza de mantenimiento y a fondo", "Ventanas, electrodomésticos y textiles", "Limpiezas de mudanza y generales", "Ayuda con gestiones diarias"],
       },
       yrityksille: {
         title: "Care para Empresas",
-        body: "Bienestar y servicios de apoyo para vuestro personal y clientes.",
-        items: ["Bienestar del personal", "Limpieza de instalaciones", "Sustituciones del sector cuidados", "Contratos a medida"],
+        body: "Oficinas y locales impecables con la frecuencia acordada.",
+        items: ["Limpieza de oficinas 1–5 veces/semana", "Limpieza de alojamientos y objetos", "Zonas de descanso y aseos", "Contratos a medida"],
       },
       palveluseteli: {
         title: "Care Vale de Servicio",
-        body: "Proveedor autorizado: utiliza fácilmente el vale de servicio de tu municipio.",
+        body: "Servicios de apoyo domiciliario con el vale de servicio, de forma sencilla.",
         items: ["Uso del vale de servicio", "Asesoramiento y ayuda con la solicitud", "Colaboración con el municipio", "Sin costes ocultos"],
       },
       more: "Saber más",
+    },
+    pricing: {
+      eyebrow: "Precios",
+      title: "Precios transparentes",
+      lead: "Nuestra tarificación es transparente: puedes elegir un paquete mensual o el pago por horas. Todos los precios están abajo, sin costes ocultos ni sorpresas.",
+      monthly: "Paquetes mensuales",
+      hourly: "Precio por hora",
+      perMonth: "€ / mes",
+      perHour: "€ / h",
+      hoursPerMonth: "h / mes",
+      single: "Servicio puntual",
+      vat: "Precios sin IVA (0 %).",
+      cta: "Pedir presupuesto",
+      note: "La deducción fiscal del hogar se aplica en las facturas de particulares.",
     },
     form: {
       name: "Nombre",
@@ -212,22 +304,32 @@ export const t: Record<Lang, Dict> = {
     book: { title: "Reservar videollamada", lead: "Reservamos una reunión de 30 minutos para revisar tus necesidades e iniciar la colaboración." },
     quote: { title: "Solicitar presupuesto", lead: "Cuéntanos brevemente tu situación: recibirás una oferta personal en dos días laborables." },
     buy: { title: "Comprar servicio", lead: "Paquetes claros para empezar de inmediato.", from: "desde", select: "Elegir" },
-    footer: { tagline: "Cuidado y servicios de alta calidad.", contact: "Contacto", rights: "Todos los derechos reservados." },
+    footer: { tagline: "Limpieza de alta calidad para hogar y oficina.", contact: "Contacto", rights: "Todos los derechos reservados." },
   },
   en: {
-    nav: { home: "Home", kotiin: "Care AT HOME", yrityksille: "Care for Business", palveluseteli: "Care Service Voucher" },
+    nav: {
+      home: "Home",
+      kotiin: "Care AT HOME",
+      yrityksille: "Care for Business",
+      palveluseteli: "Care Service Voucher",
+      hinnoittelu: "Pricing",
+    },
     hero: {
-      eyebrow: "Care from one person to another",
-      title: "High-quality care and services – at home and for business",
-      lead: "Care & You Services delivers personal, reliable and warm service. Every encounter is our promise of quality.",
+      eyebrow: "A partnership you can trust",
+      title: "High-quality home and office care – and we look after you",
+      lead: "Care & You Services takes care of your home and your office with precision, so you have time for what matters. In our partnership, you are looked after.",
       cta: "Start the collaboration",
       secondary: "Explore services",
     },
     about: {
       eyebrow: "About us",
-      title: "A small team, a big heart and a high standard",
-      body: "We are a Finnish care and services company combining professionalism with genuine compassion. We serve private clients at home, companies in employee wellbeing, and holders of the municipal service voucher.",
-      points: ["Trained and trustworthy staff", "Flexible, individual services", "Clear pricing, no surprises"],
+      title: "A clean home, a working office, a day taken care of",
+      body: "We are a Finnish home and office care company. We deliver cleaning and everyday support services with professionalism and the same attention to detail at home and at work – reliably and with transparent pricing.",
+      points: [
+        "Trained and trustworthy staff",
+        "Home and office from one partner",
+        "Transparent pricing, no surprises",
+      ],
     },
     actions: {
       eyebrow: "How to get started",
@@ -241,20 +343,34 @@ export const t: Record<Lang, Dict> = {
       title: "Three ways to receive Care & You quality",
       kotiin: {
         title: "Care AT HOME",
-        body: "Home care, everyday help and companionship – as often as you need.",
-        items: ["Personal assistance", "Cleaning and housekeeping", "Errands and companionship", "Support for family carers"],
+        body: "Home cleaning and housekeeping – as often as you need.",
+        items: ["Regular and deep cleaning", "Windows, appliances and textiles", "Moving and spring cleaning", "Everyday errands"],
       },
       yrityksille: {
         title: "Care for Business",
-        body: "Wellbeing and support services for your staff and your clients.",
-        items: ["Employee wellbeing services", "Facility cleaning", "Care sector substitutes", "Tailored agreements"],
+        body: "Clean offices and business premises on an agreed rhythm.",
+        items: ["Office cleaning 1–5 times/week", "Accommodation and site cleaning", "Break rooms and sanitary spaces", "Tailored agreements"],
       },
       palveluseteli: {
         title: "Care Service Voucher",
-        body: "Approved provider – use your municipal service voucher easily with us.",
+        body: "Home support services with the municipal service voucher – simple and clear.",
         items: ["Using the service voucher", "Guidance and application help", "Cooperation with the municipality", "No hidden costs"],
       },
       more: "Read more",
+    },
+    pricing: {
+      eyebrow: "Pricing",
+      title: "Transparent pricing",
+      lead: "Our pricing is transparent: choose either a monthly package or hourly billing. Every price is listed below – no hidden costs, no surprises.",
+      monthly: "Monthly packages",
+      hourly: "Hourly rate",
+      perMonth: "€ / month",
+      perHour: "€ / h",
+      hoursPerMonth: "h / month",
+      single: "One-off booking",
+      vat: "Prices excl. VAT (0 %).",
+      cta: "Request a quote",
+      note: "The Finnish household tax credit is applied to private customers' invoices.",
     },
     form: {
       name: "Name",
@@ -269,6 +385,6 @@ export const t: Record<Lang, Dict> = {
     book: { title: "Book a video meeting", lead: "Let's set up a 30-minute online meeting to go through your needs and start the collaboration." },
     quote: { title: "Request a quote", lead: "Briefly describe your situation – you'll receive a personal offer within two business days." },
     buy: { title: "Buy a service", lead: "Clear service packages so you can start immediately.", from: "from", select: "Select" },
-    footer: { tagline: "High-quality care and services.", contact: "Contact", rights: "All rights reserved." },
+    footer: { tagline: "High-quality home and office care.", contact: "Contact", rights: "All rights reserved." },
   },
 };

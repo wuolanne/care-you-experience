@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CareKotiinRouteImport } from './routes/care-kotiin'
 import { Route as CarePalveluseteliRouteImport } from './routes/care-palveluseteli'
 import { Route as CareYrityksilleRouteImport } from './routes/care-yrityksille'
+import { Route as HinnoitteluRouteImport } from './routes/hinnoittelu'
 import { Route as OstaRouteImport } from './routes/osta'
 import { Route as TarjouspyyntoRouteImport } from './routes/tarjouspyynto'
 import { Route as VaraaRouteImport } from './routes/varaa'
@@ -37,6 +38,11 @@ const CareYrityksilleRoute = CareYrityksilleRouteImport.update({
   path: '/care-yrityksille',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HinnoitteluRoute = HinnoitteluRouteImport.update({
+  id: '/hinnoittelu',
+  path: '/hinnoittelu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OstaRoute = OstaRouteImport.update({
   id: '/osta',
   path: '/osta',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/care-kotiin': typeof CareKotiinRoute
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
+  '/hinnoittelu': typeof HinnoitteluRoute
   '/osta': typeof OstaRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/care-kotiin': typeof CareKotiinRoute
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
+  '/hinnoittelu': typeof HinnoitteluRoute
   '/osta': typeof OstaRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/care-kotiin': typeof CareKotiinRoute
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
+  '/hinnoittelu': typeof HinnoitteluRoute
   '/osta': typeof OstaRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/care-kotiin'
     | '/care-palveluseteli'
     | '/care-yrityksille'
+    | '/hinnoittelu'
     | '/osta'
     | '/tarjouspyynto'
     | '/varaa'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/care-kotiin'
     | '/care-palveluseteli'
     | '/care-yrityksille'
+    | '/hinnoittelu'
     | '/osta'
     | '/tarjouspyynto'
     | '/varaa'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/care-kotiin'
     | '/care-palveluseteli'
     | '/care-yrityksille'
+    | '/hinnoittelu'
     | '/osta'
     | '/tarjouspyynto'
     | '/varaa'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   CareKotiinRoute: typeof CareKotiinRoute
   CarePalveluseteliRoute: typeof CarePalveluseteliRoute
   CareYrityksilleRoute: typeof CareYrityksilleRoute
+  HinnoitteluRoute: typeof HinnoitteluRoute
   OstaRoute: typeof OstaRoute
   TarjouspyyntoRoute: typeof TarjouspyyntoRoute
   VaraaRoute: typeof VaraaRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareYrityksilleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hinnoittelu': {
+      id: '/hinnoittelu'
+      path: '/hinnoittelu'
+      fullPath: '/hinnoittelu'
+      preLoaderRoute: typeof HinnoitteluRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/osta': {
       id: '/osta'
       path: '/osta'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   CareKotiinRoute: CareKotiinRoute,
   CarePalveluseteliRoute: CarePalveluseteliRoute,
   CareYrityksilleRoute: CareYrityksilleRoute,
+  HinnoitteluRoute: HinnoitteluRoute,
   OstaRoute: OstaRoute,
   TarjouspyyntoRoute: TarjouspyyntoRoute,
   VaraaRoute: VaraaRoute,
