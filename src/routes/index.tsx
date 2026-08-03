@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImage from "@/assets/dm-hero.png.asset.json";
+import heroImage from "@/assets/dm-hero.jpg";
 import { useLang } from "@/i18n/LanguageProvider";
 import { Video, FileText, ShoppingBag, ArrowRight } from "lucide-react";
 
@@ -41,7 +41,7 @@ function Index() {
     <>
       <section className="relative overflow-hidden">
         <img
-          src={heroImage.url}
+          src={heroImage}
           alt="D&M Services -logo toimiston seinällä"
           className="absolute inset-0 size-full object-cover"
         />
