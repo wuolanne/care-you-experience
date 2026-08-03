@@ -5,9 +5,9 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/osta")({
   head: () => ({
     meta: [
-      { title: "Osta palvelu | Care & You Services" },
+      { title: "Osta palvelu | D&M Services" },
       { name: "description", content: "Valmiit palvelupaketit kotihoivaan ja yrityksille – selkeä hinnoittelu, nopea aloitus." },
-      { property: "og:title", content: "Osta palvelu | Care & You Services" },
+      { property: "og:title", content: "Osta palvelu | D&M Services" },
       { property: "og:description", content: "Valmiit palvelupaketit, joilla pääset alkuun heti." },
     ],
   }),

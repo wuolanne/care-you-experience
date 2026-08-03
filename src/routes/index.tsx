@@ -1,18 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import logo from "@/assets/cys-logo.png.asset.json";
+import heroImage from "@/assets/dm-hero.png.asset.json";
 import { useLang } from "@/i18n/LanguageProvider";
 import { Video, FileText, ShoppingBag, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Care & You Services — Laadukasta hoivaa kotiin ja yrityksille" },
+      { title: "D&M Services — Laadukasta hoivaa kotiin ja yrityksille" },
       {
         name: "description",
         content:
-          "Care & You Services tuottaa yksilöllistä ja luotettavaa hoivaa kotiin, yrityksille ja palvelusetelillä. Varaa videopalaveri, pyydä tarjous tai osta palvelu.",
+          "D&M Services tuottaa yksilöllistä ja luotettavaa hoivaa kotiin, yrityksille ja palvelusetelillä. Varaa videopalaveri, pyydä tarjous tai osta palvelu.",
       },
-      { property: "og:title", content: "Care & You Services — Laadukasta hoivaa" },
+      { property: "og:title", content: "D&M Services — Laadukasta hoivaa" },
       {
         property: "og:description",
         content: "Yksilöllistä hoivaa kotiin, yrityksille ja palvelusetelillä.",
@@ -39,14 +39,20 @@ function Index() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[linear-gradient(120deg,oklch(0.3_0.14_292)_0%,oklch(0.36_0.13_300)_55%,oklch(0.44_0.1_305)_100%)]">
-        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 md:grid-cols-[1.05fr_0.95fr] md:py-32">
-          <div>
+      <section className="relative overflow-hidden">
+        <img
+          src={heroImage.url}
+          alt="D&M Services -logo toimiston seinällä"
+          className="absolute inset-0 size-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,oklch(0.3_0.14_292/0.92)_0%,oklch(0.36_0.13_300/0.82)_55%,oklch(0.44_0.1_305/0.7)_100%)]" />
+        <div className="relative mx-auto max-w-6xl px-6 py-28 md:py-40">
+          <div className="max-w-2xl">
             <p className="eyebrow text-[oklch(0.85_0.06_95)]">{tr.hero.eyebrow}</p>
-            <h1 className="mt-6 max-w-2xl text-4xl leading-[1.1] text-primary-foreground md:text-5xl">
+            <h1 className="mt-6 text-4xl leading-[1.1] text-primary-foreground md:text-5xl">
               {tr.hero.title}
             </h1>
-            <p className="mt-6 max-w-xl text-base text-primary-foreground/85">{tr.hero.lead}</p>
+            <p className="mt-6 max-w-xl text-base text-primary-foreground/90">{tr.hero.lead}</p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a
                 href="#aloita"
@@ -61,13 +67,6 @@ function Index() {
                 {tr.hero.secondary}
               </a>
             </div>
-          </div>
-          <div className="flex justify-center md:justify-end">
-            <img
-              src={logo.url}
-              alt="Care & You Services"
-              className="w-full max-w-md rounded-sm bg-primary-foreground/95 p-10 shadow-[var(--shadow-elegant)]"
-            />
           </div>
         </div>
       </section>

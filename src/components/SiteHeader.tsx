@@ -20,7 +20,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <img src={logo.url} alt="Care & You Services" className="h-16 w-auto md:h-20" />
+          <img src={logo.url} alt="D&M Services" className="h-24 w-auto md:h-28" />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
