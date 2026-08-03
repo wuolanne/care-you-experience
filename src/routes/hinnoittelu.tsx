@@ -14,13 +14,13 @@ import {
 export const Route = createFileRoute("/hinnoittelu")({
   head: () => ({
     meta: [
-      { title: "Hinnoittelu — läpinäkyvät hinnat | Care & You Services" },
+      { title: "Hinnoittelu — läpinäkyvät hinnat | D&M Services" },
       {
         name: "description",
         content:
           "Läpinäkyvä hinnoittelu kodin ja toimiston hoitoon: valitse kuukausipaketti tai tuntiveloitus. Kaikki hinnat näkyvissä ilman piilokuluja.",
       },
-      { property: "og:title", content: "Hinnoittelu | Care & You Services" },
+      { property: "og:title", content: "Hinnoittelu | D&M Services" },
       {
         property: "og:description",
         content: "Kuukausipaketit ja tuntiveloitus – kaikki hinnat läpinäkyvästi esillä.",
