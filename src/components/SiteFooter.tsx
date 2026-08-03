@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/dm-logo.png";
+import logo from "@/assets/cys-logo.png.asset.json";
 import { useLang } from "@/i18n/LanguageProvider";
 
 export function SiteFooter() {
