@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import logo from "@/assets/cys-logo.png.asset.json";
+import heroImage from "@/assets/dm-hero.png.asset.json";
 import { useLang } from "@/i18n/LanguageProvider";
 import { Video, FileText, ShoppingBag, ArrowRight } from "lucide-react";
 
