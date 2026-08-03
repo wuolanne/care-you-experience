@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import logo from "@/assets/cys-logo.png.asset.json";
+import logo from "@/assets/dm-logo.png";
 import { useLang } from "@/i18n/LanguageProvider";
 import { LANGS } from "@/i18n/translations";
 import { Menu, X } from "lucide-react";
@@ -20,7 +20,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <img src={logo.url} alt="D&M Services" className="h-24 w-auto md:h-28" />
+          <img src={logo} alt="D&M Services" className="h-24 w-auto md:h-28" />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
