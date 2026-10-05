@@ -74,7 +74,7 @@ export const t: Record<Lang, Dict> = {
     hero: {
       eyebrow: "Kumppanuutta, johon voi luottaa",
       title: "Laadukasta kodin ja toimistonhoitoa – ja pidämme huolta sinusta",
-      lead: "D&M Services hoitaa kotisi ja toimistosi huolella, jotta sinulle jää aikaa olennaiseen. Kumppanuudessamme sinusta pidetään huolta.",
+      lead: "T & G Services hoitaa kotisi ja toimistosi huolella, jotta sinulle jää aikaa olennaiseen. Kumppanuudessamme sinusta pidetään huolta.",
       cta: "Aloita yhteistyö",
       secondary: "Tutustu palveluihin",
     },
@@ -155,7 +155,7 @@ export const t: Record<Lang, Dict> = {
     hero: {
       eyebrow: "Ett partnerskap du kan lita på",
       title: "Högklassig hem- och kontorsstädning – och vi tar hand om dig",
-      lead: "D&M Services sköter ditt hem och ditt kontor med omsorg så att du får tid till det viktiga. I vårt partnerskap tas du om hand.",
+      lead: "T & G Services sköter ditt hem och ditt kontor med omsorg så att du får tid till det viktiga. I vårt partnerskap tas du om hand.",
       cta: "Inled samarbete",
       secondary: "Se våra tjänster",
     },
@@ -236,7 +236,7 @@ export const t: Record<Lang, Dict> = {
     hero: {
       eyebrow: "Una colaboración de confianza",
       title: "Limpieza de alta calidad para tu hogar y tu oficina – y cuidamos de ti",
-      lead: "D&M Services cuida tu hogar y tu oficina con esmero para que tengas tiempo para lo importante. En nuestra colaboración, cuidamos de ti.",
+      lead: "T & G Services cuida tu hogar y tu oficina con esmero para que tengas tiempo para lo importante. En nuestra colaboración, cuidamos de ti.",
       cta: "Comenzar la colaboración",
       secondary: "Ver servicios",
     },
@@ -317,7 +317,7 @@ export const t: Record<Lang, Dict> = {
     hero: {
       eyebrow: "A partnership you can trust",
       title: "High-quality home and office care – and we look after you",
-      lead: "D&M Services takes care of your home and your office with precision, so you have time for what matters. In our partnership, you are looked after.",
+      lead: "T & G Services takes care of your home and your office with precision, so you have time for what matters. In our partnership, you are looked after.",
       cta: "Start the collaboration",
       secondary: "Explore services",
     },

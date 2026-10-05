@@ -5,9 +5,9 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/care-yrityksille")({
   head: () => ({
     meta: [
-      { title: "Care Yrityksille — Hyvinvointi- ja tukipalvelut | D&M Services" },
+      { title: "Care Yrityksille — Hyvinvointi- ja tukipalvelut | T & G Services" },
       { name: "description", content: "Henkilöstön hyvinvointi, toimitilapalvelut ja hoiva-alan sijaisuudet yrityksille." },
-      { property: "og:title", content: "Care Yrityksille | D&M Services" },
+      { property: "og:title", content: "Care Yrityksille | T & G Services" },
       { property: "og:description", content: "Hyvinvointi- ja tukipalvelut yrityksille." },
     ],
   }),

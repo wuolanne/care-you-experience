@@ -5,9 +5,9 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/care-kotiin")({
   head: () => ({
     meta: [
-      { title: "Care KOTIIN — Kotihoiva ja arjen apu | D&M Services" },
+      { title: "Care KOTIIN — Kotihoiva ja arjen apu | T & G Services" },
       { name: "description", content: "Kotihoivaa, arjen apua ja seuraa yksilöllisesti – juuri niin usein kuin tarvitset." },
-      { property: "og:title", content: "Care KOTIIN | D&M Services" },
+      { property: "og:title", content: "Care KOTIIN | T & G Services" },
       { property: "og:description", content: "Kotihoivaa, arjen apua ja seuraa yksilöllisesti." },
     ],
   }),

@@ -6,13 +6,13 @@ import { Video, FileText, ShoppingBag, ArrowRight } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "D&M Services — Laadukasta hoivaa kotiin ja yrityksille" },
+      { title: "T & G Services — Laadukasta hoivaa kotiin ja yrityksille" },
       {
         name: "description",
         content:
-          "D&M Services tuottaa yksilöllistä ja luotettavaa hoivaa kotiin, yrityksille ja palvelusetelillä. Varaa videopalaveri, pyydä tarjous tai osta palvelu.",
+          "T & G Services tuottaa yksilöllistä ja luotettavaa hoivaa kotiin, yrityksille ja palvelusetelillä. Varaa videopalaveri, pyydä tarjous tai osta palvelu.",
       },
-      { property: "og:title", content: "D&M Services — Laadukasta hoivaa" },
+      { property: "og:title", content: "T & G Services — Laadukasta hoivaa" },
       {
         property: "og:description",
         content: "Yksilöllistä hoivaa kotiin, yrityksille ja palvelusetelillä.",
@@ -42,7 +42,7 @@ function Index() {
       <section className="relative overflow-hidden">
         <img
           src={heroImage}
-          alt="D&M Services -logo toimiston seinällä"
+          alt="T & G Services -logo toimiston seinällä"
           className="absolute inset-0 size-full object-cover"
         />
         <div className="absolute inset-0 bg-[linear-gradient(120deg,oklch(0.3_0.14_292/0.92)_0%,oklch(0.36_0.13_300/0.82)_55%,oklch(0.44_0.1_305/0.7)_100%)]" />
