@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import logo from "@/assets/cys-logo.png.asset.json";
+import logo from "@/assets/tgs-logo-f.png";
 import { useLang } from "@/i18n/LanguageProvider";
 import { LANGS } from "@/i18n/translations";
 import { Menu, X } from "lucide-react";
