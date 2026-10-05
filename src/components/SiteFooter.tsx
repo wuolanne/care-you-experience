@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/cys-logo.png.asset.json";
+import logo from "@/assets/tgs-logo-f.png";
 import { useLang } from "@/i18n/LanguageProvider";
 
 export function SiteFooter() {
@@ -8,7 +8,7 @@ export function SiteFooter() {
     <footer className="border-t border-border/60 bg-secondary/40">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-3">
         <div>
-          <img src={logo.url} alt="T & G Services" className="h-14 w-auto" />
+          <img src={logo} alt="T & G Services" className="h-14 w-auto" />
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">{tr.footer.tagline}</p>
         </div>
         <div className="space-y-3">
