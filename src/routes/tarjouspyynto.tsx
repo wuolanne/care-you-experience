@@ -5,9 +5,9 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/tarjouspyynto")({
   head: () => ({
     meta: [
-      { title: "Jätä tarjouspyyntö | D&M Services" },
+      { title: "Jätä tarjouspyyntö | T & G Services" },
       { name: "description", content: "Kerro tilanteestasi ja saat henkilökohtaisen tarjouksen kahden arkipäivän kuluessa." },
-      { property: "og:title", content: "Jätä tarjouspyyntö | D&M Services" },
+      { property: "og:title", content: "Jätä tarjouspyyntö | T & G Services" },
       { property: "og:description", content: "Selkeä tarjous nopeasti ja ilman sitoumusta." },
     ],
   }),

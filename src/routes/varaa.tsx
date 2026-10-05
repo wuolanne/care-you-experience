@@ -5,9 +5,9 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/varaa")({
   head: () => ({
     meta: [
-      { title: "Varaa videopalaveri | D&M Services" },
+      { title: "Varaa videopalaveri | T & G Services" },
       { name: "description", content: "Varaa 30 minuutin videopalaveri ja aloitetaan yhteistyö rauhassa suunnitellen." },
-      { property: "og:title", content: "Varaa videopalaveri | D&M Services" },
+      { property: "og:title", content: "Varaa videopalaveri | T & G Services" },
       { property: "og:description", content: "Sovitaan etätapaaminen ja käydään tarpeesi läpi." },
     ],
   }),
