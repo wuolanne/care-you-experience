@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Structure
+- `/` is a splash gateway (large logo + TGS Kotiin / TGS Yrityksille buttons, header/footer chrome hidden); the full homepage lives at `/etusivu`. Keep `/` as the gateway and repoint the splash buttons to dedicated service pages when they are built.
