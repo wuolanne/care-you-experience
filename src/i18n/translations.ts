@@ -59,6 +59,7 @@ type Dict = {
   book: { title: string; lead: string };
   quote: { title: string; lead: string };
   buy: { title: string; lead: string; from: string; select: string };
+  splash: { kotiin: string; yrityksille: string };
   footer: { tagline: string; contact: string; rights: string };
 };
 
@@ -97,7 +98,7 @@ export const t: Record<Lang, Dict> = {
     },
     services: {
       eyebrow: "Palvelumme",
-      title: "Kolme tapaa saada Care & You -laatua",
+      title: "Kolme tapaa saada TGS-laatua",
       kotiin: {
         title: "Care KOTIIN",
         body: "Kodinhoitoa ja siivousta – juuri niin usein kuin tarvitset.",
@@ -142,6 +143,7 @@ export const t: Record<Lang, Dict> = {
     book: { title: "Varaa videopalaveri", lead: "Sovitaan 30 minuutin etätapaaminen, jossa käymme läpi tarpeesi ja yhteistyön aloituksen." },
     quote: { title: "Jätä tarjouspyyntö", lead: "Kerro lyhyesti tilanteestasi – saat henkilökohtaisen tarjouksen kahden arkipäivän kuluessa." },
     buy: { title: "Osta palvelu", lead: "Selkeät palvelupaketit, joilla pääset alkuun heti.", from: "alkaen", select: "Valitse" },
+    splash: { kotiin: "TGS Kotiin", yrityksille: "TGS Yrityksille" },
     footer: { tagline: "Laadukasta kodin ja toimistonhoitoa.", contact: "Yhteystiedot", rights: "Kaikki oikeudet pidätetään." },
   },
   sv: {
@@ -178,7 +180,7 @@ export const t: Record<Lang, Dict> = {
     },
     services: {
       eyebrow: "Våra tjänster",
-      title: "Tre sätt att få Care & You-kvalitet",
+      title: "Tre sätt att få TGS-kvalitet",
       kotiin: {
         title: "Care HEM",
         body: "Hemstädning och hemservice – så ofta du behöver.",
@@ -223,6 +225,7 @@ export const t: Record<Lang, Dict> = {
     book: { title: "Boka videomöte", lead: "Vi bokar ett 30 minuters distansmöte där vi går igenom dina behov och hur vi startar samarbetet." },
     quote: { title: "Begär offert", lead: "Berätta kort om din situation – du får en personlig offert inom två vardagar." },
     buy: { title: "Köp tjänst", lead: "Tydliga servicepaket som gör att du kommer igång direkt.", from: "från", select: "Välj" },
+    splash: { kotiin: "TGS Hem", yrityksille: "TGS för Företag" },
     footer: { tagline: "Högklassig hem- och kontorsstädning.", contact: "Kontakt", rights: "Alla rättigheter förbehållna." },
   },
   es: {
@@ -259,7 +262,7 @@ export const t: Record<Lang, Dict> = {
     },
     services: {
       eyebrow: "Nuestros servicios",
-      title: "Tres formas de recibir la calidad Care & You",
+      title: "Tres formas de recibir la calidad TGS",
       kotiin: {
         title: "Care EN CASA",
         body: "Limpieza y cuidado del hogar, con la frecuencia que necesites.",
@@ -304,6 +307,7 @@ export const t: Record<Lang, Dict> = {
     book: { title: "Reservar videollamada", lead: "Reservamos una reunión de 30 minutos para revisar tus necesidades e iniciar la colaboración." },
     quote: { title: "Solicitar presupuesto", lead: "Cuéntanos brevemente tu situación: recibirás una oferta personal en dos días laborables." },
     buy: { title: "Comprar servicio", lead: "Paquetes claros para empezar de inmediato.", from: "desde", select: "Elegir" },
+    splash: { kotiin: "TGS Hogar", yrityksille: "TGS para Empresas" },
     footer: { tagline: "Limpieza de alta calidad para hogar y oficina.", contact: "Contacto", rights: "Todos los derechos reservados." },
   },
   en: {
@@ -340,7 +344,7 @@ export const t: Record<Lang, Dict> = {
     },
     services: {
       eyebrow: "Our services",
-      title: "Three ways to receive Care & You quality",
+      title: "Three ways to receive TGS quality",
       kotiin: {
         title: "Care AT HOME",
         body: "Home cleaning and housekeeping – as often as you need.",
@@ -385,6 +389,7 @@ export const t: Record<Lang, Dict> = {
     book: { title: "Book a video meeting", lead: "Let's set up a 30-minute online meeting to go through your needs and start the collaboration." },
     quote: { title: "Request a quote", lead: "Briefly describe your situation – you'll receive a personal offer within two business days." },
     buy: { title: "Buy a service", lead: "Clear service packages so you can start immediately.", from: "from", select: "Select" },
+    splash: { kotiin: "TGS Home", yrityksille: "TGS for Business" },
     footer: { tagline: "High-quality home and office care.", contact: "Contact", rights: "All rights reserved." },
   },
 };
