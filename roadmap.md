@@ -9,6 +9,7 @@
 7. [x] Move SERVICES wordmark closer to the T&G monogram in the logo image
 8. [x] Fix root route errorComponent typecheck error (error prop typed unknown)
 9. [x] Replace leftover "Care & You" wording in services titles with TGS wording
-10. [ ] Splash idea cancelled per Marianne: homepage back at "/", logo as a prominent header banner, hero photo removed from landing page
-11. [ ] Next: build continuation pages (TGS Kotiin / TGS Yrityksille) and link them from the homepage
-12. [ ] Waiting on user: real contact email — footer still shows info@careandyou.fi (old brand)
+10. [x] Splash idea cancelled per Marianne: homepage back at "/", logo as a prominent header banner, hero photo removed from landing page
+11. [x] Warm, gentle styling pass: larger logo banner, narrow pale-lilac hero band, cream page surfaces
+12. [ ] Next: build continuation pages (TGS Kotiin / TGS Yrityksille) and link them from the homepage
+13. [ ] Waiting on user: real contact email — footer still shows info@careandyou.fi (old brand)
