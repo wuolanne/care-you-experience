@@ -17,13 +17,17 @@ export function SiteHeader() {
   ] as const;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3">
-        <Link to="/" className="flex items-center gap-3">
-          <img src={logo} alt="T & G Services" className="h-24 w-auto md:h-28" />
-        </Link>
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-md">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Logo banner — large, centered */}
+        <div className="flex justify-center pt-4 md:pt-5">
+          <Link to="/" className="flex items-center">
+            <img src={logo} alt="T & G Services" className="h-32 w-auto md:h-40" />
+          </Link>
+        </div>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        {/* Desktop navigation */}
+        <div className="hidden items-center justify-center gap-8 pb-4 pt-2 md:flex">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -34,10 +38,8 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-        </nav>
-
-        <div className="flex items-center gap-4">
-          <div className="hidden items-center gap-1 sm:flex">
+          <span className="h-4 w-px bg-border" />
+          <div className="flex items-center gap-1">
             {LANGS.map((l) => (
               <button
                 key={l.code}
@@ -52,11 +54,28 @@ export function SiteHeader() {
           </div>
           <Link
             to="/varaa"
-            className="hidden rounded-sm bg-primary px-5 py-2.5 text-[0.72rem] uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90 lg:inline-block"
+            className="rounded-sm bg-primary px-5 py-2.5 text-[0.72rem] uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90"
           >
             {tr.actions.book.title}
           </Link>
-          <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
+        </div>
+
+        {/* Mobile bar */}
+        <div className="flex items-center justify-between pb-3 pt-1 md:hidden">
+          <div className="flex items-center gap-2">
+            {LANGS.map((l) => (
+              <button
+                key={l.code}
+                onClick={() => setLang(l.code)}
+                className={`text-xs tracking-[0.15em] ${
+                  lang === l.code ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
+                {l.short}
+              </button>
+            ))}
+          </div>
+          <button onClick={() => setOpen(!open)} aria-label="Menu">
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </div>
@@ -82,17 +101,6 @@ export function SiteHeader() {
             >
               {tr.actions.book.title}
             </Link>
-            <div className="flex gap-3 pt-2">
-              {LANGS.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => setLang(l.code)}
-                  className={`text-xs tracking-[0.15em] ${lang === l.code ? "text-primary" : "text-muted-foreground"}`}
-                >
-                  {l.short}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       )}
