@@ -20,9 +20,9 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-md">
       <div className="mx-auto max-w-6xl px-6">
         {/* Logo banner — large, centered */}
-        <div className="flex justify-center pt-4 md:pt-5">
+        <div className="flex justify-center pt-5 md:pt-7">
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="T & G Services" className="h-32 w-auto md:h-40" />
+            <img src={logo} alt="T & G Services" className="h-40 w-auto md:h-52" />
           </Link>
         </div>
 
