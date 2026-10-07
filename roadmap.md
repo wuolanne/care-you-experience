@@ -12,4 +12,5 @@
 10. [x] Splash idea cancelled per Marianne: homepage back at "/", logo as a prominent header banner, hero photo removed from landing page
 11. [x] Warm, gentle styling pass: larger logo banner, narrow pale-lilac hero band, cream page surfaces
 12. [ ] Next: build continuation pages (TGS Kotiin / TGS Yrityksille) and link them from the homepage
-13. [ ] Waiting on user: real contact email — footer still shows info@careandyou.fi (old brand)
+13. [x] Contact email supplied by Marianne: info@tsg.fi; keep the displayed phone unchanged
+14. [ ] Use faded button-purple hero, larger TSG service navigation with pricing beneath, flag language selectors, larger booking button and footer logo; update partnership and contact-request wording
