@@ -6,9 +6,9 @@
 4. [x] Install chosen logo in header/footer + favicon (small square copy, old .ico removed)
 5. [x] Routine package security update (mandatory)
 6. [x] Remove laurel wreath from logo; keep monogram, SERVICES, line and droplet identical
-7. [ ] Move SERVICES wordmark closer to the T&G monogram in the logo image
-8. [ ] Splash/start page at "/" with large logo and two buttons (TGS Kotiin / TGS Yrityksille) leading to the current homepage; current homepage moves to /etusivu
-9. [ ] Fix root route errorComponent typecheck error
-10. [ ] Replace leftover "Care & You" wording in services titles with TGS wording
-11. [ ] Next after splash: build continuation pages (TGS Kotiin / TGS Yrityksille) and point the splash buttons at them
+7. [x] Move SERVICES wordmark closer to the T&G monogram in the logo image
+8. [x] Fix root route errorComponent typecheck error (error prop typed unknown)
+9. [x] Replace leftover "Care & You" wording in services titles with TGS wording
+10. [ ] Splash idea cancelled per Marianne: homepage back at "/", logo as a prominent header banner, hero photo removed from landing page
+11. [ ] Next: build continuation pages (TGS Kotiin / TGS Yrityksille) and link them from the homepage
 12. [ ] Waiting on user: real contact email — footer still shows info@careandyou.fi (old brand)

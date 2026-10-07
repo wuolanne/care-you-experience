@@ -4,7 +4,6 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -120,20 +119,17 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-  // "/" is the splash gateway — large logo and entry buttons only, no chrome.
-  const isSplash = pathname === "/";
 
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <div className="flex min-h-screen flex-col">
-          {!isSplash && <SiteHeader />}
+          <SiteHeader />
           <main className="flex-1">
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <Outlet />
           </main>
-          {!isSplash && <SiteFooter />}
+          <SiteFooter />
         </div>
       </LanguageProvider>
     </QueryClientProvider>
