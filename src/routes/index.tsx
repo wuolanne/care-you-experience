@@ -43,24 +43,24 @@ function Index() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[linear-gradient(120deg,oklch(0.3_0.14_292)_0%,oklch(0.36_0.13_300)_55%,oklch(0.44_0.1_305)_100%)]">
-        <div className="relative mx-auto max-w-6xl px-6 py-28 md:py-40">
+      <section className="relative overflow-hidden border-b border-border/60 bg-[image:var(--gradient-lilac)]">
+        <div className="relative mx-auto max-w-6xl px-6 py-14 md:py-20">
           <div className="max-w-2xl">
-            <p className="eyebrow text-[oklch(0.85_0.06_95)]">{tr.hero.eyebrow}</p>
-            <h1 className="mt-6 text-4xl leading-[1.1] text-primary-foreground md:text-5xl">
+            <p className="eyebrow text-primary/70">{tr.hero.eyebrow}</p>
+            <h1 className="mt-5 text-4xl leading-[1.1] text-plum md:text-5xl">
               {tr.hero.title}
             </h1>
-            <p className="mt-6 max-w-xl text-base text-primary-foreground/90">{tr.hero.lead}</p>
-            <div className="mt-10 flex flex-wrap gap-4">
+            <p className="mt-5 max-w-xl text-base text-plum/80">{tr.hero.lead}</p>
+            <div className="mt-8 flex flex-wrap gap-4">
               <a
                 href="#aloita"
-                className="rounded-sm bg-[var(--color-gold)] px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-plum transition-opacity hover:opacity-90"
+                className="rounded-sm bg-[var(--color-gold)] px-8 py-3.5 text-[0.72rem] uppercase tracking-[0.2em] text-plum transition-opacity hover:opacity-90"
               >
                 {tr.hero.cta}
               </a>
               <a
                 href="#palvelut"
-                className="rounded-sm border border-primary-foreground/40 px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+                className="rounded-sm border border-plum/30 px-8 py-3.5 text-[0.72rem] uppercase tracking-[0.2em] text-plum transition-colors hover:bg-plum/5"
               >
                 {tr.hero.secondary}
               </a>
