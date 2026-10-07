@@ -10,4 +10,4 @@
 <!-- LOVABLE:END -->
 
 ## Structure
-- `/` is a splash gateway (large logo + TGS Kotiin / TGS Yrityksille buttons, header/footer chrome hidden); the full homepage lives at `/etusivu`. Keep `/` as the gateway and repoint the splash buttons to dedicated service pages when they are built.
+- The homepage lives at `/` (no splash gateway). The TGS logo is shown as a prominent header banner and the landing hero uses a gradient, not a photograph.
