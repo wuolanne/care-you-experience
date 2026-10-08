@@ -67,7 +67,7 @@ export const t: Record<Lang, Dict> = {
   fi: {
     nav: {
       home: "Etusivu",
-      kotiin: "TSG Kotiin",
+      kotiin: "TSG KOTIIN",
       yrityksille: "TSG YRITYKSILLE",
       palveluseteli: "TSG PALVELUSETELI",
       hinnoittelu: "Hinnoittelu",
