@@ -5,10 +5,12 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/care-yrityksille")({
   head: () => ({
     meta: [
-      { title: "Care Yrityksille — Hyvinvointi- ja tukipalvelut | T & G Services" },
+      { title: "TSG YRITYKSILLE — Hyvinvointi- ja tukipalvelut | T & G Services" },
       { name: "description", content: "Henkilöstön hyvinvointi, toimitilapalvelut ja hoiva-alan sijaisuudet yrityksille." },
-      { property: "og:title", content: "Care Yrityksille | T & G Services" },
+      { property: "og:title", content: "TSG YRITYKSILLE | T & G Services" },
       { property: "og:description", content: "Hyvinvointi- ja tukipalvelut yrityksille." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,

@@ -9,6 +9,8 @@ export const Route = createFileRoute("/osta")({
       { name: "description", content: "Valmiit palvelupaketit kotihoivaan ja yrityksille – selkeä hinnoittelu, nopea aloitus." },
       { property: "og:title", content: "Osta palvelu | T & G Services" },
       { property: "og:description", content: "Valmiit palvelupaketit, joilla pääset alkuun heti." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,

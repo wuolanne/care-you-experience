@@ -11,3 +11,5 @@
 
 ## Structure
 - The homepage lives at `/` (no splash gateway). The TGS logo is shown as a prominent header banner and the landing hero uses a gradient, not a photograph.
+- Service-specific pricing links use the validated `tab` search parameter on the shared pricing page, so navigation and selected prices stay synchronized.
+- Language controls render bundled country-flag images rather than emoji, ensuring flags display consistently across platforms.

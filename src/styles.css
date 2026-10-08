@@ -109,7 +109,7 @@
   --sidebar-ring: oklch(0.62 0.14 296);
 
   --gradient-plum: linear-gradient(135deg, oklch(0.3 0.14 292), oklch(0.45 0.2 292) 55%, oklch(0.62 0.15 300));
-  --gradient-lilac: linear-gradient(120deg, oklch(0.9 0.045 305) 0%, oklch(0.86 0.06 302) 55%, oklch(0.82 0.07 298) 100%);
+  --gradient-lilac: linear-gradient(120deg, color-mix(in oklab, var(--primary) 17%, transparent) 0%, color-mix(in oklab, var(--primary) 24%, transparent) 55%, color-mix(in oklab, var(--primary) 30%, transparent) 100%);
   --gradient-veil: linear-gradient(180deg, oklch(0.972 0.021 87 / 0) 0%, oklch(0.972 0.021 87 / 0.95) 100%);
   --shadow-elegant: 0 24px 60px -28px oklch(0.3 0.14 292 / 0.35);
   --shadow-soft: 0 10px 30px -20px oklch(0.3 0.14 292 / 0.4);
@@ -132,7 +132,7 @@
   h3 {
     font-family: var(--font-display);
     font-weight: 300;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 }
 

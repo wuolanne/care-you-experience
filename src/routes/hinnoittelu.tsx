@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { PageHero } from "@/components/site-pieces";
 import { useLang } from "@/i18n/LanguageProvider";
 import {
@@ -12,6 +11,9 @@ import {
 } from "@/data/pricing";
 
 export const Route = createFileRoute("/hinnoittelu")({
+  validateSearch: (search: Record<string, unknown>): { tab: "kotiin" | "yrityksille" | "palveluseteli" } => ({
+    tab: search['tab'] === "yrityksille" || search['tab'] === "palveluseteli" ? search['tab'] : "kotiin",
+  }),
   head: () => ({
     meta: [
       { title: "Hinnoittelu — läpinäkyvät hinnat | T & G Services" },
@@ -25,6 +27,8 @@ export const Route = createFileRoute("/hinnoittelu")({
         property: "og:description",
         content: "Kuukausipaketit ja tuntiveloitus – kaikki hinnat läpinäkyvästi esillä.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,
@@ -34,7 +38,9 @@ type TabKey = "kotiin" | "yrityksille" | "palveluseteli";
 
 function Page() {
   const { tr, lang } = useLang();
-  const [tab, setTab] = useState<TabKey>("kotiin");
+  const { tab } = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const setTab = (tab: TabKey) => { void navigate({ search: { tab }, replace: true }); };
 
   const tabs: { key: TabKey; label: string }[] = [
     { key: "kotiin", label: tr.services.kotiin.title },

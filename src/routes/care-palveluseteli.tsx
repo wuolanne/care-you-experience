@@ -5,10 +5,12 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/care-palveluseteli")({
   head: () => ({
     meta: [
-      { title: "Care Palveluseteli — Hyväksytty palveluntuottaja | T & G Services" },
+      { title: "TSG PALVELUSETELI — Hyväksytty palveluntuottaja | T & G Services" },
       { name: "description", content: "Käytä kuntasi palveluseteli helposti meillä. Neuvonta, hakemusapu ja selkeä hinnoittelu." },
-      { property: "og:title", content: "Care Palveluseteli | T & G Services" },
+      { property: "og:title", content: "TSG PALVELUSETELI | T & G Services" },
       { property: "og:description", content: "Hyväksytty palveluntuottaja – palveluseteli käyttöön helposti." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,

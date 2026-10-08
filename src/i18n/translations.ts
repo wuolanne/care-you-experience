@@ -1,10 +1,10 @@
 export type Lang = "fi" | "sv" | "es" | "en";
 
-export const LANGS: { code: Lang; label: string; short: string }[] = [
-  { code: "fi", label: "Suomi", short: "FI" },
-  { code: "sv", label: "Svenska", short: "SV" },
-  { code: "es", label: "Español", short: "ES" },
-  { code: "en", label: "English", short: "EN" },
+export const LANGS: { code: Lang; label: string; short: string; flag: string }[] = [
+  { code: "fi", label: "Suomi", short: "FI", flag: "🇫🇮" },
+  { code: "sv", label: "Svenska", short: "SV", flag: "🇸🇪" },
+  { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
+  { code: "en", label: "English", short: "EN", flag: "🇬🇧" },
 ];
 
 type Dict = {
@@ -67,9 +67,9 @@ export const t: Record<Lang, Dict> = {
   fi: {
     nav: {
       home: "Etusivu",
-      kotiin: "Care KOTIIN",
-      yrityksille: "Care Yrityksille",
-      palveluseteli: "Care Palveluseteli",
+      kotiin: "TSG Kotiin",
+      yrityksille: "TSG YRITYKSILLE",
+      palveluseteli: "TSG PALVELUSETELI",
       hinnoittelu: "Hinnoittelu",
     },
     hero: {
@@ -93,24 +93,24 @@ export const t: Record<Lang, Dict> = {
       eyebrow: "Näin pääset alkuun",
       title: "Valitse sinulle sopivin tapa",
       book: { title: "Varaa videopalaveri", body: "Keskustellaan tarpeistasi rauhassa ja suunnitellaan yhteistyö.", cta: "Varaa aika" },
-      quote: { title: "Jätä tarjouspyyntö", body: "Kerro tilanteestasi, laadimme selkeän tarjouksen nopeasti.", cta: "Pyydä tarjous" },
+      quote: { title: "Jätä yhteydenottopyyntö", body: "Kerro tarpeistasi, niin otamme sinuun yhteyttä.", cta: "Jätä yhteydenottopyyntö" },
       buy: { title: "Osta palvelu", body: "Valitse valmis palvelupaketti ja aloita heti.", cta: "Katso paketit" },
     },
     services: {
       eyebrow: "Palvelumme",
       title: "Kolme tapaa saada TGS-laatua",
       kotiin: {
-        title: "Care KOTIIN",
+        title: "TSG Kotiin",
         body: "Kodinhoitoa ja siivousta – juuri niin usein kuin tarvitset.",
         items: ["Ylläpitosiivous ja perussiivous", "Ikkunat, kodinkoneet ja tekstiilit", "Muutto- ja suursiivoukset", "Arjen asiointiapu"],
       },
       yrityksille: {
-        title: "Care Yrityksille",
+        title: "TSG YRITYKSILLE",
         body: "Toimiston ja liiketilojen siisteys sovitulla rytmillä.",
         items: ["Toimistosiivous 1–5 krt/vko", "Majoitus- ja kohdesiivoukset", "Taukotilat ja saniteettitilat", "Räätälöidyt sopimukset"],
       },
       palveluseteli: {
-        title: "Care Palveluseteli",
+        title: "TSG PALVELUSETELI",
         body: "Kotipalvelun tukipalvelut palvelusetelillä – helposti ja selkeästi.",
         items: ["Palvelusetelin käyttö", "Neuvonta ja hakemusapu", "Kunnan kanssa yhteistyössä", "Ei piilokuluja"],
       },
@@ -127,7 +127,7 @@ export const t: Record<Lang, Dict> = {
       hoursPerMonth: "h / kk",
       single: "Kertatilaus",
       vat: "Hinnat ALV 0 %.",
-      cta: "Pyydä tarjous",
+      cta: "Jätä yhteydenottopyyntö",
       note: "Kotitalousvähennys huomioidaan yksityisasiakkaiden laskuilla.",
     },
     form: {
@@ -141,17 +141,17 @@ export const t: Record<Lang, Dict> = {
       service: "Palvelu",
     },
     book: { title: "Varaa videopalaveri", lead: "Sovitaan 30 minuutin etätapaaminen, jossa käymme läpi tarpeesi ja yhteistyön aloituksen." },
-    quote: { title: "Jätä tarjouspyyntö", lead: "Kerro lyhyesti tilanteestasi – saat henkilökohtaisen tarjouksen kahden arkipäivän kuluessa." },
+    quote: { title: "Jätä yhteydenottopyyntö", lead: "Kerro lyhyesti tarpeistasi ja jätä yhteystietosi." },
     buy: { title: "Osta palvelu", lead: "Selkeät palvelupaketit, joilla pääset alkuun heti.", from: "alkaen", select: "Valitse" },
     splash: { kotiin: "TGS Kotiin", yrityksille: "TGS Yrityksille" },
-    footer: { tagline: "Laadukasta kodin ja toimistonhoitoa.", contact: "Yhteystiedot", rights: "Kaikki oikeudet pidätetään." },
+    footer: { tagline: "Luotettavaa kumppanuutta kotiin ja yrityksille.", contact: "Yhteystiedot", rights: "Kaikki oikeudet pidätetään." },
   },
   sv: {
     nav: {
       home: "Hem",
-      kotiin: "Care HEM",
-      yrityksille: "Care för Företag",
-      palveluseteli: "Care Servicesedel",
+      kotiin: "TSG Hem",
+      yrityksille: "TSG Företag",
+      palveluseteli: "TSG Servicesedel",
       hinnoittelu: "Priser",
     },
     hero: {
@@ -175,24 +175,24 @@ export const t: Record<Lang, Dict> = {
       eyebrow: "Så kommer du igång",
       title: "Välj det sätt som passar dig",
       book: { title: "Boka videomöte", body: "Vi går igenom dina behov i lugn och ro och planerar samarbetet.", cta: "Boka tid" },
-      quote: { title: "Begär offert", body: "Berätta om din situation, vi ger dig en tydlig offert snabbt.", cta: "Begär offert" },
+      quote: { title: "Be oss kontakta dig", body: "Berätta om dina behov så kontaktar vi dig.", cta: "Be oss kontakta dig" },
       buy: { title: "Köp tjänst", body: "Välj ett färdigt servicepaket och kom igång direkt.", cta: "Se paket" },
     },
     services: {
       eyebrow: "Våra tjänster",
       title: "Tre sätt att få TGS-kvalitet",
       kotiin: {
-        title: "Care HEM",
+        title: "TSG Hem",
         body: "Hemstädning och hemservice – så ofta du behöver.",
         items: ["Underhålls- och grundstädning", "Fönster, vitvaror och textilier", "Flytt- och storstädning", "Hjälp med vardagsärenden"],
       },
       yrityksille: {
-        title: "Care för Företag",
+        title: "TSG Företag",
         body: "Rena kontor och affärslokaler i avtalad rytm.",
         items: ["Kontorsstädning 1–5 ggr/vecka", "Boende- och objektsstädning", "Pausrum och sanitetsutrymmen", "Skräddarsydda avtal"],
       },
       palveluseteli: {
-        title: "Care Servicesedel",
+        title: "TSG Servicesedel",
         body: "Stödtjänster inom hemservice med servicesedel – enkelt och tydligt.",
         items: ["Användning av servicesedel", "Rådgivning och ansökningshjälp", "Samarbete med kommunen", "Inga dolda kostnader"],
       },
@@ -209,7 +209,7 @@ export const t: Record<Lang, Dict> = {
       hoursPerMonth: "h / mån",
       single: "Engångsbeställning",
       vat: "Priser moms 0 %.",
-      cta: "Begär offert",
+      cta: "Be oss kontakta dig",
       note: "Hushållsavdraget beaktas på privatkunders fakturor.",
     },
     form: {
@@ -223,17 +223,17 @@ export const t: Record<Lang, Dict> = {
       service: "Tjänst",
     },
     book: { title: "Boka videomöte", lead: "Vi bokar ett 30 minuters distansmöte där vi går igenom dina behov och hur vi startar samarbetet." },
-    quote: { title: "Begär offert", lead: "Berätta kort om din situation – du får en personlig offert inom två vardagar." },
+    quote: { title: "Be oss kontakta dig", lead: "Berätta kort om dina behov och lämna dina kontaktuppgifter." },
     buy: { title: "Köp tjänst", lead: "Tydliga servicepaket som gör att du kommer igång direkt.", from: "från", select: "Välj" },
     splash: { kotiin: "TGS Hem", yrityksille: "TGS för Företag" },
-    footer: { tagline: "Högklassig hem- och kontorsstädning.", contact: "Kontakt", rights: "Alla rättigheter förbehållna." },
+    footer: { tagline: "Ett pålitligt partnerskap för hem och företag.", contact: "Kontakt", rights: "Alla rättigheter förbehållna." },
   },
   es: {
     nav: {
       home: "Inicio",
-      kotiin: "Care EN CASA",
-      yrityksille: "Care para Empresas",
-      palveluseteli: "Care Vale de Servicio",
+      kotiin: "TSG Hogar",
+      yrityksille: "TSG Empresas",
+      palveluseteli: "TSG Vale de Servicio",
       hinnoittelu: "Precios",
     },
     hero: {
@@ -257,24 +257,24 @@ export const t: Record<Lang, Dict> = {
       eyebrow: "Cómo empezar",
       title: "Elige la opción que mejor te convenga",
       book: { title: "Reservar videollamada", body: "Hablamos con calma de tus necesidades y planificamos la colaboración.", cta: "Reservar cita" },
-      quote: { title: "Solicitar presupuesto", body: "Cuéntanos tu situación y te enviaremos una oferta clara rápidamente.", cta: "Pedir presupuesto" },
+      quote: { title: "Solicitar contacto", body: "Cuéntanos tus necesidades y nos pondremos en contacto contigo.", cta: "Solicitar contacto" },
       buy: { title: "Comprar servicio", body: "Elige un paquete listo y empieza hoy mismo.", cta: "Ver paquetes" },
     },
     services: {
       eyebrow: "Nuestros servicios",
       title: "Tres formas de recibir la calidad TGS",
       kotiin: {
-        title: "Care EN CASA",
+        title: "TSG Hogar",
         body: "Limpieza y cuidado del hogar, con la frecuencia que necesites.",
         items: ["Limpieza de mantenimiento y a fondo", "Ventanas, electrodomésticos y textiles", "Limpiezas de mudanza y generales", "Ayuda con gestiones diarias"],
       },
       yrityksille: {
-        title: "Care para Empresas",
+        title: "TSG Empresas",
         body: "Oficinas y locales impecables con la frecuencia acordada.",
         items: ["Limpieza de oficinas 1–5 veces/semana", "Limpieza de alojamientos y objetos", "Zonas de descanso y aseos", "Contratos a medida"],
       },
       palveluseteli: {
-        title: "Care Vale de Servicio",
+        title: "TSG Vale de Servicio",
         body: "Servicios de apoyo domiciliario con el vale de servicio, de forma sencilla.",
         items: ["Uso del vale de servicio", "Asesoramiento y ayuda con la solicitud", "Colaboración con el municipio", "Sin costes ocultos"],
       },
@@ -291,7 +291,7 @@ export const t: Record<Lang, Dict> = {
       hoursPerMonth: "h / mes",
       single: "Servicio puntual",
       vat: "Precios sin IVA (0 %).",
-      cta: "Pedir presupuesto",
+      cta: "Solicitar contacto",
       note: "La deducción fiscal del hogar se aplica en las facturas de particulares.",
     },
     form: {
@@ -305,17 +305,17 @@ export const t: Record<Lang, Dict> = {
       service: "Servicio",
     },
     book: { title: "Reservar videollamada", lead: "Reservamos una reunión de 30 minutos para revisar tus necesidades e iniciar la colaboración." },
-    quote: { title: "Solicitar presupuesto", lead: "Cuéntanos brevemente tu situación: recibirás una oferta personal en dos días laborables." },
+    quote: { title: "Solicitar contacto", lead: "Cuéntanos brevemente tus necesidades y deja tus datos de contacto." },
     buy: { title: "Comprar servicio", lead: "Paquetes claros para empezar de inmediato.", from: "desde", select: "Elegir" },
     splash: { kotiin: "TGS Hogar", yrityksille: "TGS para Empresas" },
-    footer: { tagline: "Limpieza de alta calidad para hogar y oficina.", contact: "Contacto", rights: "Todos los derechos reservados." },
+    footer: { tagline: "Una colaboración de confianza para hogares y empresas.", contact: "Contacto", rights: "Todos los derechos reservados." },
   },
   en: {
     nav: {
       home: "Home",
-      kotiin: "Care AT HOME",
-      yrityksille: "Care for Business",
-      palveluseteli: "Care Service Voucher",
+      kotiin: "TSG Home",
+      yrityksille: "TSG Business",
+      palveluseteli: "TSG Service Voucher",
       hinnoittelu: "Pricing",
     },
     hero: {
@@ -339,24 +339,24 @@ export const t: Record<Lang, Dict> = {
       eyebrow: "How to get started",
       title: "Choose what suits you best",
       book: { title: "Book a video meeting", body: "We discuss your needs calmly and plan the collaboration together.", cta: "Book a time" },
-      quote: { title: "Request a quote", body: "Tell us about your situation and get a clear offer quickly.", cta: "Request a quote" },
+      quote: { title: "Request a callback", body: "Tell us what you need and we will contact you.", cta: "Request a callback" },
       buy: { title: "Buy a service", body: "Pick a ready-made package and get started right away.", cta: "See packages" },
     },
     services: {
       eyebrow: "Our services",
       title: "Three ways to receive TGS quality",
       kotiin: {
-        title: "Care AT HOME",
+        title: "TSG Home",
         body: "Home cleaning and housekeeping – as often as you need.",
         items: ["Regular and deep cleaning", "Windows, appliances and textiles", "Moving and spring cleaning", "Everyday errands"],
       },
       yrityksille: {
-        title: "Care for Business",
+        title: "TSG Business",
         body: "Clean offices and business premises on an agreed rhythm.",
         items: ["Office cleaning 1–5 times/week", "Accommodation and site cleaning", "Break rooms and sanitary spaces", "Tailored agreements"],
       },
       palveluseteli: {
-        title: "Care Service Voucher",
+        title: "TSG Service Voucher",
         body: "Home support services with the municipal service voucher – simple and clear.",
         items: ["Using the service voucher", "Guidance and application help", "Cooperation with the municipality", "No hidden costs"],
       },
@@ -373,7 +373,7 @@ export const t: Record<Lang, Dict> = {
       hoursPerMonth: "h / month",
       single: "One-off booking",
       vat: "Prices excl. VAT (0 %).",
-      cta: "Request a quote",
+      cta: "Request a callback",
       note: "The Finnish household tax credit is applied to private customers' invoices.",
     },
     form: {
@@ -387,9 +387,9 @@ export const t: Record<Lang, Dict> = {
       service: "Service",
     },
     book: { title: "Book a video meeting", lead: "Let's set up a 30-minute online meeting to go through your needs and start the collaboration." },
-    quote: { title: "Request a quote", lead: "Briefly describe your situation – you'll receive a personal offer within two business days." },
+    quote: { title: "Request a callback", lead: "Briefly describe your needs and leave your contact details." },
     buy: { title: "Buy a service", lead: "Clear service packages so you can start immediately.", from: "from", select: "Select" },
     splash: { kotiin: "TGS Home", yrityksille: "TGS for Business" },
-    footer: { tagline: "High-quality home and office care.", contact: "Contact", rights: "All rights reserved." },
+    footer: { tagline: "Reliable partnership for homes and businesses.", contact: "Contact", rights: "All rights reserved." },
   },
 };

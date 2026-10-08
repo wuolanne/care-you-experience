@@ -9,6 +9,8 @@ export const Route = createFileRoute("/varaa")({
       { name: "description", content: "Varaa 30 minuutin videopalaveri ja aloitetaan yhteistyö rauhassa suunnitellen." },
       { property: "og:title", content: "Varaa videopalaveri | T & G Services" },
       { property: "og:description", content: "Sovitaan etätapaaminen ja käydään tarpeesi läpi." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,
