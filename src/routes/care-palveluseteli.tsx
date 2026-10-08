@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, ServiceDetail } from "@/components/site-pieces";
 import { useLang } from "@/i18n/LanguageProvider";
+import { ServicePricing } from "@/components/ServicePricing";
 
 export const Route = createFileRoute("/care-palveluseteli")({
   head: () => ({
@@ -29,6 +30,7 @@ function Page() {
           {tr.actions.book.cta}
         </Link>
       </ServiceDetail>
+      <ServicePricing tab="palveluseteli" />
     </>
   );
 }

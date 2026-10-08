@@ -35,35 +35,36 @@ export function SiteHeader() {
 
   return (
     <header className="relative z-50 border-b border-border/60 bg-background">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex justify-center pt-5 md:pt-7">
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="absolute right-6 top-4">{languages}</div>
+        <div className="flex justify-center pt-16 md:pt-7">
           <Link to="/" aria-label="T & G Services"><img src={logo} alt="T & G Services" className="h-40 w-auto md:h-52" /></Link>
         </div>
-        <nav className="hidden grid-cols-3 gap-6 pb-5 pt-3 md:grid" aria-label={tr.services.eyebrow}>
+        <nav className="hidden grid-cols-[1fr_1fr_1fr_auto] items-center gap-4 pb-5 pt-5 lg:grid" aria-label={tr.services.eyebrow}>
           {links.map((l) => (
             <div key={l.to} className="flex min-w-0 flex-col items-center gap-2 text-center">
               <Link to={l.to} className="text-xl font-medium text-foreground transition-colors hover:text-primary lg:text-2xl" activeProps={{ className: "text-primary" }}>{l.label}</Link>
-              <Link to="/hinnoittelu" search={{ tab: l.tab }} className="text-sm text-muted-foreground underline-offset-4 hover:text-primary hover:underline">{tr.nav.hinnoittelu}</Link>
             </div>
           ))}
+          <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-6 py-3 text-base">
+            <Link to="/varaa"><Video aria-hidden="true" />{tr.actions.book.title}</Link>
+          </Button>
         </nav>
-        <div className="flex flex-wrap items-center justify-center gap-4 border-t border-border/60 py-4 md:gap-8">
-          {languages}
+        <div className="flex items-center justify-end gap-4 border-t border-border/60 py-4 lg:hidden">
           <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-7 py-3 text-base">
             <Link to="/varaa"><Video aria-hidden="true" />{tr.actions.book.title}</Link>
           </Button>
-          <Button variant="ghost" size="icon" onClick={() => setOpen(!open)} aria-label="Menu" aria-expanded={open} className="md:hidden">
+          <Button variant="ghost" size="icon" onClick={() => setOpen(!open)} aria-label="Menu" aria-expanded={open}>
             {open ? <X /> : <Menu />}
           </Button>
         </div>
       </div>
       {open && (
-        <nav className="border-t border-border/60 bg-background px-6 py-5 md:hidden" aria-label={tr.services.eyebrow}>
+        <nav className="border-t border-border/60 bg-background px-6 py-5 lg:hidden" aria-label={tr.services.eyebrow}>
           <div className="flex flex-col gap-5">
             {links.map((l) => (
               <div key={l.to} className="flex flex-col gap-1">
                 <Link to={l.to} onClick={() => setOpen(false)} className="text-xl font-medium text-foreground">{l.label}</Link>
-                <Link to="/hinnoittelu" search={{ tab: l.tab }} onClick={() => setOpen(false)} className="text-sm text-muted-foreground">{tr.nav.hinnoittelu}</Link>
               </div>
             ))}
           </div>
