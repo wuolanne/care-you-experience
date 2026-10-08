@@ -12,7 +12,7 @@ import {
 
 export const Route = createFileRoute("/hinnoittelu")({
   validateSearch: (search: Record<string, unknown>): { tab: "kotiin" | "yrityksille" | "palveluseteli" } => ({
-    tab: search.tab === "yrityksille" || search.tab === "palveluseteli" ? search.tab : "kotiin",
+    tab: search['tab'] === "yrityksille" || search['tab'] === "palveluseteli" ? search['tab'] : "kotiin",
   }),
   head: () => ({
     meta: [
