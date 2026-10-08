@@ -5,6 +5,12 @@ import { useLang } from "@/i18n/LanguageProvider";
 import { LANGS } from "@/i18n/translations";
 import { Menu, X, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import fiFlag from "flag-icons/flags/4x3/fi.svg";
+import svFlag from "flag-icons/flags/4x3/se.svg";
+import esFlag from "flag-icons/flags/4x3/es.svg";
+import enFlag from "flag-icons/flags/4x3/gb.svg";
+
+const flags = { fi: fiFlag, sv: svFlag, es: esFlag, en: enFlag };
 
 export function SiteHeader() {
   const { lang, setLang, tr } = useLang();
@@ -21,7 +27,7 @@ export function SiteHeader() {
         <Button key={l.code} variant="ghost" size="icon" onClick={() => setLang(l.code)}
           aria-label={l.label} title={l.label} aria-pressed={lang === l.code}
           className={`size-10 text-2xl hover:bg-secondary ${lang === l.code ? "bg-secondary ring-1 ring-primary/40" : "opacity-65 hover:opacity-100"}`}>
-          <span aria-hidden="true">{l.flag}</span>
+          <img src={flags[l.code]} alt="" aria-hidden="true" className="h-5 w-7 object-cover" />
         </Button>
       ))}
     </div>
