@@ -5,10 +5,12 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/tarjouspyynto")({
   head: () => ({
     meta: [
-      { title: "Jätä tarjouspyyntö | T & G Services" },
-      { name: "description", content: "Kerro tilanteestasi ja saat henkilökohtaisen tarjouksen kahden arkipäivän kuluessa." },
-      { property: "og:title", content: "Jätä tarjouspyyntö | T & G Services" },
-      { property: "og:description", content: "Selkeä tarjous nopeasti ja ilman sitoumusta." },
+      { title: "Jätä yhteydenottopyyntö | T & G Services" },
+      { name: "description", content: "Jätä yhteystietosi ja kerro kodin tai yrityksen palvelutarpeista." },
+      { property: "og:title", content: "Jätä yhteydenottopyyntö | T & G Services" },
+      { property: "og:description", content: "Ota yhteyttä T & G Services -palveluihin." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,

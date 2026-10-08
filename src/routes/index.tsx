@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "T & G Services hoitaa kodisi ja toimistosi huolella: siivous, arjen tukipalvelut ja läpinäkyvä hinnoittelu. Varaa videopalaveri, pyydä tarjous tai osta palvelu.",
+          "T & G Services hoitaa kodisi ja toimistosi huolella: siivous, arjen tukipalvelut ja läpinäkyvä hinnoittelu. Varaa videopalaveri, jätä yhteydenottopyyntö tai osta palvelu.",
       },
       {
         property: "og:title",
