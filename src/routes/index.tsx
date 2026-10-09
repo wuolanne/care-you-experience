@@ -45,13 +45,13 @@ function Index() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-border/60 bg-[image:var(--gradient-lilac)]">
-        <div className="relative mx-auto max-w-6xl px-6 py-14 md:py-20">
-          <div className="max-w-4xl">
+        <div className="relative mx-auto max-w-6xl px-6 py-10 md:py-12">
+          <div>
             <p className="eyebrow text-primary/70">{tr.hero.eyebrow}</p>
-            <h1 className="mt-5 text-4xl leading-[1.1] text-plum md:text-5xl">
+            <h1 className="mt-4 text-4xl leading-[1.1] text-plum md:text-5xl">
               {tr.hero.title}
             </h1>
-            <div className="mt-6 max-w-3xl space-y-4 text-base leading-relaxed text-plum/80">
+            <div className="mt-5 space-y-3 text-base leading-relaxed text-plum/80">
               {tr.hero.lead.split("\n\n").map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
