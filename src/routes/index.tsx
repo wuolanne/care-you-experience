@@ -1,23 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageProvider";
 import { Video, FileText, ShoppingBag, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "T & G Services — Laadukasta kodin ja toimistonhoitoa" },
+      { title: "T & G Services — Laadukasta kodin ja toimiston hoitoa" },
       {
         name: "description",
         content:
-          "T & G Services hoitaa kodisi ja toimistosi huolella: siivous, arjen tukipalvelut ja läpinäkyvä hinnoittelu. Varaa videopalaveri, jätä yhteydenottopyyntö tai osta palvelu.",
+          "T&G Services hoitaa kotisi tai toimistosi huolella ja kantaa kokonaisvaltaisen vastuun. Avoin viestintä, tuttu henkilöstö ja selkeä hinnoittelu ilman piilokuluja.",
       },
       {
         property: "og:title",
-        content: "T & G Services — Laadukasta kodin ja toimistonhoitoa",
+        content: "T & G Services — Laadukasta kodin ja toimiston hoitoa",
       },
       {
         property: "og:description",
-        content: "Laadukasta kodin ja toimistonhoitoa – ja pidämme huolta sinusta.",
+        content: "Laadukasta kodin ja toimiston hoitoa – pidämme huolta asiakkaistamme. Luotettava kumppanuus ja tasalaatuinen siivous ilman piilokuluja.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -45,25 +46,23 @@ function Index() {
     <>
       <section className="relative overflow-hidden border-b border-border/60 bg-[image:var(--gradient-lilac)]">
         <div className="relative mx-auto max-w-6xl px-6 py-14 md:py-20">
-          <div className="max-w-2xl">
+          <div className="max-w-4xl">
             <p className="eyebrow text-primary/70">{tr.hero.eyebrow}</p>
             <h1 className="mt-5 text-4xl leading-[1.1] text-plum md:text-5xl">
               {tr.hero.title}
             </h1>
-            <p className="mt-5 max-w-xl text-base text-plum/80">{tr.hero.lead}</p>
+            <div className="mt-6 max-w-3xl space-y-4 text-base leading-relaxed text-plum/80">
+              {tr.hero.lead.split("\n\n").map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
             <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="#aloita"
-                className="rounded-sm bg-[var(--color-gold)] px-8 py-3.5 text-[0.72rem] uppercase tracking-[0.2em] text-plum transition-opacity hover:opacity-90"
-              >
-                {tr.hero.cta}
-              </a>
-              <a
-                href="#palvelut"
-                className="rounded-sm border border-plum/30 px-8 py-3.5 text-[0.72rem] uppercase tracking-[0.2em] text-plum transition-colors hover:bg-plum/5"
-              >
-                {tr.hero.secondary}
-              </a>
+              <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
+                <a href="#aloita">{tr.hero.cta}</a>
+              </Button>
+              <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
+                <a href="#palvelut">{tr.hero.secondary}</a>
+              </Button>
             </div>
           </div>
         </div>
