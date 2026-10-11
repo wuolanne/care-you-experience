@@ -6,9 +6,9 @@ import { ServicePricing } from "@/components/ServicePricing";
 export const Route = createFileRoute("/care-kotiin")({
   head: () => ({
     meta: [
-      { title: "TGN Kotiin — Kotihoiva ja arjen apu | T T & G Services G Nordic Services" },
+      { title: "TGN Kotiin — Kotihoiva ja arjen apu | T & G Nordic Services" },
       { name: "description", content: "Kotihoivaa, arjen apua ja seuraa yksilöllisesti – juuri niin usein kuin tarvitset." },
-      { property: "og:title", content: "TGN Kotiin | T T & G Services G Nordic Services" },
+      { property: "og:title", content: "TGN Kotiin | T & G Nordic Services" },
       { property: "og:description", content: "Kotihoivaa, arjen apua ja seuraa yksilöllisesti." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
