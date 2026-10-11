@@ -74,18 +74,18 @@ export const t: Record<Lang, Dict> = {
     },
     hero: {
       eyebrow: "Kumppanuutta, johon voi luottaa",
-      title: "Laadukasta siivousta koteihin ja toimistoihin – pidämme huolta asiakkaistamme",
-      lead: "T&G Services hoitaa kotisi tai toimistosi huolella ja kantaa kokonaisvaltaisen vastuun. Teemme sen, mitä tarvitaan, jotta ympäristösi on siisti ja puhdas joka päivä. Haluamme, että sinulle jää aikaa olennaiseen – me pidämme huolta kumppanuudestamme.\n\nRaportoimme ennakoivasti ja pidämme viestinnän avoimena. Nimeämme asiakkuudellesi vastuuhenkilön ja huolehdimme henkilöstön jatkuvuudesta, jotta työntekijämme eivät vaihdu jatkuvasti.\n\nHinnoittelumallimme on selkeä, eikä meillä ole piilokuluja. Tarpeidesi muuttuminen ei automaattisesti tarkoita maksujen nousua. Olemme täällä sinua varten ja haluamme, että kaikilla on mahdollisuus laadukkaaseen ja tasalaatuiseen siivoukseen.\n\nKumppanuudessamme sinusta pidetään huolta!",
+      title: "Laadukasta siivousta koteihin ja toimitiloihin – pidämme huolta asiakkaistamme",
+      lead: "T&G Services hoitaa kotisi tai toimitilasi huolella ja kantaa kokonaisvaltaisen vastuun. Teemme sen, mitä tarvitaan, jotta ympäristösi on siisti ja puhdas joka päivä. Haluamme, että sinulle jää aikaa olennaiseen – me pidämme huolta kumppanuudestamme.\n\nRaportoimme ennakoivasti ja pidämme viestinnän avoimena. Nimeämme asiakkuudellesi vastuuhenkilön ja huolehdimme henkilöstön jatkuvuudesta, jotta työntekijämme eivät vaihdu jatkuvasti.\n\nHinnoittelumallimme on selkeä, eikä meillä ole piilokuluja. Tarpeidesi muuttuminen ei automaattisesti tarkoita maksujen nousua. Olemme täällä sinua varten ja haluamme, että kaikilla on mahdollisuus laadukkaaseen ja tasalaatuiseen siivoukseen.\n\nKumppanuudessamme sinusta pidetään huolta!",
       cta: "Aloita yhteistyö",
       secondary: "Tutustu palveluihin",
     },
     about: {
       eyebrow: "Meistä lyhyesti",
-      title: "Siisti koti, toimiva toimisto, huolehdittu arki",
-      body: "Olemme suomalainen kodin- ja toimistonhoidon yritys. Teemme siivouksen ja arjen tukipalvelut ammattitaidolla ja samalla tarkkuudella niin kotona kuin työpaikalla – luotettavasti, sovitusti ja läpinäkyvällä hinnalla.",
+      title: "Siisti koti, toimivat toimitilat, huolehdittu arki",
+      body: "Olemme suomalainen kodin- ja toimitilahoidon yritys. Teemme siivouksen ja arjen tukipalvelut ammattitaidolla ja samalla tarkkuudella niin kotona kuin työpaikalla – luotettavasti, sovitusti ja läpinäkyvällä hinnalla.",
       points: [
         "Koulutettu ja luotettava henkilöstö",
-        "Kodin ja toimiston siivous samalta kumppanilta",
+        "Kodin ja toimitilojen siivous samalta kumppanilta",
         "Läpinäkyvä hinnoittelu, ei yllätyksiä",
       ],
     },
@@ -106,8 +106,8 @@ export const t: Record<Lang, Dict> = {
       },
       yrityksille: {
         title: "TSG YRITYKSILLE",
-        body: "Toimiston ja liiketilojen siisteys sovitulla rytmillä.",
-        items: ["Toimistosiivous 1–5 krt/vko", "Majoitus- ja kohdesiivoukset", "Taukotilat ja saniteettitilat", "Räätälöidyt sopimukset"],
+        body: "Toimitilojen siisteys sovitulla rytmillä.",
+        items: ["Toimitilasiivous 1–5 krt/vko", "Majoitus- ja kohdesiivoukset", "Taukotilat ja saniteettitilat", "Räätälöidyt sopimukset"],
       },
       palveluseteli: {
         title: "TSG PALVELUSETELI",
@@ -156,18 +156,18 @@ export const t: Record<Lang, Dict> = {
     },
     hero: {
       eyebrow: "Ett partnerskap du kan lita på",
-      title: "Kvalitetsstädning för hem och kontor – vi tar hand om våra kunder",
-      lead: "T&G Services tar omsorgsfullt hand om ditt hem eller kontor och tar ett helhetsansvar. Vi gör det som behövs för att din omgivning ska vara ren och välskött varje dag. Vi vill att du ska ha tid för det väsentliga – vi vårdar vårt partnerskap.\n\nVi rapporterar proaktivt och håller kommunikationen öppen. Du får en utsedd kontaktperson som ansvarar för kundrelationen, och vi värnar om kontinuiteten i personalen så att du inte ständigt möter nya medarbetare.\n\nVår prismodell är tydlig, utan dolda kostnader. Förändrade behov innebär inte automatiskt högre avgifter. Vi finns här för dig och vill att alla ska ha tillgång till städning av hög och jämn kvalitet.\n\nI vårt partnerskap tar vi hand om dig!",
+      title: "Kvalitetsstädning för hem och lokaler – vi tar hand om våra kunder",
+      lead: "T&G Services tar omsorgsfullt hand om ditt hem eller dina lokaler och tar ett helhetsansvar. Vi gör det som behövs för att din omgivning ska vara ren och välskött varje dag. Vi vill att du ska ha tid för det väsentliga – vi vårdar vårt partnerskap.\n\nVi rapporterar proaktivt och håller kommunikationen öppen. Du får en utsedd kontaktperson som ansvarar för kundrelationen, och vi värnar om kontinuiteten i personalen så att du inte ständigt möter nya medarbetare.\n\nVår prismodell är tydlig, utan dolda kostnader. Förändrade behov innebär inte automatiskt högre avgifter. Vi finns här för dig och vill att alla ska ha tillgång till städning av hög och jämn kvalitet.\n\nI vårt partnerskap tar vi hand om dig!",
       cta: "Inled samarbete",
       secondary: "Se våra tjänster",
     },
     about: {
       eyebrow: "Om oss",
-      title: "Rent hem, fungerande kontor, omhändertagen vardag",
-      body: "Vi är ett finländskt företag inom hem- och kontorsstädning. Vi utför städning och stödtjänster med yrkeskunskap och samma noggrannhet hemma som på arbetsplatsen – pålitligt och med transparenta priser.",
+      title: "Rent hem, fungerande lokaler, omhändertagen vardag",
+      body: "Vi är ett finländskt företag inom hem- och lokalistädning. Vi utför städning och stödtjänster med yrkeskunskap och samma noggrannhet hemma som på arbetsplatsen – pålitligt och med transparenta priser.",
       points: [
         "Utbildad och pålitlig personal",
-        "Hem och kontor av samma partner",
+        "Hem och lokaler av samma partner",
         "Transparent prissättning utan överraskningar",
       ],
     },
@@ -188,8 +188,8 @@ export const t: Record<Lang, Dict> = {
       },
       yrityksille: {
         title: "TSG Företag",
-        body: "Rena kontor och affärslokaler i avtalad rytm.",
-        items: ["Kontorsstädning 1–5 ggr/vecka", "Boende- och objektsstädning", "Pausrum och sanitetsutrymmen", "Skräddarsydda avtal"],
+        body: "Rena lokaler i avtalad rytm.",
+        items: ["Lokalistädning 1–5 ggr/vecka", "Boende- och objektsstädning", "Pausrum och sanitetsutrymmen", "Skräddarsydda avtal"],
       },
       palveluseteli: {
         title: "TSG Servicesedel",
@@ -238,18 +238,18 @@ export const t: Record<Lang, Dict> = {
     },
     hero: {
       eyebrow: "Una colaboración de confianza",
-      title: "Limpieza de calidad para hogares y oficinas – cuidamos de nuestros clientes",
-      lead: "T&G Services cuida tu hogar o tu oficina con esmero y asume la responsabilidad de forma integral. Hacemos lo necesario para que tu entorno esté limpio y ordenado cada día. Queremos que tengas tiempo para lo esencial, mientras nosotros cuidamos de nuestra relación contigo.\n\nTe informamos de forma proactiva y mantenemos una comunicación abierta. Asignamos una persona responsable de tu cuenta y cuidamos la continuidad del equipo para evitar cambios constantes de personal.\n\nNuestro modelo de precios es claro y no hay costes ocultos. Un cambio en tus necesidades no implica automáticamente un aumento de las tarifas. Estamos aquí para ti y queremos que todo el mundo tenga acceso a una limpieza de calidad constante.\n\n¡En nuestra colaboración, cuidamos de ti!",
+      title: "Limpieza de calidad para hogares y locales – cuidamos de nuestros clientes",
+      lead: "T&G Services cuida tu hogar o tus locales con esmero y asume la responsabilidad de forma integral. Hacemos lo necesario para que tu entorno esté limpio y ordenado cada día. Queremos que tengas tiempo para lo esencial, mientras nosotros cuidamos de nuestra relación contigo.\n\nTe informamos de forma proactiva y mantenemos una comunicación abierta. Asignamos una persona responsable de tu cuenta y cuidamos la continuidad del equipo para evitar cambios constantes de personal.\n\nNuestro modelo de precios es claro y no hay costes ocultos. Un cambio en tus necesidades no implica automáticamente un aumento de las tarifas. Estamos aquí para ti y queremos que todo el mundo tenga acceso a una limpieza de calidad constante.\n\n¡En nuestra colaboración, cuidamos de ti!",
       cta: "Comenzar la colaboración",
       secondary: "Ver servicios",
     },
     about: {
       eyebrow: "Sobre nosotros",
-      title: "Hogar limpio, oficina que funciona, día a día resuelto",
-      body: "Somos una empresa finlandesa de limpieza del hogar y de oficinas. Realizamos la limpieza y los servicios de apoyo con profesionalidad y el mismo rigor en casa y en el trabajo, con precios transparentes.",
+      title: "Hogar limpio, locales que funcionan, día a día resuelto",
+      body: "Somos una empresa finlandesa de limpieza del hogar y de locales. Realizamos la limpieza y los servicios de apoyo con profesionalidad y el mismo rigor en casa y en el trabajo, con precios transparentes.",
       points: [
         "Personal cualificado y de confianza",
-        "Hogar y oficina con un mismo socio",
+        "Hogar y locales con un mismo socio",
         "Precios transparentes, sin sorpresas",
       ],
     },
@@ -270,8 +270,8 @@ export const t: Record<Lang, Dict> = {
       },
       yrityksille: {
         title: "TSG Empresas",
-        body: "Oficinas y locales impecables con la frecuencia acordada.",
-        items: ["Limpieza de oficinas 1–5 veces/semana", "Limpieza de alojamientos y objetos", "Zonas de descanso y aseos", "Contratos a medida"],
+        body: "Locales impecables con la frecuencia acordada.",
+        items: ["Limpieza de locales 1–5 veces/semana", "Limpieza de alojamientos y objetos", "Zonas de descanso y aseos", "Contratos a medida"],
       },
       palveluseteli: {
         title: "TSG Vale de Servicio",
@@ -320,18 +320,18 @@ export const t: Record<Lang, Dict> = {
     },
     hero: {
       eyebrow: "A partnership you can trust",
-      title: "Quality cleaning for homes and offices – we look after our customers",
-      lead: "T&G Services takes care of your home or office with care and takes full responsibility. We do what is needed to keep your surroundings clean and tidy every day. We want you to have time for what matters – we take care of our partnership.\n\nWe report proactively and keep communication open. We assign a dedicated contact to manage your account and maintain continuity in our team, so you do not constantly have different staff.\n\nOur pricing model is clear, with no hidden costs. Changing needs do not automatically mean higher fees. We are here for you and want everyone to have access to reliable, consistently high-quality cleaning.\n\nIn our partnership, you are looked after!",
+      title: "Quality cleaning for homes and premises – we look after our customers",
+      lead: "T&G Services takes care of your home or premises and takes full responsibility. We do what is needed to keep your surroundings clean and tidy every day. We want you to have time for what matters – we take care of our partnership.\n\nWe report proactively and keep communication open. We assign a dedicated contact to manage your account and maintain continuity in our team, so you do not constantly have different staff.\n\nOur pricing model is clear, with no hidden costs. Changing needs do not automatically mean higher fees. We are here for you and want everyone to have access to reliable, consistently high-quality cleaning.\n\nIn our partnership, you are looked after!",
       cta: "Start the collaboration",
       secondary: "Explore services",
     },
     about: {
       eyebrow: "About us",
-      title: "A clean home, a working office, a day taken care of",
-      body: "We are a Finnish home and office care company. We deliver cleaning and everyday support services with professionalism and the same attention to detail at home and at work – reliably and with transparent pricing.",
+      title: "A clean home, well-kept premises, a day taken care of",
+      body: "We are a Finnish home and business premises cleaning company. We deliver cleaning and everyday support services with professionalism and the same attention to detail at home and at work – reliably and with transparent pricing.",
       points: [
         "Trained and trustworthy staff",
-        "Home and office from one partner",
+        "Home and premises from one partner",
         "Transparent pricing, no surprises",
       ],
     },
@@ -352,8 +352,8 @@ export const t: Record<Lang, Dict> = {
       },
       yrityksille: {
         title: "TSG Business",
-        body: "Clean offices and business premises on an agreed rhythm.",
-        items: ["Office cleaning 1–5 times/week", "Accommodation and site cleaning", "Break rooms and sanitary spaces", "Tailored agreements"],
+        body: "Clean business premises on an agreed rhythm.",
+        items: ["Premises cleaning 1–5 times/week", "Accommodation and site cleaning", "Break rooms and sanitary spaces", "Tailored agreements"],
       },
       palveluseteli: {
         title: "TSG Service Voucher",

@@ -6,19 +6,19 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "T & G Services — Laadukasta siivousta koteihin ja toimistoihin" },
+      { title: "T & G Services — Laadukasta siivousta koteihin ja toimitiloihin" },
       {
         name: "description",
         content:
-          "T&G Services hoitaa kotisi tai toimistosi siivouksen huolella ja kantaa kokonaisvaltaisen vastuun. Avoin viestintä, tuttu henkilöstö ja selkeä hinnoittelu ilman piilokuluja.",
+          "T&G Services hoitaa kotisi tai toimitilasi siivouksen huolella ja kantaa kokonaisvaltaisen vastuun. Avoin viestintä, tuttu henkilöstö ja selkeä hinnoittelu ilman piilokuluja.",
       },
       {
         property: "og:title",
-        content: "T & G Services — Laadukasta siivousta koteihin ja toimistoihin",
+        content: "T & G Services — Laadukasta siivousta koteihin ja toimitiloihin",
       },
       {
         property: "og:description",
-        content: "Laadukasta siivousta koteihin ja toimistoihin – pidämme huolta asiakkaistamme. Luotettava kumppanuus ja tasalaatuinen siivous ilman piilokuluja.",
+        content: "Laadukasta siivousta koteihin ja toimitiloihin – pidämme huolta asiakkaistamme. Luotettava kumppanuus ja tasalaatuinen siivous ilman piilokuluja.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
