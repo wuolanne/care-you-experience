@@ -13,7 +13,7 @@
 11. [x] Warm, gentle styling pass: larger logo banner, narrow pale-lilac hero band, cream page surfaces
 12. [x] Service continuation pages exist and are linked from homepage and header; further content awaits Marianne's brief
 13. [x] Contact email supplied by Marianne: info@tsg.fi; keep the displayed phone unchanged
-14. [x] Use faded button-purple hero, larger TSG service navigation with pricing beneath, flag language selectors, larger booking button and footer logo; update partnership and contact-request wording
+14. [x] Use faded button-purple hero, larger TGN service navigation with pricing beneath, flag language selectors, larger booking button and footer logo; update partnership and contact-request wording
 15. [ ] Waiting on Marianne: specify the contact form's later structure; sending requests is not connected yet
 16. [x] Remove header pricing links, show prices on each service page, place flags upper-right and booking after service navigation
 17. [x] Polish Marianne's homepage partnership text in FI/SV/ES/EN and match both hero buttons to the video-booking violet; further service-page edits deferred
