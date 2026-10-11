@@ -14,7 +14,7 @@ export const Route = createFileRoute("/hinnoittelu")({
       {
         name: "description",
         content:
-          "Läpinäkyvä hinnoittelu kodin ja toimiston hoitoon: valitse kuukausipaketti tai tuntiveloitus. Kaikki hinnat näkyvissä ilman piilokuluja.",
+          "Läpinäkyvä hinnoittelu kodin ja toimitilojen hoitoon: valitse kuukausipaketti tai tuntiveloitus. Kaikki hinnat näkyvissä ilman piilokuluja.",
       },
       { property: "og:title", content: "Hinnoittelu | T & G Services" },
       {
