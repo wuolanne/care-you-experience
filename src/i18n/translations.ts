@@ -74,7 +74,7 @@ export const t: Record<Lang, Dict> = {
     },
     hero: {
       eyebrow: "Kumppanuutta, johon voi luottaa",
-      title: "Laadukasta kodin ja toimiston hoitoa – pidämme huolta asiakkaistamme",
+      title: "Laadukasta siivousta koteihin ja toimistoihin – pidämme huolta asiakkaistamme",
       lead: "T&G Services hoitaa kotisi tai toimistosi huolella ja kantaa kokonaisvaltaisen vastuun. Teemme sen, mitä tarvitaan, jotta ympäristösi on siisti ja puhdas joka päivä. Haluamme, että sinulle jää aikaa olennaiseen – me pidämme huolta kumppanuudestamme.\n\nRaportoimme ennakoivasti ja pidämme viestinnän avoimena. Nimeämme asiakkuudellesi vastuuhenkilön ja huolehdimme henkilöstön jatkuvuudesta, jotta työntekijämme eivät vaihdu jatkuvasti.\n\nHinnoittelumallimme on selkeä, eikä meillä ole piilokuluja. Tarpeidesi muuttuminen ei automaattisesti tarkoita maksujen nousua. Olemme täällä sinua varten ja haluamme, että kaikilla on mahdollisuus laadukkaaseen ja tasalaatuiseen siivoukseen.\n\nKumppanuudessamme sinusta pidetään huolta!",
       cta: "Aloita yhteistyö",
       secondary: "Tutustu palveluihin",
@@ -156,7 +156,7 @@ export const t: Record<Lang, Dict> = {
     },
     hero: {
       eyebrow: "Ett partnerskap du kan lita på",
-      title: "Hem- och kontorsvård av hög kvalitet – vi tar hand om våra kunder",
+      title: "Kvalitetsstädning för hem och kontor – vi tar hand om våra kunder",
       lead: "T&G Services tar omsorgsfullt hand om ditt hem eller kontor och tar ett helhetsansvar. Vi gör det som behövs för att din omgivning ska vara ren och välskött varje dag. Vi vill att du ska ha tid för det väsentliga – vi vårdar vårt partnerskap.\n\nVi rapporterar proaktivt och håller kommunikationen öppen. Du får en utsedd kontaktperson som ansvarar för kundrelationen, och vi värnar om kontinuiteten i personalen så att du inte ständigt möter nya medarbetare.\n\nVår prismodell är tydlig, utan dolda kostnader. Förändrade behov innebär inte automatiskt högre avgifter. Vi finns här för dig och vill att alla ska ha tillgång till städning av hög och jämn kvalitet.\n\nI vårt partnerskap tar vi hand om dig!",
       cta: "Inled samarbete",
       secondary: "Se våra tjänster",
@@ -238,7 +238,7 @@ export const t: Record<Lang, Dict> = {
     },
     hero: {
       eyebrow: "Una colaboración de confianza",
-      title: "Cuidado de calidad para hogares y oficinas – cuidamos de nuestros clientes",
+      title: "Limpieza de calidad para hogares y oficinas – cuidamos de nuestros clientes",
       lead: "T&G Services cuida tu hogar o tu oficina con esmero y asume la responsabilidad de forma integral. Hacemos lo necesario para que tu entorno esté limpio y ordenado cada día. Queremos que tengas tiempo para lo esencial, mientras nosotros cuidamos de nuestra relación contigo.\n\nTe informamos de forma proactiva y mantenemos una comunicación abierta. Asignamos una persona responsable de tu cuenta y cuidamos la continuidad del equipo para evitar cambios constantes de personal.\n\nNuestro modelo de precios es claro y no hay costes ocultos. Un cambio en tus necesidades no implica automáticamente un aumento de las tarifas. Estamos aquí para ti y queremos que todo el mundo tenga acceso a una limpieza de calidad constante.\n\n¡En nuestra colaboración, cuidamos de ti!",
       cta: "Comenzar la colaboración",
       secondary: "Ver servicios",
@@ -320,7 +320,7 @@ export const t: Record<Lang, Dict> = {
     },
     hero: {
       eyebrow: "A partnership you can trust",
-      title: "Quality home and office care – we look after our customers",
+      title: "Quality cleaning for homes and offices – we look after our customers",
       lead: "T&G Services takes care of your home or office with care and takes full responsibility. We do what is needed to keep your surroundings clean and tidy every day. We want you to have time for what matters – we take care of our partnership.\n\nWe report proactively and keep communication open. We assign a dedicated contact to manage your account and maintain continuity in our team, so you do not constantly have different staff.\n\nOur pricing model is clear, with no hidden costs. Changing needs do not automatically mean higher fees. We are here for you and want everyone to have access to reliable, consistently high-quality cleaning.\n\nIn our partnership, you are looked after!",
       cta: "Start the collaboration",
       secondary: "Explore services",

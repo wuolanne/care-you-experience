@@ -17,3 +17,4 @@
 15. [ ] Waiting on Marianne: specify the contact form's later structure; sending requests is not connected yet
 16. [x] Remove header pricing links, show prices on each service page, place flags upper-right and booking after service navigation
 17. [x] Polish Marianne's homepage partnership text in FI/SV/ES/EN and match both hero buttons to the video-booking violet; further service-page edits deferred
+18. [x] Rephrase the homepage headline so cleaning is named for both audiences: homes and offices/business premises (FI/SV/ES/EN + page metadata)
