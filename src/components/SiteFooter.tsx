@@ -8,7 +8,7 @@ export function SiteFooter() {
     <footer className="border-t border-border/60 bg-secondary/40">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-[1.1fr_1fr_1fr] md:items-center">
         <div>
-          <img src={logo} alt="T & G Services" className="h-36 w-auto md:h-44" />
+          <img src={logo} alt="T & G Nordic Services" className="h-36 w-auto md:h-44" />
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">{tr.footer.tagline}</p>
         </div>
         <div className="space-y-3">
@@ -29,7 +29,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-border/60 py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} T & G Services · {tr.footer.rights}
+        © {new Date().getFullYear()} T & G Nordic Services · {tr.footer.rights}
       </div>
     </footer>
   );

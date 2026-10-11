@@ -5,10 +5,10 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/tarjouspyynto")({
   head: () => ({
     meta: [
-      { title: "Jätä yhteydenottopyyntö | T & G Services" },
+      { title: "Jätä yhteydenottopyyntö | T & G Nordic Services" },
       { name: "description", content: "Jätä yhteystietosi ja kerro kodin tai yrityksen palvelutarpeista." },
-      { property: "og:title", content: "Jätä yhteydenottopyyntö | T & G Services" },
-      { property: "og:description", content: "Ota yhteyttä T & G Services -palveluihin." },
+      { property: "og:title", content: "Jätä yhteydenottopyyntö | T & G Nordic Services" },
+      { property: "og:description", content: "Ota yhteyttä T & G Nordic Services -palveluihin." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
