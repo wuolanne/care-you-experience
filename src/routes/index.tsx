@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "T & G Services — Laadukasta siivousta koteihin ja toimitiloihin" },
+      { title: "T T & G Services G Nordic Services — Laadukasta siivousta koteihin ja toimitiloihin" },
       {
         name: "description",
         content:
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "T & G Services — Laadukasta siivousta koteihin ja toimitiloihin",
+        content: "T T & G Services G Nordic Services — Laadukasta siivousta koteihin ja toimitiloihin",
       },
       {
         property: "og:description",

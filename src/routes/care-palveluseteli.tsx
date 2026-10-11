@@ -6,9 +6,9 @@ import { ServicePricing } from "@/components/ServicePricing";
 export const Route = createFileRoute("/care-palveluseteli")({
   head: () => ({
     meta: [
-      { title: "TSG PALVELUSETELI — Hyväksytty palveluntuottaja | T & G Services" },
+      { title: "TGN PALVELUSETELI — Hyväksytty palveluntuottaja | T T & G Services G Nordic Services" },
       { name: "description", content: "Käytä kuntasi palveluseteli helposti meillä. Neuvonta, hakemusapu ja selkeä hinnoittelu." },
-      { property: "og:title", content: "TSG PALVELUSETELI | T & G Services" },
+      { property: "og:title", content: "TGN PALVELUSETELI | T T & G Services G Nordic Services" },
       { property: "og:description", content: "Hyväksytty palveluntuottaja – palveluseteli käyttöön helposti." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

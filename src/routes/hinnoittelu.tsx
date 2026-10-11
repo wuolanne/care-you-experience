@@ -10,13 +10,13 @@ export const Route = createFileRoute("/hinnoittelu")({
   }),
   head: () => ({
     meta: [
-      { title: "Hinnoittelu — läpinäkyvät hinnat | T & G Services" },
+      { title: "Hinnoittelu — läpinäkyvät hinnat | T T & G Services G Nordic Services" },
       {
         name: "description",
         content:
           "Läpinäkyvä hinnoittelu kodin ja toimitilojen hoitoon: valitse kuukausipaketti tai tuntiveloitus. Kaikki hinnat näkyvissä ilman piilokuluja.",
       },
-      { property: "og:title", content: "Hinnoittelu | T & G Services" },
+      { property: "og:title", content: "Hinnoittelu | T T & G Services G Nordic Services" },
       {
         property: "og:description",
         content: "Kuukausipaketit ja tuntiveloitus – kaikki hinnat läpinäkyvästi esillä.",
