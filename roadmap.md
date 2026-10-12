@@ -19,3 +19,4 @@
 17. [x] Polish Marianne's homepage partnership text in FI/SV/ES/EN and match both hero buttons to the video-booking violet; further service-page edits deferred
 18. [x] Rephrase the homepage headline so cleaning is named for both audiences: homes and offices/business premises (FI/SV/ES/EN + page metadata)
 19. [x] Swap the term toimisto/kontor/oficina/office for toimitilat/lokaler/locales/premises everywhere, declined per language
+20. [x] Logo wordmark now reads NORDIC SERVICES under the T&G monogram with a full-width gold line; running-text name corrected to TGN Services (FI/SV/ES/EN)
