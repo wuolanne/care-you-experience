@@ -16,7 +16,9 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TemporaryLogoPage } from "@/components/TemporaryLogoPage";
 
-const temporaryLogoPageEnabled = import.meta.env.VITE_TEMPORARY_LOGO_PAGE === "true";
+// The temporary branch is logo-only by default. Set the variable to "false"
+// when the normal site should be rendered again.
+const temporaryLogoPageEnabled = import.meta.env.VITE_TEMPORARY_LOGO_PAGE !== "false";
 
 function NotFoundComponent() {
   return (
