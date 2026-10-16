@@ -14,7 +14,9 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { TemporaryLogoPage } from "@/components/TemporaryLogoPage";
 
+const temporaryLogoPageEnabled = import.meta.env.VITE_TEMPORARY_LOGO_PAGE === "true";
 
 function NotFoundComponent() {
   return (
@@ -85,6 +87,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Laadukasta hoivaa ja huolenpitoa kotiin ja yrityksille." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      ...(temporaryLogoPageEnabled
+        ? [{ name: "robots", content: "noindex, nofollow, noarchive" }]
+        : []),
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -119,6 +124,10 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  if (temporaryLogoPageEnabled) {
+    return <TemporaryLogoPage />;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
