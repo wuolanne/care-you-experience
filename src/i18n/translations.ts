@@ -126,9 +126,9 @@ export const t: Record<Lang, Dict> = {
       start: {
         title: "Aloitetaan sinulle sopivalla tavalla",
         items: [
-          { title: "Kerro toiveesi ja budjettisi.", body: "Suunnittelemme niihin sopivan palvelukokonaisuuden." },
-          { title: "Varaa videopalaveri.", body: "Käydään tarpeesi yhdessä läpi. Voit kutsua mukaan perheenjäsenesi tai yrityksesi tiimin." },
-          { title: "Valitse sopiva palvelupaketti.", body: "Sovitaan aloituspäivä, ja me huolehdimme lopusta." },
+          { title: "Kerro toiveesi ja budjettisi.", body: "Lähetä yhteydenottokaavake, niin suunnittelemme sinulle sopivan palvelukokonaisuuden." },
+          { title: "Varaa videopalaveri.", body: "Käydään tarpeesi yhdessä läpi. Voit kutsua mukaan perheenjäsenesi tai yrityksesi nimetyt henkilöt." },
+          { title: "Valitse sopiva palvelupaketti ja aloita heti!", body: "Ilmoitat aloituspäivämäärän ja lisätiedot, niin saavumme paikalle." },
         ],
       },
       closing: "TGN Services – puhtaampi ympäristö, huolettomampi arki.",
@@ -241,9 +241,9 @@ export const t: Record<Lang, Dict> = {
       start: {
         title: "Vi börjar på det sätt som passar dig",
         items: [
-          { title: "Berätta om dina önskemål och din budget.", body: "Vi planerar en servicehelhet som passar dem." },
-          { title: "Boka ett videomöte.", body: "Vi går igenom dina behov tillsammans. Du kan bjuda in en familjemedlem eller ditt företags team." },
-          { title: "Välj ett lämpligt servicepaket.", body: "Vi kommer överens om ett startdatum, och vi tar hand om resten." },
+          { title: "Berätta om dina önskemål och din budget.", body: "Skicka kontaktformuläret, så planerar vi en servicehelhet som passar dig." },
+          { title: "Boka ett videomöte.", body: "Vi går igenom dina behov tillsammans. Du kan bjuda in familjemedlemmar eller de utsedda personerna i ditt företag." },
+          { title: "Välj ett lämpligt servicepaket och kom igång direkt!", body: "Du anger startdatum och tilläggsuppgifter, så kommer vi till dig." },
         ],
       },
       closing: "TGN Services – en renare omgivning, en mer bekymmersfri vardag.",
@@ -356,9 +356,9 @@ export const t: Record<Lang, Dict> = {
       start: {
         title: "Empecemos de la forma que más te convenga",
         items: [
-          { title: "Cuéntanos tus preferencias y tu presupuesto.", body: "Diseñamos un conjunto de servicios que se ajuste a ellos." },
-          { title: "Reserva una videollamada.", body: "Revisamos juntos tus necesidades. Puedes invitar a un familiar o al equipo de tu empresa." },
-          { title: "Elige un paquete de servicios adecuado.", body: "Acordamos la fecha de inicio y nos encargamos del resto." },
+          { title: "Cuéntanos tus preferencias y tu presupuesto.", body: "Envía el formulario de contacto y diseñamos un conjunto de servicios a tu medida." },
+          { title: "Reserva una videollamada.", body: "Revisamos juntos tus necesidades. Puedes invitar a familiares o a las personas designadas de tu empresa." },
+          { title: "Elige un paquete de servicios adecuado y empieza ya.", body: "Indicas la fecha de inicio y la información adicional, y nosotros acudimos al lugar." },
         ],
       },
       closing: "TGN Services – un entorno más limpio, un día a día con menos preocupaciones.",
@@ -471,9 +471,9 @@ export const t: Record<Lang, Dict> = {
       start: {
         title: "Let’s start in the way that suits you",
         items: [
-          { title: "Tell us your wishes and budget.", body: "We design a service plan to match them." },
-          { title: "Book a video meeting.", body: "We go through your needs together. You can invite a family member or your company’s team." },
-          { title: "Choose a suitable service package.", body: "We agree on a start date and take care of the rest." },
+          { title: "Tell us your wishes and budget.", body: "Send the contact form and we design a service plan that suits you." },
+          { title: "Book a video meeting.", body: "We go through your needs together. You can invite family members or the named people in your company." },
+          { title: "Choose a suitable service package and get started right away!", body: "You give us the start date and any extra details, and we arrive on site." },
         ],
       },
       closing: "TGN Services – cleaner surroundings, a more carefree everyday life.",
