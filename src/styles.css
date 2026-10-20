@@ -68,11 +68,13 @@
   --color-gold: var(--gold);
   --color-plum: var(--plum);
   --color-lilac: var(--lilac);
+  --color-section-grey: var(--section-grey);
 }
 
 :root {
   --radius: 0.25rem;
   --background: oklch(0.972 0.021 87);
+  --section-grey: oklch(0.935 0.003 87);
   --foreground: oklch(0.27 0.09 292);
   --card: oklch(0.99 0.012 87);
   --card-foreground: oklch(0.27 0.09 292);

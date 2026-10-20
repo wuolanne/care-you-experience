@@ -2,8 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageProvider";
 import { Video, FileText, ShoppingBag, ArrowRight, ShieldCheck, MessagesSquare, HeartHandshake, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { NewsSection } from '@/features/news/NewsSection';
+import { newsQuery } from '@/features/news/queries';
 
 export const Route = createFileRoute("/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(newsQuery),
   head: () => ({
     meta: [
       { title: "TGN Services — Laadukasta siivousta koteihin ja toimitiloihin" },
@@ -68,7 +71,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="hinnoittelu" aria-labelledby="pricing-banner-title" className="border-b border-border/60 bg-secondary/30">
+      <section id="hinnoittelu" aria-labelledby="pricing-banner-title" className="border-b border-border/60 bg-background">
         <div className="mx-auto max-w-6xl px-6 py-12 text-center md:py-16">
           <h2 id="pricing-banner-title" className="text-4xl leading-tight text-primary md:text-5xl">{tr.pricingBanner.title}</h2>
           <div className="mx-auto mt-6 max-w-4xl space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
@@ -86,7 +89,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="arvot" aria-labelledby="values-title" className="border-b border-border/60">
+      <section id="arvot" aria-labelledby="values-title" className="border-b border-border/60 bg-section-grey">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="text-center">
             <p className="eyebrow">{tr.values.eyebrow}</p>
@@ -108,7 +111,10 @@ function Index() {
       </section>
 
 
-      <section aria-labelledby="about-title" className="mx-auto max-w-6xl px-6 py-24">
+      <NewsSection />
+
+      <section aria-labelledby="about-title" className="bg-section-grey">
+      <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="eyebrow">{tr.about.eyebrow}</p>
@@ -140,9 +146,10 @@ function Index() {
             <p className="mt-8 border-t border-border pt-6 text-lg font-medium leading-relaxed text-primary">{tr.about.closing}</p>
           </div>
         </div>
+      </div>
       </section>
 
-      <section id="aloita" className="border-y border-border/60 bg-secondary/30">
+      <section id="aloita" className="border-y border-border/60 bg-background">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <div className="text-center">
             <p className="eyebrow">{tr.actions.eyebrow}</p>
@@ -168,7 +175,8 @@ function Index() {
         </div>
       </section>
 
-      <section id="palvelut" className="mx-auto max-w-6xl px-6 py-24">
+      <section id="palvelut" className="bg-section-grey">
+      <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="text-center">
           <p className="eyebrow">{tr.services.eyebrow}</p>
           <h2 className="mt-4 text-3xl md:text-4xl">{tr.services.title}</h2>
@@ -196,6 +204,7 @@ function Index() {
             </article>
           ))}
         </div>
+      </div>
       </section>
     </>
   );
