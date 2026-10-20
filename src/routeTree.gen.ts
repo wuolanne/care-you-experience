@@ -10,17 +10,30 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CareKotiinRouteImport } from './routes/care-kotiin'
 import { Route as CarePalveluseteliRouteImport } from './routes/care-palveluseteli'
 import { Route as CareYrityksilleRouteImport } from './routes/care-yrityksille'
 import { Route as HinnoitteluRouteImport } from './routes/hinnoittelu'
 import { Route as OstaRouteImport } from './routes/osta'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TarjouspyyntoRouteImport } from './routes/tarjouspyynto'
 import { Route as VaraaRouteImport } from './routes/varaa'
+import { Route as AuthenticatedUutistenYllapitoRouteImport } from './routes/_authenticated/uutisten-yllapito'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareKotiinRoute = CareKotiinRouteImport.update({
@@ -48,6 +61,11 @@ const OstaRoute = OstaRouteImport.update({
   path: '/osta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TarjouspyyntoRoute = TarjouspyyntoRouteImport.update({
   id: '/tarjouspyynto',
   path: '/tarjouspyynto',
@@ -58,78 +76,107 @@ const VaraaRoute = VaraaRouteImport.update({
   path: '/varaa',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedUutistenYllapitoRoute =
+  AuthenticatedUutistenYllapitoRouteImport.update({
+    id: '/uutisten-yllapito',
+    path: '/uutisten-yllapito',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/care-kotiin': typeof CareKotiinRoute
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
   '/hinnoittelu': typeof HinnoitteluRoute
   '/osta': typeof OstaRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
+  '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/care-kotiin': typeof CareKotiinRoute
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
   '/hinnoittelu': typeof HinnoitteluRoute
   '/osta': typeof OstaRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
+  '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/care-kotiin': typeof CareKotiinRoute
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
   '/hinnoittelu': typeof HinnoitteluRoute
   '/osta': typeof OstaRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
+  '/_authenticated/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/care-kotiin'
     | '/care-palveluseteli'
     | '/care-yrityksille'
     | '/hinnoittelu'
     | '/osta'
+    | '/reset-password'
     | '/tarjouspyynto'
     | '/varaa'
+    | '/uutisten-yllapito'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/care-kotiin'
     | '/care-palveluseteli'
     | '/care-yrityksille'
     | '/hinnoittelu'
     | '/osta'
+    | '/reset-password'
     | '/tarjouspyynto'
     | '/varaa'
+    | '/uutisten-yllapito'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/care-kotiin'
     | '/care-palveluseteli'
     | '/care-yrityksille'
     | '/hinnoittelu'
     | '/osta'
+    | '/reset-password'
     | '/tarjouspyynto'
     | '/varaa'
+    | '/_authenticated/uutisten-yllapito'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   CareKotiinRoute: typeof CareKotiinRoute
   CarePalveluseteliRoute: typeof CarePalveluseteliRoute
   CareYrityksilleRoute: typeof CareYrityksilleRoute
   HinnoitteluRoute: typeof HinnoitteluRoute
   OstaRoute: typeof OstaRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   TarjouspyyntoRoute: typeof TarjouspyyntoRoute
   VaraaRoute: typeof VaraaRoute
 }
@@ -141,6 +188,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/care-kotiin': {
@@ -178,6 +239,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OstaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tarjouspyynto': {
       id: '/tarjouspyynto'
       path: '/tarjouspyynto'
@@ -192,16 +260,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VaraaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/uutisten-yllapito': {
+      id: '/_authenticated/uutisten-yllapito'
+      path: '/uutisten-yllapito'
+      fullPath: '/uutisten-yllapito'
+      preLoaderRoute: typeof AuthenticatedUutistenYllapitoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedUutistenYllapitoRoute: typeof AuthenticatedUutistenYllapitoRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedUutistenYllapitoRoute: AuthenticatedUutistenYllapitoRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   CareKotiinRoute: CareKotiinRoute,
   CarePalveluseteliRoute: CarePalveluseteliRoute,
   CareYrityksilleRoute: CareYrityksilleRoute,
   HinnoitteluRoute: HinnoitteluRoute,
   OstaRoute: OstaRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   TarjouspyyntoRoute: TarjouspyyntoRoute,
   VaraaRoute: VaraaRoute,
 }
