@@ -41,12 +41,13 @@ function AboutPage() {
     <>
     <section aria-labelledby="about-title" className="border-b border-border/60 bg-[image:var(--gradient-lilac)]">
       <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-        <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid gap-x-12 gap-y-8 md:grid-cols-[0.9fr_1.1fr] md:grid-rows-[auto_1fr]">
           <div>
             <p className="eyebrow">{tr.about.eyebrow}</p>
             <h1 id="about-title" className="mt-4 text-3xl leading-tight md:text-4xl">{tr.about.title}</h1>
             <div className="hairline mt-6 w-24" />
-            <div className="mt-8">
+          </div>
+          <div className="md:col-start-1 md:row-start-2">
               {campaignImage ? (
                 <img
                   src={campaignImage}
@@ -61,9 +62,8 @@ function AboutPage() {
                   <ImageIcon className="size-8 text-gold/70" strokeWidth={1.2} />
                 </div>
               )}
-            </div>
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 md:col-start-2 md:row-start-2">
             <h2 className="text-2xl leading-tight md:text-3xl">{tr.about.headline}</h2>
             <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
               {tr.about.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}

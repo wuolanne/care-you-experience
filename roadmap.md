@@ -41,3 +41,4 @@
 38. [x] Replace the about closing slogan with a separate cream partnership banner, blank billing area and three photo/first-name personnel slots; verified in FI/SV/ES/EN and on mobile.
 39. [x] Stack the cream partnership banner at full banner width: billing details first, "Henkilöstömme" directly beneath it; verified order and layout.
 
+40. [x] Lavender about banner: right-hand text starts level with the campaign-image frame (headline block in its own row above); verified alignment and no overflow.
