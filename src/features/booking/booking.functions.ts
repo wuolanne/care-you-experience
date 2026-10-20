@@ -18,7 +18,7 @@ const RATE_LIMIT_MAX = 5;
 export const submitBookingRequest = createServerFn({ method: "POST" })
   .inputValidator((data) => bookingSchema.parse(data))
   .handler(async ({ data }) => {
-    const ip = (await import("@tanstack/react-start")).getRequestHeader("x-forwarded-for") ?? "unknown";
+    const ip = getRequestHeader("x-forwarded-for") ?? "unknown";
     const now = Date.now();
     const hits = (recentSubmissions.get(ip) ?? []).filter((t) => now - t < RATE_LIMIT_MS);
     if (hits.length >= RATE_LIMIT_MAX) {
