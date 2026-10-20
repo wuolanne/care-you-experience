@@ -22,7 +22,9 @@ export function BusinessService() {
       })}</div>
     </section>
     <section className="border-t border-border bg-background"><div className="mx-auto max-w-6xl px-6 pb-14 pt-10">
-      <h2 className="text-3xl md:text-4xl">{t.partner}</h2><div className="mt-7 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">{t.benefits.map(([title, body], index) => {
+      <h2 className="text-3xl md:text-4xl">{t.partner}</h2><div className="mt-7 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">{t.benefits.map((benefit, index) => {
+        if (!benefit) return null;
+        const [title, body] = benefit;
         const Icon = benefitIcons[index] ?? ShieldCheck;
         return <div key={title}><Icon className="size-6 text-primary" strokeWidth={1.3} aria-hidden="true" /><h3 className="mt-4 text-2xl">{title}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{body}</p></div>;
       })}</div>
