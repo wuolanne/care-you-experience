@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      booking_requests: {
+        Row: {
+          contact_email: string
+          created_at: string
+          id: string
+          lang: string
+          meeting_date: string
+          preferred_time: string
+        }
+        Insert: {
+          contact_email: string
+          created_at?: string
+          id?: string
+          lang?: string
+          meeting_date: string
+          preferred_time: string
+        }
+        Update: {
+          contact_email?: string
+          created_at?: string
+          id?: string
+          lang?: string
+          meeting_date?: string
+          preferred_time?: string
+        }
+        Relationships: []
+      }
       news: {
         Row: {
           body: Json
