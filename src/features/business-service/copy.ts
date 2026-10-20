@@ -9,7 +9,6 @@ export const businessCopy = {
     body: 'Rakennamme yrityksellesi sopivan palvelukokonaisuuden. Huolehdimme sovituista töistä samalla tarkkuudella niin ulkotiloissa kuin sisätiloissa ja ajoitamme käynnit toimintasi mukaan. Työn sisältö, vastuut ja yhteydenpito sovitaan selkeästi ennen aloitusta.',
     services: [
       ['Toimitilojen ylläpitosiivous', 'Henkilöstön ja asiakkaiden tilojen puhtaanapito ja huolenpito. Säännöllinen lattioiden, pintojen ja yhteisten tilojen siivous sovitulla rytmillä. Siivouksen laajuus ja ajankohdat suunnitellaan toimitilojesi käytön mukaan.'],
-      ['Ikkunat ja lasipinnat', 'Ikkunoiden, lasiovien ja muiden sovittujen lasipintojen pesu. Työmenetelmät ja toteutus sovitaan kohteen ja turvallisen työskentelyn mukaan.'],
       ['Piha- ja ulkoalueiden siisteys', 'Roskien keruu, lehtien haravointi ja ulkoalueiden siistiminen. Hoidamme sisäänkäynnit ja sovitut kulkuväylät osana palvelukokonaisuutta.'],
       ['Käsin tehtävät lumityöt ja hiekoitus', 'Sovittujen sisäänkäyntien, portaiden ja kulkuväylien lumityöt käsin sekä hiekoitus. Kohteet, käyntien rytmi ja työn laajuus sovitaan etukäteen.'],
     ],
@@ -25,7 +24,6 @@ export const businessCopy = {
     body: 'Vi bygger en servicehelhet för ditt företag och utför uppgifterna med samma noggrannhet ute som inne. Besöken anpassas till verksamheten. Innehåll, ansvar och kommunikation avtalas tydligt före start.',
     services: [
       ['Regelbunden lokalstädning', 'Rengöring och omsorg om utrymmena för personal och kunder. Städning av golv, ytor och gemensamma utrymmen med överenskomna intervall. Omfattning och tidpunkter anpassas till hur lokalerna används.'],
-      ['Fönster och glasytor', 'Tvätt av fönster, glasdörrar och andra överenskomna glasytor med säkra metoder anpassade till platsen.'],
       ['Gårdar och uteområden', 'Skräpplockning, lövkrattning och städning av uteområden. Entréer och överenskomna gångvägar ingår enligt serviceavtalet.'],
       ['Manuell snöröjning och sandning', 'Manuell snöröjning och sandning av överenskomna entréer, trappor och gångvägar. Platser, intervall och omfattning avtalas i förväg.'],
     ],
@@ -41,7 +39,6 @@ export const businessCopy = {
     body: 'Diseñamos un conjunto de servicios para tu empresa con la misma atención dentro y fuera. Adaptamos las visitas a tu actividad y acordamos el contenido, las responsabilidades y la comunicación antes de empezar.',
     services: [
       ['Limpieza regular de locales', 'Limpieza y cuidado de los espacios compartidos por el personal y los clientes. Limpieza de suelos, superficies y espacios comunes con la frecuencia acordada. Adaptamos el alcance y el horario al uso de tus locales.'],
-      ['Ventanas y superficies de vidrio', 'Limpieza de ventanas, puertas de cristal y otras superficies acordadas, con métodos seguros adaptados al lugar.'],
       ['Patios y zonas exteriores', 'Recogida de basura y hojas y limpieza de exteriores. Cuidamos las entradas y accesos acordados como parte del servicio.'],
       ['Retirada manual de nieve y esparcimiento de arena', 'Retirada manual de nieve y esparcimiento de arena en entradas, escaleras y accesos acordados. Definimos las zonas, la frecuencia y el alcance de antemano.'],
     ],
@@ -57,7 +54,6 @@ export const businessCopy = {
     body: 'We build a service package for your business with the same attention outdoors and indoors. Visits fit around your operations, and we agree on the scope, responsibilities and communication before starting.',
     services: [
       ['Regular premises cleaning', 'Cleaning and care for the spaces shared by staff and customers. Cleaning floors, surfaces and shared spaces at an agreed frequency. The scope and timing are tailored to how your premises are used.'],
-      ['Windows and glass surfaces', 'Cleaning windows, glass doors and other agreed glass surfaces, with safe methods suited to the site.'],
       ['Grounds and outdoor upkeep', 'Collecting litter, raking leaves and tidying outdoor areas. Entrances and agreed access paths are cared for as part of your service.'],
       ['Manual snow clearing and gritting', 'Manual snow clearing and gritting for agreed entrances, stairs and access paths. Areas, frequency and scope are agreed in advance.'],
     ],
