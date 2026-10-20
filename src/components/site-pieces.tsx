@@ -4,21 +4,36 @@ export function PageHero({
   eyebrow,
   title,
   lead,
+  tone = "default",
 }: {
   eyebrow: string;
   title: string;
   lead?: string;
+  tone?: "default" | "lilac";
 }) {
   return (
-    <section className="border-b border-border/60 bg-secondary/30">
+    <section
+      className={`border-b border-border/60 ${
+        tone === "lilac" ? "bg-[image:var(--gradient-lilac)]" : "bg-secondary/30"
+      }`}
+    >
       <div className="mx-auto max-w-4xl px-6 py-20 text-center">
         <p className="eyebrow">{eyebrow}</p>
-        <h1 className="mt-4 text-4xl leading-tight md:text-5xl">{title}</h1>
-        {lead && <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground">{lead}</p>}
+        <h1 className="mt-4 text-4xl leading-tight text-primary md:text-5xl">{title}</h1>
+        {lead && (
+          <p
+            className={`mx-auto mt-5 max-w-2xl text-base ${
+              tone === "lilac" ? "text-primary" : "text-muted-foreground"
+            }`}
+          >
+            {lead}
+          </p>
+        )}
       </div>
     </section>
   );
 }
+
 
 export function ContactForm({
   fields,
