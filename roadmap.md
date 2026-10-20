@@ -24,6 +24,6 @@
 22. [x] Add a pricing banner before the values section, polish and translate its copy into FI/SV/ES/EN, and verify both service buttons.
 
 23. [x] Standardize all company text and metadata to approved TGN names in every language; preserve approved logo and contact address.
-24. [ ] Add news banner after pricing and values, three news slots, more-news arrow and secure self-service news editing.
-25. [ ] Alternate homepage cream and neutral grey sections, make About grey, and reserve lavender for the first banner only.
-26. [ ] Update contact email to info@tgnservices.fi.
+24. [x] Add news banner after pricing and values, three news slots, more-news arrow and secure self-service news editing; verified authenticated save and public read-back. Marianne creates her account and confirms info@tgnservices.fi to activate her administrator role.
+25. [x] Alternate homepage cream and neutral grey sections, make About grey, and reserve lavender for the first banner only.
+26. [x] Update contact email to info@tgnservices.fi.

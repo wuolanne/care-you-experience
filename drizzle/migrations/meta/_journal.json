@@ -15,6 +15,13 @@
       "when": 1792472117782,
       "tag": "0001_verified_news_administrator",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792472270547,
+      "tag": "0002_restrict_role_function_execution",
+      "breakpoints": true
     }
   ]
 }
