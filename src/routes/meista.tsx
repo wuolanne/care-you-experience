@@ -85,7 +85,7 @@ function AboutPage() {
               const action = startActions[index] ?? fallbackAction;
               const { Icon } = action;
               return (
-                <div key={item.title} className="flex flex-col rounded-sm border border-border bg-card p-8">
+                <div key={item.title} className="flex flex-col rounded-sm border border-border bg-background p-8">
                   <h3 className="text-xl leading-snug">{item.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
                   <div className="mt-6 pt-2">
