@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageProvider";
-import { Video, FileText, ShoppingBag, ArrowRight, ShieldCheck, MessagesSquare, HeartHandshake, Wallet } from "lucide-react";
+import { ArrowRight, ShieldCheck, MessagesSquare, HeartHandshake, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NewsSection } from '@/features/news/NewsSection';
 import { newsQuery } from '@/features/news/queries';
@@ -33,18 +33,6 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { tr } = useLang();
 
-  const actions = [
-    { icon: Video, ...tr.actions.book, to: "/varaa" as const },
-    { icon: FileText, ...tr.actions.quote, to: "/tarjouspyynto" as const },
-    { icon: ShoppingBag, ...tr.actions.buy, to: "/osta" as const },
-  ];
-
-  const services = [
-    { ...tr.services.kotiin, to: "/care-kotiin" as const },
-    { ...tr.services.yrityksille, to: "/care-yrityksille" as const },
-    { ...tr.services.palveluseteli, to: "/care-palveluseteli" as const },
-  ];
-
   return (
     <>
       <section className="relative overflow-hidden border-b border-border/60 bg-[image:var(--gradient-lilac)]">
@@ -61,10 +49,10 @@ function Index() {
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
-                <a href="#aloita">{tr.hero.cta}</a>
+                <Link to="/tarjouspyynto">{tr.hero.cta}</Link>
               </Button>
               <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
-                <a href="#palvelut">{tr.hero.secondary}</a>
+                <Link to="/care-kotiin">{tr.hero.secondary}</Link>
               </Button>
             </div>
           </div>
@@ -149,63 +137,6 @@ function Index() {
       </div>
       </section>
 
-      <section id="aloita" className="border-y border-border/60 bg-background">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <div className="text-center">
-            <p className="eyebrow">{tr.actions.eyebrow}</p>
-            <h2 className="mt-4 text-3xl md:text-4xl">{tr.actions.title}</h2>
-          </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {actions.map((a) => (
-              <Link
-                key={a.to}
-                to={a.to}
-                className="group flex flex-col rounded-sm border border-border bg-card p-9 transition-shadow hover:shadow-[var(--shadow-elegant)]"
-              >
-                <a.icon className="size-6 text-accent" strokeWidth={1.25} />
-                <h3 className="mt-6 text-2xl">{a.title}</h3>
-                <p className="mt-3 flex-1 text-sm text-muted-foreground">{a.body}</p>
-                <span className="mt-8 inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.2em] text-primary">
-                  {a.cta}
-                  <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="palvelut" className="bg-section-grey">
-      <div className="mx-auto max-w-6xl px-6 py-24">
-        <div className="text-center">
-          <p className="eyebrow">{tr.services.eyebrow}</p>
-          <h2 className="mt-4 text-3xl md:text-4xl">{tr.services.title}</h2>
-        </div>
-        <div className="mt-14 grid gap-8 md:grid-cols-3">
-          {services.map((s) => (
-            <article key={s.to} className="border-t border-plum/30 pt-8">
-              <h3 className="text-2xl">{s.title}</h3>
-              <p className="mt-3 text-sm text-muted-foreground">{s.body}</p>
-              <ul className="mt-6 space-y-2 text-sm">
-                {s.items.map((i) => (
-                  <li key={i} className="flex gap-3">
-                    <span className="mt-2 size-1 shrink-0 rounded-full bg-accent" />
-                    {i}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to={s.to}
-                className="mt-7 inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.2em] text-primary hover:opacity-80"
-              >
-                {tr.services.more}
-                <ArrowRight className="size-3.5" />
-              </Link>
-            </article>
-          ))}
-        </div>
-      </div>
-      </section>
     </>
   );
 }
