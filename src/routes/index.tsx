@@ -47,14 +47,6 @@ function Index() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
-                <Link to="/tarjouspyynto">{tr.hero.cta}</Link>
-              </Button>
-              <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
-                <Link to="/care-kotiin">{tr.hero.secondary}</Link>
-              </Button>
-            </div>
           </div>
         </div>
       </section>
