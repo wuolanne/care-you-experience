@@ -2,10 +2,20 @@ import { Link } from "@tanstack/react-router";
 import logo from "@/assets/tgs-logo-g.png";
 import { useLang } from "@/i18n/LanguageProvider";
 import { NewsAdminLink } from '@/features/news/NewsAdminLink';
-import { BUSINESS_ID } from '@/data/company';
+import { BUSINESS_ID, SOCIAL_LINKS, type SocialKey } from '@/data/company';
+import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
+
+const SOCIAL: { key: SocialKey; name: string; Icon: typeof Instagram }[] = [
+  { key: "instagram", name: "Instagram", Icon: Instagram },
+  { key: "facebook", name: "Facebook", Icon: Facebook },
+  { key: "linkedin", name: "LinkedIn", Icon: Linkedin },
+  { key: "youtube", name: "YouTube", Icon: Youtube },
+];
 
 export function SiteFooter() {
   const { tr } = useLang();
+  const iconBase =
+    "inline-flex size-9 items-center justify-center rounded-sm border border-primary/25 bg-background text-primary shadow-[var(--shadow-soft)] transition-colors hover:border-gold";
   return (
     <footer className="border-t border-border/60 bg-section-grey">
       <div className="mx-auto grid max-w-7xl gap-5 px-6 py-6 md:grid-cols-[1.1fr_1fr_1fr] md:items-center md:gap-8 md:py-7">
@@ -21,15 +31,46 @@ export function SiteFooter() {
             <Link to="/care-palveluseteli" className="hover:text-primary">{tr.nav.palveluseteli}</Link>
           </div>
         </div>
-        <div className="space-y-2 md:space-y-3">
-          <p className="eyebrow">{tr.footer.contact}</p>
-          <div className="flex flex-col gap-1 text-sm text-foreground/80 md:gap-2">
-            <a href="mailto:info@tgnservices.fi" className="hover:text-primary">info@tgnservices.fi</a>
-            <a href="tel:+3584578359301" className="hover:text-primary">+358 45 78359301</a>
-            <p className="text-foreground/70">{tr.footer.businessId}: {BUSINESS_ID}</p>
+        <div className="space-y-3 md:space-y-4">
+          <div className="space-y-2 md:space-y-3">
+            <p className="eyebrow">{tr.footer.contact}</p>
+            <div className="flex flex-col gap-1 text-sm text-foreground/80 md:gap-2">
+              <a href="mailto:info@tgnservices.fi" className="hover:text-primary">info@tgnservices.fi</a>
+              <a href="tel:+3584578359301" className="hover:text-primary">+358 45 78359301</a>
+              <p className="text-foreground/70">{tr.footer.businessId}: {BUSINESS_ID}</p>
+            </div>
           </div>
-
-
+          <div className="space-y-2 md:space-y-3">
+            <p className="eyebrow">{tr.footer.follow}</p>
+            <div className="flex flex-wrap gap-2">
+              {SOCIAL.map(({ key, name, Icon }) => {
+                const url = SOCIAL_LINKS[key];
+                return url ? (
+                  <a
+                    key={key}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={name}
+                    title={name}
+                    className={iconBase}
+                  >
+                    <Icon aria-hidden="true" className="size-4" />
+                  </a>
+                ) : (
+                  <span
+                    key={key}
+                    role="img"
+                    aria-label={`${name} — ${tr.footer.socialPending}`}
+                    title={`${name} — ${tr.footer.socialPending}`}
+                    className={`${iconBase} opacity-60`}
+                  >
+                    <Icon aria-hidden="true" className="size-4" />
+                  </span>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
       <div className="border-t border-border/60 py-3 text-center text-xs text-muted-foreground">
