@@ -77,7 +77,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="arvot" aria-labelledby="values-title" className="border-b border-border/60 bg-section-grey">
+      <section id="arvot" aria-labelledby="values-title" className="border-b border-border/60 bg-[image:var(--gradient-lilac)]">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="text-center">
             <p className="eyebrow">{tr.values.eyebrow}</p>
