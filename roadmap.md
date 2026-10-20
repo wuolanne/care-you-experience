@@ -42,3 +42,4 @@
 39. [x] Stack the cream partnership banner at full banner width: billing details first, "Henkilöstömme" directly beneath it; verified order and layout.
 
 40. [x] Lavender about banner: right-hand text starts level with the campaign-image frame (headline block in its own row above); verified alignment and no overflow.
+41. [x] "Aloitetaan sinulle sopivalla tavalla" boxes: cream company background; verified color and readability.
