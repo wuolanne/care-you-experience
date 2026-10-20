@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "TGN Services hoitaa kotisi tai toimitilasi siivouksen huolella ja kantaa kokonaisvaltaisen vastuun. Avoin viestintä, tuttu henkilöstö ja selkeä hinnoittelu ilman piilokuluja.",
+          "TGN Services hoitaa kotisi ja toimitilasi niin sisältä kuin ulkoa ja kantaa kokonaisvaltaisen vastuun. Avoin viestintä, tuttu henkilöstö ja selkeä hinnoittelu ilman piilokuluja.",
       },
       {
         property: "og:title",
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:description",
-        content: "Laadukasta siivousta koteihin ja toimitiloihin – pidämme huolta asiakkaistamme. Luotettava kumppanuus ja tasalaatuinen siivous ilman piilokuluja.",
+        content: "Laadukasta siivousta koteihin ja toimitiloihin – sisältä ja ulkoa. Pidämme huolta asiakkaistamme: luotettava kumppanuus ja tasalaatuinen siivous ilman piilokuluja.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
