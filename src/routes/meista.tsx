@@ -30,6 +30,7 @@ function AboutPage() {
   const t = homeCopy[lang];
   const [form, setForm] = useState<'contact' | 'start' | null>(null);
 
+  const fallbackAction = { kind: 'contact' as const, label: t.contact, Icon: Mail };
   const startActions = [
     { kind: 'contact' as const, label: t.contact, Icon: Mail },
     { kind: 'video' as const, label: t.video, Icon: Video },
@@ -81,7 +82,7 @@ function AboutPage() {
           <div className="hairline mt-6 w-24" />
           <div className="mt-8 grid gap-5 sm:grid-cols-3">
             {tr.about.start.items.map((item, index) => {
-              const action = startActions[index] ?? startActions[0];
+              const action = startActions[index] ?? fallbackAction;
               const { Icon } = action;
               return (
                 <div key={item.title} className="flex flex-col rounded-sm border border-border bg-card p-8">
@@ -93,7 +94,7 @@ function AboutPage() {
                         <Link to="/varaa"><Icon aria-hidden="true" />{action.label}</Link>
                       </Button>
                     ) : (
-                      <Button size="lg" className="h-auto min-h-12 w-full whitespace-normal py-3" onClick={() => setForm(action.kind)}>
+                      <Button size="lg" className="h-auto min-h-12 w-full whitespace-normal py-3" onClick={() => setForm(action.kind === 'start' ? 'start' : 'contact')}>
                         <Icon aria-hidden="true" />{action.label}
                       </Button>
                     )}
