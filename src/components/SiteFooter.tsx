@@ -29,7 +29,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <div className="border-t border-border/60 py-5 text-center text-xs text-muted-foreground">
+      <div className="border-t border-border/60 py-3 text-center text-xs text-muted-foreground">
         © {new Date().getFullYear()} TGN Services · {tr.footer.rights}
         <NewsAdminLink />
       </div>
