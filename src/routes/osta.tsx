@@ -5,9 +5,9 @@ import { useLang } from "@/i18n/LanguageProvider";
 export const Route = createFileRoute("/osta")({
   head: () => ({
     meta: [
-      { title: "Osta palvelu | T & G Nordic Services" },
+      { title: "Osta palvelu | TGN Services" },
       { name: "description", content: "Valmiit palvelupaketit kotihoivaan ja yrityksille – selkeä hinnoittelu, nopea aloitus." },
-      { property: "og:title", content: "Osta palvelu | T & G Nordic Services" },
+      { property: "og:title", content: "Osta palvelu | TGN Services" },
       { property: "og:description", content: "Valmiit palvelupaketit, joilla pääset alkuun heti." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
