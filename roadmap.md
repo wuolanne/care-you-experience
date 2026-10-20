@@ -45,3 +45,4 @@
 41. [x] "Aloitetaan sinulle sopivalla tavalla" boxes: cream company background; verified color and readability.
 42. [x] Personnel photo slots made small (about 160 px wide portrait frames, centered in their third, small caption); verified size and layout.
 43. [x] Billing reserved area made light: thin dashed box about 128 px tall, aligned with the small personnel frames; verified size and layout.
+44. [x] Cream partnership banner order swapped: "Henkilöstömme" now comes before "Laskutustiedot"; verified order on screen.
