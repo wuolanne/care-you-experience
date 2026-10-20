@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageProvider";
-import { Video, FileText, ShoppingBag, ArrowRight } from "lucide-react";
+import { Video, FileText, ShoppingBag, ArrowRight, ShieldCheck, MessagesSquare, HeartHandshake, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -67,6 +67,28 @@ function Index() {
           </div>
         </div>
       </section>
+
+      <section id="arvot" aria-labelledby="values-title" className="border-b border-border/60">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <div className="text-center">
+            <p className="eyebrow">{tr.values.eyebrow}</p>
+            <h2 id="values-title" className="mt-4 text-3xl md:text-4xl">{tr.values.title}</h2>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {tr.values.items.map((value, index) => {
+              const Icon = [ShieldCheck, MessagesSquare, HeartHandshake, Wallet][index] ?? ShieldCheck;
+              return (
+                <div key={value.title} className="rounded-sm border border-border bg-card p-8">
+                  <Icon className="size-6 text-accent" strokeWidth={1.25} />
+                  <h3 className="mt-5 text-xl leading-snug">{value.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{value.body}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
 
       <section aria-labelledby="about-title" className="mx-auto max-w-6xl px-6 py-24">
         <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr]">
