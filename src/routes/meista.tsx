@@ -1,5 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Image as ImageIcon } from "lucide-react";
 import { useLang } from "@/i18n/LanguageProvider";
+
+// Kampanjakuva: importtaa kuva tähän ja aseta se muuttujaan,
+// esim. import kampanja from "@/assets/kampanja.jpg"; const campaignImage = kampanja;
+const campaignImage: string | null = null;
+
 
 export const Route = createFileRoute("/meista")({
   head: () => ({
