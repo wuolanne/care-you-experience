@@ -1,21 +1,32 @@
 import { Link } from "@tanstack/react-router";
+import type { ComponentType } from "react";
 import logo from "@/assets/tgs-logo-g.png";
 import { useLang } from "@/i18n/LanguageProvider";
 import { NewsAdminLink } from '@/features/news/NewsAdminLink';
 import { BUSINESS_ID, SOCIAL_LINKS, type SocialKey } from '@/data/company';
-import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Linkedin } from 'lucide-react';
+import { siTiktok } from 'simple-icons';
 
-const SOCIAL: { key: SocialKey; name: string; Icon: typeof Instagram }[] = [
-  { key: "instagram", name: "Instagram", Icon: Instagram },
-  { key: "facebook", name: "Facebook", Icon: Facebook },
+// TikTok is not in the icon library, so its official glyph is drawn here.
+function TiktokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d={siTiktok.path} />
+    </svg>
+  );
+}
+
+const SOCIAL: { key: SocialKey; name: string; Icon: ComponentType<{ className?: string }> }[] = [
   { key: "linkedin", name: "LinkedIn", Icon: Linkedin },
-  { key: "youtube", name: "YouTube", Icon: Youtube },
+  { key: "facebook", name: "Facebook", Icon: Facebook },
+  { key: "instagram", name: "Instagram", Icon: Instagram },
+  { key: "tiktok", name: "TikTok", Icon: TiktokIcon },
 ];
 
 export function SiteFooter() {
   const { tr } = useLang();
   const iconBase =
-    "inline-flex size-9 items-center justify-center rounded-sm border border-primary/25 bg-background text-primary shadow-[var(--shadow-soft)] transition-colors hover:border-gold";
+    "inline-flex size-10 items-center justify-center rounded-sm border-2 border-primary/60 bg-background text-primary shadow-[var(--shadow-soft)] transition-colors hover:border-gold";
   return (
     <footer className="border-t border-border/60 bg-section-grey">
       <div className="mx-auto grid max-w-7xl gap-5 px-6 py-6 md:grid-cols-[1.1fr_1fr_1fr] md:items-center md:gap-8 md:py-7">
@@ -42,7 +53,7 @@ export function SiteFooter() {
           </div>
           <div className="space-y-2 md:space-y-3">
             <p className="eyebrow">{tr.footer.follow}</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2.5">
               {SOCIAL.map(({ key, name, Icon }) => {
                 const url = SOCIAL_LINKS[key];
                 return url ? (
@@ -55,7 +66,7 @@ export function SiteFooter() {
                     title={name}
                     className={iconBase}
                   >
-                    <Icon aria-hidden="true" className="size-4" />
+                    <Icon className="size-[18px]" />
                   </a>
                 ) : (
                   <span
@@ -63,9 +74,9 @@ export function SiteFooter() {
                     role="img"
                     aria-label={`${name} — ${tr.footer.socialPending}`}
                     title={`${name} — ${tr.footer.socialPending}`}
-                    className={`${iconBase} opacity-60`}
+                    className={iconBase}
                   >
-                    <Icon aria-hidden="true" className="size-4" />
+                    <Icon className="size-[18px]" />
                   </span>
                 );
               })}
