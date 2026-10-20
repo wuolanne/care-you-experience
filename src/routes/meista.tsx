@@ -114,8 +114,8 @@ function AboutPage() {
         <div className="hairline mt-6 w-24" />
         <div className="mt-10">
           <h3 className="text-2xl leading-tight">{tr.about.billing}</h3>
-          <div aria-label={tr.about.billing} className="mt-6 min-h-56 border-y border-dashed border-gold/70" />
-          <h3 className="mt-12 text-2xl leading-tight">{tr.about.team}</h3>
+          <div aria-label={tr.about.billing} className="mt-5 min-h-32 rounded-sm border border-dashed border-gold/60" />
+          <h3 className="mt-10 text-2xl leading-tight">{tr.about.team}</h3>
           <div className="mt-6 grid grid-cols-3 justify-items-center gap-3 sm:gap-5">
             {[1, 2, 3].map(person => (
               <div key={person} className="w-full max-w-40 min-w-0">
