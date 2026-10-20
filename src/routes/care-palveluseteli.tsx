@@ -1,15 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { PageHero, ServiceDetail } from "@/components/site-pieces";
+import { createFileRoute } from "@tanstack/react-router";
+import { PageHero } from "@/components/site-pieces";
 import { useLang } from "@/i18n/LanguageProvider";
-import { ServicePricing } from "@/components/ServicePricing";
 
 export const Route = createFileRoute("/care-palveluseteli")({
   head: () => ({
     meta: [
-      { title: "TGN PALVELUSETELI — Hyväksytty palveluntuottaja | TGN Services" },
-      { name: "description", content: "Käytä kuntasi palveluseteli helposti meillä. Neuvonta, hakemusapu ja selkeä hinnoittelu." },
+      { title: "TGN Palveluseteli — Tulossa pian | TGN Services" },
+      { name: "description", content: "TGN Palveluseteli -palvelut ovat tulossa pian." },
       { property: "og:title", content: "TGN PALVELUSETELI | TGN Services" },
-      { property: "og:description", content: "Hyväksytty palveluntuottaja – palveluseteli käyttöön helposti." },
+      { property: "og:description", content: "TGN Palveluseteli – tulossa pian!" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -18,19 +17,14 @@ export const Route = createFileRoute("/care-palveluseteli")({
 });
 
 function Page() {
-  const { tr } = useLang();
+  const { tr, lang } = useLang();
+  const comingSoon = { fi: "TULOSSA PIAN!", sv: "KOMMER SNART!", es: "¡PRÓXIMAMENTE!", en: "COMING SOON!" };
   return (
     <>
-      <PageHero eyebrow={tr.services.eyebrow} title={tr.services.palveluseteli.title} lead={tr.services.palveluseteli.body} />
-      <ServiceDetail title={tr.services.palveluseteli.title} body={tr.about.body} items={tr.services.palveluseteli.items}>
-        <Link
-          to="/varaa"
-          className="mt-10 inline-block rounded-sm bg-primary px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-primary-foreground"
-        >
-          {tr.actions.book.cta}
-        </Link>
-      </ServiceDetail>
-      <ServicePricing tab="palveluseteli" />
+      <PageHero eyebrow={tr.services.eyebrow} title={tr.services.palveluseteli.title} />
+      <section className="mx-auto max-w-6xl px-6 py-20 text-center md:py-24">
+        <h2 className="break-words text-4xl text-primary md:text-6xl">{comingSoon[lang]}</h2>
+      </section>
     </>
   );
 }
