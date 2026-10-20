@@ -1,0 +1,1 @@
+ALTER TABLE public.service_start_requests ADD COLUMN once_details text; ALTER TABLE public.service_start_requests ADD COLUMN package_name text;

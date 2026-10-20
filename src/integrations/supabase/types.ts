@@ -103,6 +103,8 @@ export type Database = {
           email: string
           id: string
           lang: string
+          once_details: string | null
+          package_name: string | null
           service_type: string
           start_date: string
           start_time: string
@@ -115,6 +117,8 @@ export type Database = {
           email: string
           id?: string
           lang?: string
+          once_details?: string | null
+          package_name?: string | null
           service_type: string
           start_date: string
           start_time: string
@@ -127,6 +131,8 @@ export type Database = {
           email?: string
           id?: string
           lang?: string
+          once_details?: string | null
+          package_name?: string | null
           service_type?: string
           start_date?: string
           start_time?: string
