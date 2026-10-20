@@ -16,7 +16,16 @@ type Dict = {
     hinnoittelu: string;
   };
   hero: { eyebrow: string; title: string; lead: string; cta: string; secondary: string };
-  about: { eyebrow: string; title: string; body: string; points: string[] };
+  about: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    headline: string;
+    intro: string[];
+    sections: { title: string; body: string }[];
+    start: { title: string; items: { title: string; body: string }[] };
+    closing: string;
+  };
   actions: {
     eyebrow: string;
     title: string;
@@ -81,13 +90,26 @@ export const t: Record<Lang, Dict> = {
     },
     about: {
       eyebrow: "Meistä lyhyesti",
-      title: "Siisti koti, toimivat toimitilat, huolehdittu arki",
+      title: "Siisti koti, toimivat toimitilat, huolehdittu arki!",
       body: "Olemme suomalainen kodin- ja toimitilahoidon yritys. Teemme siivouksen ja arjen tukipalvelut ammattitaidolla ja samalla tarkkuudella niin kotona kuin työpaikalla – luotettavasti, sovitusti ja läpinäkyvällä hinnalla.",
-      points: [
-        "Koulutettu ja luotettava henkilöstö",
-        "Kodin ja toimitilojen siivous samalta kumppanilta",
-        "Läpinäkyvä hinnoittelu, ei yllätyksiä",
+      headline: "Ensiluokkaista siivousta. Tuttua huolenpitoa.",
+      intro: [
+        "Puhdas koti ja siistit toimitilat tekevät arjesta sujuvampaa. TGN Services on kotimainen palveluyritys, joka yhdistää laadukkaan siivouksen henkilökohtaiseen palveluun – jotta sinulle jää aikaa olennaiseen.",
+        "Saat oman nimetyn vastuuhenkilön, joka tuntee toiveesi ja huolehtii kokonaisuudesta. Tuttu henkilöstö, avoin viestintä ja ennakoiva yhteydenpito tekevät yhteistyöstä mutkatonta. Meille et ole vain yksi asiakas muiden joukossa, vaan kumppani, jonka arjesta pidämme huolta.",
       ],
+      sections: [
+        { title: "Selkeä hinta, joustava palvelu", body: "Valitse kiinteä kuukausipaketti tai tarpeisiisi sopiva tuntiveloitus. Sovimme palvelun sisällön ja hinnan avoimesti etukäteen. Käynnillä huolehdimme tarvittavista tehtävistä osana sovittua kokonaisuutta – ilman pikkutöistä kertyviä yllätyslaskuja tai piilokuluja." },
+        { title: "Laatutakuu tuo mielenrauhaa", body: "Laatuohjelmamme ohjaa jokaista käyntiä ja on samalla lupauksemme sinulle. Jos työn jälki ei vastaa sovittua laatua, korjaamme puutteet viipymättä ja veloituksetta. Voit luottaa siihen, että kannamme vastuun työstämme." },
+      ],
+      start: {
+        title: "Aloitetaan sinulle sopivalla tavalla",
+        items: [
+          { title: "Kerro toiveesi ja budjettisi.", body: "Suunnittelemme niihin sopivan palvelukokonaisuuden." },
+          { title: "Varaa videopalaveri.", body: "Käydään tarpeesi yhdessä läpi. Voit kutsua mukaan perheenjäsenesi tai yrityksesi tiimin." },
+          { title: "Valitse sopiva palvelupaketti.", body: "Sovitaan aloituspäivä, ja me huolehdimme lopusta." },
+        ],
+      },
+      closing: "TGN Services – puhtaampi ympäristö, huolettomampi arki.",
     },
     actions: {
       eyebrow: "Näin pääset alkuun",
@@ -163,13 +185,26 @@ export const t: Record<Lang, Dict> = {
     },
     about: {
       eyebrow: "Om oss",
-      title: "Rent hem, fungerande lokaler, omhändertagen vardag",
+      title: "Rent hem, fungerande lokaler, en vardag vi tar hand om!",
       body: "Vi är ett finländskt företag inom hem- och lokalistädning. Vi utför städning och stödtjänster med yrkeskunskap och samma noggrannhet hemma som på arbetsplatsen – pålitligt och med transparenta priser.",
-      points: [
-        "Utbildad och pålitlig personal",
-        "Hem och lokaler av samma partner",
-        "Transparent prissättning utan överraskningar",
+      headline: "Förstklassig städning. Omtanke med ett välbekant ansikte.",
+      intro: [
+        "Ett rent hem och välstädade lokaler gör vardagen smidigare. TGN Services är ett finländskt serviceföretag som förenar högkvalitativ städning med personlig service – så att du får tid för det som är viktigt.",
+        "Du får en egen utsedd kontaktperson som känner till dina önskemål och ansvarar för helheten. Välbekant personal, öppen kommunikation och proaktiv kontakt gör samarbetet enkelt. För oss är du inte bara en kund bland andra, utan en partner vars vardag vi tar hand om.",
       ],
+      sections: [
+        { title: "Tydligt pris, flexibel service", body: "Välj ett månadspaket till fast pris eller timdebitering som passar dina behov. Vi kommer öppet överens om tjänstens innehåll och pris i förväg. Under besöket utför vi de uppgifter som behövs inom den avtalade helheten – utan oväntade tillägg för småsysslor eller dolda kostnader." },
+        { title: "Vår kvalitetsgaranti ger trygghet", body: "Vårt kvalitetsprogram vägleder varje besök och är samtidigt vårt löfte till dig. Om resultatet inte motsvarar den avtalade kvaliteten åtgärdar vi bristerna utan dröjsmål och utan kostnad. Du kan lita på att vi tar ansvar för vårt arbete." },
+      ],
+      start: {
+        title: "Vi börjar på det sätt som passar dig",
+        items: [
+          { title: "Berätta om dina önskemål och din budget.", body: "Vi planerar en servicehelhet som passar dem." },
+          { title: "Boka ett videomöte.", body: "Vi går igenom dina behov tillsammans. Du kan bjuda in en familjemedlem eller ditt företags team." },
+          { title: "Välj ett lämpligt servicepaket.", body: "Vi kommer överens om ett startdatum, och vi tar hand om resten." },
+        ],
+      },
+      closing: "TGN Services – en renare omgivning, en mer bekymmersfri vardag.",
     },
     actions: {
       eyebrow: "Så kommer du igång",
@@ -245,13 +280,26 @@ export const t: Record<Lang, Dict> = {
     },
     about: {
       eyebrow: "Sobre nosotros",
-      title: "Hogar limpio, locales que funcionan, día a día resuelto",
+      title: "¡Un hogar limpio, locales bien cuidados y un día a día atendido!",
       body: "Somos una empresa finlandesa de limpieza del hogar y de locales. Realizamos la limpieza y los servicios de apoyo con profesionalidad y el mismo rigor en casa y en el trabajo, con precios transparentes.",
-      points: [
-        "Personal cualificado y de confianza",
-        "Hogar y locales con un mismo socio",
-        "Precios transparentes, sin sorpresas",
+      headline: "Limpieza de primera calidad. El cuidado de un equipo que conoces.",
+      intro: [
+        "Un hogar limpio y unos locales cuidados hacen más fácil el día a día. TGN Services es una empresa finlandesa de servicios que combina una limpieza de calidad con una atención personalizada, para que tengas tiempo para lo esencial.",
+        "Tendrás una persona de contacto asignada que conoce tus preferencias y se encarga del servicio en su conjunto. Un equipo habitual, una comunicación abierta y un contacto proactivo hacen que nuestra colaboración sea sencilla. Para nosotros no eres un cliente más, sino alguien con quien colaboramos y cuyo día a día cuidamos.",
       ],
+      sections: [
+        { title: "Precios claros, servicio flexible", body: "Elige un paquete mensual de precio fijo o una tarifa por horas adaptada a tus necesidades. Acordamos contigo el contenido y el precio del servicio de forma transparente y por adelantado. En cada visita realizamos las tareas necesarias dentro del servicio acordado, sin cargos inesperados por pequeñas tareas ni costes ocultos." },
+        { title: "Nuestra garantía de calidad te da tranquilidad", body: "Nuestro programa de calidad guía cada visita y es también nuestra promesa para ti. Si el resultado no cumple con la calidad acordada, corregimos las deficiencias sin demora y sin coste alguno. Puedes confiar en que asumimos la responsabilidad de nuestro trabajo." },
+      ],
+      start: {
+        title: "Empecemos de la forma que más te convenga",
+        items: [
+          { title: "Cuéntanos tus preferencias y tu presupuesto.", body: "Diseñamos un conjunto de servicios que se ajuste a ellos." },
+          { title: "Reserva una videollamada.", body: "Revisamos juntos tus necesidades. Puedes invitar a un familiar o al equipo de tu empresa." },
+          { title: "Elige un paquete de servicios adecuado.", body: "Acordamos la fecha de inicio y nos encargamos del resto." },
+        ],
+      },
+      closing: "TGN Services – un entorno más limpio, un día a día con menos preocupaciones.",
     },
     actions: {
       eyebrow: "Cómo empezar",
@@ -327,13 +375,26 @@ export const t: Record<Lang, Dict> = {
     },
     about: {
       eyebrow: "About us",
-      title: "A clean home, well-kept premises, a day taken care of",
+      title: "A clean home, well-kept premises, everyday life taken care of!",
       body: "We are a Finnish home and business premises cleaning company. We deliver cleaning and everyday support services with professionalism and the same attention to detail at home and at work – reliably and with transparent pricing.",
-      points: [
-        "Trained and trustworthy staff",
-        "Home and premises from one partner",
-        "Transparent pricing, no surprises",
+      headline: "First-class cleaning. Care from a familiar team.",
+      intro: [
+        "A clean home and tidy premises make everyday life run more smoothly. TGN Services is a Finnish service company combining high-quality cleaning with personal service – so you have time for what matters.",
+        "You have your own dedicated contact who knows your preferences and oversees the entire service. Familiar staff, open communication and proactive contact make working together effortless. To us, you are not just another customer, but a partner whose everyday life we care for.",
       ],
+      sections: [
+        { title: "Clear pricing, flexible service", body: "Choose a fixed-price monthly package or hourly billing that suits your needs. We agree on the scope and price of the service openly and in advance. During each visit, we take care of the necessary tasks within the agreed service – without unexpected charges for small jobs or hidden costs." },
+        { title: "Our quality guarantee brings peace of mind", body: "Our quality programme guides every visit and is also our promise to you. If the result does not meet the agreed standard, we correct any shortcomings promptly and free of charge. You can trust us to take responsibility for our work." },
+      ],
+      start: {
+        title: "Let’s start in the way that suits you",
+        items: [
+          { title: "Tell us your wishes and budget.", body: "We design a service plan to match them." },
+          { title: "Book a video meeting.", body: "We go through your needs together. You can invite a family member or your company’s team." },
+          { title: "Choose a suitable service package.", body: "We agree on a start date and take care of the rest." },
+        ],
+      },
+      closing: "TGN Services – cleaner surroundings, a more carefree everyday life.",
     },
     actions: {
       eyebrow: "How to get started",

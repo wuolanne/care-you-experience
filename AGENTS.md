@@ -13,3 +13,4 @@
 - The homepage lives at `/` (no splash gateway). The TGN logo is shown as a prominent header banner and the landing hero uses a gradient, not a photograph.
 - Service pages render their own prices through the shared ServicePricing component; the standalone pricing page retains its validated `tab` search parameter to keep existing links working without duplicated price presentation.
 - Language controls render bundled country-flag images rather than emoji, ensuring flags display consistently across platforms.
+- The homepage's extended about copy uses structured translation fields separate from the shared service-page introduction, so homepage revisions do not unintentionally rewrite service pages.
