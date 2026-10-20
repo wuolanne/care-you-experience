@@ -15,7 +15,7 @@ const SOCIAL: { key: SocialKey; name: string; Icon: typeof Instagram }[] = [
 export function SiteFooter() {
   const { tr } = useLang();
   const iconBase =
-    "inline-flex size-9 items-center justify-center rounded-sm border border-border/70 text-foreground/70 transition-colors hover:border-gold hover:text-primary";
+    "inline-flex size-9 items-center justify-center rounded-sm border border-primary/30 text-primary/85 transition-colors hover:border-gold hover:text-primary";
   return (
     <footer className="border-t border-border/60 bg-section-grey">
       <div className="mx-auto grid max-w-7xl gap-5 px-6 py-6 md:grid-cols-[1.1fr_1fr_1fr] md:items-center md:gap-8 md:py-7">
