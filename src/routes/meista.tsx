@@ -112,25 +112,22 @@ function AboutPage() {
       <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
         <h2 id="partnership-title" className="text-3xl leading-tight text-primary md:text-4xl">{tr.about.closing}</h2>
         <div className="hairline mt-6 w-24" />
-        <div className="mt-10 grid gap-12 md:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <h3 className="text-2xl leading-tight">{tr.about.billing}</h3>
-            <div aria-label={tr.about.billing} className="mt-6 min-h-56 border-y border-dashed border-gold/70" />
-          </div>
-          <div className="min-w-0">
-            <h3 className="text-2xl leading-tight">{tr.about.team}</h3>
-            <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-5">
-              {[1, 2, 3].map(person => (
-                <div key={person} className="min-w-0">
-                  <div role="img" aria-label={`${tr.about.staffPhoto} ${person}`} className="flex aspect-[3/4] items-center justify-center rounded-sm border border-dashed border-gold/70 bg-card">
-                    <ImageIcon aria-hidden="true" className="size-8 text-gold/70" strokeWidth={1.2} />
-                  </div>
-                  <p className="mt-4 break-words text-center text-base text-muted-foreground">{tr.about.firstName}</p>
+        <div className="mt-10">
+          <h3 className="text-2xl leading-tight">{tr.about.billing}</h3>
+          <div aria-label={tr.about.billing} className="mt-6 min-h-56 border-y border-dashed border-gold/70" />
+          <h3 className="mt-12 text-2xl leading-tight">{tr.about.team}</h3>
+          <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-5">
+            {[1, 2, 3].map(person => (
+              <div key={person} className="min-w-0">
+                <div role="img" aria-label={`${tr.about.staffPhoto} ${person}`} className="flex aspect-[3/4] items-center justify-center rounded-sm border border-dashed border-gold/70 bg-card">
+                  <ImageIcon aria-hidden="true" className="size-8 text-gold/70" strokeWidth={1.2} />
                 </div>
-              ))}
-            </div>
+                <p className="mt-4 break-words text-center text-base text-muted-foreground">{tr.about.firstName}</p>
+              </div>
+            ))}
           </div>
         </div>
+
       </div>
     </section>
     </>
