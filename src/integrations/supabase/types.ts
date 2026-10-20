@@ -41,6 +41,30 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          lang: string
+          message: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          lang?: string
+          message: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          lang?: string
+          message?: string
+        }
+        Relationships: []
+      }
       news: {
         Row: {
           body: Json
@@ -68,6 +92,45 @@ export type Database = {
           news_date?: string
           published?: boolean
           title?: Json
+        }
+        Relationships: []
+      }
+      service_start_requests: {
+        Row: {
+          contact_person: string
+          created_at: string
+          customer_name: string
+          email: string
+          id: string
+          lang: string
+          service_type: string
+          start_date: string
+          start_time: string
+          work_address: string
+        }
+        Insert: {
+          contact_person: string
+          created_at?: string
+          customer_name: string
+          email: string
+          id?: string
+          lang?: string
+          service_type: string
+          start_date: string
+          start_time: string
+          work_address: string
+        }
+        Update: {
+          contact_person?: string
+          created_at?: string
+          customer_name?: string
+          email?: string
+          id?: string
+          lang?: string
+          service_type?: string
+          start_date?: string
+          start_time?: string
+          work_address?: string
         }
         Relationships: []
       }

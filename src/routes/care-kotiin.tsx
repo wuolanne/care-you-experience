@@ -1,15 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { PageHero, ServiceDetail } from "@/components/site-pieces";
-import { useLang } from "@/i18n/LanguageProvider";
-import { ServicePricing } from "@/components/ServicePricing";
+import { createFileRoute } from "@tanstack/react-router";
+import { HomeService } from "@/features/home-service/HomeService";
 
 export const Route = createFileRoute("/care-kotiin")({
   head: () => ({
     meta: [
-      { title: "TGN Kotiin — Kotihoiva ja arjen apu | TGN Services" },
-      { name: "description", content: "Kotihoivaa, arjen apua ja seuraa yksilöllisesti – juuri niin usein kuin tarvitset." },
+      { title: "TGN Kotiin — Kodinhoitoa ja siivousta sisälle ja ulos | TGN Services" },
+      { name: "description", content: "Kotisiivous, kodinhoito ja pihatyöt Uudellamaalla. Kiinteät kuukausipaketit, nimetyt vastuuhenkilöt ja TGN-laatutakuu." },
       { property: "og:title", content: "TGN Kotiin | TGN Services" },
-      { property: "og:description", content: "Kotihoivaa, arjen apua ja seuraa yksilöllisesti." },
+      { property: "og:description", content: "Huolellista kodinhoitoa ja siivousta sisä- ja ulkotiloihin. Kuukausipaketit tai erillistunnit." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -18,19 +16,5 @@ export const Route = createFileRoute("/care-kotiin")({
 });
 
 function Page() {
-  const { tr } = useLang();
-  return (
-    <>
-      <PageHero eyebrow={tr.services.eyebrow} title={tr.services.kotiin.title} lead={tr.services.kotiin.body} />
-      <ServiceDetail title={tr.services.kotiin.title} body={tr.about.body} items={tr.services.kotiin.items}>
-        <Link
-          to="/varaa"
-          className="mt-10 inline-block rounded-sm bg-primary px-8 py-4 text-[0.72rem] uppercase tracking-[0.2em] text-primary-foreground"
-        >
-          {tr.actions.book.cta}
-        </Link>
-      </ServiceDetail>
-      <ServicePricing tab="kotiin" />
-    </>
-  );
+  return <HomeService />;
 }

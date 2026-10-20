@@ -29,9 +29,9 @@
 26. [x] Update contact email to info@tgnservices.fi.
 27. [x] Open the booking page directly to a calendar, then ask for time and email after day selection in all four languages; requests are stored server-side in booking_requests, not an automatic confirmed reservation.
 28. [x] Update the "Aloitetaan sinulle sopivalla tavalla" items to Marianne's wording in FI/SV/ES/EN and verify all four languages.
-29. [ ] Wire the contact form at /tarjouspyynto so submissions actually reach TGN; it currently only shows a thank-you message.
+29. [x] Contact form at /tarjouspyynto saves submissions and shows the requested thank-you message; owner emails await domain verification.
 30. [x] Store every /varaa booking request in the database; owner email notification to info@tgnservices.fi waits for a verified email domain.
-31. [ ] Rebuild TGN Kotiin with source-based banner, service boxes, monthly prices and verified household deduction.
-32. [ ] Connect simple contact and service-start forms, save submissions and verify both flows.
-33. [ ] Update booking thank-you messages in all four languages.
+31. [x] Rebuild TGN Kotiin with source-based banner, service boxes, monthly prices and verified household deduction.
+32. [x] Connect simple contact and service-start forms, save submissions and verify both flows; owner can read requests on /pyynnot.
+33. [x] Update booking thank-you messages in all four languages.
 34. [ ] Email contact, service-start and booking requests to info@tgnservices.fi — blocked by missing verified sender domain.

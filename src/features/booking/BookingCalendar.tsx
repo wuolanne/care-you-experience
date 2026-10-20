@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { format } from "date-fns";
 import { fi, sv, es, enGB } from "date-fns/locale";
 import { ArrowLeft, Mail, Video } from "lucide-react";
@@ -11,15 +12,16 @@ import { submitBookingRequest } from "./booking.functions";
 
 const locales = { fi, sv, es, en: enGB };
 const copy = {
-  fi: { day: "Valitse päivä", details: "Videopalaverin tiedot", time: "Toivottu kellonaika", zone: "Suomen aikaa (Europe/Helsinki)", email: "Sähköpostiosoite", change: "Vaihda päivää", send: "Lähetä varauspyyntö", sent: "Varauspyyntö lähetetty", sentBody: "Kiitos! Olemme sinuun yhteydessä sähköpostitse ja vahvistamme ajan.", error: "Lähettäminen ei onnistunut. Yritä hetken päästä uudelleen." },
-  sv: { day: "Välj dag", details: "Uppgifter för videomötet", time: "Önskad tid", zone: "Finsk tid (Europe/Helsinki)", email: "E-postadress", change: "Byt dag", send: "Skicka bokningsförfrågan", sent: "Bokningsförfrågan skickad", sentBody: "Tack! Vi hör av oss via e-post och bekräftar tiden.", error: "Det gick inte att skicka. Försök igen om en stund." },
-  es: { day: "Elige un día", details: "Datos de la videollamada", time: "Hora deseada", zone: "Hora de Finlandia (Europe/Helsinki)", email: "Correo electrónico", change: "Cambiar día", send: "Enviar solicitud", sent: "Solicitud enviada", sentBody: "¡Gracias! Nos pondremos en contacto por correo electrónico para confirmar la hora.", error: "No se pudo enviar. Inténtalo de nuevo en un momento." },
-  en: { day: "Choose a day", details: "Video meeting details", time: "Preferred time", zone: "Finland time (Europe/Helsinki)", email: "Email address", change: "Change day", send: "Send booking request", sent: "Booking request sent", sentBody: "Thank you! We will contact you by email to confirm the time.", error: "Sending failed. Please try again in a moment." },
+  fi: { day: "Valitse päivä", details: "Videopalaverin tiedot", time: "Toivottu kellonaika", zone: "Suomen aikaa (Europe/Helsinki)", email: "Sähköpostiosoite", change: "Vaihda päivää", send: "Lähetä varauspyyntö", sent: "Varauspyyntö lähetetty", sentBody: "Kiitos varauspyynnöstäsi! Videopalaverin varausvahvistus saapuu sähköpostiisi tämän päivän aikana.", error: "Lähettäminen ei onnistunut. Yritä hetken päästä uudelleen." },
+  sv: { day: "Välj dag", details: "Uppgifter för videomötet", time: "Önskad tid", zone: "Finsk tid (Europe/Helsinki)", email: "E-postadress", change: "Byt dag", send: "Skicka bokningsförfrågan", sent: "Bokningsförfrågan skickad", sentBody: "Tack för din bokningsförfrågan! Bekräftelsen för videomötet kommer till din e-post under dagen.", error: "Det gick inte att skicka. Försök igen om en stund." },
+  es: { day: "Elige un día", details: "Datos de la videollamada", time: "Hora deseada", zone: "Hora de Finlandia (Europe/Helsinki)", email: "Correo electrónico", change: "Cambiar día", send: "Enviar solicitud", sent: "Solicitud enviada", sentBody: "¡Gracias por tu solicitud! Recibirás la confirmación de la videollamada por correo electrónico durante el día de hoy.", error: "No se pudo enviar. Inténtalo de nuevo en un momento." },
+  en: { day: "Choose a day", details: "Video meeting details", time: "Preferred time", zone: "Finland time (Europe/Helsinki)", email: "Email address", change: "Change day", send: "Send booking request", sent: "Booking request sent", sentBody: "Thank you for your booking request! Your video meeting confirmation will arrive by email today.", error: "Sending failed. Please try again in a moment." },
 };
 
 export function BookingCalendar() {
   const { lang, tr } = useLang();
   const text = copy[lang];
+  const sendBooking = useServerFn(submitBookingRequest);
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState("");
   const [email, setEmail] = useState("");
@@ -33,7 +35,7 @@ export function BookingCalendar() {
     setPending(true);
     setFailed(false);
     try {
-      const result = await submitBookingRequest({
+      const result = await sendBooking({
         data: {
           meetingDate: format(date, "yyyy-MM-dd"),
           preferredTime: time,
@@ -90,7 +92,7 @@ export function BookingCalendar() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="booking-email">{text.email}</Label>
-            <Input id="booking-email" type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} />
+            <Input id="booking-email" type="email" autoComplete="email" maxLength={255} required value={email} onChange={(event) => setEmail(event.target.value)} />
           </div>
           {failed && <p className="text-sm text-destructive" role="alert">{text.error}</p>}
           <Button type="submit" disabled={pending} className="h-auto min-h-10 w-full whitespace-normal py-3"><Mail aria-hidden="true" />{text.send}</Button>
