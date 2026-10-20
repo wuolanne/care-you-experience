@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import logo from "@/assets/tgs-logo-g.png";
 import { useLang } from "@/i18n/LanguageProvider";
 import { NewsAdminLink } from '@/features/news/NewsAdminLink';
+import { BUSINESS_ID } from '@/data/company';
 
 export function SiteFooter() {
   const { tr } = useLang();
@@ -25,7 +26,9 @@ export function SiteFooter() {
           <div className="flex flex-col gap-1 text-sm text-foreground/80 md:gap-2">
             <a href="mailto:info@tgnservices.fi" className="hover:text-primary">info@tgnservices.fi</a>
             <a href="tel:+358401234567" className="hover:text-primary">+358 40 123 4567</a>
+            <p className="text-foreground/70">{tr.footer.businessId}: {BUSINESS_ID}</p>
           </div>
+
 
         </div>
       </div>

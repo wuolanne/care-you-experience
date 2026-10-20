@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 import { useLang } from "@/i18n/LanguageProvider";
 import { homeCopy } from "@/features/home-service/copy";
 import { RequestForm } from "@/features/home-service/RequestForms";
+import { BUSINESS_ID } from "@/data/company";
 
 export const Route = createFileRoute("/meista")({
   head: () => ({
@@ -125,7 +126,9 @@ function AboutPage() {
             ))}
           </div>
           <h3 className="mt-10 text-2xl leading-tight">{tr.about.billing}</h3>
-          <div aria-label={tr.about.billing} className="mt-5 min-h-32 rounded-sm border border-dashed border-gold/60" />
+          <div aria-label={tr.about.billing} className="mt-5 min-h-32 rounded-sm border border-dashed border-gold/60 px-5 py-4">
+            <p className="text-sm text-muted-foreground">{tr.footer.businessId}: <span className="text-foreground">{BUSINESS_ID}</span></p>
+          </div>
         </div>
 
       </div>
