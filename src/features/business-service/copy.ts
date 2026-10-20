@@ -15,6 +15,7 @@ export const businessCopy = {
     partner: 'Kumppanuus, joka tuntee yrityksesi',
     benefits: [homeCopy.fi.benefits[0], ['Nimetty vastuuhenkilö', 'Oma kumppanuusvastaava tuntee toimitilasi, toimintasi ja sovitut palvelut. Tuttu henkilöstö ja perehdytetty varahenkilö turvaavat jatkuvuuden.'], homeCopy.fi.benefits[2], ['Säännöllinen yhteistyö', 'Keräämme palautetta ja käymme tarpeesi läpi yhteistyötapaamisessa kolmen kuukauden välein. Yrityksesi nimetyt henkilöt voivat osallistua mukaan. Avoin ja ennakoiva yhteydenpito pitää sinut ajan tasalla.']],
     vat: 'Hinnat on ilmoitettu ilman arvonlisäveroa (alv 0 %). Hintoihin lisätään alv 25,5 %.',
+    inclVat: 'sis. alv',
   },
   sv: {
     banner: 'Våra tjänster TGN Yrityksille',
@@ -30,6 +31,7 @@ export const businessCopy = {
     partner: 'Ett partnerskap som känner ditt företag',
     benefits: [homeCopy.sv.benefits[0], ['Egen kontaktperson', 'Din partnerkontakt känner lokalerna, verksamheten och de avtalade tjänsterna. Bekant personal och en inskolad ersättare tryggar kontinuiteten.'], homeCopy.sv.benefits[2], ['Regelbunden dialog', 'Vi samlar feedback och går igenom behoven vid samarbetsmöten var tredje månad. Företagets utsedda personer kan delta. Öppen och proaktiv kommunikation håller dig informerad.']],
     vat: 'Priserna anges exklusive moms (moms 0 %). Moms 25,5 % tillkommer.',
+    inclVat: 'inkl. moms',
   },
   es: {
     banner: 'Nuestros servicios TGN Yrityksille',
@@ -45,6 +47,7 @@ export const businessCopy = {
     partner: 'Una colaboración que conoce tu empresa',
     benefits: [homeCopy.es.benefits[0], ['Responsable asignado', 'Tu responsable conoce tus locales, tu actividad y los servicios acordados. El personal habitual y un suplente formado garantizan la continuidad.'], homeCopy.es.benefits[2], ['Reuniones periódicas', 'Recogemos tus comentarios y revisamos las necesidades cada tres meses. Pueden participar las personas designadas por tu empresa. La comunicación abierta y proactiva te mantiene al día.']],
     vat: 'Precios sin IVA (IVA 0 %). Se añade el IVA del 25,5 %.',
+    inclVat: 'IVA incl.',
   },
   en: {
     banner: 'Our services TGN Yrityksille',
@@ -60,5 +63,6 @@ export const businessCopy = {
     partner: 'A partnership that knows your business',
     benefits: [homeCopy.en.benefits[0], ['A named contact', 'Your partnership contact knows your premises, operations and agreed services. Familiar staff and a trained substitute ensure continuity.'], homeCopy.en.benefits[2], ['Regular partnership meetings', 'We collect feedback and review your needs every three months. Your company’s designated people can join. Open, proactive communication keeps you informed.']],
     vat: 'Prices exclude VAT (VAT 0%). VAT at 25.5% is added.',
+    inclVat: 'incl. VAT',
   },
 };
