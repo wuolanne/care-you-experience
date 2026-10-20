@@ -1,11 +1,15 @@
 // ============= Full file contents =============
 
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageProvider";
-import { ArrowRight, ShieldCheck, MessagesSquare, HeartHandshake, Wallet } from "lucide-react";
+import { ArrowRight, ShieldCheck, MessagesSquare, HeartHandshake, Wallet, Mail, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { NewsSection } from '@/features/news/NewsSection';
 import { newsQuery } from '@/features/news/queries';
+import { homeCopy } from '@/features/home-service/copy';
+import { RequestForm } from '@/features/home-service/RequestForms';
 
 export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(newsQuery),
@@ -33,7 +37,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { tr } = useLang();
+  const { tr, lang } = useLang();
+  const t = homeCopy[lang];
+  const [form, setForm] = useState<'contact' | 'start' | null>(null);
 
   return (
     <>
@@ -50,11 +56,10 @@ function Index() {
               ))}
             </div>
           </div>
-
-          <div className="mt-8 flex justify-center">
-            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base uppercase tracking-wide">
-              <Link to="/meista">{tr.values.more}</Link>
-            </Button>
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            <Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('contact')}><Mail aria-hidden="true" />{t.contact}</Button>
+            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal py-3"><Link to="/varaa"><Video aria-hidden="true" />{t.video}</Link></Button>
+            <Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('start')}><ArrowRight aria-hidden="true" />{t.start}</Button>
           </div>
         </div>
       </section>

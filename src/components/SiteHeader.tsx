@@ -3,7 +3,7 @@ import { useState } from "react";
 import logo from "@/assets/tgs-logo-g.png";
 import { useLang } from "@/i18n/LanguageProvider";
 import { LANGS } from "@/i18n/translations";
-import { Menu, X, Video } from "lucide-react";
+import { Menu, X, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import fiFlag from "flag-icons/flags/4x3/fi.svg";
 import svFlag from "flag-icons/flags/4x3/se.svg";
@@ -47,12 +47,12 @@ export function SiteHeader() {
             </div>
           ))}
           <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-6 py-3 text-base">
-            <Link to="/varaa"><Video aria-hidden="true" />{tr.actions.book.title}</Link>
+            <Link to="/meista"><BookOpen aria-hidden="true" />{tr.values.more}</Link>
           </Button>
         </nav>
         <div className="flex items-center justify-end gap-4 border-t border-border/60 py-4 lg:hidden">
           <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-7 py-3 text-base">
-            <Link to="/varaa"><Video aria-hidden="true" />{tr.actions.book.title}</Link>
+            <Link to="/meista"><BookOpen aria-hidden="true" />{tr.values.more}</Link>
           </Button>
           <Button variant="ghost" size="icon" onClick={() => setOpen(!open)} aria-label="Menu" aria-expanded={open}>
             {open ? <X /> : <Menu />}
