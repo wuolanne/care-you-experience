@@ -51,3 +51,4 @@
 47. [x] Add a ready-to-link social icon row (Instagram, Facebook, LinkedIn, YouTube) under the footer contact details in all four languages; profile URLs still await Marianne.
 48. [x] Set the footer networks to Marianne's list (LinkedIn, Facebook, Instagram, TikTok) with stronger icon boxes; profile URLs still await Marianne.
 49. [x] Add WhatsApp to the footer's social row (five networks now); profile URLs still await Marianne.
+50. [x] Rename the news banner heading to just "Uutisia" (SV Nytt, ES Novedades, EN News) on every page and language.
