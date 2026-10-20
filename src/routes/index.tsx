@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageProvider";
-import { Video, FileText, ShoppingBag, ArrowRight, ShieldCheck, MessagesSquare, HeartHandshake, Wallet } from "lucide-react";
+import { ArrowRight, ShieldCheck, MessagesSquare, HeartHandshake, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NewsSection } from '@/features/news/NewsSection';
 import { newsQuery } from '@/features/news/queries';
