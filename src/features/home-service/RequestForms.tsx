@@ -30,7 +30,7 @@ export function RequestForm({kind}:{kind:'contact'|'start'}) {
   {kind==='contact'?<div className="space-y-2"><Label htmlFor="message">{t.message}</Label><Textarea id="message" name="message" rows={4} maxLength={4000} required /></div>:<>
    {field('workAddress',t.address,'text',500)}
    <div className="grid gap-4 sm:grid-cols-2">{field('startDate',t.date,'date')}{field('startTime',t.time,'time')}</div>
-   <fieldset><legend className="mb-3 text-sm font-medium">{t.type}</legend><RadioGroup value={type} onValueChange={setType} className="grid grid-cols-2 gap-3">{[['once',t.once],['monthly',t.recurring]].map(([value,label])=><Label key={value} htmlFor={`service-${value}`} className="flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border border-border p-3"><RadioGroupItem id={`service-${value}`} value={value}/><span>{label}</span></Label>)}</RadioGroup></fieldset>
+   <fieldset><legend className="mb-3 text-sm font-medium">{t.type}</legend><RadioGroup value={type} onValueChange={setType} className="grid grid-cols-2 gap-3">{(['once','monthly'] as const).map(value=><Label key={value} htmlFor={`service-${value}`} className="flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border border-border p-3"><RadioGroupItem id={`service-${value}`} value={value}/><span>{value==='once'?t.once:t.recurring}</span></Label>)}</RadioGroup></fieldset>
    <p className="text-sm text-muted-foreground">{t.startNote}</p>
   </>}
   {error&&<p role="alert" className="text-sm text-destructive">{t.error}</p>}
