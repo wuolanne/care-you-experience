@@ -1,4 +1,4 @@
-import { createServerFn, getRequestHeader } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
@@ -10,22 +10,23 @@ const bookingSchema = z.object({
   lang: z.enum(["fi", "sv", "es", "en"]),
 });
 
-// Basic per-instance rate limiting; durable state lives in the database.
-const recentSubmissions = new Map<string, number[]>();
-const RATE_LIMIT_MS = 60_000;
-const RATE_LIMIT_MAX = 5;
+// Per-worker burst protection; durable limits are checked against the database.
+let workerSubmissions = 0;
+let workerWindow = 0;
+const WORKER_WINDOW_MS = 60_000;
+const WORKER_LIMIT = 30;
 
 export const submitBookingRequest = createServerFn({ method: "POST" })
-  .inputValidator((data) => bookingSchema.parse(data))
+  .validator((data) => bookingSchema.parse(data))
   .handler(async ({ data }) => {
-    const ip = getRequestHeader("x-forwarded-for") ?? "unknown";
     const now = Date.now();
-    const hits = (recentSubmissions.get(ip) ?? []).filter((t) => now - t < RATE_LIMIT_MS);
-    if (hits.length >= RATE_LIMIT_MAX) {
+    if (now - workerWindow > WORKER_WINDOW_MS) {
+      workerWindow = now;
+      workerSubmissions = 0;
+    }
+    if (++workerSubmissions > WORKER_LIMIT) {
       return { ok: false as const, error: "rate_limited" };
     }
-    hits.push(now);
-    recentSubmissions.set(ip, hits);
 
     const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
     const supabase = createClient<Database>(process.env["SUPABASE_URL"]!, key, {
@@ -39,6 +40,16 @@ export const submitBookingRequest = createServerFn({ method: "POST" })
         },
       },
     });
+
+    // Durable rate limit: at most 3 requests per address within a minute.
+    const { count } = await supabase
+      .from("booking_requests")
+      .select("id", { count: "exact", head: true })
+      .eq("contact_email", data.email)
+      .gte("created_at", new Date(now - 60_000).toISOString());
+    if ((count ?? 0) >= 3) {
+      return { ok: false as const, error: "rate_limited" };
+    }
 
     const { error } = await supabase.from("booking_requests").insert({
       meeting_date: data.meetingDate,
