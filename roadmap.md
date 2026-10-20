@@ -47,3 +47,4 @@
 43. [x] Billing reserved area made light: thin dashed box about 128 px tall, aligned with the small personnel frames; verified size and layout.
 44. [x] Cream partnership banner order swapped: "Henkilöstömme" now comes before "Laskutustiedot"; verified order on screen.
 45. [x] Show the business ID 3664346-2 in the grey footer's contact column and in the about page's billing-details area; verified in FI/SV/ES/EN.
+46. [x] Update the site phone number to +358 45 78359301 (tel:+3584578359301) in the footer; old number removed everywhere.
