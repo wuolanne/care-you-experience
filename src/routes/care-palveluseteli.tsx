@@ -21,7 +21,8 @@ function Page() {
   const comingSoon = { fi: "TULOSSA PIAN!", sv: "KOMMER SNART!", es: "¡PRÓXIMAMENTE!", en: "COMING SOON!" };
   return (
     <>
-      <PageHero eyebrow={tr.services.eyebrow} title={tr.services.palveluseteli.title} />
+      <PageHero eyebrow={tr.services.eyebrow} title={tr.services.palveluseteli.title} tone="lilac" />
+
       <section className="mx-auto max-w-6xl px-6 py-20 text-center md:py-24">
         <h2 className="break-words text-4xl text-primary md:text-6xl">{comingSoon[lang]}</h2>
       </section>
