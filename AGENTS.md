@@ -18,4 +18,4 @@
 - News content uses multilingual JSON fields and private Storage images with signed public URLs only for published articles; database roles restrict all edits to verified administrators.
 - News administrator roles are assigned by an Auth lifecycle trigger after the approved email is verified; no browser-controlled role assignment or first-user promotion is permitted.
 - Homepage section backgrounds use semantic cream and neutral-grey tokens, with lavender reserved for the first banner, to maintain the requested alternation.
-- Video booking uses a dedicated multilingual calendar-first feature on /varaa; submission composes an email request rather than claiming a confirmed booking until scheduling is connected.
+- Video booking uses a dedicated multilingual calendar-first feature on /varaa; submissions are validated and stored server-side in public.booking_requests (anon insert-only RLS, server-side publishable client). Do not claim confirmed bookings until scheduling is connected; owner email notification waits for a verified sender domain.
