@@ -6,7 +6,7 @@ import { NewsAdminLink } from '@/features/news/NewsAdminLink';
 export function SiteFooter() {
   const { tr } = useLang();
   return (
-    <footer className="border-t border-border/60 bg-background">
+    <footer className="border-t border-border/60 bg-section-grey">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-[1.1fr_1fr_1fr] md:items-center">
         <div>
           <img src={logo} alt="TGN Services" className="h-36 w-auto md:h-44" />
