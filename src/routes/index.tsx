@@ -33,18 +33,6 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { tr } = useLang();
 
-  const actions = [
-    { icon: Video, ...tr.actions.book, to: "/varaa" as const },
-    { icon: FileText, ...tr.actions.quote, to: "/tarjouspyynto" as const },
-    { icon: ShoppingBag, ...tr.actions.buy, to: "/osta" as const },
-  ];
-
-  const services = [
-    { ...tr.services.kotiin, to: "/care-kotiin" as const },
-    { ...tr.services.yrityksille, to: "/care-yrityksille" as const },
-    { ...tr.services.palveluseteli, to: "/care-palveluseteli" as const },
-  ];
-
   return (
     <>
       <section className="relative overflow-hidden border-b border-border/60 bg-[image:var(--gradient-lilac)]">
