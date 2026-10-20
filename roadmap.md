@@ -21,3 +21,4 @@
 19. [x] Swap the term toimisto/kontor/oficina/office for toimitilat/lokaler/locales/premises everywhere, declined per language
 20. [x] Logo wordmark now reads NORDIC SERVICES under the T&G monogram with a full-width gold line; running-text name corrected to TGN Services (FI/SV/ES/EN)
 21. [x] Add the approved about-section text to the homepage in FI/SV/ES/EN and verify language switching and layout.
+22. [ ] Add a pricing banner before the values section, polish and translate its copy into FI/SV/ES/EN, and verify both service buttons.
