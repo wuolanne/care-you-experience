@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Image as ImageIcon } from "lucide-react";
+import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Image as ImageIcon, Mail, Video, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useLang } from "@/i18n/LanguageProvider";
-
-// Kampanjakuva: importtaa kuva tähän ja aseta se muuttujaan,
-// esim. import kampanja from "@/assets/kampanja.jpg"; const campaignImage = kampanja;
-const campaignImage: string | null = null;
-
+import { homeCopy } from "@/features/home-service/copy";
+import { RequestForm } from "@/features/home-service/RequestForms";
 
 export const Route = createFileRoute("/meista")({
   head: () => ({
@@ -21,8 +21,21 @@ export const Route = createFileRoute("/meista")({
   component: AboutPage,
 });
 
+// Kampanjakuva: importtaa kuva tähän ja aseta se muuttujaan,
+// esim. import kampanja from "@/assets/kampanja.jpg"; const campaignImage = kampanja;
+const campaignImage: string | null = null;
+
 function AboutPage() {
-  const { tr } = useLang();
+  const { tr, lang } = useLang();
+  const t = homeCopy[lang];
+  const [form, setForm] = useState<'contact' | 'start' | null>(null);
+
+  const fallbackAction = { kind: 'contact' as const, label: t.contact, Icon: Mail };
+  const startActions = [
+    { kind: 'contact' as const, label: t.contact, Icon: Mail },
+    { kind: 'video' as const, label: t.video, Icon: Video },
+    { kind: 'start' as const, label: t.start, Icon: ArrowRight },
+  ];
 
   return (
     <section aria-labelledby="about-title" className="border-b border-border/60 bg-[image:var(--gradient-lilac)]">
@@ -46,11 +59,9 @@ function AboutPage() {
                 >
                   <ImageIcon className="size-8 text-gold/70" strokeWidth={1.2} />
                 </div>
-
               )}
             </div>
           </div>
-
           <div className="min-w-0">
             <h2 className="text-2xl leading-tight md:text-3xl">{tr.about.headline}</h2>
             <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
@@ -62,21 +73,40 @@ function AboutPage() {
                 <p className="mt-3 text-base leading-relaxed text-muted-foreground">{section.body}</p>
               </div>
             ))}
-            <div className="mt-8">
-              <h2 className="text-2xl leading-tight">{tr.about.start.title}</h2>
-              <ul className="mt-4 space-y-4">
-                {tr.about.start.items.map((item) => (
-                  <li key={item.title} className="flex items-start gap-3 text-base leading-relaxed">
-                    <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                    <p className="text-muted-foreground"><strong className="font-medium text-foreground">{item.title}</strong> {item.body}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
             <p className="mt-8 border-t border-border pt-6 text-lg font-medium leading-relaxed text-primary">{tr.about.closing}</p>
           </div>
         </div>
+
+        <div className="mt-16">
+          <h2 className="text-3xl leading-tight md:text-4xl">{tr.about.start.title}</h2>
+          <div className="hairline mt-6 w-24" />
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+            {tr.about.start.items.map((item, index) => {
+              const action = startActions[index] ?? fallbackAction;
+              const { Icon } = action;
+              return (
+                <div key={item.title} className="flex flex-col rounded-sm border border-border bg-card p-8">
+                  <h3 className="text-xl leading-snug">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                  <div className="mt-6 pt-2">
+                    {action.kind === 'video' ? (
+                      <Button asChild size="lg" className="h-auto min-h-12 w-full whitespace-normal py-3">
+                        <Link to="/varaa"><Icon aria-hidden="true" />{action.label}</Link>
+                      </Button>
+                    ) : (
+                      <Button size="lg" className="h-auto min-h-12 w-full whitespace-normal py-3" onClick={() => setForm(action.kind === 'start' ? 'start' : 'contact')}>
+                        <Icon aria-hidden="true" />{action.label}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
+
+      <Dialog open={form !== null} onOpenChange={open => { if (!open) setForm(null); }}><DialogContent className="max-h-[90dvh] w-[calc(100%-2rem)] overflow-y-auto rounded-md"><DialogTitle className="pr-6 text-2xl font-normal">{form === 'start' ? t.start : t.contact}</DialogTitle><DialogDescription className="sr-only">{form === 'start' ? t.startNote : t.message}</DialogDescription>{form && <RequestForm key={form} kind={form} audience="home" />}</DialogContent></Dialog>
     </section>
   );
 }

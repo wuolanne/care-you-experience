@@ -37,3 +37,4 @@
 34. [ ] Email contact, service-start and booking requests to info@tgnservices.fi — blocked by missing verified sender domain.
 35. [x] Adapt the home-page structure to TGN Yrityksille, with business services, partnership benefits, source business prices and shared request forms in four languages.
 36. [x] Move all about copy off the homepage to a dedicated lavender page opened by the first banner's button; verify navigation and four languages.
+37. [x] Rebuild "Aloitetaan sinulle sopivalla tavalla" on the about page as a full-banner-width block with the three items in their own side-by-side boxes, each carrying its button (contact request, video meeting, start service) under the text; verified in FI/SV/ES/EN.
