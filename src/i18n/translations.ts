@@ -17,7 +17,7 @@ type Dict = {
   };
   hero: { eyebrow: string; title: string; lead: string; cta: string; secondary: string };
   pricingBanner: { title: string; paragraphs: string[]; languages: string; home: string; business: string };
-  values: { eyebrow: string; title: string; items: { title: string; body: string }[] };
+  values: { eyebrow: string; title: string; more: string; items: { title: string; body: string }[] };
   about: {
     eyebrow: string;
     title: string;
@@ -103,6 +103,7 @@ export const t: Record<Lang, Dict> = {
     values: {
       eyebrow: "Arvomme",
       title: "Kumppanuutta johon voi luottaa",
+      more: "Lyhyesti meistä",
       items: [
         { title: "Luotettava kumppanuus", body: "Käytössämme on laatuohjelma, joka sisältää laatutakuun. Jokaisella asiakkaalla on nimetty vastuuhenkilö, ja henkilöstö ei vaihdu koko ajan. Jokaisen asiakkaamme kanssa on yhteistyömalli, ja toteutamme säännöllisesti mielipidekyselyt sekä kehityspalaverit." },
         { title: "Avoin ja aktiivinen kommunikaatio", body: "Kommunikoimme ennakkoon ja aktiivisesti asiakkaidemme kanssa sekä tarvittaessa heidän omaistensa kanssa." },
@@ -218,6 +219,7 @@ export const t: Record<Lang, Dict> = {
     values: {
       eyebrow: "Våra värderingar",
       title: "Ett partnerskap du kan lita på",
+      more: "Kort om oss",
       items: [
         { title: "En pålitlig partner", body: "Vi arbetar enligt ett kvalitetsprogram som innehåller en kvalitetsgaranti. Varje kund har en namngiven ansvarsperson, och personalen byts inte ut hela tiden. Med varje kund finns en samarbetsmodell, och vi genomför återkommande opinionsundersökningar samt utvecklingssamtal." },
         { title: "Öppen och aktiv kommunikation", body: "Vi kommunicerar i förväg och aktivt med våra kunder samt vid behov med deras anhöriga." },
@@ -333,6 +335,7 @@ export const t: Record<Lang, Dict> = {
     values: {
       eyebrow: "Nuestros valores",
       title: "Una colaboración en la que puedes confiar",
+      more: "Sobre nosotros, en breve",
       items: [
         { title: "Colaboración fiable", body: "Trabajamos con un programa de calidad que incluye una garantía de calidad. Cada cliente tiene una persona de contacto designada y el personal no cambia constantemente. Con cada cliente hay un modelo de colaboración y realizamos regularmente encuestas de opinión y reuniones de desarrollo." },
         { title: "Comunicación abierta y activa", body: "Nos comunicamos de forma proactiva y activa con nuestros clientes y, cuando es necesario, con sus familiares." },
@@ -448,6 +451,7 @@ export const t: Record<Lang, Dict> = {
     values: {
       eyebrow: "Our values",
       title: "A partnership you can trust",
+      more: "About us in brief",
       items: [
         { title: "Reliable partnership", body: "We work to a quality programme that includes a quality guarantee. Every customer has a named contact person, and our staff do not change constantly. With each customer we have a collaboration model, and we carry out regular satisfaction surveys and development meetings." },
         { title: "Open and active communication", body: "We communicate proactively and actively with our customers, and when needed, with their next of kin." },
