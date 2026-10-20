@@ -75,7 +75,7 @@ type Dict = {
   quote: { title: string; lead: string };
   buy: { title: string; lead: string; from: string; select: string };
   splash: { kotiin: string; yrityksille: string };
-  footer: { tagline: string; contact: string; rights: string };
+  footer: { tagline: string; contact: string; rights: string; businessId: string };
 };
 
 export const t: Record<Lang, Dict> = {
@@ -197,7 +197,7 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Jätä yhteydenottopyyntö", lead: "Kerro lyhyesti tarpeistasi ja jätä yhteystietosi." },
     buy: { title: "Osta palvelu", lead: "Selkeät palvelupaketit, joilla pääset alkuun heti.", from: "alkaen", select: "Valitse" },
     splash: { kotiin: "TGN Kotiin", yrityksille: "TGN Yrityksille" },
-    footer: { tagline: "Luotettavaa kumppanuutta kotiin ja yrityksille.", contact: "Yhteystiedot", rights: "Kaikki oikeudet pidätetään." },
+    footer: { tagline: "Luotettavaa kumppanuutta kotiin ja yrityksille.", contact: "Yhteystiedot", rights: "Kaikki oikeudet pidätetään.", businessId: "Y-tunnus" },
   },
   sv: {
     nav: {
@@ -317,7 +317,7 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Be oss kontakta dig", lead: "Berätta kort om dina behov och lämna dina kontaktuppgifter." },
     buy: { title: "Köp tjänst", lead: "Tydliga servicepaket som gör att du kommer igång direkt.", from: "från", select: "Välj" },
     splash: { kotiin: "TGN Hem", yrityksille: "TGN för Företag" },
-    footer: { tagline: "Ett pålitligt partnerskap för hem och företag.", contact: "Kontakt", rights: "Alla rättigheter förbehållna." },
+    footer: { tagline: "Ett pålitligt partnerskap för hem och företag.", contact: "Kontakt", rights: "Alla rättigheter förbehållna.", businessId: "Y-tunnus" },
   },
   es: {
     nav: {
@@ -437,7 +437,7 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Solicitar contacto", lead: "Cuéntanos brevemente tus necesidades y deja tus datos de contacto." },
     buy: { title: "Comprar servicio", lead: "Paquetes claros para empezar de inmediato.", from: "desde", select: "Elegir" },
     splash: { kotiin: "TGN Hogar", yrityksille: "TGN para Empresas" },
-    footer: { tagline: "Una colaboración de confianza para hogares y empresas.", contact: "Contacto", rights: "Todos los derechos reservados." },
+    footer: { tagline: "Una colaboración de confianza para hogares y empresas.", contact: "Contacto", rights: "Todos los derechos reservados.", businessId: "NIF" },
   },
   en: {
     nav: {
@@ -557,6 +557,6 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Request a callback", lead: "Briefly describe your needs and leave your contact details." },
     buy: { title: "Buy a service", lead: "Clear service packages so you can start immediately.", from: "from", select: "Select" },
     splash: { kotiin: "TGN Home", yrityksille: "TGN for Business" },
-    footer: { tagline: "Reliable partnership for homes and businesses.", contact: "Contact", rights: "All rights reserved." },
+    footer: { tagline: "Reliable partnership for homes and businesses.", contact: "Contact", rights: "All rights reserved.", businessId: "Business ID" },
   },
 };
