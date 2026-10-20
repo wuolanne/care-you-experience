@@ -17,7 +17,7 @@ type Dict = {
   };
   hero: { eyebrow: string; title: string; lead: string; cta: string; secondary: string };
   pricingBanner: { title: string; paragraphs: string[]; languages: string; home: string; business: string };
-  values: { eyebrow: string; title: string; items: { title: string; body: string }[] };
+  values: { eyebrow: string; title: string; more: string; items: { title: string; body: string }[] };
   about: {
     eyebrow: string;
     title: string;
