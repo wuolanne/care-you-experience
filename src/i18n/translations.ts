@@ -196,7 +196,7 @@ export const t: Record<Lang, Dict> = {
       home: "Hem",
       kotiin: "TGN Hem",
       yrityksille: "TGN Företag",
-      palveluseteli: "TGN PALVELUSETELI",
+      palveluseteli: "TGN SERVICESEDEL",
       hinnoittelu: "Priser",
     },
     hero: {
@@ -271,7 +271,7 @@ export const t: Record<Lang, Dict> = {
         items: ["Lokalistädning 1–5 ggr/vecka", "Boende- och objektsstädning", "Pausrum och sanitetsutrymmen", "Skräddarsydda avtal"],
       },
       palveluseteli: {
-        title: "TGN PALVELUSETELI",
+        title: "TGN SERVICESEDEL",
         body: "Stödtjänster inom hemservice med servicesedel – enkelt och tydligt.",
         items: ["Användning av servicesedel", "Rådgivning och ansökningshjälp", "Samarbete med kommunen", "Inga dolda kostnader"],
       },
