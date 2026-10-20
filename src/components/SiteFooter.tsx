@@ -7,10 +7,10 @@ export function SiteFooter() {
   const { tr } = useLang();
   return (
     <footer className="border-t border-border/60 bg-section-grey">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-[1.1fr_1fr_1fr] md:items-center">
+      <div className="mx-auto grid max-w-7xl gap-8 px-6 py-7 md:grid-cols-[1.1fr_1fr_1fr] md:items-center">
         <div>
-          <img src={logo} alt="TGN Services" className="h-36 w-auto md:h-44" />
-          <p className="mt-4 max-w-xs text-sm text-muted-foreground">{tr.footer.tagline}</p>
+          <img src={logo} alt="TGN Services" className="h-20 w-auto md:h-24" />
+          <p className="mt-3 max-w-xs text-sm text-muted-foreground">{tr.footer.tagline}</p>
         </div>
         <div className="space-y-3">
           <p className="eyebrow">{tr.services.eyebrow}</p>
