@@ -1,0 +1,18 @@
+CREATE TABLE public.contact_submissions (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), email text NOT NULL CHECK (length(email) <= 255 AND email ~ '^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$'), message text NOT NULL CHECK (length(trim(message)) BETWEEN 1 AND 4000), lang text NOT NULL DEFAULT 'fi' CHECK (lang IN ('fi','sv','es','en')), created_at timestamptz NOT NULL DEFAULT now());
+GRANT INSERT ON public.contact_submissions TO anon;
+GRANT SELECT ON public.contact_submissions TO authenticated;
+GRANT ALL ON public.contact_submissions TO service_role;
+ALTER TABLE public.contact_submissions ENABLE ROW LEVEL SECURITY;
+CREATE POLICY contact_insert ON public.contact_submissions FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY contact_admin_read ON public.contact_submissions FOR SELECT TO authenticated USING (public.has_role(auth.uid(),'admin'));
+CREATE TABLE public.service_start_requests (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), customer_name text NOT NULL CHECK (length(trim(customer_name)) BETWEEN 1 AND 200), contact_person text NOT NULL CHECK (length(trim(contact_person)) BETWEEN 1 AND 200), email text NOT NULL CHECK (length(email) <= 255 AND email ~ '^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$'), work_address text NOT NULL CHECK (length(trim(work_address)) BETWEEN 1 AND 500), start_date date NOT NULL, start_time text NOT NULL CHECK (start_time ~ '^([01][0-9]|2[0-3]):[0-5][0-9]$'), service_type text NOT NULL CHECK (service_type IN ('once','monthly')), lang text NOT NULL DEFAULT 'fi' CHECK (lang IN ('fi','sv','es','en')), created_at timestamptz NOT NULL DEFAULT now());
+GRANT INSERT ON public.service_start_requests TO anon;
+GRANT SELECT ON public.service_start_requests TO authenticated;
+GRANT ALL ON public.service_start_requests TO service_role;
+ALTER TABLE public.service_start_requests ENABLE ROW LEVEL SECURITY;
+CREATE POLICY service_start_insert ON public.service_start_requests FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY service_start_admin_read ON public.service_start_requests FOR SELECT TO authenticated USING (public.has_role(auth.uid(),'admin'));
+CREATE FUNCTION public.throttle_home_requests() RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$ DECLARE recent integer; BEGIN PERFORM pg_advisory_xact_lock(hashtext(TG_TABLE_NAME || lower(NEW.email))); IF TG_TABLE_NAME = 'contact_submissions' THEN SELECT count(*) INTO recent FROM public.contact_submissions WHERE lower(email) = lower(NEW.email) AND created_at > now() - interval '1 minute'; ELSE SELECT count(*) INTO recent FROM public.service_start_requests WHERE lower(email) = lower(NEW.email) AND created_at > now() - interval '1 minute'; END IF; IF recent >= 3 THEN RAISE EXCEPTION 'Too many requests'; END IF; NEW.created_at := now(); RETURN NEW; END; $$;
+REVOKE ALL ON FUNCTION public.throttle_home_requests() FROM PUBLIC, anon, authenticated;
+CREATE TRIGGER contact_throttle BEFORE INSERT ON public.contact_submissions FOR EACH ROW EXECUTE FUNCTION public.throttle_home_requests();
+CREATE TRIGGER service_start_throttle BEFORE INSERT ON public.service_start_requests FOR EACH ROW EXECUTE FUNCTION public.throttle_home_requests();
