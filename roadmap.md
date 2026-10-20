@@ -28,3 +28,5 @@
 25. [x] Alternate homepage cream and neutral grey sections, make About grey, and reserve lavender for the first banner only.
 26. [x] Update contact email to info@tgnservices.fi.
 27. [x] Open the booking page directly to a calendar, then ask for time and email after day selection in all four languages; requests compose an email, not an automatic confirmed reservation.
+28. [x] Update the "Aloitetaan sinulle sopivalla tavalla" items to Marianne's wording in FI/SV/ES/EN and verify all four languages.
+29. [ ] Wire the contact form at /tarjouspyynto so submissions actually reach TGN; it currently only shows a thank-you message.
