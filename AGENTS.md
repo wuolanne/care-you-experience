@@ -15,6 +15,7 @@
 - Business service content lives in business-service with its own four-language copy; shared partnership promises reuse home copy where identical to keep guarantees consistent.
 - Language controls render bundled country-flag images rather than emoji, ensuring flags display consistently across platforms.
 - The dedicated `/meista` route renders the structured about translation fields and the homepage links to it; keep these fields separate from service-page introductions to prevent unrelated copy changes.
+- The about page's closing partnership band uses the same structured translations and static empty billing/personnel slots until real company details are supplied, avoiding fabricated public information.
 - Homepage pricing-banner copy uses its own translated fields and links to the existing service pages, keeping the price tables and service-page introduction independent.
 - News content uses multilingual JSON fields and private Storage images with signed public URLs only for published articles; database roles restrict all edits to verified administrators.
 - News administrator roles are assigned by an Auth lifecycle trigger after the approved email is verified; no browser-controlled role assignment or first-user promotion is permitted.

@@ -27,6 +27,10 @@ type Dict = {
     sections: { title: string; body: string }[];
     start: { title: string; items: { title: string; body: string }[] };
     closing: string;
+    billing: string;
+    team: string;
+    firstName: string;
+    staffPhoto: string;
   };
   actions: {
     eyebrow: string;
@@ -132,7 +136,11 @@ export const t: Record<Lang, Dict> = {
           { title: "Valitse sopiva palvelupaketti ja aloita heti!", body: "Ilmoitat aloituspäivämäärän ja lisätiedot, niin saavumme paikalle." },
         ],
       },
-      closing: "TGN Services – puhtaampi ympäristö, huolettomampi arki.",
+      closing: "Kumppanuutta johon voit luottaa",
+      billing: "Laskutustiedot",
+      team: "Henkilöstömme",
+      firstName: "Etunimi",
+      staffPhoto: "Henkilöstön kuva",
     },
     actions: {
       eyebrow: "Näin pääset alkuun",
@@ -248,7 +256,11 @@ export const t: Record<Lang, Dict> = {
           { title: "Välj ett lämpligt servicepaket och kom igång direkt!", body: "Du anger startdatum och tilläggsuppgifter, så kommer vi till dig." },
         ],
       },
-      closing: "TGN Services – en renare omgivning, en mer bekymmersfri vardag.",
+      closing: "Ett partnerskap du kan lita på",
+      billing: "Faktureringsuppgifter",
+      team: "Vår personal",
+      firstName: "Förnamn",
+      staffPhoto: "Personalbild",
     },
     actions: {
       eyebrow: "Så kommer du igång",
@@ -364,7 +376,11 @@ export const t: Record<Lang, Dict> = {
           { title: "Elige un paquete de servicios adecuado y empieza ya.", body: "Indicas la fecha de inicio y la información adicional, y nosotros acudimos al lugar." },
         ],
       },
-      closing: "TGN Services – un entorno más limpio, un día a día con menos preocupaciones.",
+      closing: "Una colaboración en la que puedes confiar",
+      billing: "Datos de facturación",
+      team: "Nuestro equipo",
+      firstName: "Nombre",
+      staffPhoto: "Foto del personal",
     },
     actions: {
       eyebrow: "Cómo empezar",
@@ -480,7 +496,11 @@ export const t: Record<Lang, Dict> = {
           { title: "Choose a suitable service package and get started right away!", body: "You give us the start date and any extra details, and we arrive on site." },
         ],
       },
-      closing: "TGN Services – cleaner surroundings, a more carefree everyday life.",
+      closing: "A partnership you can trust",
+      billing: "Billing details",
+      team: "Our team",
+      firstName: "First name",
+      staffPhoto: "Staff photo",
     },
     actions: {
       eyebrow: "How to get started",
