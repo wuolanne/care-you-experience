@@ -16,6 +16,7 @@ import { Route as CareKotiinRouteImport } from './routes/care-kotiin'
 import { Route as CarePalveluseteliRouteImport } from './routes/care-palveluseteli'
 import { Route as CareYrityksilleRouteImport } from './routes/care-yrityksille'
 import { Route as HinnoitteluRouteImport } from './routes/hinnoittelu'
+import { Route as MeistaRouteImport } from './routes/meista'
 import { Route as OstaRouteImport } from './routes/osta'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TarjouspyyntoRouteImport } from './routes/tarjouspyynto'
@@ -57,6 +58,11 @@ const HinnoitteluRoute = HinnoitteluRouteImport.update({
   path: '/hinnoittelu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MeistaRoute = MeistaRouteImport.update({
+  id: '/meista',
+  path: '/meista',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OstaRoute = OstaRouteImport.update({
   id: '/osta',
   path: '/osta',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
   '/hinnoittelu': typeof HinnoitteluRoute
+  '/meista': typeof MeistaRoute
   '/osta': typeof OstaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
   '/hinnoittelu': typeof HinnoitteluRoute
+  '/meista': typeof MeistaRoute
   '/osta': typeof OstaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/care-palveluseteli': typeof CarePalveluseteliRoute
   '/care-yrityksille': typeof CareYrityksilleRoute
   '/hinnoittelu': typeof HinnoitteluRoute
+  '/meista': typeof MeistaRoute
   '/osta': typeof OstaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/care-palveluseteli'
     | '/care-yrityksille'
     | '/hinnoittelu'
+    | '/meista'
     | '/osta'
     | '/reset-password'
     | '/tarjouspyynto'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/care-palveluseteli'
     | '/care-yrityksille'
     | '/hinnoittelu'
+    | '/meista'
     | '/osta'
     | '/reset-password'
     | '/tarjouspyynto'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/care-palveluseteli'
     | '/care-yrityksille'
     | '/hinnoittelu'
+    | '/meista'
     | '/osta'
     | '/reset-password'
     | '/tarjouspyynto'
@@ -187,6 +199,7 @@ export interface RootRouteChildren {
   CarePalveluseteliRoute: typeof CarePalveluseteliRoute
   CareYrityksilleRoute: typeof CareYrityksilleRoute
   HinnoitteluRoute: typeof HinnoitteluRoute
+  MeistaRoute: typeof MeistaRoute
   OstaRoute: typeof OstaRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarjouspyyntoRoute: typeof TarjouspyyntoRoute
@@ -242,6 +255,13 @@ declare module '@tanstack/react-router' {
       path: '/hinnoittelu'
       fullPath: '/hinnoittelu'
       preLoaderRoute: typeof HinnoitteluRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meista': {
+      id: '/meista'
+      path: '/meista'
+      fullPath: '/meista'
+      preLoaderRoute: typeof MeistaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/osta': {
@@ -310,6 +330,7 @@ const rootRouteChildren: RootRouteChildren = {
   CarePalveluseteliRoute: CarePalveluseteliRoute,
   CareYrityksilleRoute: CareYrityksilleRoute,
   HinnoitteluRoute: HinnoitteluRoute,
+  MeistaRoute: MeistaRoute,
   OstaRoute: OstaRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarjouspyyntoRoute: TarjouspyyntoRoute,
