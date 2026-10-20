@@ -35,3 +35,4 @@
 32. [x] Connect simple contact and service-start forms, save submissions and verify both flows; owner can read requests on /pyynnot.
 33. [x] Update booking thank-you messages in all four languages.
 34. [ ] Email contact, service-start and booking requests to info@tgnservices.fi — blocked by missing verified sender domain.
+35. [ ] Adapt the home-page structure to TGN Yrityksille, with business services, partnership benefits, source business prices and shared request forms in four languages.
