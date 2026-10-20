@@ -68,6 +68,24 @@ function Index() {
         </div>
       </section>
 
+      <section id="hinnoittelu" aria-labelledby="pricing-banner-title" className="border-b border-border/60 bg-secondary/30">
+        <div className="mx-auto max-w-6xl px-6 py-12 text-center md:py-16">
+          <h2 id="pricing-banner-title" className="text-4xl leading-tight text-primary md:text-5xl">{tr.pricingBanner.title}</h2>
+          <div className="mx-auto mt-6 max-w-4xl space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+            {tr.pricingBanner.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+          <p className="mt-6 text-base font-medium text-foreground">{tr.pricingBanner.languages}</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
+              <Link to="/care-kotiin">{tr.pricingBanner.home}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
+            </Button>
+            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
+              <Link to="/care-yrityksille">{tr.pricingBanner.business}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       <section id="arvot" aria-labelledby="values-title" className="border-b border-border/60">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="text-center">

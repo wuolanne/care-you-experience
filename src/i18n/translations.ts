@@ -16,6 +16,7 @@ type Dict = {
     hinnoittelu: string;
   };
   hero: { eyebrow: string; title: string; lead: string; cta: string; secondary: string };
+  pricingBanner: { title: string; paragraphs: string[]; languages: string; home: string; business: string };
   values: { eyebrow: string; title: string; items: { title: string; body: string }[] };
   about: {
     eyebrow: string;
@@ -88,6 +89,16 @@ export const t: Record<Lang, Dict> = {
       lead: "TGN Services hoitaa kotisi tai toimitilasi huolella ja kantaa kokonaisvaltaisen vastuun. Teemme sen, mitä tarvitaan, jotta ympäristösi on siisti ja puhdas joka päivä. Haluamme, että sinulle jää aikaa olennaiseen – me pidämme huolta kumppanuudestamme.\n\nRaportoimme ennakoivasti ja pidämme viestinnän avoimena. Nimeämme asiakkuudellesi vastuuhenkilön ja huolehdimme henkilöstön jatkuvuudesta, jotta työntekijämme eivät vaihdu jatkuvasti.\n\nHinnoittelumallimme on selkeä, eikä meillä ole piilokuluja. Tarpeidesi muuttuminen ei automaattisesti tarkoita maksujen nousua. Olemme täällä sinua varten ja haluamme, että kaikilla on mahdollisuus laadukkaaseen ja tasalaatuiseen siivoukseen.\n\nKumppanuudessamme sinusta pidetään huolta!",
       cta: "Aloita yhteistyö",
       secondary: "Tutustu palveluihin",
+    },
+    pricingBanner: {
+      title: "Hinnoittelu",
+      paragraphs: [
+        "Valitse arkeesi sopiva kiinteä kuukausihinnoittelu tai osta yksittäisiä palvelutunteja ilman kuukausiasiakkuutta.",
+        "Kotona tuotettavilla palveluillamme on yksi yhtenäinen hinta ja yrityksille tuotettavilla palveluillamme omansa. Selkeä hinnoittelu tukee joustavaa sopimusmallia: voit muokata palvelusi sisältöä tarpeidesi mukaan sovitun sopimuksen puitteissa.",
+      ],
+      languages: "Palvelemme sinua suomeksi, ruotsiksi, englanniksi ja espanjaksi.",
+      home: "TGN Kotiin",
+      business: "TGN Yrityksille",
     },
     values: {
       eyebrow: "Arvomme",
@@ -194,6 +205,16 @@ export const t: Record<Lang, Dict> = {
       cta: "Inled samarbete",
       secondary: "Se våra tjänster",
     },
+    pricingBanner: {
+      title: "Priser",
+      paragraphs: [
+        "Välj ett fast månadspris som passar din vardag eller köp enstaka servicetimmar utan att bli månadskund.",
+        "Våra tjänster i hemmet har ett enhetligt pris och våra tjänster för företag har ett eget enhetligt pris. Tydlig prissättning ger utrymme för en flexibel avtalsmodell: du kan anpassa tjänstens innehåll efter dina behov inom ramen för ditt avtal.",
+      ],
+      languages: "Vi betjänar dig på finska, svenska, engelska och spanska.",
+      home: "TGN Hem",
+      business: "TGN Företag",
+    },
     values: {
       eyebrow: "Våra värderingar",
       title: "Ett partnerskap du kan lita på",
@@ -299,6 +320,16 @@ export const t: Record<Lang, Dict> = {
       cta: "Comenzar la colaboración",
       secondary: "Ver servicios",
     },
+    pricingBanner: {
+      title: "Precios",
+      paragraphs: [
+        "Elige una cuota mensual fija que se adapte a tu día a día o contrata horas sueltas de servicio sin necesidad de un contrato mensual.",
+        "Nuestros servicios a domicilio tienen un precio unificado y nuestros servicios para empresas tienen su propio precio unificado. Esta claridad permite un modelo de contrato flexible: puedes adaptar el contenido del servicio a tus necesidades dentro de los términos acordados.",
+      ],
+      languages: "Te atendemos en finés, sueco, inglés y español.",
+      home: "TGN Hogar",
+      business: "TGN Empresas",
+    },
     values: {
       eyebrow: "Nuestros valores",
       title: "Una colaboración en la que puedes confiar",
@@ -403,6 +434,16 @@ export const t: Record<Lang, Dict> = {
       lead: "TGN Services takes care of your home or premises and takes full responsibility. We do what is needed to keep your surroundings clean and tidy every day. We want you to have time for what matters – we take care of our partnership.\n\nWe report proactively and keep communication open. We assign a dedicated contact to manage your account and maintain continuity in our team, so you do not constantly have different staff.\n\nOur pricing model is clear, with no hidden costs. Changing needs do not automatically mean higher fees. We are here for you and want everyone to have access to reliable, consistently high-quality cleaning.\n\nIn our partnership, you are looked after!",
       cta: "Start the collaboration",
       secondary: "Explore services",
+    },
+    pricingBanner: {
+      title: "Pricing",
+      paragraphs: [
+        "Choose fixed monthly pricing that suits your everyday needs, or book individual service hours without becoming a monthly customer.",
+        "Our home services have one consistent price, and our business services have their own consistent price. Clear pricing supports a flexible agreement: you can adjust the scope of your service as your needs change, within the terms of your agreement.",
+      ],
+      languages: "We serve you in Finnish, Swedish, English and Spanish.",
+      home: "TGN Home",
+      business: "TGN Business",
     },
     values: {
       eyebrow: "Our values",
