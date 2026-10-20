@@ -14,7 +14,7 @@ import type { Lang } from '@/i18n/translations';
 const editorQuery=queryOptions({queryKey:['news-editor'],queryFn:async()=>{
  const allowed=await editorAccess();if(!allowed)return {allowed:false,items:[] as NewsItem[]};
  const {data,error}=await supabase.from('news').select('*').order('news_date',{ascending:false});if(error)throw new Error('Uutisia ei voitu ladata.');
- const items=await Promise.all((data as NewsItem[]).map(async n=>{if(!n.image_path)return n;const {data:signed}=await supabase.storage.from('news-images').createSignedUrl(n.image_path,3600);return {...n,imageUrl:signed?.signedUrl};}));return {allowed:true,items};
+ const items=await Promise.all((data as NewsItem[]).map(async n=>{if(!n.image_path)return n;const {data:signed}=await supabase.storage.from('news-images').createSignedUrl(n.image_path,3600);return {...n,imageUrl:signed?.signedUrl??null};}));return {allowed:true,items};
 }});
 export const Route=createFileRoute('/_authenticated/uutisten-yllapito')({head:()=>pageHead('Uutisten ylläpito','Lisää ja muokkaa TGN Services -uutisia, kuvia ja julkaisupäivämääriä.'),loader:({context})=>context.queryClient.ensureQueryData(editorQuery),component:Editor,errorComponent:()=> <p className="p-12">Uutisia ei voitu ladata. Päivitä sivu ja yritä uudelleen.</p>});
 function Editor(){

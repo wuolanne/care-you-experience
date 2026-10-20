@@ -7,6 +7,6 @@ import { useLang } from '@/i18n/LanguageProvider';
 import { newsCopy } from './model';
 export function NewsAdminLink() {
  const [signedIn,setSignedIn] = useState(false); const router=useRouter(); const queryClient=useQueryClient(); const navigate=useNavigate(); const {lang}=useLang();
- useEffect(() => { let active=true; void supabase.auth.getUser().then(({data}) => { if(active) setSignedIn(Boolean(data.user)); }); return () => { active=false; }; },[router.state.location.key]);
+ useEffect(() => { let active=true; void supabase.auth.getUser().then(({data}) => { if(active) setSignedIn(Boolean(data.user)); }); return () => { active=false; }; },[router.state.location.href]);
  return <div className="mt-3 flex justify-center gap-3"><Link to={signedIn ? '/uutisten-yllapito' : '/auth'} className="text-xs hover:text-primary">{newsCopy[lang].manage}</Link>{signedIn && <Button variant="link" className="h-auto p-0 text-xs" onClick={async () => {await queryClient.cancelQueries();queryClient.clear();await supabase.auth.signOut();setSignedIn(false);await navigate({to:'/auth',replace:true});}}>Kirjaudu ulos</Button>}</div>;
 }
