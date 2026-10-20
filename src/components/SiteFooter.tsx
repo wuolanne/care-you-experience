@@ -25,8 +25,8 @@ export function SiteFooter() {
           <div className="flex flex-col gap-1 text-sm text-foreground/80 md:gap-2">
             <a href="mailto:info@tgnservices.fi" className="hover:text-primary">info@tgnservices.fi</a>
             <a href="tel:+358401234567" className="hover:text-primary">+358 40 123 4567</a>
-            <Link to="/tarjouspyynto" className="hover:text-primary">{tr.actions.quote.title}</Link>
           </div>
+
         </div>
       </div>
       <div className="border-t border-border/60 py-3 text-center text-xs text-muted-foreground">
