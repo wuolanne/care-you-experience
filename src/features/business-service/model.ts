@@ -6,3 +6,5 @@ export const businessPackages = [
   { name: 'TGN Premium B2B', hours: 32, monthly: 1312 },
 ] as const;
 export const businessHourlyPrice = 55;
+// VAT-inclusive display price: net + 25.5% VAT, rounded to cents (half up).
+export const withBusinessVat = (net: number) => Math.round(net * 1.255 * 100 + 1e-9) / 100;
