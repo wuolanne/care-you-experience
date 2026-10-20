@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
+import { HomePricing } from "@/features/home-service/HomePricing";
 import {
   kotiinPackages,
   kotiinHourly,
@@ -23,6 +24,8 @@ export function ServicePricing({ tab }: { tab: PricingService }) {
 
   const fmt = (n: number) =>
     new Intl.NumberFormat("fi-FI", { maximumFractionDigits: 2 }).format(n);
+
+  if (tab === "kotiin") return <HomePricing />;
 
   return (
       <section className="mx-auto max-w-6xl px-6 py-16" aria-label={tr.nav.hinnoittelu}>

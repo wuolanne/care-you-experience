@@ -2,10 +2,11 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
+import { dateSchema, timeSchema } from "@/features/home-service/model";
 
 const bookingSchema = z.object({
-  meetingDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "invalid_date"),
-  preferredTime: z.string().regex(/^\d{2}:\d{2}$/, "invalid_time"),
+  meetingDate: dateSchema,
+  preferredTime: timeSchema,
   email: z.string().trim().email("invalid_email").max(255),
   lang: z.enum(["fi", "sv", "es", "en"]),
 });
@@ -17,7 +18,7 @@ const WORKER_WINDOW_MS = 60_000;
 const WORKER_LIMIT = 30;
 
 export const submitBookingRequest = createServerFn({ method: "POST" })
-  .validator((data) => bookingSchema.parse(data))
+  .inputValidator((data) => bookingSchema.parse(data))
   .handler(async ({ data }) => {
     const now = Date.now();
     if (now - workerWindow > WORKER_WINDOW_MS) {
