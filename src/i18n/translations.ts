@@ -16,6 +16,7 @@ type Dict = {
     hinnoittelu: string;
   };
   hero: { eyebrow: string; title: string; lead: string; cta: string; secondary: string };
+  values: { eyebrow: string; title: string; items: { title: string; body: string }[] };
   about: {
     eyebrow: string;
     title: string;
@@ -87,6 +88,16 @@ export const t: Record<Lang, Dict> = {
       lead: "TGN Services hoitaa kotisi tai toimitilasi huolella ja kantaa kokonaisvaltaisen vastuun. Teemme sen, mitä tarvitaan, jotta ympäristösi on siisti ja puhdas joka päivä. Haluamme, että sinulle jää aikaa olennaiseen – me pidämme huolta kumppanuudestamme.\n\nRaportoimme ennakoivasti ja pidämme viestinnän avoimena. Nimeämme asiakkuudellesi vastuuhenkilön ja huolehdimme henkilöstön jatkuvuudesta, jotta työntekijämme eivät vaihdu jatkuvasti.\n\nHinnoittelumallimme on selkeä, eikä meillä ole piilokuluja. Tarpeidesi muuttuminen ei automaattisesti tarkoita maksujen nousua. Olemme täällä sinua varten ja haluamme, että kaikilla on mahdollisuus laadukkaaseen ja tasalaatuiseen siivoukseen.\n\nKumppanuudessamme sinusta pidetään huolta!",
       cta: "Aloita yhteistyö",
       secondary: "Tutustu palveluihin",
+    },
+    values: {
+      eyebrow: "Arvomme",
+      title: "Kumppanuutta johon voi luottaa",
+      items: [
+        { title: "Luotettava kumppanuus", body: "Käytössämme on laatuohjelma, joka sisältää laatutakuun. Jokaisella asiakkaalla on nimetty vastuuhenkilö, ja henkilöstö ei vaihdu koko ajan. Jokaisen asiakkaamme kanssa on yhteistyömalli, ja toteutamme säännöllisesti mielipidekyselyt sekä kehityspalaverit." },
+        { title: "Avoin ja aktiivinen kommunikaatio", body: "Kommunikoimme ennakkoon ja aktiivisesti asiakkaidemme kanssa sekä tarvittaessa heidän omaistensa kanssa." },
+        { title: "Yhdessä tekeminen", body: "Pidämme huolta henkilöstöstämme – ketään ei jätetä yksin, ja työskentelemme yhdessä." },
+        { title: "Avoin ja joustava hinnoittelu", body: "Meidän kanssamme kaikilla on mahdollisuus laadukkaaseen siivoukseen, eikä meillä ole piilokuluja. Voit muuttaa kuukausisopimuksen sisältöä joustavasti ilman lisäkuluja." },
+      ],
     },
     about: {
       eyebrow: "Meistä lyhyesti",
@@ -183,6 +194,16 @@ export const t: Record<Lang, Dict> = {
       cta: "Inled samarbete",
       secondary: "Se våra tjänster",
     },
+    values: {
+      eyebrow: "Våra värderingar",
+      title: "Ett partnerskap du kan lita på",
+      items: [
+        { title: "En pålitlig partner", body: "Vi arbetar enligt ett kvalitetsprogram som innehåller en kvalitetsgaranti. Varje kund har en namngiven ansvarsperson, och personalen byts inte ut hela tiden. Med varje kund finns en samarbetsmodell, och vi genomför återkommande opinionsundersökningar samt utvecklingssamtal." },
+        { title: "Öppen och aktiv kommunikation", body: "Vi kommunicerar i förväg och aktivt med våra kunder samt vid behov med deras anhöriga." },
+        { title: "Att göra tillsammans", body: "Vi tar hand om vår personal – ingen lämnas ensam, och vi arbetar tillsammans." },
+        { title: "Öppen och flexibel prissättning", body: "Tillsammans med oss har alla möjlighet till kvalitativ städning, och vi har inga dolda avgifter. Hos oss kan du ändra innehållet i ditt månadsavtal flexibelt utan extra kostnader." },
+      ],
+    },
     about: {
       eyebrow: "Om oss",
       title: "Rent hem, fungerande lokaler, en vardag vi tar hand om!",
@@ -278,6 +299,16 @@ export const t: Record<Lang, Dict> = {
       cta: "Comenzar la colaboración",
       secondary: "Ver servicios",
     },
+    values: {
+      eyebrow: "Nuestros valores",
+      title: "Una colaboración en la que puedes confiar",
+      items: [
+        { title: "Colaboración fiable", body: "Trabajamos con un programa de calidad que incluye una garantía de calidad. Cada cliente tiene una persona de contacto designada y el personal no cambia constantemente. Con cada cliente hay un modelo de colaboración y realizamos regularmente encuestas de opinión y reuniones de desarrollo." },
+        { title: "Comunicación abierta y activa", body: "Nos comunicamos de forma proactiva y activa con nuestros clientes y, cuando es necesario, con sus familiares." },
+        { title: "Trabajo en equipo", body: "Cuidamos de nuestro personal: nadie queda solo y trabajamos juntos." },
+        { title: "Precios abiertos y flexibles", body: "Con nosotros, todas las personas tienen la posibilidad de un servicio de limpieza de calidad y no tenemos costes ocultos. Puede cambiar el contenido de su contrato mensual de forma flexible y sin costes adicionales." },
+      ],
+    },
     about: {
       eyebrow: "Sobre nosotros",
       title: "¡Un hogar limpio, locales bien cuidados y un día a día atendido!",
@@ -372,6 +403,16 @@ export const t: Record<Lang, Dict> = {
       lead: "TGN Services takes care of your home or premises and takes full responsibility. We do what is needed to keep your surroundings clean and tidy every day. We want you to have time for what matters – we take care of our partnership.\n\nWe report proactively and keep communication open. We assign a dedicated contact to manage your account and maintain continuity in our team, so you do not constantly have different staff.\n\nOur pricing model is clear, with no hidden costs. Changing needs do not automatically mean higher fees. We are here for you and want everyone to have access to reliable, consistently high-quality cleaning.\n\nIn our partnership, you are looked after!",
       cta: "Start the collaboration",
       secondary: "Explore services",
+    },
+    values: {
+      eyebrow: "Our values",
+      title: "A partnership you can trust",
+      items: [
+        { title: "Reliable partnership", body: "We work to a quality programme that includes a quality guarantee. Every customer has a named contact person, and our staff do not change constantly. With each customer we have a collaboration model, and we carry out regular satisfaction surveys and development meetings." },
+        { title: "Open and active communication", body: "We communicate proactively and actively with our customers, and when needed, with their next of kin." },
+        { title: "Working together", body: "We take care of our staff – no one is left alone, and we work together." },
+        { title: "Open and flexible pricing", body: "With us, everyone has the opportunity to quality cleaning, and we have no hidden costs. You can change the contents of your monthly agreement flexibly and at no extra cost." },
+      ],
     },
     about: {
       eyebrow: "About us",
