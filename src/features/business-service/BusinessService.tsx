@@ -12,7 +12,7 @@ export function BusinessService() {
     <section className="border-b border-border bg-[image:var(--gradient-lilac)]"><div className="mx-auto max-w-6xl px-6 py-10 md:py-12">
       <h1 className="text-4xl text-primary md:text-5xl">{t.banner}</h1>
       <h2 className="mt-4 text-2xl leading-tight md:text-3xl">{t.subtitle}</h2>
-      <p className="mt-5 text-base leading-relaxed text-plum/80">{t.intro}</p>
+      <p className="mt-5 text-base leading-relaxed text-plum">{t.intro}</p>
     </div></section>
     <section className="mx-auto max-w-6xl px-6 py-14">
       <h2 className="text-3xl md:text-4xl">{t.title}</h2><p className="mt-5 max-w-4xl leading-relaxed text-muted-foreground">{t.body}</p>
