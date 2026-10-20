@@ -8,16 +8,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useLang } from '@/i18n/LanguageProvider';
 import { homeCopy } from './copy';
-import { contactSchema, startSchema } from './model';
+import { contactSchema, startSchema, homePackages } from './model';
+import { businessPackages } from '../business-service/model';
 import { submitContact, submitServiceStart } from './requests.functions';
 
-export function RequestForm({kind}:{kind:'contact'|'start'}) {
+export function RequestForm({kind,audience='home'}:{kind:'contact'|'start';audience?:'home'|'business'}) {
  const {lang}=useLang(); const t=homeCopy[lang];
  const sendContact=useServerFn(submitContact); const sendStart=useServerFn(submitServiceStart);
- const [pending,setPending]=useState(false); const [sent,setSent]=useState(false); const [error,setError]=useState(false); const [type,setType]=useState('once');
+ const [pending,setPending]=useState(false); const [sent,setSent]=useState(false); const [error,setError]=useState(false); const [type,setType]=useState('once'); const [pkg,setPkg]=useState('');
+ const packages=audience==='business'?businessPackages:homePackages;
  async function submit(e:FormEvent<HTMLFormElement>){
   e.preventDefault(); if(pending)return; const f=new FormData(e.currentTarget); setError(false);
-  const data=kind==='contact'?contactSchema.safeParse({email:f.get('email'),message:f.get('message'),lang}):startSchema.safeParse({customerName:f.get('customerName'),contactPerson:f.get('contactPerson'),email:f.get('email'),workAddress:f.get('workAddress'),startDate:f.get('startDate'),startTime:f.get('startTime'),serviceType:type,lang});
+  const data=kind==='contact'?contactSchema.safeParse({email:f.get('email'),message:f.get('message'),lang}):startSchema.safeParse({customerName:f.get('customerName'),contactPerson:f.get('contactPerson'),email:f.get('email'),workAddress:f.get('workAddress'),startDate:f.get('startDate'),startTime:f.get('startTime'),serviceType:type,onceDetails:type==='once'?f.get('onceDetails'):undefined,packageName:type==='monthly'&&pkg?pkg:undefined,lang});
   if(!data.success){setError(true);return;}
   setPending(true);
   try{const result=kind==='contact'?await sendContact({data:contactSchema.parse(data.data)}):await sendStart({data:startSchema.parse(data.data)}); if(result.ok)setSent(true);else setError(true);}catch{setError(true);}finally{setPending(false);}
