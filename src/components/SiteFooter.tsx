@@ -5,13 +5,13 @@ import { useLang } from "@/i18n/LanguageProvider";
 import { NewsAdminLink } from '@/features/news/NewsAdminLink';
 import { BUSINESS_ID, SOCIAL_LINKS, type SocialKey } from '@/data/company';
 import { Facebook, Instagram, Linkedin } from 'lucide-react';
-import { siTiktok } from 'simple-icons';
+import { siTiktok, siWhatsapp } from 'simple-icons';
 
-// TikTok is not in the icon library, so its official glyph is drawn here.
-function TiktokIcon({ className }: { className?: string }) {
+// TikTok and WhatsApp are not in the icon library, so their official glyphs are drawn here.
+function GlyphIcon({ path, className }: { path: string; className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
-      <path d={siTiktok.path} />
+      <path d={path} />
     </svg>
   );
 }
@@ -20,7 +20,8 @@ const SOCIAL: { key: SocialKey; name: string; Icon: ComponentType<{ className?: 
   { key: "linkedin", name: "LinkedIn", Icon: Linkedin },
   { key: "facebook", name: "Facebook", Icon: Facebook },
   { key: "instagram", name: "Instagram", Icon: Instagram },
-  { key: "tiktok", name: "TikTok", Icon: TiktokIcon },
+  { key: "tiktok", name: "TikTok", Icon: (p) => <GlyphIcon path={siTiktok.path} {...p} /> },
+  { key: "whatsapp", name: "WhatsApp", Icon: (p) => <GlyphIcon path={siWhatsapp.path} {...p} /> },
 ];
 
 export function SiteFooter() {

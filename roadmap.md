@@ -50,3 +50,4 @@
 46. [x] Update the site phone number to +358 45 78359301 (tel:+3584578359301) in the footer; old number removed everywhere.
 47. [x] Add a ready-to-link social icon row (Instagram, Facebook, LinkedIn, YouTube) under the footer contact details in all four languages; profile URLs still await Marianne.
 48. [x] Set the footer networks to Marianne's list (LinkedIn, Facebook, Instagram, TikTok) with stronger icon boxes; profile URLs still await Marianne.
+49. [x] Add WhatsApp to the footer's social row (five networks now); profile URLs still await Marianne.

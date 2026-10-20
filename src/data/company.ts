@@ -2,8 +2,8 @@
 // Keep the business ID here so the footer and the about page always agree.
 export const BUSINESS_ID = "3664346-2";
 
-// Marianne's own list of the networks TGN uses: LinkedIn, Facebook, Instagram, TikTok.
-export type SocialKey = "linkedin" | "facebook" | "instagram" | "tiktok";
+// Marianne's own list of the networks TGN uses: LinkedIn, Facebook, Instagram, TikTok, WhatsApp.
+export type SocialKey = "linkedin" | "facebook" | "instagram" | "tiktok" | "whatsapp";
 
 // Marianne will supply the company's own social profile addresses.
 // Fill a URL in here and the matching footer icon becomes a live link.
@@ -12,4 +12,5 @@ export const SOCIAL_LINKS: Record<SocialKey, string | null> = {
   facebook: null,
   instagram: null,
   tiktok: null,
+  whatsapp: null,
 };
