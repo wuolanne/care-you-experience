@@ -32,7 +32,10 @@ export function RequestForm({kind,audience='home'}:{kind:'contact'|'start';audie
   {kind==='contact'?<div className="space-y-2"><Label htmlFor="message">{t.message}</Label><Textarea id="message" name="message" rows={4} maxLength={4000} required /></div>:<>
    {field('workAddress',t.address,'text',500)}
    <div className="grid gap-4 sm:grid-cols-2">{field('startDate',t.date,'date')}{field('startTime',t.time,'time')}</div>
-   <fieldset><legend className="mb-3 text-sm font-medium">{t.type}</legend><RadioGroup value={type} onValueChange={setType} className="grid grid-cols-2 gap-3">{(['once','monthly'] as const).map(value=><Label key={value} htmlFor={`service-${value}`} className="flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border border-border p-3"><RadioGroupItem id={`service-${value}`} value={value}/><span>{value==='once'?t.once:t.recurring}</span></Label>)}</RadioGroup></fieldset>
+   <fieldset><legend className="mb-3 text-sm font-medium">{t.type}</legend><RadioGroup value={type} onValueChange={setType} className="grid grid-cols-2 gap-3">{(['once','monthly'] as const).map(value=><Label key={value} htmlFor={`service-${value}`} className="flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border border-border p-3"><RadioGroupItem id={`service-${value}`} value={value}/><span>{value==='once'?t.once:t.recurring}</span></Label>)}</RadioGroup>
+   {type==='once'&&<div className="mt-3 space-y-2"><Label htmlFor="onceDetails">{t.onceDetails}</Label><Textarea id="onceDetails" name="onceDetails" rows={3} maxLength={500} /></div>}
+   {type==='monthly'&&<fieldset className="mt-3 ml-6 border-l-2 border-border pl-4"><legend className="-ml-4 px-1 text-sm text-muted-foreground">{t.packageLabel}</legend><RadioGroup value={pkg} onValueChange={setPkg} className="grid gap-2">{packages.map(p=><Label key={p.name} htmlFor={`pkg-${p.name}`} className="flex min-h-10 cursor-pointer items-center gap-2 rounded-sm border border-border p-2.5"><RadioGroupItem id={`pkg-${p.name}`} value={p.name}/><span className="font-medium text-primary">{p.name} <span className="font-normal text-muted-foreground">({p.hours} {t.hours})</span></span></Label>)}</RadioGroup></fieldset>}
+   </fieldset>
    <p className="text-sm text-muted-foreground">{t.startNote}</p>
   </>}
   {error&&<p role="alert" className="text-sm text-destructive">{t.error}</p>}
