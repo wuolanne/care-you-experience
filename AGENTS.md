@@ -11,7 +11,8 @@
 
 ## Structure
 - The homepage lives at `/` (no splash gateway). The TGN logo is shown as a prominent header banner and the landing hero uses a gradient, not a photograph.
-- ServicePricing delegates home pricing to HomePricing; home service content and canonical prices live in the home-service feature so the service and legacy pricing pages agree. Other service pricing remains independent.
+- ServicePricing delegates home and business pricing to audience-aware HomePricing, which reuses request forms and omits household deduction for business; each feature owns its canonical source prices so service and legacy pricing pages agree.
+- Business service content lives in business-service with its own four-language copy; shared partnership promises reuse home copy where identical to keep guarantees consistent.
 - Language controls render bundled country-flag images rather than emoji, ensuring flags display consistently across platforms.
 - The homepage's extended about copy uses structured translation fields separate from the shared service-page introduction, so homepage revisions do not unintentionally rewrite service pages.
 - Homepage pricing-banner copy uses its own translated fields and links to the existing service pages, keeping the price tables and service-page introduction independent.

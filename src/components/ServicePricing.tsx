@@ -26,6 +26,7 @@ export function ServicePricing({ tab }: { tab: PricingService }) {
     new Intl.NumberFormat("fi-FI", { maximumFractionDigits: 2 }).format(n);
 
   if (tab === "kotiin") return <HomePricing />;
+  if (tab === "yrityksille") return <HomePricing audience="business" />;
 
   return (
       <section className="mx-auto max-w-6xl px-6 py-16" aria-label={tr.nav.hinnoittelu}>
