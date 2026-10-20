@@ -32,7 +32,24 @@ function AboutPage() {
             <p className="eyebrow">{tr.about.eyebrow}</p>
             <h1 id="about-title" className="mt-4 text-3xl leading-tight md:text-4xl">{tr.about.title}</h1>
             <div className="hairline mt-6 w-24" />
+            <div className="mt-8">
+              {campaignImage ? (
+                <img
+                  src={campaignImage}
+                  alt={tr.about.title}
+                  className="w-full rounded-sm border border-border object-cover shadow-[var(--shadow-soft)]"
+                />
+              ) : (
+                <div
+                  aria-hidden="true"
+                  className="flex aspect-[4/5] w-full items-center justify-center rounded-sm border border-dashed border-border bg-card"
+                >
+                  <ImageIcon className="size-8 text-muted-foreground/60" strokeWidth={1.2} />
+                </div>
+              )}
+            </div>
           </div>
+
           <div className="min-w-0">
             <h2 className="text-2xl leading-tight md:text-3xl">{tr.about.headline}</h2>
             <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
