@@ -116,13 +116,13 @@ function AboutPage() {
           <h3 className="text-2xl leading-tight">{tr.about.billing}</h3>
           <div aria-label={tr.about.billing} className="mt-6 min-h-56 border-y border-dashed border-gold/70" />
           <h3 className="mt-12 text-2xl leading-tight">{tr.about.team}</h3>
-          <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-5">
+          <div className="mt-6 grid grid-cols-3 justify-items-center gap-3 sm:gap-5">
             {[1, 2, 3].map(person => (
-              <div key={person} className="min-w-0">
+              <div key={person} className="w-full max-w-40 min-w-0">
                 <div role="img" aria-label={`${tr.about.staffPhoto} ${person}`} className="flex aspect-[3/4] items-center justify-center rounded-sm border border-dashed border-gold/70 bg-card">
-                  <ImageIcon aria-hidden="true" className="size-8 text-gold/70" strokeWidth={1.2} />
+                  <ImageIcon aria-hidden="true" className="size-6 text-gold/70" strokeWidth={1.2} />
                 </div>
-                <p className="mt-4 break-words text-center text-base text-muted-foreground">{tr.about.firstName}</p>
+                <p className="mt-3 break-words text-center text-sm text-muted-foreground">{tr.about.firstName}</p>
               </div>
             ))}
           </div>

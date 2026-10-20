@@ -43,3 +43,4 @@
 
 40. [x] Lavender about banner: right-hand text starts level with the campaign-image frame (headline block in its own row above); verified alignment and no overflow.
 41. [x] "Aloitetaan sinulle sopivalla tavalla" boxes: cream company background; verified color and readability.
+42. [x] Personnel photo slots made small (about 160 px wide portrait frames, centered in their third, small caption); verified size and layout.
