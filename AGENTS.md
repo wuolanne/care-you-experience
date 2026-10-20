@@ -15,3 +15,6 @@
 - Language controls render bundled country-flag images rather than emoji, ensuring flags display consistently across platforms.
 - The homepage's extended about copy uses structured translation fields separate from the shared service-page introduction, so homepage revisions do not unintentionally rewrite service pages.
 - Homepage pricing-banner copy uses its own translated fields and links to the existing service pages, keeping the price tables and service-page introduction independent.
+- News content uses multilingual JSON fields and private Storage images with signed public URLs only for published articles; database roles restrict all edits to verified administrators.
+- News administrator roles are assigned by an Auth lifecycle trigger after the approved email is verified; no browser-controlled role assignment or first-user promotion is permitted.
+- Homepage section backgrounds use semantic cream and neutral-grey tokens, with lavender reserved for the first banner, to maintain the requested alternation.

@@ -17,7 +17,7 @@ export const listNews = createServerFn({ method: 'GET' }).handler(async () => {
   return await Promise.all((data as NewsItem[]).map(async item => {
     if (!item.image_path) return { ...item,imageUrl:null };
     const { data: signed } = await client.storage.from('news-images').createSignedUrl(item.image_path,3600);
-    const imageUrl = signed?.signedUrl?.replace(url, import.meta.env.VITE_SUPABASE_URL) ?? null;
+    const imageUrl = signed?.signedUrl?.replace(url, import.meta.env['VITE_SUPABASE_URL']) ?? null;
     return { ...item,imageUrl };
   }));
 });
