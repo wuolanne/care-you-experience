@@ -46,3 +46,4 @@
 42. [x] Personnel photo slots made small (about 160 px wide portrait frames, centered in their third, small caption); verified size and layout.
 43. [x] Billing reserved area made light: thin dashed box about 128 px tall, aligned with the small personnel frames; verified size and layout.
 44. [x] Cream partnership banner order swapped: "Henkilöstömme" now comes before "Laskutustiedot"; verified order on screen.
+45. [x] Show the business ID 3664346-2 in the grey footer's contact column and in the about page's billing-details area; verified in FI/SV/ES/EN.
