@@ -14,7 +14,7 @@
 12. [x] Service continuation pages exist and are linked from homepage and header; further content awaits Marianne's brief
 13. [x] Contact email supplied by Marianne: info@tsg.fi; keep the displayed phone unchanged
 14. [x] Use faded button-purple hero, larger TGN service navigation with pricing beneath, flag language selectors, larger booking button and footer logo; update partnership and contact-request wording
-15. [ ] Waiting on Marianne: specify the contact form's later structure; sending requests is not connected yet
+15. [x] Marianne specified the simple contact form and the service-start form.
 16. [x] Remove header pricing links, show prices on each service page, place flags upper-right and booking after service navigation
 17. [x] Polish Marianne's homepage partnership text in FI/SV/ES/EN and match both hero buttons to the video-booking violet; further service-page edits deferred
 18. [x] Rephrase the homepage headline so cleaning is named for both audiences: homes and offices/business premises (FI/SV/ES/EN + page metadata)
@@ -31,3 +31,7 @@
 28. [x] Update the "Aloitetaan sinulle sopivalla tavalla" items to Marianne's wording in FI/SV/ES/EN and verify all four languages.
 29. [ ] Wire the contact form at /tarjouspyynto so submissions actually reach TGN; it currently only shows a thank-you message.
 30. [x] Store every /varaa booking request in the database; owner email notification to info@tgnservices.fi waits for a verified email domain.
+31. [ ] Rebuild TGN Kotiin with source-based banner, service boxes, monthly prices and verified household deduction.
+32. [ ] Connect simple contact and service-start forms, save submissions and verify both flows.
+33. [ ] Update booking thank-you messages in all four languages.
+34. [ ] Email contact, service-start and booking requests to info@tgnservices.fi — blocked by missing verified sender domain.
