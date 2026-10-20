@@ -38,7 +38,7 @@ export function SiteHeader() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="absolute right-6 top-4">{languages}</div>
         <div className="flex justify-center pt-16 md:pt-7">
-          <Link to="/" aria-label="T & G Nordic Services"><img src={logo} alt="T & G Nordic Services" className="h-40 w-auto md:h-52" /></Link>
+          <Link to="/" aria-label="TGN Services"><img src={logo} alt="TGN Services" className="h-40 w-auto md:h-52" /></Link>
         </div>
         <nav className="hidden grid-cols-[1fr_1fr_1fr_auto] items-center gap-4 pb-5 pt-5 lg:grid" aria-label={tr.services.eyebrow}>
           {links.map((l) => (

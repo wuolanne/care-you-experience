@@ -6,15 +6,15 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "T & G Nordic Services — Laadukasta siivousta koteihin ja toimitiloihin" },
+      { title: "TGN Services — Laadukasta siivousta koteihin ja toimitiloihin" },
       {
         name: "description",
         content:
-          "T&G Services hoitaa kotisi tai toimitilasi siivouksen huolella ja kantaa kokonaisvaltaisen vastuun. Avoin viestintä, tuttu henkilöstö ja selkeä hinnoittelu ilman piilokuluja.",
+          "TGN Services hoitaa kotisi tai toimitilasi siivouksen huolella ja kantaa kokonaisvaltaisen vastuun. Avoin viestintä, tuttu henkilöstö ja selkeä hinnoittelu ilman piilokuluja.",
       },
       {
         property: "og:title",
-        content: "T & G Nordic Services — Laadukasta siivousta koteihin ja toimitiloihin",
+        content: "TGN Services — Laadukasta siivousta koteihin ja toimitiloihin",
       },
       {
         property: "og:description",

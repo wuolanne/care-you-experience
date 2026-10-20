@@ -6,9 +6,9 @@ import { ServicePricing } from "@/components/ServicePricing";
 export const Route = createFileRoute("/care-yrityksille")({
   head: () => ({
     meta: [
-      { title: "TGN YRITYKSILLE — Hyvinvointi- ja tukipalvelut | T & G Nordic Services" },
+      { title: "TGN YRITYKSILLE — Hyvinvointi- ja tukipalvelut | TGN Services" },
       { name: "description", content: "Henkilöstön hyvinvointi, toimitilapalvelut ja hoiva-alan sijaisuudet yrityksille." },
-      { property: "og:title", content: "TGN YRITYKSILLE | T & G Nordic Services" },
+      { property: "og:title", content: "TGN YRITYKSILLE | TGN Services" },
       { property: "og:description", content: "Hyvinvointi- ja tukipalvelut yrityksille." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
