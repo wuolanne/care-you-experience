@@ -18,6 +18,6 @@ export const submitContact = createServerFn({method:'POST'}).inputValidator(inpu
 });
 export const submitServiceStart = createServerFn({method:'POST'}).inputValidator(input=>startSchema.parse(input)).handler(async({data})=>{
   if(!burstAllowed()) return {ok:false};
-  const {error}=await publicClient().from('service_start_requests').insert({customer_name:data.customerName,contact_person:data.contactPerson,email:data.email,work_address:data.workAddress,start_date:data.startDate,start_time:data.startTime,service_type:data.serviceType,lang:data.lang});
+  const {error}=await publicClient().from('service_start_requests').insert({customer_name:data.customerName,contact_person:data.contactPerson,email:data.email,work_address:data.workAddress,start_date:data.startDate,start_time:data.startTime,service_type:data.serviceType,once_details:data.serviceType==='once'?(data.onceDetails??null):null,package_name:data.serviceType==='monthly'?(data.packageName??null):null,lang:data.lang});
   return {ok:!error};
 });
