@@ -44,7 +44,7 @@ function Index() {
             <h1 className="mt-4 text-4xl leading-[1.1] text-plum md:text-5xl">
               {tr.hero.title}
             </h1>
-            <div className="mt-5 space-y-3 text-base leading-relaxed text-plum/80">
+            <div className="mt-5 space-y-3 text-base leading-relaxed text-plum">
               {tr.hero.lead.split("\n\n").map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
