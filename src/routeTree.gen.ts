@@ -20,6 +20,7 @@ import { Route as OstaRouteImport } from './routes/osta'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TarjouspyyntoRouteImport } from './routes/tarjouspyynto'
 import { Route as VaraaRouteImport } from './routes/varaa'
+import { Route as AuthenticatedPyynnotRouteImport } from './routes/_authenticated/pyynnot'
 import { Route as AuthenticatedUutistenYllapitoRouteImport } from './routes/_authenticated/uutisten-yllapito'
 
 const IndexRoute = IndexRouteImport.update({
@@ -76,6 +77,11 @@ const VaraaRoute = VaraaRouteImport.update({
   path: '/varaa',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedPyynnotRoute = AuthenticatedPyynnotRouteImport.update({
+  id: '/pyynnot',
+  path: '/pyynnot',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedUutistenYllapitoRoute =
   AuthenticatedUutistenYllapitoRouteImport.update({
     id: '/uutisten-yllapito',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
+  '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
 }
 export interface FileRoutesByTo {
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
+  '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
 }
 export interface FileRoutesById {
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
+  '/_authenticated/pyynnot': typeof AuthenticatedPyynnotRoute
   '/_authenticated/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
 }
 export interface FileRouteTypes {
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/tarjouspyynto'
     | '/varaa'
+    | '/pyynnot'
     | '/uutisten-yllapito'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/tarjouspyynto'
     | '/varaa'
+    | '/pyynnot'
     | '/uutisten-yllapito'
   id:
     | '__root__'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/tarjouspyynto'
     | '/varaa'
+    | '/_authenticated/pyynnot'
     | '/_authenticated/uutisten-yllapito'
   fileRoutesById: FileRoutesById
 }
@@ -260,6 +272,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VaraaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/pyynnot': {
+      id: '/_authenticated/pyynnot'
+      path: '/pyynnot'
+      fullPath: '/pyynnot'
+      preLoaderRoute: typeof AuthenticatedPyynnotRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/uutisten-yllapito': {
       id: '/_authenticated/uutisten-yllapito'
       path: '/uutisten-yllapito'
@@ -271,10 +290,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedPyynnotRoute: typeof AuthenticatedPyynnotRoute
   AuthenticatedUutistenYllapitoRoute: typeof AuthenticatedUutistenYllapitoRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedPyynnotRoute: AuthenticatedPyynnotRoute,
   AuthenticatedUutistenYllapitoRoute: AuthenticatedUutistenYllapitoRoute,
 }
 
