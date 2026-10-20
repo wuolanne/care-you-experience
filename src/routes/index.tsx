@@ -53,42 +53,8 @@ function Index() {
 
           <div className="mt-8 flex justify-center">
             <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base uppercase tracking-wide">
-              <a href="#about">{tr.values.more}</a>
+              <Link to="/meista">{tr.values.more}</Link>
             </Button>
-          </div>
-
-          <div id="about" aria-labelledby="about-title" className="mt-12">
-            <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr]">
-              <div>
-                <p className="eyebrow">{tr.about.eyebrow}</p>
-                <h2 id="about-title" className="mt-4 text-3xl leading-tight md:text-4xl">{tr.about.title}</h2>
-                <div className="hairline mt-6 w-24" />
-              </div>
-              <div className="min-w-0">
-                <h3 className="text-2xl leading-tight md:text-3xl">{tr.about.headline}</h3>
-                <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
-                  {tr.about.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                </div>
-                {tr.about.sections.map((section) => (
-                  <div key={section.title} className="mt-8">
-                    <h3 className="text-2xl leading-tight">{section.title}</h3>
-                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">{section.body}</p>
-                  </div>
-                ))}
-                <div className="mt-8">
-                  <h3 className="text-2xl leading-tight">{tr.about.start.title}</h3>
-                  <ul className="mt-4 space-y-4">
-                    {tr.about.start.items.map((item) => (
-                      <li key={item.title} className="flex items-start gap-3 text-base leading-relaxed">
-                        <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                        <p className="text-muted-foreground"><strong className="font-medium text-foreground">{item.title}</strong> {item.body}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <p className="mt-8 border-t border-border pt-6 text-lg font-medium leading-relaxed text-primary">{tr.about.closing}</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
