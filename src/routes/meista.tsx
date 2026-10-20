@@ -42,10 +42,11 @@ function AboutPage() {
               ) : (
                 <div
                   aria-hidden="true"
-                  className="flex aspect-[4/5] w-full items-center justify-center rounded-sm border border-dashed border-border bg-card"
+                  className="flex aspect-[4/5] w-full items-center justify-center rounded-sm border border-dashed border-gold/70 bg-card"
                 >
-                  <ImageIcon className="size-8 text-muted-foreground/60" strokeWidth={1.2} />
+                  <ImageIcon className="size-8 text-gold/70" strokeWidth={1.2} />
                 </div>
+
               )}
             </div>
           </div>
