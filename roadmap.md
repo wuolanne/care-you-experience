@@ -27,6 +27,7 @@
 24. [x] Add news banner after pricing and values, three news slots, more-news arrow and secure self-service news editing; verified authenticated save and public read-back. Marianne creates her account and confirms info@tgnservices.fi to activate her administrator role.
 25. [x] Alternate homepage cream and neutral grey sections, make About grey, and reserve lavender for the first banner only.
 26. [x] Update contact email to info@tgnservices.fi.
-27. [x] Open the booking page directly to a calendar, then ask for time and email after day selection in all four languages; requests compose an email, not an automatic confirmed reservation.
+27. [x] Open the booking page directly to a calendar, then ask for time and email after day selection in all four languages; requests are stored server-side in booking_requests, not an automatic confirmed reservation.
 28. [x] Update the "Aloitetaan sinulle sopivalla tavalla" items to Marianne's wording in FI/SV/ES/EN and verify all four languages.
 29. [ ] Wire the contact form at /tarjouspyynto so submissions actually reach TGN; it currently only shows a thank-you message.
+30. [x] Store every /varaa booking request in the database; owner email notification to info@tgnservices.fi waits for a verified email domain.
