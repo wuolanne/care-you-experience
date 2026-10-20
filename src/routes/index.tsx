@@ -50,40 +50,14 @@ function Index() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
 
-      <section id="hinnoittelu" aria-labelledby="pricing-banner-title" className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-6xl px-6 py-12 text-center md:py-16">
-          <h2 id="pricing-banner-title" className="text-4xl leading-tight text-primary md:text-5xl">{tr.pricingBanner.title}</h2>
-          <div className="mx-auto mt-6 max-w-4xl space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
-            {tr.pricingBanner.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          </div>
-          <p className="mt-6 text-base font-medium text-foreground">{tr.pricingBanner.languages}</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
-              <Link to="/care-kotiin">{tr.pricingBanner.home}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
-            </Button>
-            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
-              <Link to="/care-yrityksille">{tr.pricingBanner.business}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
+          <div className="mt-8 flex justify-center">
+            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base uppercase tracking-wide">
+              <a href="#about">{tr.values.more}</a>
             </Button>
           </div>
-        </div>
-      </section>
 
-      <section id="arvot" aria-labelledby="values-title" className="border-b border-border/60 bg-[image:var(--gradient-lilac)]">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <div className="text-center">
-            <p className="eyebrow">{tr.values.eyebrow}</p>
-            <h2 id="values-title" className="mt-4 text-3xl md:text-4xl">{tr.values.title}</h2>
-            <div className="mt-8 flex justify-center">
-              <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base uppercase tracking-wide">
-                <a href="#about">{tr.values.more}</a>
-              </Button>
-            </div>
-          </div>
-
-          <div id="about" aria-labelledby="about-title" className="mt-14">
+          <div id="about" aria-labelledby="about-title" className="mt-12">
             <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr]">
               <div>
                 <p className="eyebrow">{tr.about.eyebrow}</p>
@@ -116,8 +90,35 @@ function Index() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+
+      <section id="hinnoittelu" aria-labelledby="pricing-banner-title" className="border-b border-border/60 bg-background">
+        <div className="mx-auto max-w-6xl px-6 py-12 text-center md:py-16">
+          <h2 id="pricing-banner-title" className="text-4xl leading-tight text-primary md:text-5xl">{tr.pricingBanner.title}</h2>
+          <div className="mx-auto mt-6 max-w-4xl space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+            {tr.pricingBanner.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+          <p className="mt-6 text-base font-medium text-foreground">{tr.pricingBanner.languages}</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
+              <Link to="/care-kotiin">{tr.pricingBanner.home}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
+            </Button>
+            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
+              <Link to="/care-yrityksille">{tr.pricingBanner.business}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="arvot" aria-labelledby="values-title" className="border-b border-border/60 bg-[image:var(--gradient-lilac)]">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <div className="text-center">
+            <p className="eyebrow">{tr.values.eyebrow}</p>
+            <h2 id="values-title" className="mt-4 text-3xl md:text-4xl">{tr.values.title}</h2>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {tr.values.items.map((value, index) => {
               const Icon = [ShieldCheck, MessagesSquare, HeartHandshake, Wallet][index] ?? ShieldCheck;
               return (
@@ -131,6 +132,7 @@ function Index() {
           </div>
         </div>
       </section>
+
 
 
       <NewsSection />
