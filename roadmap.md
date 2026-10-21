@@ -55,3 +55,4 @@
 51. [x] Add a narrow multilingual customer review band immediately above the shared grey footer, with empty feedback, five outlined stars and nickname slots for manually supplied reviews.
 52. [x] Remove the package options from the "Aloita palvelu heti" form on both Kotiin and Yrityksille; only Kertakäynti and Kuukausiasiakkuus remain, verified in all four languages.
 53. [x] Center the footer logo above its tagline sentence (logo on top, sentence centered under it) on desktop and mobile.
+54. [x] Center the footer contact block and put the social icon row centered directly beneath it, on desktop and mobile.
