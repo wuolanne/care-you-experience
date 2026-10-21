@@ -65,6 +65,66 @@ export type Database = {
         }
         Relationships: []
       }
+      email_outbox: {
+        Row: {
+          accepted_at: string | null
+          attempts: number
+          available_at: string
+          created_at: string
+          id: string
+          idempotency_key: string
+          last_error: string | null
+          payload: Json
+          provider_id: string | null
+          recipient: string | null
+          recipient_key: string
+          reply_to: string | null
+          request_id: string
+          request_type: string
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          attempts?: number
+          available_at?: string
+          created_at?: string
+          id?: string
+          idempotency_key: string
+          last_error?: string | null
+          payload: Json
+          provider_id?: string | null
+          recipient?: string | null
+          recipient_key: string
+          reply_to?: string | null
+          request_id: string
+          request_type: string
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          attempts?: number
+          available_at?: string
+          created_at?: string
+          id?: string
+          idempotency_key?: string
+          last_error?: string | null
+          payload?: Json
+          provider_id?: string | null
+          recipient?: string | null
+          recipient_key?: string
+          reply_to?: string | null
+          request_id?: string
+          request_type?: string
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       news: {
         Row: {
           body: Json
@@ -163,6 +223,53 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_booking_request_with_notification: {
+        Args: {
+          p_contact_email: string
+          p_idempotency_key: string
+          p_lang: string
+          p_meeting_date: string
+          p_payload: Json
+          p_preferred_time: string
+          p_recipient: string | null
+          p_reply_to: string | null
+          p_subject: string
+        }
+        Returns: { outbox_id: string; request_id: string }[]
+      }
+      create_contact_submission_with_notification: {
+        Args: {
+          p_email: string
+          p_idempotency_key: string
+          p_lang: string
+          p_message: string
+          p_payload: Json
+          p_recipient: string | null
+          p_reply_to: string | null
+          p_subject: string
+        }
+        Returns: { outbox_id: string; request_id: string }[]
+      }
+      create_service_start_request_with_notification: {
+        Args: {
+          p_contact_person: string
+          p_customer_name: string
+          p_email: string
+          p_idempotency_key: string
+          p_lang: string
+          p_once_details: string | null
+          p_package_name: string | null
+          p_payload: Json
+          p_recipient: string | null
+          p_reply_to: string | null
+          p_service_type: string
+          p_start_date: string
+          p_start_time: string
+          p_subject: string
+          p_work_address: string
+        }
+        Returns: { outbox_id: string; request_id: string }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
