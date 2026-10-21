@@ -203,3 +203,50 @@ DROP TRIGGER IF EXISTS booking_throttle ON public.booking_requests;
 CREATE TRIGGER booking_throttle
   BEFORE INSERT ON public.booking_requests
   FOR EACH ROW EXECUTE FUNCTION public.throttle_booking_requests();
+
+CREATE TABLE public.form_rate_limits (
+  bucket_key text PRIMARY KEY,
+  window_started_at timestamptz NOT NULL DEFAULT now(),
+  request_count integer NOT NULL DEFAULT 0 CHECK (request_count >= 0)
+);
+
+ALTER TABLE public.form_rate_limits ENABLE ROW LEVEL SECURITY;
+GRANT ALL ON public.form_rate_limits TO service_role;
+REVOKE ALL ON public.form_rate_limits FROM anon, authenticated;
+
+CREATE OR REPLACE FUNCTION public.check_form_rate_limit(
+  p_bucket_key text,
+  p_limit integer DEFAULT 10
+) RETURNS boolean
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public
+AS $$
+DECLARE
+  current_window timestamptz;
+  current_count integer;
+BEGIN
+  PERFORM pg_advisory_xact_lock(hashtext(p_bucket_key));
+  SELECT window_started_at, request_count INTO current_window, current_count
+    FROM public.form_rate_limits
+    WHERE bucket_key = p_bucket_key;
+
+  IF current_window IS NULL OR current_window <= now() - interval '1 minute' THEN
+    INSERT INTO public.form_rate_limits (bucket_key, window_started_at, request_count)
+      VALUES (p_bucket_key, now(), 1)
+      ON CONFLICT (bucket_key) DO UPDATE
+        SET window_started_at = now(), request_count = 1;
+    RETURN true;
+  END IF;
+
+  IF current_count >= p_limit THEN
+    RETURN false;
+  END IF;
+
+  UPDATE public.form_rate_limits
+    SET request_count = current_count + 1
+    WHERE bucket_key = p_bucket_key;
+  RETURN true;
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.check_form_rate_limit(text, integer) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.check_form_rate_limit(text, integer) TO service_role;

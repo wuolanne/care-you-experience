@@ -223,6 +223,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_form_rate_limit: {
+        Args: {
+          p_bucket_key: string
+          p_limit?: number
+        }
+        Returns: boolean
+      }
       create_booking_request_with_notification: {
         Args: {
           p_contact_email: string

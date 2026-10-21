@@ -22,6 +22,8 @@ export const submitBookingRequest = createServerFn({ method: "POST" })
     }
 
     if (data.website) return { ok: false as const };
+    const { isFormRequestAllowed } = await import("@/integrations/email/rate-limit.server");
+    if (!(await isFormRequestAllowed("booking"))) return { ok: false as const };
     const { saveBookingRequest } = await import("@/integrations/email/request-notifications.server");
     return saveBookingRequest(data, async () => {
       const key = process.env["SUPABASE_PUBLISHABLE_KEY"];

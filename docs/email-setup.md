@@ -50,7 +50,7 @@ Vastaanottajat valitaan keskitetysti näin:
 
 Lisää muuttujat Vercelissä Project Settings → Environment Variables → Preview. Tee uusi Preview-deployment muuttujien lisäämisen jälkeen. Älä muuta Production Branchia, DNS-asetuksia tai tuotannon logosivua tämän työn yhteydessä.
 
-Supabase-migraatio `drizzle/migrations/0006_email_outbox.sql` on ajettava siihen Supabase-projektiin, jota Preview käyttää. Migraatio luo atomiset tallennusfunktiot, outbox-taulun ja videopalaveripyyntöjen kestävän sähköpostikohtaisen rate limitin.
+Supabase-migraatio `drizzle/migrations/0006_email_outbox.sql` on ajettava siihen Supabase-projektiin, jota Preview käyttää. Migraatio luo atomiset tallennusfunktiot, outbox-taulun, lomakekohtaisen hashatun IP-bucket-rajoituksen ja videopalaveripyyntöjen kestävän sähköpostikohtaisen rate limitin. Raakoja IP-osoitteita ei tallenneta.
 
 ## Tilat ja virheenkäsittely
 
