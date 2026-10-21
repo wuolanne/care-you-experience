@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { CustomerReviews } from "@/components/CustomerReviews";
 import { supabase } from '@/integrations/supabase/client';
 
 
@@ -139,6 +140,7 @@ function RootComponent() {
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <Outlet />
           </main>
+          <CustomerReviews />
           <SiteFooter />
         </div>
       </LanguageProvider>
