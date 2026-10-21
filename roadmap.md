@@ -54,3 +54,4 @@
 50. [x] Rename the news banner heading to just "Uutisia" (SV Nytt, ES Novedades, EN News) on every page and language.
 51. [x] Add a narrow multilingual customer review band immediately above the shared grey footer, with empty feedback, five outlined stars and nickname slots for manually supplied reviews.
 52. [x] Remove the package options from the "Aloita palvelu heti" form on both Kotiin and Yrityksille; only Kertakäynti and Kuukausiasiakkuus remain, verified in all four languages.
+53. [x] Center the footer logo above its tagline sentence (logo on top, sentence centered under it) on desktop and mobile.
