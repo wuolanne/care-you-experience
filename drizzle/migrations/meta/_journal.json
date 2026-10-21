@@ -57,6 +57,13 @@
       "when": 1792578353387,
       "tag": "0007_news_images_bucket",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1792590000000,
+      "tag": "0008_admin_dashboard_read_policies",
+      "breakpoints": true
     }
   ]
 }

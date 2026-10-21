@@ -21,8 +21,13 @@ import { Route as OstaRouteImport } from './routes/osta'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TarjouspyyntoRouteImport } from './routes/tarjouspyynto'
 import { Route as VaraaRouteImport } from './routes/varaa'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedPyynnotRouteImport } from './routes/_authenticated/pyynnot'
 import { Route as AuthenticatedUutistenYllapitoRouteImport } from './routes/_authenticated/uutisten-yllapito'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminPalvelunaloituksetRouteImport } from './routes/_authenticated/admin/palvelunaloitukset'
+import { Route as AuthenticatedAdminVideopalaveritRouteImport } from './routes/_authenticated/admin/videopalaverit'
+import { Route as AuthenticatedAdminYhteydenototRouteImport } from './routes/_authenticated/admin/yhteydenotot'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -83,6 +88,11 @@ const VaraaRoute = VaraaRouteImport.update({
   path: '/varaa',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPyynnotRoute = AuthenticatedPyynnotRouteImport.update({
   id: '/pyynnot',
   path: '/pyynnot',
@@ -93,6 +103,29 @@ const AuthenticatedUutistenYllapitoRoute =
     id: '/uutisten-yllapito',
     path: '/uutisten-yllapito',
     getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminPalvelunaloituksetRoute =
+  AuthenticatedAdminPalvelunaloituksetRouteImport.update({
+    id: '/palvelunaloitukset',
+    path: '/palvelunaloitukset',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminVideopalaveritRoute =
+  AuthenticatedAdminVideopalaveritRouteImport.update({
+    id: '/videopalaverit',
+    path: '/videopalaverit',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminYhteydenototRoute =
+  AuthenticatedAdminYhteydenototRouteImport.update({
+    id: '/yhteydenotot',
+    path: '/yhteydenotot',
+    getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -107,8 +140,13 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/admin/palvelunaloitukset': typeof AuthenticatedAdminPalvelunaloituksetRoute
+  '/admin/videopalaverit': typeof AuthenticatedAdminVideopalaveritRoute
+  '/admin/yhteydenotot': typeof AuthenticatedAdminYhteydenototRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -124,6 +162,10 @@ export interface FileRoutesByTo {
   '/varaa': typeof VaraaRoute
   '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/admin/palvelunaloitukset': typeof AuthenticatedAdminPalvelunaloituksetRoute
+  '/admin/videopalaverit': typeof AuthenticatedAdminVideopalaveritRoute
+  '/admin/yhteydenotot': typeof AuthenticatedAdminYhteydenototRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -139,8 +181,13 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/varaa': typeof VaraaRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/pyynnot': typeof AuthenticatedPyynnotRoute
   '/_authenticated/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/_authenticated/admin/palvelunaloitukset': typeof AuthenticatedAdminPalvelunaloituksetRoute
+  '/_authenticated/admin/videopalaverit': typeof AuthenticatedAdminVideopalaveritRoute
+  '/_authenticated/admin/yhteydenotot': typeof AuthenticatedAdminYhteydenototRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -156,8 +203,13 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/tarjouspyynto'
     | '/varaa'
+    | '/admin'
     | '/pyynnot'
     | '/uutisten-yllapito'
+    | '/admin/palvelunaloitukset'
+    | '/admin/videopalaverit'
+    | '/admin/yhteydenotot'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -173,6 +225,10 @@ export interface FileRouteTypes {
     | '/varaa'
     | '/pyynnot'
     | '/uutisten-yllapito'
+    | '/admin/palvelunaloitukset'
+    | '/admin/videopalaverit'
+    | '/admin/yhteydenotot'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -187,8 +243,13 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/tarjouspyynto'
     | '/varaa'
+    | '/_authenticated/admin'
     | '/_authenticated/pyynnot'
     | '/_authenticated/uutisten-yllapito'
+    | '/_authenticated/admin/palvelunaloitukset'
+    | '/_authenticated/admin/videopalaverit'
+    | '/_authenticated/admin/yhteydenotot'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -292,6 +353,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VaraaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/pyynnot': {
       id: '/_authenticated/pyynnot'
       path: '/pyynnot'
@@ -306,15 +374,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUutistenYllapitoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/palvelunaloitukset': {
+      id: '/_authenticated/admin/palvelunaloitukset'
+      path: '/palvelunaloitukset'
+      fullPath: '/admin/palvelunaloitukset'
+      preLoaderRoute: typeof AuthenticatedAdminPalvelunaloituksetRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/videopalaverit': {
+      id: '/_authenticated/admin/videopalaverit'
+      path: '/videopalaverit'
+      fullPath: '/admin/videopalaverit'
+      preLoaderRoute: typeof AuthenticatedAdminVideopalaveritRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/yhteydenotot': {
+      id: '/_authenticated/admin/yhteydenotot'
+      path: '/yhteydenotot'
+      fullPath: '/admin/yhteydenotot'
+      preLoaderRoute: typeof AuthenticatedAdminYhteydenototRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminPalvelunaloituksetRoute: typeof AuthenticatedAdminPalvelunaloituksetRoute
+  AuthenticatedAdminVideopalaveritRoute: typeof AuthenticatedAdminVideopalaveritRoute
+  AuthenticatedAdminYhteydenototRoute: typeof AuthenticatedAdminYhteydenototRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminPalvelunaloituksetRoute:
+    AuthenticatedAdminPalvelunaloituksetRoute,
+  AuthenticatedAdminVideopalaveritRoute: AuthenticatedAdminVideopalaveritRoute,
+  AuthenticatedAdminYhteydenototRoute: AuthenticatedAdminYhteydenototRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedPyynnotRoute: typeof AuthenticatedPyynnotRoute
   AuthenticatedUutistenYllapitoRoute: typeof AuthenticatedUutistenYllapitoRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedPyynnotRoute: AuthenticatedPyynnotRoute,
   AuthenticatedUutistenYllapitoRoute: AuthenticatedUutistenYllapitoRoute,
 }
