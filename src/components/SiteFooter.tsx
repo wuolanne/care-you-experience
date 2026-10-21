@@ -31,10 +31,11 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border/60 bg-section-grey">
       <div className="mx-auto grid max-w-7xl gap-5 px-6 py-6 md:grid-cols-[1.1fr_1fr_1fr] md:items-center md:gap-8 md:py-7">
-        <div>
+        <div className="flex flex-col items-center text-center">
           <img src={logo} alt="TGN Services" className="h-14 w-auto md:h-24" />
           <p className="mt-2 max-w-xs text-sm text-muted-foreground md:mt-3">{tr.footer.tagline}</p>
         </div>
+
         <div className="space-y-2 md:space-y-3">
           <p className="eyebrow">{tr.services.eyebrow}</p>
           <div className="flex flex-col gap-1 text-base text-foreground/80 md:gap-3 md:text-lg">
