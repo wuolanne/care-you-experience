@@ -58,3 +58,4 @@
 54. [x] Center the footer contact block and put the social icon row centered directly beneath it, on desktop and mobile.
 55. [x] Put Yhteystiedot in the same footer row as Palvelumme, left of the social icons; icons split into two rows (3+2) so the columns stay aligned on desktop and centered on phones.
 56. [x] Drop the three footer columns (Palvelumme, Yhteystiedot, Seuraa meitä) to start level with the vertical middle of the logo, running to its right; phones keep the stacked layout.
+57. [x] Level every footer section on one top line (logo, Palvelumme, Yhteystiedot, Seuraa meitä) so the logo no longer sits higher; phones keep the stacked layout.
