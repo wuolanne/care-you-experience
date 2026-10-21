@@ -2,11 +2,14 @@
 
 Aloitetaan rakentamaan minulle uuden yritykseni verkkosivuja: Haluan elegantit sivut niin että jokainen asiakas tuntee laadun jo heti kun astuu verkkosivuille. Haluan kieliversiot suomi, ruotsi, espanja ja engllanti. yrityksen nimi on Care  and You Services ja aloitus sivulla lyhyesti meistä ja palveluistamme ja kliikkaamalla pääsee kohtaan varaa videopalaveri yhteistyönaloitusta varten tai toinen valinta on jätä tarjous pyyntö ja kolmas valinta on osta palvelu. Yläpalkkiin haluan Care KOTIIN , Care Yrityksille ja Care Palveluseteli
 
-This project was built with [Lovable](https://lovable.dev).
+This project was built with [Lovable](https://lovable.dev), while runtime data,
+authentication, storage and migrations are configured for the project's own
+Supabase instance.
 
 ## Build with Lovable
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/5d5d3a07-b1d5-4ff3-95d0-d5444056a73b).
+The Lovable editor integration is retained for development. Configure runtime
+Supabase values from `.env.example`; do not commit `.env` or service keys.
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
 - **Stay in sync**: every change made in Lovable is committed straight to this repository.

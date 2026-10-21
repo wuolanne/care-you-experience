@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { useServerFn } from '@tanstack/react-start';
 import { CheckCircle2, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -16,17 +16,20 @@ export function RequestForm({kind,audience='home'}:{kind:'contact'|'start';audie
  const {lang}=useLang(); const t=homeCopy[lang];
  const sendContact=useServerFn(submitContact); const sendStart=useServerFn(submitServiceStart);
  const [pending,setPending]=useState(false); const [sent,setSent]=useState(false); const [error,setError]=useState(false); const [type,setType]=useState('once');
+ const idempotencyKey=useRef(crypto.randomUUID());
 
  async function submit(e:FormEvent<HTMLFormElement>){
   e.preventDefault(); if(pending)return; const f=new FormData(e.currentTarget); setError(false);
   const data=kind==='contact'?contactSchema.safeParse({email:f.get('email'),message:f.get('message'),lang}):startSchema.safeParse({customerName:f.get('customerName'),contactPerson:f.get('contactPerson'),email:f.get('email'),workAddress:f.get('workAddress'),startDate:f.get('startDate'),startTime:f.get('startTime'),serviceType:type,onceDetails:type==='once'?f.get('onceDetails'):undefined,lang});
   if(!data.success){setError(true);return;}
   setPending(true);
-  try{const result=kind==='contact'?await sendContact({data:contactSchema.parse(data.data)}):await sendStart({data:startSchema.parse(data.data)}); if(result.ok)setSent(true);else setError(true);}catch{setError(true);}finally{setPending(false);}
+  const website=String(f.get('website')??'');
+  try{const result=kind==='contact'?await sendContact({data:{...contactSchema.parse(data.data),website,idempotencyKey:idempotencyKey.current}}):await sendStart({data:{...startSchema.parse(data.data),website,idempotencyKey:idempotencyKey.current}}); if(result.ok)setSent(true);else setError(true);}catch{setError(true);}finally{setPending(false);}
  }
  if(sent)return <div role="status" className="py-6 text-center"><CheckCircle2 className="mx-auto mb-4 size-8 text-primary"/><h2 className="text-2xl">{t.thanks}</h2><p className="mt-4 leading-relaxed text-muted-foreground">{kind==='contact'?t.contactThanks:t.startThanks}</p></div>;
  const field=(name:string,label:string,inputType='text',maxLength=200)=><div className="space-y-2" key={name}><Label htmlFor={name}>{label}</Label><Input id={name} name={name} type={inputType} maxLength={maxLength} required /></div>;
  return <form onSubmit={submit} className="space-y-5">
+  <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true"><Label htmlFor="website">Website</Label><Input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
   {kind==='start'&&<>{field('customerName',t.name)}{field('contactPerson',t.person)}</>}
   {field('email',t.email,'email',255)}
   {kind==='contact'?<div className="space-y-2"><Label htmlFor="message">{t.message}</Label><Textarea id="message" name="message" rows={4} maxLength={4000} required /></div>:<>

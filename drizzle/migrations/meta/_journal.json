@@ -43,6 +43,20 @@
       "when": 1792478218138,
       "tag": "0005_service_start_request_details",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792578353386,
+      "tag": "0006_email_outbox",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792578353387,
+      "tag": "0007_news_images_bucket",
+      "breakpoints": true
     }
   ]
 }

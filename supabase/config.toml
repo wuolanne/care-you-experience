@@ -1,1 +1,4 @@
-project_id = "glzmuhrbcmbvykpbcrst"
+# Link the local Supabase CLI only after the new project has been created:
+# supabase link --project-ref <tgn-services-project-ref>
+# The project ref is intentionally not committed so this repository cannot
+# accidentally target the former Lovable Cloud project.

@@ -18,6 +18,7 @@ dist-ssr
 *.local
 
 # Local environment files; Vercel Preview variables are configured in the dashboard.
+.env
 .env.local
 .env.*.local
 
