@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { format } from "date-fns";
 import { fi, sv, es, enGB } from "date-fns/locale";
@@ -12,10 +12,10 @@ import { submitBookingRequest } from "./booking.functions";
 
 const locales = { fi, sv, es, en: enGB };
 const copy = {
-  fi: { day: "Valitse päivä", details: "Videopalaverin tiedot", time: "Toivottu kellonaika", zone: "Suomen aikaa (Europe/Helsinki)", email: "Sähköpostiosoite", change: "Vaihda päivää", send: "Lähetä varauspyyntö", sent: "Varauspyyntö lähetetty", sentBody: "Kiitos varauspyynnöstäsi! Videopalaverin varausvahvistus saapuu sähköpostiisi tämän päivän aikana.", error: "Lähettäminen ei onnistunut. Yritä hetken päästä uudelleen." },
-  sv: { day: "Välj dag", details: "Uppgifter för videomötet", time: "Önskad tid", zone: "Finsk tid (Europe/Helsinki)", email: "E-postadress", change: "Byt dag", send: "Skicka bokningsförfrågan", sent: "Bokningsförfrågan skickad", sentBody: "Tack för din bokningsförfrågan! Bekräftelsen för videomötet kommer till din e-post under dagen.", error: "Det gick inte att skicka. Försök igen om en stund." },
-  es: { day: "Elige un día", details: "Datos de la videollamada", time: "Hora deseada", zone: "Hora de Finlandia (Europe/Helsinki)", email: "Correo electrónico", change: "Cambiar día", send: "Enviar solicitud", sent: "Solicitud enviada", sentBody: "¡Gracias por tu solicitud! Recibirás la confirmación de la videollamada por correo electrónico durante el día de hoy.", error: "No se pudo enviar. Inténtalo de nuevo en un momento." },
-  en: { day: "Choose a day", details: "Video meeting details", time: "Preferred time", zone: "Finland time (Europe/Helsinki)", email: "Email address", change: "Change day", send: "Send booking request", sent: "Booking request sent", sentBody: "Thank you for your booking request! Your video meeting confirmation will arrive by email today.", error: "Sending failed. Please try again in a moment." },
+  fi: { day: "Valitse päivä", details: "Videopalaverin tiedot", time: "Toivottu kellonaika", zone: "Suomen aikaa (Europe/Helsinki)", email: "Sähköpostiosoite", change: "Vaihda päivää", send: "Lähetä varauspyyntö", sent: "Varauspyyntö lähetetty", sentBody: "Kiitos varauspyynnöstäsi! Palaamme sinulle sähköpostitse erikseen.", error: "Lähettäminen ei onnistunut. Yritä hetken päästä uudelleen." },
+  sv: { day: "Välj dag", details: "Uppgifter för videomötet", time: "Önskad tid", zone: "Finsk tid (Europe/Helsinki)", email: "E-postadress", change: "Byt dag", send: "Skicka bokningsförfrågan", sent: "Bokningsförfrågan skickad", sentBody: "Tack för din bokningsförfrågan! Vi återkommer separat via e-post.", error: "Det gick inte att skicka. Försök igen om en stund." },
+  es: { day: "Elige un día", details: "Datos de la videollamada", time: "Hora deseada", zone: "Hora de Finlandia (Europe/Helsinki)", email: "Correo electrónico", change: "Cambiar día", send: "Enviar solicitud", sent: "Solicitud enviada", sentBody: "¡Gracias por tu solicitud! Nos pondremos en contacto contigo por correo electrónico.", error: "No se pudo enviar. Inténtalo de nuevo en un momento." },
+  en: { day: "Choose a day", details: "Video meeting details", time: "Preferred time", zone: "Finland time (Europe/Helsinki)", email: "Email address", change: "Change day", send: "Send booking request", sent: "Booking request sent", sentBody: "Thank you for your booking request! We will follow up separately by email.", error: "Sending failed. Please try again in a moment." },
 };
 
 export function BookingCalendar() {
@@ -28,10 +28,13 @@ export function BookingCalendar() {
   const [pending, setPending] = useState(false);
   const [failed, setFailed] = useState(false);
   const [sent, setSent] = useState(false);
+  const idempotencyKey = useRef(crypto.randomUUID());
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!date || !time || !email || pending) return;
+    const form = event.currentTarget;
+    const website = String(new FormData(form).get("website") ?? "");
     setPending(true);
     setFailed(false);
     try {
@@ -41,6 +44,8 @@ export function BookingCalendar() {
           preferredTime: time,
           email,
           lang,
+          website,
+          idempotencyKey: idempotencyKey.current,
         },
       });
       if (result.ok) setSent(true);
@@ -85,6 +90,7 @@ export function BookingCalendar() {
               <ArrowLeft aria-hidden="true" />{text.change}
             </Button>
           </div>
+          <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true"><Label htmlFor="booking-website">Website</Label><Input id="booking-website" name="website" tabIndex={-1} autoComplete="off" /></div>
           <div className="space-y-2">
             <Label htmlFor="booking-time">{text.time}</Label>
             <Input id="booking-time" type="time" required value={time} onChange={(event) => setTime(event.target.value)} aria-describedby="booking-zone" />
