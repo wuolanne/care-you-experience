@@ -44,7 +44,7 @@ export function SiteFooter() {
             <Link to="/care-palveluseteli" className="hover:text-primary">{tr.nav.palveluseteli}</Link>
           </div>
         </div>
-        <div className="space-y-3 md:space-y-4">
+        <div className="flex flex-col items-center space-y-3 text-center md:space-y-4">
           <div className="space-y-2 md:space-y-3">
             <p className="eyebrow">{tr.footer.contact}</p>
             <div className="flex flex-col gap-1 text-sm text-foreground/80 md:gap-2">
@@ -55,7 +55,7 @@ export function SiteFooter() {
           </div>
           <div className="space-y-2 md:space-y-3">
             <p className="eyebrow">{tr.footer.follow}</p>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="flex flex-wrap justify-center gap-2.5">
               {SOCIAL.map(({ key, name, Icon }) => {
                 const url = SOCIAL_LINKS[key];
                 return url ? (
