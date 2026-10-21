@@ -33,7 +33,7 @@ export function SiteFooter() {
     "inline-flex size-10 items-center justify-center rounded-sm border-2 border-primary/60 bg-background text-primary shadow-[var(--shadow-soft)] transition-colors hover:border-gold";
   return (
     <footer className="border-t border-border/60 bg-section-grey">
-      <div className="mx-auto grid max-w-7xl gap-5 px-6 py-6 md:grid-cols-[1.1fr_0.9fr_1fr_auto] md:items-center md:gap-8 md:py-7">
+      <div className="mx-auto grid max-w-7xl gap-5 px-6 py-6 md:grid-cols-[auto_auto_auto_auto] md:items-center md:justify-center md:gap-8 md:py-7">
         <div className="flex flex-col items-center text-center">
           <img src={logo} alt="TGN Services" className="h-14 w-auto md:h-24" />
           <p className="mt-2 max-w-xs text-sm text-muted-foreground md:mt-3">{tr.footer.tagline}</p>
