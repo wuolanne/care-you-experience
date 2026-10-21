@@ -60,3 +60,4 @@
 56. [x] Drop the three footer columns (Palvelumme, Yhteystiedot, Seuraa meitä) to start level with the vertical middle of the logo, running to its right; phones keep the stacked layout.
 57. [x] Level every footer section on one top line (logo, Palvelumme, Yhteystiedot, Seuraa meitä) so the logo no longer sits higher; phones keep the stacked layout.
 58. [x] Center the footer sections on a shared middle line (logo, Palvelumme, Yhteystiedot, Seuraa meitä) so their vertical centers coincide; phones keep the stacked layout.
+59. [x] Make the footer sections content-sized and center the group so every pair has the same 32px gap (no wide hole between Palvelumme and Yhteystiedot); phones unchanged.
