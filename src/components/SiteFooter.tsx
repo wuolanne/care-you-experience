@@ -39,7 +39,7 @@ export function SiteFooter() {
           <p className="mt-2 max-w-xs text-sm text-muted-foreground md:mt-3">{tr.footer.tagline}</p>
         </div>
 
-        <div className="flex flex-col items-center space-y-2 text-center md:mt-12 md:items-start md:space-y-3 md:text-left">
+        <div className="flex flex-col items-center space-y-2 text-center md:items-start md:space-y-3 md:text-left">
           <p className="eyebrow">{tr.services.eyebrow}</p>
           <div className="flex flex-col gap-1 text-base text-foreground/80 md:gap-2 lg:gap-3 lg:text-lg">
             <Link to="/care-kotiin" className="hover:text-primary">{tr.nav.kotiin}</Link>
@@ -47,7 +47,7 @@ export function SiteFooter() {
             <Link to="/care-palveluseteli" className="hover:text-primary">{tr.nav.palveluseteli}</Link>
           </div>
         </div>
-        <div className="space-y-2 text-center md:mt-12 md:space-y-3">
+        <div className="space-y-2 text-center md:space-y-3">
           <p className="eyebrow">{tr.footer.contact}</p>
           <div className="flex flex-col gap-1 text-sm text-foreground/80 md:gap-2">
             <a href="mailto:info@tgnservices.fi" className="hover:text-primary">info@tgnservices.fi</a>
@@ -55,7 +55,7 @@ export function SiteFooter() {
             <p className="text-foreground/70">{tr.footer.businessId}: {BUSINESS_ID}</p>
           </div>
         </div>
-        <div className="flex flex-col items-center space-y-2 text-center md:mt-12 md:space-y-3">
+        <div className="flex flex-col items-center space-y-2 text-center md:space-y-3">
           <p className="eyebrow">{tr.footer.follow}</p>
           <div className="flex flex-col items-center gap-2.5">
             {SOCIAL_ROWS.map((row, rowIndex) => (
