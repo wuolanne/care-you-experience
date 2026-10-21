@@ -52,3 +52,4 @@
 48. [x] Set the footer networks to Marianne's list (LinkedIn, Facebook, Instagram, TikTok) with stronger icon boxes; profile URLs still await Marianne.
 49. [x] Add WhatsApp to the footer's social row (five networks now); profile URLs still await Marianne.
 50. [x] Rename the news banner heading to just "Uutisia" (SV Nytt, ES Novedades, EN News) on every page and language.
+51. [x] Add a narrow multilingual customer review band immediately above the shared grey footer, with empty feedback, five outlined stars and nickname slots for manually supplied reviews.

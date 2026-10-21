@@ -22,3 +22,4 @@
 - Homepage section backgrounds use semantic cream and neutral-grey tokens, with lavender reserved for the first banner, to maintain the requested alternation.
 - Video booking uses a dedicated multilingual calendar-first feature on /varaa; submissions are validated and stored server-side in public.booking_requests (anon insert-only RLS, server-side publishable client). Do not claim confirmed bookings until scheduling is connected; owner email notification waits for a verified sender domain.
 - Home contact and service-start requests share client/server Zod validation and server-side insertion into separate insert-only public tables; database triggers enforce per-email throttling without exposing private submissions.
+- CustomerReviews renders once in the root layout immediately before SiteFooter; its manually curated review slots remain empty until approved feedback is supplied, so every page shares the same content without public submission controls.
