@@ -56,3 +56,4 @@
 52. [x] Remove the package options from the "Aloita palvelu heti" form on both Kotiin and Yrityksille; only Kertakäynti and Kuukausiasiakkuus remain, verified in all four languages.
 53. [x] Center the footer logo above its tagline sentence (logo on top, sentence centered under it) on desktop and mobile.
 54. [x] Center the footer contact block and put the social icon row centered directly beneath it, on desktop and mobile.
+55. [x] Put Yhteystiedot in the same footer row as Palvelumme, left of the social icons; icons split into two rows (3+2) so the columns stay aligned on desktop and centered on phones.
