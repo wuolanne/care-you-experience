@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS public.service_section_items (
   published_icon text NOT NULL DEFAULT 'house' CHECK (published_icon IN ('house', 'panels', 'sparkles', 'leaf', 'footprints', 'package', 'truck', 'building', 'snowflake', 'refresh', 'contact', 'shield', 'calendar')),
   draft_visible boolean NOT NULL DEFAULT true,
   published_visible boolean NOT NULL DEFAULT false,
+  draft_deleted boolean NOT NULL DEFAULT false,
+  published_deleted boolean NOT NULL DEFAULT false,
   deleted_at timestamptz,
   draft_updated_at timestamptz NOT NULL DEFAULT now(),
   published_at timestamptz,
@@ -127,7 +129,7 @@ SELECT id, service_type, section_type,
   published_display_order AS display_order,
   published_icon AS icon
 FROM public.service_section_items
-WHERE deleted_at IS NULL AND published_visible = true;
+WHERE deleted_at IS NULL AND published_deleted = false AND published_visible = true;
 
 CREATE OR REPLACE VIEW public.public_service_section_item_texts AS
 SELECT item_id, lang,
@@ -156,9 +158,10 @@ BEGIN
   END IF;
   RETURN jsonb_build_object(
     'sectionTexts', COALESCE((SELECT jsonb_agg(to_jsonb(t) ORDER BY t.service_type, t.section_type, t.lang) FROM public.service_section_texts AS t), '[]'::jsonb),
-    'items', COALESCE((SELECT jsonb_agg(to_jsonb(i) ORDER BY i.service_type, i.section_type, i.draft_display_order, i.created_at) FROM public.service_section_items AS i WHERE i.deleted_at IS NULL), '[]'::jsonb),
+    'items', COALESCE((SELECT jsonb_agg(to_jsonb(i) ORDER BY i.service_type, i.section_type, i.draft_display_order, i.created_at) FROM public.service_section_items AS i), '[]'::jsonb),
     'itemTexts', COALESCE((SELECT jsonb_agg(to_jsonb(t) ORDER BY t.item_id, t.lang) FROM public.service_section_item_texts AS t), '[]'::jsonb),
-    'deletedItemIds', COALESCE((SELECT jsonb_agg(i.id) FROM public.service_section_items AS i WHERE i.deleted_at IS NOT NULL), '[]'::jsonb)
+    'deletedItemIds', COALESCE((SELECT jsonb_agg(i.id) FROM public.service_section_items AS i WHERE i.draft_deleted = true OR i.published_deleted = true OR i.deleted_at IS NOT NULL), '[]'::jsonb),
+    'deletedItems', COALESCE((SELECT jsonb_agg(jsonb_build_object('id', i.id, 'service_type', i.service_type, 'section_type', i.section_type)) FROM public.service_section_items AS i WHERE i.draft_deleted = true OR i.published_deleted = true OR i.deleted_at IS NOT NULL), '[]'::jsonb)
   );
 END;
 $$;
@@ -170,7 +173,8 @@ CREATE OR REPLACE FUNCTION public.admin_upsert_service_section(
   p_title text,
   p_body text,
   p_items jsonb,
-  p_publish boolean DEFAULT false
+  p_publish boolean DEFAULT false,
+  p_deleted_item_ids uuid[] DEFAULT '{}'::uuid[]
 )
 RETURNS jsonb
 LANGUAGE plpgsql
@@ -225,6 +229,43 @@ BEGIN
     published_body = CASE WHEN p_publish THEN EXCLUDED.published_body ELSE service_section_texts.published_body END,
     published_at = CASE WHEN p_publish THEN now() ELSE service_section_texts.published_at END;
 
+  FOREACH item_id_value IN ARRAY COALESCE(p_deleted_item_ids, '{}'::uuid[])
+  LOOP
+    SELECT i.service_type, i.section_type
+    INTO item_service_type, item_section_type
+    FROM public.service_section_items AS i
+    WHERE i.id = item_id_value;
+    IF item_service_type IS NULL THEN
+      INSERT INTO public.service_section_items (
+        id, service_type, section_type,
+        draft_display_order, published_display_order,
+        draft_icon, published_icon,
+        draft_visible, published_visible,
+        draft_deleted, published_deleted,
+        deleted_at, published_at, updated_by
+      )
+      VALUES (
+        item_id_value, p_service_type, p_section_type,
+        0, 0, 'house', 'house', false, false,
+        true, p_publish, CASE WHEN p_publish THEN now() ELSE NULL END,
+        CASE WHEN p_publish THEN now() ELSE NULL END, auth.uid()
+      );
+    ELSIF item_service_type <> p_service_type OR item_section_type <> p_section_type THEN
+      RAISE EXCEPTION 'service section item belongs to another section';
+    ELSE
+      UPDATE public.service_section_items
+      SET draft_deleted = true,
+          draft_visible = false,
+          draft_updated_at = now(),
+          published_deleted = CASE WHEN p_publish THEN true ELSE published_deleted END,
+          published_visible = CASE WHEN p_publish THEN false ELSE published_visible END,
+          published_at = CASE WHEN p_publish THEN now() ELSE published_at END,
+          deleted_at = CASE WHEN p_publish THEN now() ELSE deleted_at END,
+          updated_by = auth.uid()
+      WHERE id = item_id_value;
+    END IF;
+  END LOOP;
+
   FOR item IN SELECT value FROM jsonb_array_elements(p_items)
   LOOP
     item_id_value := NULLIF(item->>'id', '')::uuid;
@@ -249,6 +290,7 @@ BEGIN
       draft_display_order, published_display_order,
       draft_icon, published_icon,
       draft_visible, published_visible,
+      draft_deleted, published_deleted,
       deleted_at, published_at, updated_by
     )
     VALUES (
@@ -259,6 +301,8 @@ BEGIN
       CASE WHEN p_publish THEN icon_value ELSE 'house' END,
       visible_value,
       CASE WHEN p_publish THEN visible_value ELSE false END,
+      false,
+      false,
       NULL,
       CASE WHEN p_publish THEN now() ELSE NULL END,
       auth.uid()
@@ -268,11 +312,13 @@ BEGIN
       draft_icon = EXCLUDED.draft_icon,
       draft_visible = EXCLUDED.draft_visible,
       draft_updated_at = now(),
-      deleted_at = NULL,
+      draft_deleted = false,
+      deleted_at = CASE WHEN p_publish THEN NULL ELSE service_section_items.deleted_at END,
       updated_by = auth.uid(),
       published_display_order = CASE WHEN p_publish THEN EXCLUDED.published_display_order ELSE service_section_items.published_display_order END,
       published_icon = CASE WHEN p_publish THEN EXCLUDED.published_icon ELSE service_section_items.published_icon END,
       published_visible = CASE WHEN p_publish THEN EXCLUDED.published_visible ELSE service_section_items.published_visible END,
+      published_deleted = CASE WHEN p_publish THEN false ELSE service_section_items.published_deleted END,
       published_at = CASE WHEN p_publish THEN now() ELSE service_section_items.published_at END;
 
     INSERT INTO public.service_section_item_texts (
@@ -312,15 +358,15 @@ BEGIN
     RAISE EXCEPTION 'not authorized' USING ERRCODE = '42501';
   END IF;
   UPDATE public.service_section_items
-  SET deleted_at = now(), draft_visible = false, published_visible = false, updated_by = auth.uid()
+  SET draft_deleted = true, draft_visible = false, updated_by = auth.uid()
   WHERE id = p_id;
   RETURN public.admin_service_sections();
 END;
 $$;
 
 REVOKE ALL ON FUNCTION public.admin_service_sections() FROM PUBLIC;
-REVOKE ALL ON FUNCTION public.admin_upsert_service_section(text, text, text, text, text, jsonb, boolean) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.admin_upsert_service_section(text, text, text, text, text, jsonb, boolean, uuid[]) FROM PUBLIC;
 REVOKE ALL ON FUNCTION public.admin_delete_service_section_item(uuid) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_service_sections() TO authenticated;
-GRANT EXECUTE ON FUNCTION public.admin_upsert_service_section(text, text, text, text, text, jsonb, boolean) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.admin_upsert_service_section(text, text, text, text, text, jsonb, boolean, uuid[]) TO authenticated;
 GRANT EXECUTE ON FUNCTION public.admin_delete_service_section_item(uuid) TO authenticated;

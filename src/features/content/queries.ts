@@ -228,7 +228,12 @@ export const adminServiceSectionsQuery = queryOptions({
   queryKey: ["admin-service-sections"],
   queryFn: async () => {
     const { data, error } = await supabase.rpc("admin_service_sections");
-    return error ? parseAdminServiceSections(undefined) : parseAdminServiceSections(data);
+    if (error) {
+      throw new Error(
+        "Palvelusisältöjä ei voitu ladata. Varmista, että migraatio 0013 on asennettu ja käyttäjällä on admin-oikeus.",
+      );
+    }
+    return parseAdminServiceSections(data);
   },
 });
 

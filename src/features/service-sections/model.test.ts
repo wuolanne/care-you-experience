@@ -3,6 +3,7 @@ import {
   adminServiceSectionValues,
   parseAdminServiceSections,
   publicServiceSectionValues,
+  serviceSectionPayload,
   sourceServiceSection,
 } from "./model";
 
@@ -79,5 +80,65 @@ describe("Admin v2 service sections", () => {
     );
     expect(result.title).toBe("Yrityspalvelut");
     expect(result.items).toHaveLength(0);
+  });
+
+  it("stages source fallback deletion in the payload without deleting it immediately", () => {
+    const section = sourceServiceSection("home", "services", "fi");
+    const first = section.items[0]!;
+    const payload = serviceSectionPayload({
+      ...section,
+      items: [{ ...first, deleted: true }, ...section.items.slice(1)],
+    });
+
+    expect(payload.p_deleted_item_ids).toEqual([first.id]);
+    expect(payload.p_items).not.toContainEqual(expect.objectContaining({ id: first.id }));
+  });
+
+  it("keeps deletions scoped to the selected service section", () => {
+    const snapshot = parseAdminServiceSections({
+      items: [
+        {
+          id: "home-item",
+          service_type: "home",
+          section_type: "services",
+          draft_icon: "house",
+          draft_visible: true,
+        },
+        {
+          id: "business-item",
+          service_type: "business",
+          section_type: "services",
+          draft_icon: "building",
+          draft_visible: true,
+        },
+      ],
+      deletedItemIds: ["home-item"],
+    });
+    const home = adminServiceSectionValues(snapshot, "home", "services", "fi");
+    const business = adminServiceSectionValues(snapshot, "business", "services", "fi");
+
+    expect(home.items.find((item) => item.id === "home-item")?.deleted).toBe(true);
+    expect(business.items.find((item) => item.id === "business-item")?.deleted).toBe(false);
+  });
+
+  it("does not let a draft deletion change published public values", () => {
+    const published = publicServiceSectionValues(
+      "home",
+      "services",
+      "fi",
+      [{ service_type: "home", section_type: "services", lang: "fi", title: "Palvelut", body: "" }],
+      [
+        {
+          id: "published-1",
+          service_type: "home",
+          section_type: "services",
+          display_order: 0,
+          icon: "house",
+        },
+      ],
+      [{ item_id: "published-1", lang: "fi", title: "Julkaistu kortti", description: "Kuvaus" }],
+    );
+
+    expect(published.items[0]?.title).toBe("Julkaistu kortti");
   });
 });

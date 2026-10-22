@@ -31,6 +31,9 @@ export type ServiceSectionItem = {
   visible: boolean;
   title: string;
   description: string;
+  deleted?: boolean;
+  persisted?: boolean;
+  sourceFallback?: boolean;
 };
 
 export type ServiceSectionValues = {
@@ -96,6 +99,7 @@ export function sourceServiceSection(
         visible: true,
         title: item[0] ?? "",
         description: item[1] ?? "",
+        sourceFallback: true,
       },
     ];
   });
@@ -146,13 +150,22 @@ export function parseAdminServiceSections(value: unknown): AdminServiceSnapshot 
         )
       : [];
   const deletedItemIds = source["deletedItemIds"];
+  const deletedItems = Array.isArray(source["deletedItems"])
+    ? source["deletedItems"].filter((item): item is Record<string, unknown> =>
+        Boolean(item && typeof item === "object"),
+      )
+    : [];
+  const scopedDeletedIds = deletedItems
+    .map((item) => item["id"])
+    .filter((id): id is string => typeof id === "string");
+  const parsedDeletedIds = Array.isArray(deletedItemIds)
+    ? deletedItemIds.filter((id): id is string => typeof id === "string")
+    : [];
   return {
     sectionTexts: arrayOfRecords("sectionTexts"),
     items: arrayOfRecords("items"),
     itemTexts: arrayOfRecords("itemTexts"),
-    deletedItemIds: Array.isArray(deletedItemIds)
-      ? deletedItemIds.filter((id): id is string => typeof id === "string")
-      : [],
+    deletedItemIds: [...new Set([...parsedDeletedIds, ...scopedDeletedIds])],
   };
 }
 
@@ -173,6 +186,7 @@ export function adminServiceSectionValues(
   const managedItems = safe.items.filter(
     (row) => row["service_type"] === serviceType && row["section_type"] === sectionType,
   );
+  const deleted = new Set(safe.deletedItemIds);
   const sourceById = new Map(fallback.items.map((item) => [item.id, item]));
   const items = managedItems.map((row) => {
     const text = safe.itemTexts.find(
@@ -186,10 +200,11 @@ export function adminServiceSectionValues(
       visible: boolValue(row["draft_visible"]),
       title: text ? stringValue(text["draft_title"]) : (sourceItem?.title ?? ""),
       description: text ? stringValue(text["draft_description"]) : (sourceItem?.description ?? ""),
+      deleted: deleted.has(stringValue(row["id"])),
+      persisted: true,
     };
   });
   const managedIds = new Set(managedItems.map((row) => stringValue(row["id"])));
-  const deleted = new Set(safe.deletedItemIds);
   const sourceItems = fallback.items.filter(
     (item) => !managedIds.has(item.id) && !deleted.has(item.id),
   );
@@ -238,6 +253,7 @@ export function publicServiceSectionValues(
           visible: true,
           title: text ? stringValue(text["title"]) : (sourceItem?.title ?? ""),
           description: text ? stringValue(text["description"]) : (sourceItem?.description ?? ""),
+          deleted: false,
         };
       })
       .filter((item) => item.title || item.description)
@@ -252,14 +268,17 @@ export function serviceSectionPayload(section: ServiceSectionValues) {
     p_lang: section.lang,
     p_title: section.title,
     p_body: section.body,
-    p_items: section.items.map((item) => ({
-      id: item.id,
-      icon: item.icon,
-      displayOrder: item.displayOrder,
-      visible: item.visible,
-      title: item.title,
-      description: item.description,
-    })),
+    p_items: section.items
+      .filter((item) => !item.deleted)
+      .map((item) => ({
+        id: item.id,
+        icon: item.icon,
+        displayOrder: item.displayOrder,
+        visible: item.visible,
+        title: item.title,
+        description: item.description,
+      })),
+    p_deleted_item_ids: section.items.filter((item) => item.deleted).map((item) => item.id),
   };
 }
 

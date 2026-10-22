@@ -43,7 +43,7 @@ export function ServiceSectionAdmin({
   onlySection,
 }: Props) {
   const queryClient = useQueryClient();
-  const { data: snapshot, isLoading } = useQuery(adminServiceSectionsQuery);
+  const { data: snapshot, isLoading, isError, error } = useQuery(adminServiceSectionsQuery);
   const [serviceType, setServiceType] = useState<ServiceType>("home");
   const [sectionType, setSectionType] = useState<SectionType>(onlySection ?? initialSectionType);
   const [lang, setLang] = useState<ContentLanguage>("fi");
@@ -88,17 +88,24 @@ export function ServiceSectionAdmin({
     }));
   }
 
-  async function removeItem(id: string) {
+  function removeItem(id: string) {
     if (!window.confirm("Poistetaanko tämä palvelukortti?")) return;
-    setBusy(true);
-    const { error } = await supabase.rpc("admin_delete_service_section_item", { p_id: id });
-    setBusy(false);
-    if (error) {
-      setNotice("Korttia ei voitu poistaa. Tarkista migraatio 0013 ja ylläpitäjän oikeudet.");
-      return;
-    }
-    await queryClient.invalidateQueries({ queryKey: ["admin-service-sections"] });
-    setNotice("Kortti poistettiin luonnoksesta.");
+    setForm((previous) => {
+      const item = previous.items.find((candidate) => candidate.id === id);
+      if (!item) return previous;
+      if (!item.persisted && !item.sourceFallback) {
+        return { ...previous, items: previous.items.filter((candidate) => candidate.id !== id) };
+      }
+      return {
+        ...previous,
+        items: previous.items.map((candidate) =>
+          candidate.id === id ? { ...candidate, deleted: true, visible: false } : candidate,
+        ),
+      };
+    });
+    setNotice(
+      "Kortti merkitään poistettavaksi luonnoksessa. Muutos tulee julkiseksi vasta julkaisemalla.",
+    );
   }
 
   async function save(publish: boolean) {
@@ -127,6 +134,19 @@ export function ServiceSectionAdmin({
   }
 
   if (isLoading) return <p className="text-muted-foreground">Ladataan sisältöjä…</p>;
+  if (isError) {
+    return (
+      <Card>
+        <CardContent className="p-6">
+          <p role="alert" className="text-destructive">
+            {error instanceof Error
+              ? error.message
+              : "Palvelusisältöjä ei voitu ladata. Tarkista migraatio 0013 ja ylläpitäjän oikeudet."}
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -216,76 +236,78 @@ export function ServiceSectionAdmin({
               <Plus aria-hidden="true" /> Lisää kortti
             </Button>
           </div>
-          {form.items.map((item) => (
-            <div key={item.id} className="space-y-4 rounded-md border border-border p-5">
-              <div className="grid gap-4 md:grid-cols-[1fr_1fr_auto]">
-                <div className="space-y-2">
-                  <Label htmlFor={`service-title-${item.id}`}>Kortin otsikko</Label>
-                  <Input
-                    id={`service-title-${item.id}`}
-                    value={item.title}
-                    onChange={(event) => updateItem(item.id, "title", event.target.value)}
-                  />
+          {form.items
+            .filter((item) => !item.deleted)
+            .map((item) => (
+              <div key={item.id} className="space-y-4 rounded-md border border-border p-5">
+                <div className="grid gap-4 md:grid-cols-[1fr_1fr_auto]">
+                  <div className="space-y-2">
+                    <Label htmlFor={`service-title-${item.id}`}>Kortin otsikko</Label>
+                    <Input
+                      id={`service-title-${item.id}`}
+                      value={item.title}
+                      onChange={(event) => updateItem(item.id, "title", event.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor={`service-icon-${item.id}`}>Kuvake</Label>
+                    <select
+                      id={`service-icon-${item.id}`}
+                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+                      value={item.icon}
+                      onChange={(event) => updateItem(item.id, "icon", event.target.value)}
+                    >
+                      {serviceIconOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor={`service-order-${item.id}`}>Järjestys</Label>
+                    <Input
+                      id={`service-order-${item.id}`}
+                      type="number"
+                      min="0"
+                      step="1"
+                      value={item.displayOrder}
+                      onChange={(event) =>
+                        updateItem(item.id, "displayOrder", Number(event.target.value))
+                      }
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor={`service-icon-${item.id}`}>Kuvake</Label>
-                  <select
-                    id={`service-icon-${item.id}`}
-                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-                    value={item.icon}
-                    onChange={(event) => updateItem(item.id, "icon", event.target.value)}
+                  <Label htmlFor={`service-description-${item.id}`}>Kuvaus</Label>
+                  <Textarea
+                    id={`service-description-${item.id}`}
+                    rows={3}
+                    value={item.description}
+                    onChange={(event) => updateItem(item.id, "description", event.target.value)}
+                  />
+                </div>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <label className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={item.visible}
+                      onChange={(event) => updateItem(item.id, "visible", event.target.checked)}
+                    />{" "}
+                    Näkyvissä julkaistussa sisällössä
+                  </label>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="text-destructive"
+                    disabled={busy}
+                    onClick={() => void removeItem(item.id)}
                   >
-                    {serviceIconOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor={`service-order-${item.id}`}>Järjestys</Label>
-                  <Input
-                    id={`service-order-${item.id}`}
-                    type="number"
-                    min="0"
-                    step="1"
-                    value={item.displayOrder}
-                    onChange={(event) =>
-                      updateItem(item.id, "displayOrder", Number(event.target.value))
-                    }
-                  />
+                    <Trash2 aria-hidden="true" /> Poista
+                  </Button>
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor={`service-description-${item.id}`}>Kuvaus</Label>
-                <Textarea
-                  id={`service-description-${item.id}`}
-                  rows={3}
-                  value={item.description}
-                  onChange={(event) => updateItem(item.id, "description", event.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <label className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={item.visible}
-                    onChange={(event) => updateItem(item.id, "visible", event.target.checked)}
-                  />{" "}
-                  Näkyvissä julkaistussa sisällössä
-                </label>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="text-destructive"
-                  disabled={busy}
-                  onClick={() => void removeItem(item.id)}
-                >
-                  <Trash2 aria-hidden="true" /> Poista
-                </Button>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         <div className="rounded-md border border-dashed border-primary/40 bg-secondary/20 p-5">
@@ -294,7 +316,7 @@ export function ServiceSectionAdmin({
           {form.body && <p className="mt-2 text-sm text-muted-foreground">{form.body}</p>}
           <div className="mt-4 grid gap-3 md:grid-cols-3">
             {form.items
-              .filter((item) => item.visible && (item.title || item.description))
+              .filter((item) => !item.deleted && item.visible && (item.title || item.description))
               .sort((a, b) => a.displayOrder - b.displayOrder)
               .map((item) => (
                 <div key={item.id} className="rounded-md border border-border bg-card p-4">

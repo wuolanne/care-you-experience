@@ -547,6 +547,8 @@ export type Database = {
           published_icon: string | null
           draft_visible: boolean
           published_visible: boolean | null
+          draft_deleted: boolean
+          published_deleted: boolean
           deleted_at: string | null
           created_at: string
           updated_at: string
@@ -562,6 +564,8 @@ export type Database = {
           published_icon?: string | null
           draft_visible?: boolean
           published_visible?: boolean | null
+          draft_deleted?: boolean
+          published_deleted?: boolean
           deleted_at?: string | null
           created_at?: string
           updated_at?: string
@@ -577,6 +581,8 @@ export type Database = {
           published_icon?: string | null
           draft_visible?: boolean
           published_visible?: boolean | null
+          draft_deleted?: boolean
+          published_deleted?: boolean
           deleted_at?: string | null
           created_at?: string
           updated_at?: string
@@ -1105,6 +1111,7 @@ export type Database = {
           p_body: string
           p_items: Json
           p_publish?: boolean
+          p_deleted_item_ids?: string[]
         }
         Returns: Json
       }
