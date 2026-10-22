@@ -12,9 +12,8 @@ describe("public sitemap routes", () => {
       "/care-yrityksille",
       "/hinnoittelu",
       "/meista",
-      "/osta",
-      "/tarjouspyynto",
       "/varaa",
+      "/tietosuoja",
     ]);
   });
 

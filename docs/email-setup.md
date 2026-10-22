@@ -6,7 +6,7 @@ Lomakkeet tallentavat pyynnön ensin Supabaseen ja muodostavat samalla `email_ou
 
 Ilmoitukset lähetetään näistä lomakkeista:
 
-- yhteydenottopyyntö (`/tarjouspyynto`)
+- yhteydenottopyyntö (sivuston yhteydenottolomakkeet)
 - videopalaveripyyntö (`/varaa`)
 - palvelun aloituspyyntö (`RequestForm`, esimerkiksi `/care-kotiin` ja `/care-yrityksille`)
 

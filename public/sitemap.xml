@@ -26,18 +26,13 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://tgnservices.fi/osta</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://tgnservices.fi/tarjouspyynto</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
     <loc>https://tgnservices.fi/varaa</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tgnservices.fi/tietosuoja</loc>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
   </url>
 </urlset>

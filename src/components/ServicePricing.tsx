@@ -1,7 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { useLang } from "@/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { HomePricing } from "@/features/home-service/HomePricing";
+import { RequestForm } from "@/features/home-service/RequestForms";
 import {
   kotiinPackages,
   kotiinHourly,
@@ -16,6 +18,7 @@ export type PricingService = "kotiin" | "yrityksille" | "palveluseteli";
 
 export function ServicePricing({ tab, note }: { tab: PricingService; note: string | undefined }) {
   const { tr, lang } = useLang();
+  const [contactOpen, setContactOpen] = useState(false);
   const packages: Pkg[] =
     tab === "kotiin" ? kotiinPackages : tab === "yrityksille" ? yrityksillePackages : [];
 
@@ -82,11 +85,16 @@ export function ServicePricing({ tab, note }: { tab: PricingService; note: strin
           {tr.pricing.vat} {note || tr.pricing.note}
         </p>
 
-        <Button asChild size="lg" className="mt-10"><Link
-          to="/tarjouspyynto"
-        >
+        <Button size="lg" className="mt-10" onClick={() => setContactOpen(true)}>
           {tr.pricing.cta}
-        </Link></Button>
+        </Button>
+        <Dialog open={contactOpen} onOpenChange={setContactOpen}>
+          <DialogContent className="max-h-[90dvh] w-[calc(100%-2rem)] overflow-y-auto rounded-md">
+            <DialogTitle className="pr-6 text-2xl font-normal">{tr.quote.title}</DialogTitle>
+            <DialogDescription className="sr-only">{tr.quote.lead}</DialogDescription>
+            <RequestForm kind="contact" />
+          </DialogContent>
+        </Dialog>
       </section>
   );
 }

@@ -59,7 +59,7 @@ Tarkistettu read-only API:n kautta:
 
 Tarkista deploymentin lokista, ettei SSR-vastauksissa ole 500-virheitä. Käy vähintään
 läpi `/`, `/care-kotiin`, `/care-yrityksille`, `/care-palveluseteli`,
-`/hinnoittelu`, `/varaa`, `/tarjouspyynto`, `/osta`, `/meista` ja `/auth`.
+`/hinnoittelu`, `/varaa`, `/meista` ja `/auth`.
 
 Autentikointi ja ylläpitosivut vaativat Supabase Preview -muuttujat sekä vahvistetun
 ylläpitäjätilin. Lomakkeet voidaan tarkistaa vain validoimalla käyttöliittymä ja
