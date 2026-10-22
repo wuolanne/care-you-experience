@@ -141,4 +141,97 @@ describe("Admin v2 service sections", () => {
 
     expect(published.items[0]?.title).toBe("Julkaistu kortti");
   });
+
+  it("does not restore a shared deleted card from fallback in any language", () => {
+    const languages = ["fi", "sv", "es", "en"] as const;
+    const results = languages.map((lang) =>
+      publicServiceSectionValues(
+        "home",
+        "services",
+        lang,
+        [{ service_type: "home", section_type: "services", lang: "fi", title: "Palvelut" }],
+        [],
+        [],
+      ),
+    );
+
+    expect(results.every((result) => result.items.length === 0)).toBe(true);
+  });
+
+  it("keeps a published empty section managed when every card is hidden", () => {
+    const result = publicServiceSectionValues(
+      "home",
+      "benefits",
+      "en",
+      [
+        {
+          service_type: "home",
+          section_type: "benefits",
+          lang: "fi",
+          title: "",
+          body: "",
+          published_at: "2026-10-22T00:00:00Z",
+        },
+      ],
+      [],
+      [],
+    );
+
+    expect(result.items).toHaveLength(0);
+    expect(result.title).toBe("");
+    expect(result.body).toBe("");
+  });
+
+  it("uses each language's source text for a shared visible card", () => {
+    const sourceTitles = ["fi", "sv", "es", "en"].map(
+      (lang) =>
+        sourceServiceSection("home", "services", lang as "fi" | "sv" | "es" | "en").items[0]?.title,
+    );
+    const results = (["fi", "sv", "es", "en"] as const).map((lang) =>
+      publicServiceSectionValues(
+        "home",
+        "services",
+        lang,
+        [{ service_type: "home", section_type: "services", lang: "fi", title: "Palvelut" }],
+        [
+          {
+            id: "00000000-0000-4000-8000-000000000101",
+            service_type: "home",
+            section_type: "services",
+            display_order: 0,
+            icon: "house",
+          },
+        ],
+        [{ item_id: "00000000-0000-4000-8000-000000000101", lang: "fi", title: "FI-kortti" }],
+      ),
+    );
+
+    expect(results.map((result) => result.items[0]?.title)).toEqual([
+      "FI-kortti",
+      sourceTitles[1],
+      sourceTitles[2],
+      sourceTitles[3],
+    ]);
+  });
+
+  it("does not show an unpublished new card with another language's text", () => {
+    const result = publicServiceSectionValues(
+      "home",
+      "services",
+      "sv",
+      [{ service_type: "home", section_type: "services", lang: "fi", title: "Palvelut" }],
+      [
+        {
+          id: "new-card",
+          service_type: "home",
+          section_type: "services",
+          display_order: 0,
+          icon: "sparkles",
+        },
+      ],
+      [{ item_id: "new-card", lang: "fi", title: "Vain suomeksi" }],
+    );
+
+    expect(result.items).toHaveLength(0);
+  });
 });

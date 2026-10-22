@@ -234,10 +234,10 @@ export function publicServiceSectionValues(
   const publicItems = items.filter(
     (row) => row["service_type"] === serviceType && row["section_type"] === sectionType,
   );
-  const hasLanguageItems = publicItems.some((row) =>
-    texts.some((item) => item["item_id"] === row["id"] && item["lang"] === lang),
+  const hasManagedContent = sections.some(
+    (row) => row["service_type"] === serviceType && row["section_type"] === sectionType,
   );
-  if (!section && !hasLanguageItems) return fallback;
+  if (!hasManagedContent && publicItems.length === 0) return fallback;
   return {
     ...fallback,
     title: section ? stringValue(section["title"]) : "",

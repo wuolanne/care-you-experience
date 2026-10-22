@@ -122,7 +122,9 @@ SELECT service_type, section_type, lang,
   published_title AS title,
   published_body AS body
 FROM public.service_section_texts
-WHERE btrim(published_title) <> '' OR btrim(published_body) <> '';
+WHERE btrim(published_title) <> ''
+   OR btrim(published_body) <> ''
+   OR published_at IS NOT NULL;
 
 CREATE OR REPLACE VIEW public.public_service_section_items AS
 SELECT id, service_type, section_type,

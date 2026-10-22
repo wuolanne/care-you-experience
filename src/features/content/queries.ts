@@ -192,8 +192,7 @@ export const publicServiceSectionQuery = (
           .from("public_service_sections")
           .select("*")
           .eq("service_type", serviceType)
-          .eq("section_type", sectionType)
-          .eq("lang", lang),
+          .eq("section_type", sectionType),
         supabase
           .from("public_service_section_items")
           .select("*")
