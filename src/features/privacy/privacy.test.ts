@@ -38,9 +38,34 @@ describe("privacy translations", () => {
     }
   });
 
+  it("uses the confirmed basis and retention wording in every language", () => {
+    const expectedBasisFragments = [
+      "6 artiklan 1 kohdan b",
+      "artikel 6.1 b",
+      "artículo 6, apartado 1, letra b",
+      "Article 6(1)(b) GDPR",
+    ];
+    const expectedRetentionFragments = [
+      "Säilytämme henkilötietoja vain niin kauan",
+      "Vi sparar personuppgifter endast så länge",
+      "Conservamos los datos personales solo durante el tiempo necesario",
+      "We retain personal data only for as long as it is needed",
+    ];
+
+    for (const [index, { code }] of LANGS.entries()) {
+      const privacy = t[code].privacy;
+      const basis = privacy.sections[2]!.paragraphs.join(" ");
+      const retention = privacy.sections[4]!.paragraphs.join(" ");
+
+      expect(basis).toContain(expectedBasisFragments[index]!);
+      expect(retention).toContain(expectedRetentionFragments[index]!);
+      expect(retention).toContain("info@tgnservices.fi");
+    }
+  });
+
   it("keeps the privacy page free of redundant action buttons and nested main elements", () => {
     expect(privacyRouteSource).not.toContain("<main");
-    expect(privacyRouteSource).not.toContain('href="mailto:');
+    expect(privacyRouteSource).toContain("href={`mailto:${email}`}");
     expect(privacyRouteSource).not.toContain('to="/tarjouspyynto"');
   });
 

@@ -38,7 +38,7 @@ function PrivacyPage() {
             </h2>
             <div className="mt-4 space-y-3 leading-relaxed text-foreground/80">
               {section.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+                <PrivacyParagraph key={paragraph} text={paragraph} />
               ))}
             </div>
           </section>
@@ -56,5 +56,22 @@ function PrivacyPage() {
         </a>
       </p>
     </div>
+  );
+}
+
+function PrivacyParagraph({ text }: { text: string }) {
+  const email = "info@tgnservices.fi";
+  const emailIndex = text.indexOf(email);
+
+  if (emailIndex === -1) return <p>{text}</p>;
+
+  return (
+    <p>
+      {text.slice(0, emailIndex)}
+      <a href={`mailto:${email}`} className="underline underline-offset-4 hover:text-primary">
+        {email}
+      </a>
+      {text.slice(emailIndex + email.length)}
+    </p>
   );
 }
