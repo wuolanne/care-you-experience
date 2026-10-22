@@ -7,7 +7,7 @@ export const publicContentQuery = (pageKey: string, lang: string) =>
     queryKey: ["public-content", pageKey, lang],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("site_content")
+        .from("public_site_content")
         .select("published_content")
         .eq("page_key", pageKey)
         .eq("lang", lang)
@@ -38,7 +38,7 @@ export const publicImageQuery = (pageKey: string, slotKey: string, lang: string)
     queryKey: ["public-site-image", pageKey, slotKey, lang],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("site_images")
+        .from("public_site_images")
         .select("published_path,published_alt_text")
         .eq("page_key", pageKey)
         .eq("slot_key", slotKey)
@@ -88,11 +88,7 @@ export const publicReviewsQuery = queryOptions({
 export const adminContentQuery = queryOptions({
   queryKey: ["admin-site-content"],
   queryFn: async () => {
-    const { data, error } = await supabase
-      .from("site_content")
-      .select("*")
-      .order("page_key")
-      .order("lang");
+    const { data, error } = await supabase.rpc("admin_site_content");
     if (error) throw new Error("Sisältöjä ei voitu ladata.");
     return data ?? [];
   },
@@ -114,12 +110,7 @@ export const adminContactQuery = queryOptions({
 export const adminImagesQuery = queryOptions({
   queryKey: ["admin-site-images"],
   queryFn: async () => {
-    const { data, error } = await supabase
-      .from("site_images")
-      .select("*")
-      .order("page_key")
-      .order("slot_key")
-      .order("lang");
+    const { data, error } = await supabase.rpc("admin_site_images");
     if (error) throw new Error("Kuvia ei voitu ladata.");
     return data ?? [];
   },

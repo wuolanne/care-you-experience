@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { asContentValues, isSafeExternalUrl, makeWhatsAppUrl } from "./model";
 
@@ -19,5 +20,24 @@ describe("Admin v2 content safety helpers", () => {
   it("normalizes a WhatsApp phone number", () => {
     expect(makeWhatsAppUrl("+358 45 783 9301")).toBe("https://wa.me/358457839301");
     expect(makeWhatsAppUrl("12")).toBeNull();
+  });
+
+  it("keeps drafts behind admin functions and a private image bucket", () => {
+    const migration = readFileSync(
+      new URL("../../../drizzle/migrations/0010_admin_content_management.sql", import.meta.url),
+      "utf8",
+    );
+
+    expect(migration).toContain("site-images-drafts");
+    expect(migration).toContain("public_site_content");
+    expect(migration).toContain("public_site_images");
+    expect(migration).toContain(
+      "REVOKE ALL ON public.site_content FROM PUBLIC, anon, authenticated",
+    );
+    expect(migration).toContain(
+      "REVOKE ALL ON public.site_images FROM PUBLIC, anon, authenticated",
+    );
+    expect(migration).toContain("public.admin_site_content");
+    expect(migration).toContain("public.admin_site_images");
   });
 });

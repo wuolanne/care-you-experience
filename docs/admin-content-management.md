@@ -20,7 +20,8 @@ Migraatio 0010 luo seuraavat taulut:
 - `customer_reviews`
 - `social_links`
 
-Lisäksi se luo `site-images`-bucketin sekä RLS-käytännöt. `news-images`-bucketia
+Lisäksi se luo julkaisuille julkisen `site-images`-bucketin ja luonnoksille
+yksityisen `site-images-drafts`-bucketin sekä RLS-käytännöt. `news-images`-bucketia
 ei muuteta. Migraatiota ei ajeta automaattisesti tässä branchissa. Supabaseen
 kirjoittaminen edellyttää erillistä hyväksyntää ja Drizzlen migraatioseurannan
 käyttöä.
@@ -39,9 +40,12 @@ Tuetut kielet ovat `fi`, `sv`, `es` ja `en`. Sisältöä ei käännetä automaat
 
 Sallitut tiedostot ovat PNG, JPEG, WebP ja AVIF, enintään 5 Mt. Sovellus tekee
 turvallisen polun itse UUID-tunnisteella eikä käytä käyttäjän tiedostonimeä
-Storage-polun rakentamiseen. Vanhat kuvat jäävät Storageen. Vain admin voi
-ladata tai muokata kuvia; julkaistut kuvat ovat julkisesti luettavissa erillisestä
-`site-images`-bucketista.
+Storage-polun rakentamiseen. Luonnoskuva ladataan yksityiseen
+`site-images-drafts`-bucketiin ja kopioidaan `site-images`-bucketin julkiseksi
+tiedostoksi vasta julkaisemisen yhteydessä. Vain admin voi ladata tai muokata
+kuvia. Julkinen API lukee sisältöä ja kuvia vain julkaisuun tarkoitetuista
+näkymistä; luonnospolut ja luonnostekstit haetaan adminille suojatuilla
+funktioilla. `news-images`-bucketia ei muuteta.
 
 ## Palautteet
 
@@ -49,6 +53,12 @@ Palaute näkyy julkisella sivustolla vain, jos se on julkaistu, julkaisulupa on
 vahvistettu ja palaute ei ole piilotettu. Jos julkaistuja palautteita ei ole,
 palauteosio piilotetaan kokonaan. Arvosteluille ei lisätä Review- tai
 AggregateRating-structured dataa.
+
+Jos palautteen tallennus tai julkaisu epäonnistuu ennen migraation käyttöönottoa,
+yleisin syy on puuttuva `customer_reviews`-taulu. Tällöin sovelluskoodia ei pidä
+ohittaa tai kiertää, vaan migraatio 0010 on ensin tarkistettava ja ajettava
+hyväksytyssä Supabase-ympäristössä. Käyttöliittymä näyttää käyttäjälle yleisen
+virheilmoituksen eikä paljasta Supabase-virheen yksityiskohtia.
 
 ## Yhteystiedot ja Resend
 
@@ -61,7 +71,8 @@ ilmoitusreititys säilyy palvelinpuolen ympäristömuuttujissa.
 1. Tarkista migration diff ja ota tietokannasta varmuuskopio.
 2. Aja `0010_admin_content_management.sql` Drizzlen nykyistä migraatiohistoriaa
    käyttäen, älä suorita `0000–0008` uudelleen.
-3. Varmista RLS-käytännöt, `site-images`-bucket ja admin-käyttäjän rooli.
+3. Varmista RLS-käytännöt, `site-images`- ja `site-images-drafts`-bucketit sekä
+   admin-käyttäjän rooli.
 4. Verceliin ei lisätä uusia salaisia avaimia. Nykyinen Supabase-julkinen URL ja
    publishable key riittävät selaimen käyttöön.
 5. Testaa Previewssa ensin luonnos, julkaisu, palautteen lupatarkistus, kuva ja

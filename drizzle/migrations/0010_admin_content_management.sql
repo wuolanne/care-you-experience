@@ -125,17 +125,22 @@ ALTER TABLE public.site_images ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.customer_reviews ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.social_links ENABLE ROW LEVEL SECURITY;
 
-GRANT SELECT ON public.site_content TO anon, authenticated;
 GRANT SELECT ON public.site_contact_details TO anon, authenticated;
-GRANT SELECT ON public.site_images TO anon, authenticated;
 GRANT SELECT ON public.customer_reviews TO anon, authenticated;
 GRANT SELECT ON public.social_links TO anon, authenticated;
-GRANT INSERT, UPDATE, DELETE ON public.site_content, public.site_contact_details, public.site_images, public.customer_reviews, public.social_links TO authenticated;
+GRANT INSERT, UPDATE, DELETE ON public.site_contact_details, public.customer_reviews, public.social_links TO authenticated;
+
+-- Draft columns are never exposed through the table API. Public clients use the
+-- read-only views below and admins use SECURITY DEFINER functions after the
+-- role check. This prevents authenticated non-admins from selecting drafts.
+REVOKE ALL ON public.site_content FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON public.site_images FROM PUBLIC, anon, authenticated;
 
 DROP POLICY IF EXISTS site_content_public_read ON public.site_content;
-CREATE POLICY site_content_public_read ON public.site_content
-  FOR SELECT TO anon, authenticated
-  USING (published_content IS NOT NULL OR public.has_role(auth.uid(), 'admin'));
+DROP POLICY IF EXISTS site_content_admin_read ON public.site_content;
+CREATE POLICY site_content_admin_read ON public.site_content
+  FOR SELECT TO authenticated
+  USING (public.has_role(auth.uid(), 'admin'));
 DROP POLICY IF EXISTS site_content_admin_write ON public.site_content;
 CREATE POLICY site_content_admin_write ON public.site_content
   FOR ALL TO authenticated
@@ -153,9 +158,10 @@ CREATE POLICY site_contact_admin_write ON public.site_contact_details
   WITH CHECK (public.has_role(auth.uid(), 'admin') AND id = 'default');
 
 DROP POLICY IF EXISTS site_images_public_read ON public.site_images;
-CREATE POLICY site_images_public_read ON public.site_images
-  FOR SELECT TO anon, authenticated
-  USING (published_path IS NOT NULL OR public.has_role(auth.uid(), 'admin'));
+DROP POLICY IF EXISTS site_images_admin_read ON public.site_images;
+CREATE POLICY site_images_admin_read ON public.site_images
+  FOR SELECT TO authenticated
+  USING (public.has_role(auth.uid(), 'admin'));
 DROP POLICY IF EXISTS site_images_admin_write ON public.site_images;
 CREATE POLICY site_images_admin_write ON public.site_images
   FOR ALL TO authenticated
@@ -192,6 +198,16 @@ VALUES (
 )
 ON CONFLICT (id) DO NOTHING;
 
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+  'site-images-drafts',
+  'site-images-drafts',
+  false,
+  5242880,
+  ARRAY['image/png', 'image/jpeg', 'image/webp', 'image/avif']::text[]
+)
+ON CONFLICT (id) DO NOTHING;
+
 DROP POLICY IF EXISTS site_images_bucket_public_read ON storage.objects;
 CREATE POLICY site_images_bucket_public_read ON storage.objects
   FOR SELECT TO anon, authenticated
@@ -216,3 +232,156 @@ DROP POLICY IF EXISTS site_images_bucket_admin_delete ON storage.objects;
 CREATE POLICY site_images_bucket_admin_delete ON storage.objects
   FOR DELETE TO authenticated
   USING (bucket_id = 'site-images' AND public.has_role(auth.uid(), 'admin'));
+
+DROP POLICY IF EXISTS site_images_drafts_admin_read ON storage.objects;
+CREATE POLICY site_images_drafts_admin_read ON storage.objects
+  FOR SELECT TO authenticated
+  USING (bucket_id = 'site-images-drafts' AND public.has_role(auth.uid(), 'admin'));
+
+DROP POLICY IF EXISTS site_images_drafts_admin_insert ON storage.objects;
+CREATE POLICY site_images_drafts_admin_insert ON storage.objects
+  FOR INSERT TO authenticated
+  WITH CHECK (
+    bucket_id = 'site-images-drafts'
+    AND public.has_role(auth.uid(), 'admin')
+    AND name ~ '^[a-z0-9/_-]+\.(png|jpe?g|webp|avif)$'
+  );
+
+DROP POLICY IF EXISTS site_images_drafts_admin_update ON storage.objects;
+CREATE POLICY site_images_drafts_admin_update ON storage.objects
+  FOR UPDATE TO authenticated
+  USING (bucket_id = 'site-images-drafts' AND public.has_role(auth.uid(), 'admin'))
+  WITH CHECK (bucket_id = 'site-images-drafts' AND public.has_role(auth.uid(), 'admin'));
+
+DROP POLICY IF EXISTS site_images_drafts_admin_delete ON storage.objects;
+CREATE POLICY site_images_drafts_admin_delete ON storage.objects
+  FOR DELETE TO authenticated
+  USING (bucket_id = 'site-images-drafts' AND public.has_role(auth.uid(), 'admin'));
+
+CREATE OR REPLACE VIEW public.public_site_content AS
+SELECT id, page_key, lang, published_content, published_at
+FROM public.site_content
+WHERE published_content IS NOT NULL;
+
+CREATE OR REPLACE VIEW public.public_site_images AS
+SELECT id, page_key, slot_key, lang, published_path, published_alt_text
+FROM public.site_images
+WHERE published_path IS NOT NULL;
+
+REVOKE ALL ON public.public_site_content, public.public_site_images FROM PUBLIC;
+GRANT SELECT ON public.public_site_content, public.public_site_images TO anon, authenticated;
+
+CREATE OR REPLACE FUNCTION public.admin_site_content()
+RETURNS SETOF public.site_content
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+  SELECT c.*
+  FROM public.site_content AS c
+  WHERE public.has_role(auth.uid(), 'admin')
+  ORDER BY c.page_key, c.lang;
+$$;
+
+CREATE OR REPLACE FUNCTION public.admin_upsert_site_content(
+  p_page_key text,
+  p_lang text,
+  p_draft_content jsonb,
+  p_published_content jsonb,
+  p_published_at timestamptz
+)
+RETURNS public.site_content
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+DECLARE
+  result public.site_content;
+BEGIN
+  IF NOT public.has_role(auth.uid(), 'admin') THEN
+    RAISE EXCEPTION 'not authorized' USING ERRCODE = '42501';
+  END IF;
+
+  INSERT INTO public.site_content (
+    page_key, lang, draft_content, published_content, published_at,
+    draft_updated_at, updated_by
+  )
+  VALUES (
+    p_page_key, p_lang, p_draft_content, p_published_content, p_published_at,
+    now(), auth.uid()
+  )
+  ON CONFLICT (page_key, lang) DO UPDATE SET
+    draft_content = EXCLUDED.draft_content,
+    published_content = EXCLUDED.published_content,
+    published_at = EXCLUDED.published_at,
+    draft_updated_at = now(),
+    updated_by = auth.uid()
+  RETURNING * INTO result;
+
+  RETURN result;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION public.admin_site_images()
+RETURNS SETOF public.site_images
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+  SELECT i.*
+  FROM public.site_images AS i
+  WHERE public.has_role(auth.uid(), 'admin')
+  ORDER BY i.page_key, i.slot_key, i.lang;
+$$;
+
+CREATE OR REPLACE FUNCTION public.admin_upsert_site_image(
+  p_page_key text,
+  p_slot_key text,
+  p_lang text,
+  p_draft_path text,
+  p_published_path text,
+  p_draft_alt_text text,
+  p_published_alt_text text
+)
+RETURNS public.site_images
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+DECLARE
+  result public.site_images;
+BEGIN
+  IF NOT public.has_role(auth.uid(), 'admin') THEN
+    RAISE EXCEPTION 'not authorized' USING ERRCODE = '42501';
+  END IF;
+
+  INSERT INTO public.site_images (
+    page_key, slot_key, lang, draft_path, published_path,
+    draft_alt_text, published_alt_text, updated_by
+  )
+  VALUES (
+    p_page_key, p_slot_key, p_lang, p_draft_path, p_published_path,
+    p_draft_alt_text, p_published_alt_text, auth.uid()
+  )
+  ON CONFLICT (page_key, slot_key, lang) DO UPDATE SET
+    draft_path = EXCLUDED.draft_path,
+    published_path = EXCLUDED.published_path,
+    draft_alt_text = EXCLUDED.draft_alt_text,
+    published_alt_text = EXCLUDED.published_alt_text,
+    updated_by = auth.uid()
+  RETURNING * INTO result;
+
+  RETURN result;
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.admin_site_content() FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.admin_upsert_site_content(text, text, jsonb, jsonb, timestamptz) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.admin_site_images() FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.admin_upsert_site_image(text, text, text, text, text, text, text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.admin_site_content() TO authenticated;
+GRANT EXECUTE ON FUNCTION public.admin_upsert_site_content(text, text, jsonb, jsonb, timestamptz) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.admin_site_images() TO authenticated;
+GRANT EXECUTE ON FUNCTION public.admin_upsert_site_image(text, text, text, text, text, text, text) TO authenticated;

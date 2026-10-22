@@ -418,9 +418,59 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_site_content: {
+        Row: {
+          id: string
+          lang: string
+          page_key: string
+          published_at: string | null
+          published_content: Json
+        }
+        Relationships: []
+      }
+      public_site_images: {
+        Row: {
+          id: string
+          lang: string
+          page_key: string
+          published_alt_text: string
+          published_path: string
+          slot_key: string
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      admin_site_content: {
+        Args: Record<PropertyKey, never>
+        Returns: Database["public"]["Tables"]["site_content"]["Row"][]
+      }
+      admin_site_images: {
+        Args: Record<PropertyKey, never>
+        Returns: Database["public"]["Tables"]["site_images"]["Row"][]
+      }
+      admin_upsert_site_content: {
+        Args: {
+          p_draft_content: Json
+          p_lang: string
+          p_page_key: string
+          p_published_at: string | null
+          p_published_content: Json | null
+        }
+        Returns: Database["public"]["Tables"]["site_content"]["Row"]
+      }
+      admin_upsert_site_image: {
+        Args: {
+          p_draft_alt_text: string
+          p_draft_path: string | null
+          p_lang: string
+          p_page_key: string
+          p_published_alt_text: string
+          p_published_path: string | null
+          p_slot_key: string
+        }
+        Returns: Database["public"]["Tables"]["site_images"]["Row"]
+      }
       check_form_rate_limit: {
         Args: {
           p_bucket_key: string

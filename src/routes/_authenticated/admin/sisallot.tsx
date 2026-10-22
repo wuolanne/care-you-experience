@@ -49,6 +49,7 @@ function ContentAdmin() {
   const [imageLang, setImageLang] = useState<ContentLanguage>("fi");
   const [imageAlt, setImageAlt] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [draftPreviewUrl, setDraftPreviewUrl] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -60,9 +61,12 @@ function ContentAdmin() {
     () => contentPages.find((page) => page.key === pageKey) ?? contentPages[0],
     [pageKey],
   );
-  const selectedImageUrl = imageFile
-    ? URL.createObjectURL(imageFile)
-    : imageUrlForPath(currentImage?.draft_path ?? null);
+  const localPreviewUrl = useMemo(
+    () => (imageFile ? URL.createObjectURL(imageFile) : null),
+    [imageFile],
+  );
+  const selectedImageUrl =
+    localPreviewUrl ?? draftPreviewUrl ?? imageUrlForPath(currentImage?.published_path ?? null);
 
   useEffect(() => {
     setValues(asContentValues(currentRecord?.draft_content));
@@ -82,20 +86,39 @@ function ContentAdmin() {
     setImageFile(null);
   }, [currentImage]);
 
+  useEffect(() => {
+    if (!localPreviewUrl) return;
+    return () => URL.revokeObjectURL(localPreviewUrl);
+  }, [localPreviewUrl]);
+
+  useEffect(() => {
+    let active = true;
+    setDraftPreviewUrl(null);
+    if (!currentImage?.draft_path) return;
+
+    void supabase.storage
+      .from("site-images-drafts")
+      .createSignedUrl(currentImage.draft_path, 60 * 60)
+      .then(({ data, error }) => {
+        if (active && !error) setDraftPreviewUrl(data.signedUrl);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [currentImage?.draft_path]);
+
   async function saveContent(publish: boolean) {
     setBusy(true);
     setNotice(null);
     const content = { ...asContentValues(currentRecord?.draft_content), ...values };
-    const { error } = await supabase.from("site_content").upsert(
-      {
-        page_key: pageKey,
-        lang,
-        draft_content: content,
-        published_content: publish ? content : (currentRecord?.published_content ?? null),
-        published_at: publish ? new Date().toISOString() : (currentRecord?.published_at ?? null),
-      },
-      { onConflict: "page_key,lang" },
-    );
+    const { error } = await supabase.rpc("admin_upsert_site_content", {
+      p_page_key: pageKey,
+      p_lang: lang,
+      p_draft_content: content,
+      p_published_content: publish ? content : (currentRecord?.published_content ?? null),
+      p_published_at: publish ? new Date().toISOString() : (currentRecord?.published_at ?? null),
+    });
     setBusy(false);
     if (error) {
       setNotice("Sisältöä ei voitu tallentaa. Tarkista migraatio ja ylläpitäjän oikeudet.");
@@ -140,38 +163,82 @@ function ContentAdmin() {
     }
     setBusy(true);
     setNotice(null);
-    let path = currentImage?.draft_path ?? null;
+    let draftPath = currentImage?.draft_path ?? null;
+    let newDraftPath: string | null = null;
     if (imageFile) {
       const extension = imageFile.type === "image/jpeg" ? "jpg" : imageFile.type.split("/")[1];
-      path = `${imagePage}/${imageLang}/${crypto.randomUUID()}.${extension}`;
-      const upload = await supabase.storage.from("site-images").upload(path, imageFile, {
-        contentType: imageFile.type,
-        upsert: false,
-      });
+      draftPath = `${imagePage}/${imageLang}/${crypto.randomUUID()}.${extension}`;
+      newDraftPath = draftPath;
+      const upload = await supabase.storage
+        .from("site-images-drafts")
+        .upload(draftPath, imageFile, {
+          contentType: imageFile.type,
+          upsert: false,
+        });
       if (upload.error) {
         setBusy(false);
-        setNotice("Kuvaa ei voitu ladata. Tarkista site-images-bucket ja ylläpitäjän oikeudet.");
+        setNotice("Kuvaa ei voitu ladata. Tarkista luonnosbucket ja ylläpitäjän oikeudet.");
         return;
       }
     }
-    const { error } = await supabase.from("site_images").upsert(
-      {
-        page_key: imagePage,
-        slot_key: "main",
-        lang: imageLang,
-        draft_path: path,
-        draft_alt_text: imageAlt.trim(),
-        published_path: publish ? path : (currentImage?.published_path ?? null),
-        published_alt_text: publish ? imageAlt.trim() : (currentImage?.published_alt_text ?? ""),
-      } as never,
-      { onConflict: "page_key,slot_key,lang" },
-    );
+
+    let publishedPath = currentImage?.published_path ?? null;
+    let newPublishedPath: string | null = null;
+    if (publish) {
+      if (!draftPath) {
+        setBusy(false);
+        setNotice("Julkaisemista varten kuvan luonnos puuttuu.");
+        return;
+      }
+      const extension = draftPath.split(".").pop() ?? "png";
+      newPublishedPath = `${imagePage}/${imageLang}/${crypto.randomUUID()}.${extension}`;
+      const copy = await supabase.storage
+        .from("site-images-drafts")
+        .copy(draftPath, newPublishedPath, {
+          destinationBucket: "site-images",
+        });
+      if (copy.error) {
+        if (newDraftPath) {
+          await supabase.storage.from("site-images-drafts").remove([newDraftPath]);
+        }
+        setBusy(false);
+        setNotice("Kuvaa ei voitu julkaista. Tarkista site-images-bucketin oikeudet.");
+        return;
+      }
+      publishedPath = newPublishedPath;
+    }
+
+    const { error } = await supabase.rpc("admin_upsert_site_image", {
+      p_page_key: imagePage,
+      p_slot_key: "main",
+      p_lang: imageLang,
+      p_draft_path: draftPath,
+      p_published_path: publishedPath,
+      p_draft_alt_text: imageAlt.trim(),
+      p_published_alt_text: publish ? imageAlt.trim() : (currentImage?.published_alt_text ?? ""),
+    });
     setBusy(false);
     if (error) {
+      if (newPublishedPath) {
+        await supabase.storage.from("site-images").remove([newPublishedPath]);
+      }
+      if (newDraftPath) {
+        await supabase.storage.from("site-images-drafts").remove([newDraftPath]);
+      }
       setNotice("Kuvan tietoja ei voitu tallentaa.");
       return;
     }
+    if (
+      publish &&
+      currentImage?.published_path &&
+      currentImage.published_path !== newPublishedPath
+    ) {
+      await supabase.storage.from("site-images").remove([currentImage.published_path]);
+    }
     await queryClient.invalidateQueries({ queryKey: ["admin-site-images"] });
+    await queryClient.invalidateQueries({
+      queryKey: ["public-site-image", imagePage, "main", imageLang],
+    });
     setImageFile(null);
     setNotice(publish ? "Kuva julkaistiin." : "Kuvan luonnos tallennettiin.");
   }
@@ -409,8 +476,8 @@ function ContentAdmin() {
             </Button>
           </div>
           <p className="text-xs text-muted-foreground">
-            Kuvat tallennetaan erilliseen julkiseen site-images-bucketiin. news-images-bucketia ei
-            muuteta.
+            Luonnokset tallennetaan yksityiseen luonnosbucketiin ja julkaistut kuvat erilliseen
+            site-images-bucketiin. news-images-bucketia ei muuteta.
           </p>
         </CardContent>
       </Card>
