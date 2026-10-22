@@ -1,6 +1,13 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { asContentValues, isSafeExternalUrl, makeWhatsAppUrl } from "./model";
+import { t } from "@/i18n/translations";
+import {
+  asContentValues,
+  contentEditorValues,
+  isSafeExternalUrl,
+  makeWhatsAppUrl,
+  sourceContentValues,
+} from "./model";
 
 describe("Admin v2 content safety helpers", () => {
   it("keeps only string content values for safe text rendering", () => {
@@ -8,6 +15,39 @@ describe("Admin v2 content safety helpers", () => {
     expect(asContentValues({ title: "Otsikko", body: "Teksti" })).toEqual({
       title: "Otsikko",
       body: "Teksti",
+    });
+  });
+
+  it("loads source translations on the first edit when no database record exists", () => {
+    expect(contentEditorValues("home", "fi")).toMatchObject({
+      title: t.fi.hero.title,
+      body: t.fi.hero.lead,
+    });
+  });
+
+  it("prioritizes a draft over published content and source translations", () => {
+    expect(
+      contentEditorValues("pricing", "fi", {
+        published_content: { title: "Julkaistu otsikko", body: "Julkaistu teksti" },
+        draft_content: { title: "Luonnoksen otsikko" },
+      }),
+    ).toMatchObject({
+      title: "Luonnoksen otsikko",
+      body: "Julkaistu teksti",
+      note: t.fi.pricing.note,
+    });
+  });
+
+  it("uses the selected language's translations", () => {
+    expect(sourceContentValues("home-service", "sv").title).toBe("Våra tjänster TGN Kotiin");
+    expect(sourceContentValues("home-service", "en").title).toBe("Our services TGN Kotiin");
+  });
+
+  it("keeps the form success fallbacks separate for each form", () => {
+    expect(sourceContentValues("forms", "fi")).toEqual({
+      contactSuccessMessage: "Kiitos viestistäsi! Palaamme sinulle asiaan tämän päivän aikana.",
+      startSuccessMessage:
+        "Kiitos palvelupyynnöstäsi! Saavumme paikalle sovittuna ajankohtana ja tarkennamme palvelun sisällön ennen saapumista. Vahvistamme aloitusajan kanssasi erikseen.",
     });
   });
 

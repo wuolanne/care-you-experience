@@ -58,7 +58,7 @@ function Page() {
         </div>
 
       </section>
-      <ServicePricing tab={tab} />
+      <ServicePricing tab={tab} note={managed.note} />
     </>
   );
 }

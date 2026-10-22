@@ -16,6 +16,7 @@ import {
 } from "@/features/content/queries";
 import {
   asContentValues,
+  contentEditorValues,
   contentFieldLabel,
   contentLanguages,
   contentPages,
@@ -69,8 +70,8 @@ function ContentAdmin() {
     localPreviewUrl ?? draftPreviewUrl ?? imageUrlForPath(currentImage?.published_path ?? null);
 
   useEffect(() => {
-    setValues(asContentValues(currentRecord?.draft_content));
-  }, [currentRecord]);
+    setValues(contentEditorValues(pageKey, lang, currentRecord));
+  }, [currentRecord, lang, pageKey]);
 
   useEffect(() => {
     setContactForm({
@@ -346,7 +347,7 @@ function ContentAdmin() {
             <Button
               variant="outline"
               disabled={busy}
-              onClick={() => setValues(asContentValues(currentRecord?.draft_content))}
+              onClick={() => setValues(contentEditorValues(pageKey, lang, currentRecord))}
             >
               <RotateCcw aria-hidden="true" />
               Peruuta muutokset

@@ -14,7 +14,7 @@ import {
 
 export type PricingService = "kotiin" | "yrityksille" | "palveluseteli";
 
-export function ServicePricing({ tab }: { tab: PricingService }) {
+export function ServicePricing({ tab, note }: { tab: PricingService; note: string | undefined }) {
   const { tr, lang } = useLang();
   const packages: Pkg[] =
     tab === "kotiin" ? kotiinPackages : tab === "yrityksille" ? yrityksillePackages : [];
@@ -79,7 +79,7 @@ export function ServicePricing({ tab }: { tab: PricingService }) {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground">
-          {tr.pricing.vat} {tr.pricing.note}
+          {tr.pricing.vat} {note || tr.pricing.note}
         </p>
 
         <Button asChild size="lg" className="mt-10"><Link
