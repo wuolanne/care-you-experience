@@ -1,11 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { PageHero } from "@/components/site-pieces";
 import { useLang } from "@/i18n/LanguageProvider";
 import { ServicePricing } from "@/components/ServicePricing";
 import { Button } from "@/components/ui/button";
 import { pageHead } from "@/features/seo/head";
+import { publicContentQuery } from "@/features/content/queries";
 
 export const Route = createFileRoute("/hinnoittelu")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(publicContentQuery("pricing", "fi")),
   validateSearch: (search: Record<string, unknown>): { tab: "kotiin" | "yrityksille" | "palveluseteli" } => ({
     tab: search['tab'] === "yrityksille" || search['tab'] === "palveluseteli" ? search['tab'] : "kotiin",
   }),
@@ -21,6 +24,8 @@ type TabKey = "kotiin" | "yrityksille" | "palveluseteli";
 
 function Page() {
   const { tr } = useLang();
+  const { lang } = useLang();
+  const { data: managed = {} } = useQuery(publicContentQuery("pricing", lang));
   const { tab } = Route.useSearch();
   const navigate = Route.useNavigate();
   const setTab = (tab: TabKey) => { void navigate({ search: { tab }, replace: true }); };
@@ -33,7 +38,7 @@ function Page() {
 
   return (
     <>
-      <PageHero eyebrow={tr.pricing.eyebrow} title={tr.pricing.title} lead={tr.pricing.lead} />
+      <PageHero eyebrow={tr.pricing.eyebrow} title={managed.title || tr.pricing.title} lead={managed.body || tr.pricing.lead} />
 
       <section className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-wrap justify-center gap-3">
@@ -53,7 +58,7 @@ function Page() {
         </div>
 
       </section>
-      <ServicePricing tab={tab} />
+      <ServicePricing tab={tab} note={managed.note} />
     </>
   );
 }

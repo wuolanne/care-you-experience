@@ -1,6 +1,21 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+export const adminAccessQuery = queryOptions({
+  queryKey: ["current-admin-access"],
+  queryFn: async () => {
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData.user) return false;
+    const { data, error } = await supabase.rpc("has_role", {
+      _user_id: userData.user.id,
+      _role: "admin",
+    });
+    return !error && data === true;
+  },
+  staleTime: 5 * 60_000,
+  retry: false,
+});
+
 function throwIfAnyError(results: Array<{ error: { message: string } | null }>): void {
   const failure = results.find((result) => result.error);
   if (failure) throw new Error("Hallintatietoja ei voitu ladata.");

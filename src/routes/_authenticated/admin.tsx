@@ -1,5 +1,20 @@
 import { createFileRoute, Link, Outlet, redirect, useNavigate } from "@tanstack/react-router";
-import { LayoutDashboard, LogOut, Mail, Newspaper, Video, Wrench } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  FilePenLine,
+  Gift,
+  Image,
+  LayoutDashboard,
+  LogOut,
+  Mail,
+  MessageSquareQuote,
+  Newspaper,
+  Share2,
+  Tags,
+  UsersRound,
+  Video,
+  Wrench,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { editorAccess } from "@/features/news/editor.functions";
@@ -7,24 +22,43 @@ import { pageHead } from "@/features/seo/head";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   ssr: false,
-  head: () => pageHead({
-    path: "/admin",
-    title: "Hallintapaneeli | TGN Services",
-    description: "TGN Servicesin ylläpidon hallintapaneeli.",
-    indexable: false,
-  }),
+  head: () =>
+    pageHead({
+      path: "/admin",
+      title: "Hallintapaneeli | TGN Services",
+      description: "TGN Servicesin ylläpidon hallintapaneeli.",
+      indexable: false,
+    }),
   beforeLoad: async () => {
     if (!(await editorAccess())) throw redirect({ to: "/" });
   },
   component: AdminLayout,
 });
 
-const links = [
-  { to: "/admin", label: "Yhteenveto", icon: LayoutDashboard },
-  { to: "/admin/yhteydenotot", label: "Yhteydenotot", icon: Mail },
-  { to: "/admin/videopalaverit", label: "Videopalaverit", icon: Video },
-  { to: "/admin/palvelunaloitukset", label: "Palvelun aloitukset", icon: Wrench },
-  { to: "/admin/uutiset", label: "Uutiset", icon: Newspaper },
+const navGroups = [
+  {
+    label: "Hallinta",
+    links: [
+      { to: "/admin", label: "Yhteenveto", icon: LayoutDashboard },
+      { to: "/admin/yhteydenotot", label: "Yhteydenotot", icon: Mail },
+      { to: "/admin/videopalaverit", label: "Videopalaverit", icon: Video },
+      { to: "/admin/palvelunaloitukset", label: "Palvelun aloitukset", icon: Wrench },
+      { to: "/admin/uutiset", label: "Uutiset", icon: Newspaper },
+    ],
+  },
+  {
+    label: "Sivuston ylläpito",
+    links: [
+      { to: "/admin/sisallot", label: "Sivuston sisällöt", icon: FilePenLine },
+      { to: "/admin/palvelut", label: "Palvelut", icon: BriefcaseBusiness },
+      { to: "/admin/asiakasedut", label: "Asiakasedut", icon: Gift },
+      { to: "/admin/hinnoittelu", label: "Hinnoittelu", icon: Tags },
+      { to: "/admin/kuvat", label: "Kuvat", icon: Image },
+      { to: "/admin/henkilosto", label: "Henkilöstö", icon: UsersRound },
+      { to: "/admin/asiakaspalautteet", label: "Asiakaspalautteet", icon: MessageSquareQuote },
+      { to: "/admin/sosiaalinen-media", label: "Sosiaalinen media", icon: Share2 },
+    ],
+  },
 ] as const;
 
 function AdminLayout() {
@@ -55,17 +89,24 @@ function AdminLayout() {
           className="h-fit rounded-xl border bg-card p-2 shadow-sm"
         >
           <div className="flex gap-1 overflow-x-auto lg:flex-col">
-            {links.map(({ to, label, icon: Icon }) => (
-              <Link
-                key={to}
-                to={to}
-                activeOptions={{ exact: true }}
-                activeProps={{ className: "bg-secondary text-primary" }}
-                className="flex shrink-0 items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-secondary"
-              >
-                <Icon aria-hidden="true" className="size-4" />
-                {label}
-              </Link>
+            {navGroups.map((group) => (
+              <div key={group.label} className="flex shrink-0 gap-1 lg:flex-col">
+                <p className="hidden px-3 pb-1 pt-2 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground lg:block">
+                  {group.label}
+                </p>
+                {group.links.map(({ to, label, icon: Icon }) => (
+                  <Link
+                    key={to}
+                    to={to}
+                    activeOptions={{ exact: true }}
+                    activeProps={{ className: "bg-secondary text-primary" }}
+                    className="flex shrink-0 items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-secondary"
+                  >
+                    <Icon aria-hidden="true" className="size-4" />
+                    {label}
+                  </Link>
+                ))}
+              </div>
             ))}
           </div>
         </nav>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Image as ImageIcon, Mail, Video, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,8 +9,14 @@ import { homeCopy } from "@/features/home-service/copy";
 import { RequestForm } from "@/features/home-service/RequestForms";
 import { BUSINESS_ID } from "@/data/company";
 import { pageHead } from "@/features/seo/head";
+import { publicContentQuery, publicImageQuery, publicStaffQuery } from "@/features/content/queries";
+import { publicImageUrl } from "@/features/content/model";
 
 export const Route = createFileRoute("/meista")({
+  loader: ({ context }) => Promise.all([
+    context.queryClient.ensureQueryData(publicContentQuery("about", "fi")),
+    context.queryClient.ensureQueryData(publicImageQuery("about", "main", "fi")),
+  ]),
   head: () => pageHead({
     path: "/meista",
     title: "Meistä lyhyesti | TGN Services",
@@ -18,13 +25,13 @@ export const Route = createFileRoute("/meista")({
   component: AboutPage,
 });
 
-// Kampanjakuva: importtaa kuva tähän ja aseta se muuttujaan,
-// esim. import kampanja from "@/assets/kampanja.jpg"; const campaignImage = kampanja;
-const campaignImage: string | null = null;
-
 function AboutPage() {
   const { tr, lang } = useLang();
   const t = homeCopy[lang];
+  const { data: managed = {} } = useQuery(publicContentQuery("about", lang));
+  const { data: managedImage } = useQuery(publicImageQuery("about", "main", lang));
+  const { data: staff = [] } = useQuery(publicStaffQuery(lang));
+  const campaignImage = managedImage?.url ?? null;
   const [form, setForm] = useState<'contact' | 'start' | null>(null);
 
   const fallbackAction = { kind: 'contact' as const, label: t.contact, Icon: Mail };
@@ -41,14 +48,14 @@ function AboutPage() {
         <div className="grid gap-x-12 gap-y-8 md:grid-cols-[0.9fr_1.1fr] md:grid-rows-[auto_1fr]">
           <div>
             <p className="eyebrow">{tr.about.eyebrow}</p>
-            <h1 id="about-title" className="mt-4 text-3xl leading-tight md:text-4xl">{tr.about.title}</h1>
+            <h1 id="about-title" className="mt-4 text-3xl leading-tight md:text-4xl">{managed.title || tr.about.title}</h1>
             <div className="hairline mt-6 w-24" />
           </div>
           <div className="md:col-start-1 md:row-start-2">
               {campaignImage ? (
                 <img
                   src={campaignImage}
-                  alt={tr.about.title}
+                  alt={managedImage?.alt || tr.about.title}
                   className="w-full rounded-sm border border-border object-cover shadow-[var(--shadow-soft)]"
                 />
               ) : (
@@ -61,9 +68,9 @@ function AboutPage() {
               )}
           </div>
           <div className="min-w-0 md:col-start-2 md:row-start-2">
-            <h2 className="text-2xl leading-tight md:text-3xl">{tr.about.headline}</h2>
+            <h2 className="text-2xl leading-tight md:text-3xl">{managed.headline || tr.about.headline}</h2>
             <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
-              {tr.about.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {(managed.body ? managed.body.split("\n\n") : tr.about.intro).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
             {tr.about.sections.map((section) => (
               <div key={section.title} className="mt-8">
@@ -107,20 +114,46 @@ function AboutPage() {
     </section>
     <section aria-labelledby="partnership-title" className="border-b border-border/60 bg-background">
       <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-        <h2 id="partnership-title" className="text-3xl leading-tight text-primary md:text-4xl">{tr.about.closing}</h2>
+        <h2 id="partnership-title" className="text-3xl leading-tight text-primary md:text-4xl">{managed.closing || tr.about.closing}</h2>
         <div className="hairline mt-6 w-24" />
         <div className="mt-10">
-          <h3 className="text-2xl leading-tight">{tr.about.team}</h3>
-          <div className="mt-6 grid grid-cols-3 justify-items-center gap-3 sm:gap-5">
-            {[1, 2, 3].map(person => (
-              <div key={person} className="w-full max-w-40 min-w-0">
-                <div role="img" aria-label={`${tr.about.staffPhoto} ${person}`} className="flex aspect-[3/4] items-center justify-center rounded-sm border border-dashed border-gold/70 bg-card">
-                  <ImageIcon aria-hidden="true" className="size-6 text-gold/70" strokeWidth={1.2} />
-                </div>
-                <p className="mt-3 break-words text-center text-sm text-muted-foreground">{tr.about.firstName}</p>
+          {staff.length > 0 && (
+            <>
+              <h3 className="text-2xl leading-tight">{tr.about.team}</h3>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {staff.map((person) => {
+                  const imageUrl = publicImageUrl(person.imagePath);
+                  return (
+                    <article key={person.id} className="min-w-0 rounded-sm border border-border bg-card p-5">
+                      {imageUrl && (
+                        <img
+                          src={imageUrl}
+                          alt={person.altText || person.displayName || tr.about.staffPhoto}
+                          className="aspect-[3/4] w-full object-cover"
+                          loading="lazy"
+                        />
+                      )}
+                      {person.displayName && (
+                        <h4 className={`${imageUrl ? "mt-4" : ""} break-words text-xl text-primary`}>
+                          {person.displayName}
+                        </h4>
+                      )}
+                      {person.jobTitle && (
+                        <p className={`${person.displayName || imageUrl ? "mt-2" : ""} break-words text-sm font-medium`}>
+                          {person.jobTitle}
+                        </p>
+                      )}
+                      {person.bio && (
+                        <p className={`${person.displayName || person.jobTitle || imageUrl ? "mt-3" : ""} whitespace-pre-wrap break-words text-sm leading-relaxed text-muted-foreground`}>
+                          {person.bio}
+                        </p>
+                      )}
+                    </article>
+                  );
+                })}
               </div>
-            ))}
-          </div>
+            </>
+          )}
           <h3 className="mt-10 text-2xl leading-tight">{tr.about.billing}</h3>
           <div aria-label={tr.about.billing} className="mt-5 min-h-32 rounded-sm border border-dashed border-gold/60 px-5 py-4">
             <p className="text-sm text-muted-foreground">{tr.footer.businessId}: <span className="text-foreground">{BUSINESS_ID}</span></p>

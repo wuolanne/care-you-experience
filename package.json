@@ -9,7 +9,13 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test:unit": "vitest run --passWithNoTests --exclude e2e",
+    "test:e2e": "playwright test",
+    "test:smoke": "playwright test e2e/public-smoke.spec.ts",
+    "test:typecheck:e2e": "tsc --noEmit -p tsconfig.e2e.json",
+    "test:drizzle": "drizzle-kit check",
+    "test:all": "npm run test:unit && npm run test:typecheck:e2e && npm run test:drizzle && npm run build && npm run test:e2e"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -71,6 +77,7 @@
   "devDependencies": {
     "@eslint/js": "^9.32.0",
     "@lovable.dev/vite-tanstack-config": "2.26.5",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^22.16.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
