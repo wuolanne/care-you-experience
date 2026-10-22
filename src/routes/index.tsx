@@ -1,6 +1,7 @@
 // ============= Full file contents =============
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageProvider";
 import { ArrowRight, ShieldCheck, MessagesSquare, HeartHandshake, Wallet, Mail, Video } from "lucide-react";
@@ -11,9 +12,13 @@ import { newsQuery } from '@/features/news/queries';
 import { homeCopy } from '@/features/home-service/copy';
 import { RequestForm } from '@/features/home-service/RequestForms';
 import { pageHead, SITE_URL, SOCIAL_IMAGE_URL } from "@/features/seo/head";
+import { publicContentQuery } from "@/features/content/queries";
 
 export const Route = createFileRoute("/")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(newsQuery),
+  loader: ({ context }) => Promise.all([
+    context.queryClient.ensureQueryData(newsQuery),
+    context.queryClient.ensureQueryData(publicContentQuery("home", "fi")),
+  ]),
   head: () => pageHead({
     path: "/",
     title: "TGN Services — Laadukasta siivousta koteihin ja toimitiloihin",
@@ -33,6 +38,11 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { tr, lang } = useLang();
   const t = homeCopy[lang];
+  const { data: managed = {} } = useQuery(publicContentQuery("home", lang));
+  const heroTitle = managed.title || tr.hero.title;
+  const heroLead = managed.body || tr.hero.lead;
+  const heroContact = managed.cta || t.contact;
+  const heroSecondary = managed.secondary || t.video;
   const [form, setForm] = useState<'contact' | 'start' | null>(null);
 
   return (
@@ -42,17 +52,17 @@ function Index() {
           <div>
             <p className="eyebrow text-primary/70">{tr.hero.eyebrow}</p>
             <h1 className="mt-4 text-4xl leading-[1.1] text-plum md:text-5xl">
-              {tr.hero.title}
+              {heroTitle}
             </h1>
             <div className="mt-5 space-y-3 text-base leading-relaxed text-plum">
-              {tr.hero.lead.split("\n\n").map((paragraph) => (
+              {heroLead.split("\n\n").map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </div>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            <Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('contact')}><Mail aria-hidden="true" />{t.contact}</Button>
-            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal py-3"><Link to="/varaa"><Video aria-hidden="true" />{t.video}</Link></Button>
+            <Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('contact')}><Mail aria-hidden="true" />{heroContact}</Button>
+            <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal py-3"><Link to="/varaa"><Video aria-hidden="true" />{heroSecondary}</Link></Button>
             <Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('start')}><ArrowRight aria-hidden="true" />{t.start}</Button>
           </div>
         </div>

@@ -16,6 +16,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CustomerReviews } from "@/components/CustomerReviews";
 import { supabase } from '@/integrations/supabase/client';
+import { publicReviewsQuery, publicSiteContactQuery, publicSocialLinksQuery } from "@/features/content/queries";
 
 
 function NotFoundComponent() {
@@ -79,6 +80,11 @@ function ErrorComponent({ error, reset }: { error: unknown; reset: () => void })
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: ({ context }) => Promise.all([
+    context.queryClient.ensureQueryData(publicSiteContactQuery),
+    context.queryClient.ensureQueryData(publicSocialLinksQuery),
+    context.queryClient.ensureQueryData(publicReviewsQuery),
+  ]),
   head: () => ({
     meta: [
       { charSet: "utf-8" },

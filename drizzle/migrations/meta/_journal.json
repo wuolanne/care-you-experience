@@ -64,6 +64,34 @@
       "when": 1792590000000,
       "tag": "0008_admin_dashboard_read_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792600000000,
+      "tag": "0010_admin_content_management",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1792601000000,
+      "tag": "0011_admin_pricing_management",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1792602000000,
+      "tag": "0012_admin_staff_management",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1792603000000,
+      "tag": "0013_admin_service_sections",
+      "breakpoints": true
     }
   ]
 }

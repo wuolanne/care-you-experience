@@ -1,9 +1,11 @@
 import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import type { ComponentType } from "react";
 import logo from "@/assets/tgs-logo-g.png";
 import { useLang } from "@/i18n/LanguageProvider";
 import { NewsAdminLink } from '@/features/news/NewsAdminLink';
-import { BUSINESS_ID, SOCIAL_LINKS, type SocialKey } from '@/data/company';
+import { BUSINESS_ID, PUBLIC_ADDRESS, PUBLIC_EMAIL, PUBLIC_PHONE, SOCIAL_LINKS, type SocialKey } from '@/data/company';
+import { publicSiteContactQuery, publicSocialLinksQuery } from "@/features/content/queries";
 import { Facebook, Instagram, Linkedin } from 'lucide-react';
 import { siTiktok, siWhatsapp } from 'simple-icons';
 
@@ -24,11 +26,18 @@ const SOCIAL: { key: SocialKey; name: string; Icon: ComponentType<{ className?: 
   { key: "whatsapp", name: "WhatsApp", Icon: (p) => <GlyphIcon path={siWhatsapp.path} {...p} /> },
 ];
 
-// Two rows (3 + 2) so the icon block stays the same height as the contact and service columns.
-const SOCIAL_ROWS = [SOCIAL.slice(0, 3), SOCIAL.slice(3)];
-
 export function SiteFooter() {
   const { tr } = useLang();
+  const { data: contact } = useQuery(publicSiteContactQuery);
+  const { data: managedLinks = [] } = useQuery(publicSocialLinksQuery);
+  const linkByKey = new Map(managedLinks.map((link) => [link.service_key, link.url]));
+  const visibleSocial = SOCIAL.filter(({ key }) => {
+    const url = managedLinks.length ? linkByKey.get(key) : SOCIAL_LINKS[key];
+    return Boolean(url);
+  });
+  const socialRows = [visibleSocial.slice(0, 3), visibleSocial.slice(3)].filter((row) => row.length);
+  const publicEmail = contact?.public_email || PUBLIC_EMAIL;
+  const publicPhone = contact?.public_phone || PUBLIC_PHONE;
   const iconBase =
     "inline-flex size-10 items-center justify-center rounded-sm border-2 border-primary/60 bg-background text-primary shadow-[var(--shadow-soft)] transition-colors hover:border-gold";
   return (
@@ -50,9 +59,10 @@ export function SiteFooter() {
         <div className="space-y-2 text-center md:space-y-3">
           <p className="eyebrow">{tr.footer.contact}</p>
           <div className="flex flex-col gap-1 text-sm text-foreground/80 md:gap-2">
-            <a href="mailto:info@tgnservices.fi" className="hover:text-primary">info@tgnservices.fi</a>
-            <a href="tel:+3584578359301" className="hover:text-primary">+358 45 78359301</a>
-            <p className="text-foreground/70">{tr.footer.businessId}: {BUSINESS_ID}</p>
+            <a href={`mailto:${publicEmail}`} className="hover:text-primary">{publicEmail}</a>
+            <a href={`tel:${publicPhone.replace(/\s/g, "")}`} className="hover:text-primary">{publicPhone}</a>
+            {(contact?.public_address || PUBLIC_ADDRESS) && <p className="text-foreground/70">{contact?.public_address || PUBLIC_ADDRESS}</p>}
+            <p className="text-foreground/70">{tr.footer.businessId}: {contact?.business_id || BUSINESS_ID}</p>
             <div className="mt-1 flex flex-wrap justify-center gap-x-3 gap-y-1 md:justify-start">
               <Link to="/tarjouspyynto" className="underline underline-offset-4 hover:text-primary">
                 {tr.footer.contactRequest}
@@ -66,10 +76,10 @@ export function SiteFooter() {
         <div className="flex flex-col items-center space-y-2 text-center md:space-y-3">
           <p className="eyebrow">{tr.footer.follow}</p>
           <div className="flex flex-col items-center gap-2.5">
-            {SOCIAL_ROWS.map((row, rowIndex) => (
+            {socialRows.map((row, rowIndex) => (
               <div key={rowIndex} className="flex justify-center gap-2.5">
                 {row.map(({ key, name, Icon }) => {
-                  const url = SOCIAL_LINKS[key];
+                  const url = managedLinks.length ? linkByKey.get(key) : SOCIAL_LINKS[key];
                   return url ? (
                     <a
                       key={key}
@@ -82,17 +92,7 @@ export function SiteFooter() {
                     >
                       <Icon className="size-[18px]" />
                     </a>
-                  ) : (
-                    <span
-                      key={key}
-                      role="img"
-                      aria-label={`${name} — ${tr.footer.socialPending}`}
-                      title={`${name} — ${tr.footer.socialPending}`}
-                      className={iconBase}
-                    >
-                      <Icon className="size-[18px]" />
-                    </span>
-                  );
+                  ) : null;
                 })}
               </div>
             ))}

@@ -1,57 +1,31 @@
-import { Link, useNavigate, useRouter } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { Link } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
 import { useLang } from "@/i18n/LanguageProvider";
-import { newsCopy } from "./model";
+import { adminAccessQuery } from "@/features/admin/queries";
+import { shouldShowAdminDashboardLink } from "./admin-link";
+
 export function NewsAdminLink() {
-  const [signedIn, setSignedIn] = useState(false);
-  const router = useRouter();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const { lang } = useLang();
+  const { tr } = useLang();
+  const { data: isAdmin, isPending } = useQuery(adminAccessQuery);
+
   useEffect(() => {
-    let active = true;
-    void supabase.auth.getUser().then(({ data }) => {
-      if (active) setSignedIn(Boolean(data.user));
+    const { data: listener } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") {
+        void queryClient.invalidateQueries({ queryKey: ["current-admin-access"] });
+      }
     });
-    return () => {
-      active = false;
-    };
-  }, [router.state.location.href]);
+    return () => listener.subscription.unsubscribe();
+  }, [queryClient]);
+
+  if (!shouldShowAdminDashboardLink(isAdmin, isPending)) return null;
   return (
-    <div className="mt-3 flex flex-wrap justify-center gap-3">
-      <Link to={signedIn ? "/admin" : "/auth"} className="text-xs hover:text-primary">
-        {newsCopy[lang].manage}
+    <div className="mt-3 flex justify-center">
+      <Link to="/admin" className="text-xs hover:text-primary">
+        {tr.footer.adminDashboard}
       </Link>
-      {signedIn && (
-        <Link to="/pyynnot" className="text-xs hover:text-primary">
-          {
-            {
-              fi: "Asiakaspyynnöt",
-              sv: "Kundförfrågningar",
-              es: "Solicitudes de clientes",
-              en: "Customer requests",
-            }[lang]
-          }
-        </Link>
-      )}
-      {signedIn && (
-        <Button
-          variant="link"
-          className="h-auto p-0 text-xs"
-          onClick={async () => {
-            await queryClient.cancelQueries();
-            queryClient.clear();
-            await supabase.auth.signOut();
-            setSignedIn(false);
-            await navigate({ to: "/auth", search: { returnTo: undefined }, replace: true });
-          }}
-        >
-          Kirjaudu ulos
-        </Button>
-      )}
     </div>
   );
 }

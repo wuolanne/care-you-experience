@@ -84,6 +84,7 @@ type Dict = {
     businessId: string;
     follow: string;
     socialPending: string;
+    adminDashboard: string;
   };
   privacy: {
     title: string;
@@ -216,7 +217,7 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Jätä yhteydenottopyyntö", lead: "Kerro lyhyesti tarpeistasi ja jätä yhteystietosi." },
     buy: { title: "Osta palvelu", lead: "Selkeät palvelupaketit, joilla pääset alkuun heti.", from: "alkaen", select: "Valitse" },
     splash: { kotiin: "TGN Kotiin", yrityksille: "TGN Yrityksille" },
-    footer: { tagline: "Luotettavaa kumppanuutta kotiin ja yrityksille.", contact: "Yhteystiedot", contactRequest: "Ota yhteyttä", privacy: "Tietosuojaseloste", rights: "Kaikki oikeudet pidätetään.", businessId: "Y-tunnus", follow: "Seuraa meitä", socialPending: "ei vielä linkkiä" },
+    footer: { tagline: "Luotettavaa kumppanuutta kotiin ja yrityksille.", contact: "Yhteystiedot", contactRequest: "Ota yhteyttä", privacy: "Tietosuojaseloste", rights: "Kaikki oikeudet pidätetään.", businessId: "Y-tunnus", follow: "Seuraa meitä", socialPending: "ei vielä linkkiä", adminDashboard: "Hallintapaneeli" },
     privacy: {
       title: "Tietosuojaseloste",
       intro: "Tämä seloste kuvaa, miten TGN Services käsittelee henkilötietoja verkkosivustolla ja sivuston lomakkeiden yhteydessä.",
@@ -361,7 +362,7 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Be oss kontakta dig", lead: "Berätta kort om dina behov och lämna dina kontaktuppgifter." },
     buy: { title: "Köp tjänst", lead: "Tydliga servicepaket som gör att du kommer igång direkt.", from: "från", select: "Välj" },
     splash: { kotiin: "TGN Hem", yrityksille: "TGN för Företag" },
-    footer: { tagline: "Ett pålitligt partnerskap för hem och företag.", contact: "Kontakt", contactRequest: "Kontakta oss", privacy: "Integritetspolicy", rights: "Alla rättigheter förbehållna.", businessId: "Y-tunnus", follow: "Följ oss", socialPending: "inte länkad ännu" },
+    footer: { tagline: "Ett pålitligt partnerskap för hem och företag.", contact: "Kontakt", contactRequest: "Kontakta oss", privacy: "Integritetspolicy", rights: "Alla rättigheter förbehållna.", businessId: "Y-tunnus", follow: "Följ oss", socialPending: "inte länkad ännu", adminDashboard: "Administrationspanel" },
     privacy: {
       title: "Integritetspolicy",
       intro: "Den här policyn beskriver hur TGN Services behandlar personuppgifter på webbplatsen och i webbplatsens formulär.",
@@ -506,7 +507,7 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Solicitar contacto", lead: "Cuéntanos brevemente tus necesidades y deja tus datos de contacto." },
     buy: { title: "Comprar servicio", lead: "Paquetes claros para empezar de inmediato.", from: "desde", select: "Elegir" },
     splash: { kotiin: "TGN Hogar", yrityksille: "TGN para Empresas" },
-    footer: { tagline: "Una colaboración de confianza para hogares y empresas.", contact: "Contacto", contactRequest: "Contacta con nosotros", privacy: "Política de privacidad", rights: "Todos los derechos reservados.", businessId: "NIF", follow: "Síguenos", socialPending: "sin enlace todavía" },
+    footer: { tagline: "Una colaboración de confianza para hogares y empresas.", contact: "Contacto", contactRequest: "Contacta con nosotros", privacy: "Política de privacidad", rights: "Todos los derechos reservados.", businessId: "NIF", follow: "Síguenos", socialPending: "sin enlace todavía", adminDashboard: "Panel de administración" },
     privacy: {
       title: "Política de privacidad",
       intro: "Esta política describe cómo TGN Services trata los datos personales en el sitio web y en sus formularios.",
@@ -651,7 +652,7 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Request a callback", lead: "Briefly describe your needs and leave your contact details." },
     buy: { title: "Buy a service", lead: "Clear service packages so you can start immediately.", from: "from", select: "Select" },
     splash: { kotiin: "TGN Home", yrityksille: "TGN for Business" },
-    footer: { tagline: "Reliable partnership for homes and businesses.", contact: "Contact", contactRequest: "Get in touch", privacy: "Privacy policy", rights: "All rights reserved.", businessId: "Business ID", follow: "Follow us", socialPending: "not linked yet" },
+    footer: { tagline: "Reliable partnership for homes and businesses.", contact: "Contact", contactRequest: "Get in touch", privacy: "Privacy policy", rights: "All rights reserved.", businessId: "Business ID", follow: "Follow us", socialPending: "not linked yet", adminDashboard: "Admin dashboard" },
     privacy: {
       title: "Privacy policy",
       intro: "This policy describes how TGN Services processes personal data on the website and through its forms.",
