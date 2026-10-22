@@ -3,27 +3,16 @@ import { PageHero } from "@/components/site-pieces";
 import { useLang } from "@/i18n/LanguageProvider";
 import { ServicePricing } from "@/components/ServicePricing";
 import { Button } from "@/components/ui/button";
+import { pageHead } from "@/features/seo/head";
 
 export const Route = createFileRoute("/hinnoittelu")({
   validateSearch: (search: Record<string, unknown>): { tab: "kotiin" | "yrityksille" | "palveluseteli" } => ({
     tab: search['tab'] === "yrityksille" || search['tab'] === "palveluseteli" ? search['tab'] : "kotiin",
   }),
-  head: () => ({
-    meta: [
-      { title: "Hinnoittelu — läpinäkyvät hinnat | TGN Services" },
-      {
-        name: "description",
-        content:
-          "Läpinäkyvä hinnoittelu kodin ja toimitilojen hoitoon: valitse kuukausipaketti tai tuntiveloitus. Kaikki hinnat näkyvissä ilman piilokuluja.",
-      },
-      { property: "og:title", content: "Hinnoittelu | TGN Services" },
-      {
-        property: "og:description",
-        content: "Kuukausipaketit ja tuntiveloitus – kaikki hinnat läpinäkyvästi esillä.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  head: () => pageHead({
+    path: "/hinnoittelu",
+    title: "Hinnoittelu — läpinäkyvät hinnat | TGN Services",
+    description: "Läpinäkyvä hinnoittelu kodin ja toimitilojen hoitoon: valitse kuukausipaketti tai tuntiveloitus. Kaikki hinnat näkyvissä ilman piilokuluja.",
   }),
   component: Page,
 });

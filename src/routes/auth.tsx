@@ -4,10 +4,16 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { pageHead } from "@/features/news/head";
+import { pageHead } from "@/features/seo/head";
 import { getSafeAdminReturnTo } from "@/features/auth/return-to";
 export const Route = createFileRoute("/auth")({
-  head: () => pageHead("Ylläpidon kirjautuminen", "Kirjaudu TGN Services -hallintapaneeliin."),
+  head: () =>
+    pageHead({
+      path: "/auth",
+      title: "Ylläpidon kirjautuminen",
+      description: "Kirjaudu TGN Services -hallintapaneeliin.",
+      indexable: false,
+    }),
   validateSearch: (search: Record<string, unknown>) => ({
     returnTo: typeof search["returnTo"] === "string" ? search["returnTo"] : undefined,
   }),

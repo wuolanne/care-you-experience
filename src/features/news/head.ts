@@ -1,1 +1,1 @@
-export function pageHead(title:string,description:string) { return { meta:[{title:`${title} | TGN Services`},{name:'description',content:description},{property:'og:title',content:`${title} | TGN Services`},{property:'og:description',content:description},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}] }; }
+export { pageHead } from "@/features/seo/head";

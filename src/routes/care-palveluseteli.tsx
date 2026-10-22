@@ -1,17 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/site-pieces";
 import { useLang } from "@/i18n/LanguageProvider";
+import { pageHead } from "@/features/seo/head";
 
 export const Route = createFileRoute("/care-palveluseteli")({
-  head: () => ({
-    meta: [
-      { title: "TGN Palveluseteli — Tulossa pian | TGN Services" },
-      { name: "description", content: "TGN Palveluseteli -palvelut ovat tulossa pian." },
-      { property: "og:title", content: "TGN PALVELUSETELI | TGN Services" },
-      { property: "og:description", content: "TGN Palveluseteli – tulossa pian!" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  head: () => pageHead({
+    path: "/care-palveluseteli",
+    title: "TGN Palveluseteli — Tulossa pian | TGN Services",
+    description: "TGN Palveluseteli -palvelut ovat tulossa pian.",
+    indexable: false,
   }),
   component: Page,
 });
