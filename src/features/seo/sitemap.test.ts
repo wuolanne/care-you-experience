@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import { publicSitemapPaths } from "./sitemap";
+
+const sitemapXml = readFileSync(new URL("../../../public/sitemap.xml", import.meta.url), "utf8");
 
 describe("public sitemap routes", () => {
   it("contains only finished public routes", () => {
@@ -26,5 +29,12 @@ describe("public sitemap routes", () => {
           path.includes("palveluseteli"),
       ),
     ).toBe(false);
+  });
+
+  it("does not claim that the build date is the content modification date", () => {
+    expect(sitemapXml).not.toContain("<lastmod>");
+    for (const path of publicSitemapPaths) {
+      expect(sitemapXml).toContain(`<loc>https://tgnservices.fi${path}</loc>`);
+    }
   });
 });

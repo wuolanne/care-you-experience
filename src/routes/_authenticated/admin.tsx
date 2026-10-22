@@ -24,7 +24,7 @@ const links = [
   { to: "/admin/yhteydenotot", label: "Yhteydenotot", icon: Mail },
   { to: "/admin/videopalaverit", label: "Videopalaverit", icon: Video },
   { to: "/admin/palvelunaloitukset", label: "Palvelun aloitukset", icon: Wrench },
-  { to: "/uutisten-yllapito", label: "Uutiset", icon: Newspaper },
+  { to: "/admin/uutiset", label: "Uutiset", icon: Newspaper },
 ] as const;
 
 function AdminLayout() {
@@ -32,7 +32,7 @@ function AdminLayout() {
 
   async function signOut() {
     await supabase.auth.signOut();
-    await navigate({ to: "/auth", replace: true });
+    await navigate({ to: "/auth", search: { returnTo: undefined }, replace: true });
   }
 
   return (
@@ -59,6 +59,7 @@ function AdminLayout() {
               <Link
                 key={to}
                 to={to}
+                activeOptions={{ exact: true }}
                 activeProps={{ className: "bg-secondary text-primary" }}
                 className="flex shrink-0 items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-secondary"
               >

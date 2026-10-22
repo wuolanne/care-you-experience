@@ -30,8 +30,9 @@ nykyinen tarkoituksellinen indeksoinnin esto säilyy ennallaan.
 
 ## Sitemap
 
-TanStack Start luo buildissä osoitteen `https://tgnservices.fi/sitemap.xml`.
-Sitemap sisältää vain valmiit julkiset reitit:
+Versionhallittu `public/sitemap.xml` palvellaan osoitteessa
+`https://tgnservices.fi/sitemap.xml`. Sitemap sisältää vain valmiit julkiset
+reitit:
 
 - `/`
 - `/care-kotiin`
@@ -44,9 +45,11 @@ Sitemap sisältää vain valmiit julkiset reitit:
 
 Admin-, auth-, keskeneräinen palveluseteli- ja uutisten ylläpitoreittejä ei
 lisätä. Yksittäisiä uutis-URL-osoitteita ei tällä hetkellä ole sovelluksen
-reitityksessä. TanStack Start muodostaa `lastmod`-arvon build-päivän mukaan,
-koska lähdekoodissa ei ole julkaistuille sivuille luotettavia sisältökohtaisia
-muutospäiviä.
+reitityksessä. Sitemapissa ei ole `lastmod`-kenttiä, koska lähdekoodissa ei ole
+julkisille sivuille luotettavia sisältökohtaisia muutospäiviä. Build-päivää ei
+esitetä virheellisesti sisällön muutosajankohtana. Kun sivuille tai uutisille
+on myöhemmin saatavilla oikeat muutospäivät, ne voidaan lisätä ISO 8601
+-muodossa erillisellä hyväksytyllä muutoksella.
 
 ## Julkaisun yhteydessä tehtävä indeksoinnin avaus
 
