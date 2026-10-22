@@ -48,7 +48,7 @@ export function RequestForm({kind,audience='home'}:{kind:'contact'|'start';audie
    </fieldset>
    <p className="text-sm text-muted-foreground">{t.startNote}</p>
   </>}
-  <PrivacyNotice />
+  <PrivacyNotice kind={kind === 'start' ? 'serviceStart' : 'contact'} />
   {error&&<p role="alert" className="text-sm text-destructive">{t.error}</p>}
   <Button type="submit" disabled={pending} className="min-h-12 w-full"><Mail aria-hidden="true"/>{pending?t.pending:t.send}</Button>
  </form>;

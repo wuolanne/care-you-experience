@@ -63,14 +63,12 @@ export function SiteFooter() {
             <a href={`tel:${publicPhone.replace(/\s/g, "")}`} className="hover:text-primary">{publicPhone}</a>
             {(contact?.public_address || PUBLIC_ADDRESS) && <p className="text-foreground/70">{contact?.public_address || PUBLIC_ADDRESS}</p>}
             <p className="text-foreground/70">{tr.footer.businessId}: {contact?.business_id || BUSINESS_ID}</p>
-            <div className="mt-1 flex flex-wrap justify-center gap-x-3 gap-y-1 md:justify-start">
-              <Link to="/tarjouspyynto" className="underline underline-offset-4 hover:text-primary">
+            <Link to="/tarjouspyynto" className="hover:text-primary">
                 {tr.footer.contactRequest}
-              </Link>
-              <Link to="/tietosuoja" className="underline underline-offset-4 hover:text-primary">
+            </Link>
+            <Link to="/tietosuoja" className="hover:text-primary">
                 {tr.footer.privacy}
-              </Link>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="flex flex-col items-center space-y-2 text-center md:space-y-3">

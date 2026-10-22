@@ -91,7 +91,9 @@ type Dict = {
     intro: string;
     updated: string;
     contact: string;
-    formNotice: string;
+    contactNotice: string;
+    bookingNotice: string;
+    serviceStartNotice: string;
     readMore: string;
     home: string;
     sections: { title: string; paragraphs: string[] }[];
@@ -223,7 +225,9 @@ export const t: Record<Lang, Dict> = {
       intro: "Tämä seloste kuvaa, miten TGN Services käsittelee henkilötietoja verkkosivustolla ja sivuston lomakkeiden yhteydessä.",
       updated: "Päivitetty viimeksi: 22.10.2026",
       contact: "Ota yhteyttä tietosuoja-asiassa",
-      formNotice: "Käsittelemme antamiasi tietoja yhteydenottopyyntöösi vastaamiseksi.",
+      contactNotice: "Käsittelemme antamiasi tietoja yhteydenottopyyntöösi vastaamiseksi.",
+      bookingNotice: "Käsittelemme antamiasi tietoja videopalaveripyyntösi käsittelemiseksi.",
+      serviceStartNotice: "Käsittelemme antamiasi tietoja palvelun aloituksen suunnittelemiseksi.",
       readMore: "Lue tietosuojaseloste",
       home: "Takaisin etusivulle",
       sections: [
@@ -368,7 +372,9 @@ export const t: Record<Lang, Dict> = {
       intro: "Den här policyn beskriver hur TGN Services behandlar personuppgifter på webbplatsen och i webbplatsens formulär.",
       updated: "Senast uppdaterad: 22.10.2026",
       contact: "Kontakta oss om dataskydd",
-      formNotice: "Vi behandlar uppgifterna du lämnar för att svara på din kontaktförfrågan.",
+      contactNotice: "Vi behandlar uppgifterna du lämnar för att svara på din kontaktförfrågan.",
+      bookingNotice: "Vi behandlar uppgifterna du lämnar för att hantera din videomötesförfrågan.",
+      serviceStartNotice: "Vi behandlar uppgifterna du lämnar för att planera tjänstens start.",
       readMore: "Läs integritetspolicyn",
       home: "Tillbaka till startsidan",
       sections: [
@@ -513,7 +519,9 @@ export const t: Record<Lang, Dict> = {
       intro: "Esta política describe cómo TGN Services trata los datos personales en el sitio web y en sus formularios.",
       updated: "Última actualización: 22.10.2026",
       contact: "Contacta sobre protección de datos",
-      formNotice: "Tratamos los datos que proporcionas para responder a tu solicitud de contacto.",
+      contactNotice: "Tratamos los datos que proporcionas para responder a tu solicitud de contacto.",
+      bookingNotice: "Tratamos los datos que proporcionas para gestionar tu solicitud de videollamada.",
+      serviceStartNotice: "Tratamos los datos que proporcionas para planificar el inicio del servicio.",
       readMore: "Leer la política de privacidad",
       home: "Volver al inicio",
       sections: [
@@ -658,7 +666,9 @@ export const t: Record<Lang, Dict> = {
       intro: "This policy describes how TGN Services processes personal data on the website and through its forms.",
       updated: "Last updated: 22 October 2026",
       contact: "Contact us about data protection",
-      formNotice: "We process the information you provide to respond to your contact request.",
+      contactNotice: "We process the information you provide to respond to your contact request.",
+      bookingNotice: "We process the information you provide to handle your video meeting request.",
+      serviceStartNotice: "We process the information you provide to plan the start of the service.",
       readMore: "Read the privacy policy",
       home: "Back to home",
       sections: [

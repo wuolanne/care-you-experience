@@ -16,7 +16,7 @@ function PrivacyPage() {
   const { tr } = useLang();
 
   return (
-    <main className="mx-auto w-full max-w-4xl px-6 py-14 md:py-20">
+    <div className="mx-auto w-full max-w-4xl px-6 py-14 md:py-20">
       <nav aria-label={tr.privacy.home} className="mb-8 text-sm text-muted-foreground">
         <Link to="/" className="underline underline-offset-4 hover:text-primary">
           {tr.privacy.home}
@@ -55,21 +55,6 @@ function PrivacyPage() {
           tietosuoja.fi
         </a>
       </p>
-
-      <div className="mt-12 flex flex-wrap gap-4 border-t border-border pt-8">
-        <a
-          href="mailto:info@tgnservices.fi"
-          className="rounded-sm bg-primary px-5 py-3 text-sm text-primary-foreground hover:opacity-90"
-        >
-          {tr.privacy.contact}
-        </a>
-        <Link
-          to="/tarjouspyynto"
-          className="rounded-sm border border-primary px-5 py-3 text-sm text-primary hover:bg-primary/5"
-        >
-          {tr.footer.contactRequest}
-        </Link>
-      </div>
-    </main>
+    </div>
   );
 }
