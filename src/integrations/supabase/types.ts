@@ -125,6 +125,24 @@ export type Database = {
         }
         Relationships: []
       }
+      form_rate_limits: {
+        Row: {
+          bucket_key: string
+          request_count: number
+          window_started_at: string
+        }
+        Insert: {
+          bucket_key: string
+          request_count?: number
+          window_started_at?: string
+        }
+        Update: {
+          bucket_key?: string
+          request_count?: number
+          window_started_at?: string
+        }
+        Relationships: []
+      }
       news: {
         Row: {
           body: Json
@@ -224,10 +242,7 @@ export type Database = {
     }
     Functions: {
       check_form_rate_limit: {
-        Args: {
-          p_bucket_key: string
-          p_limit?: number
-        }
+        Args: { p_bucket_key: string; p_limit?: number }
         Returns: boolean
       }
       create_booking_request_with_notification: {
@@ -238,11 +253,14 @@ export type Database = {
           p_meeting_date: string
           p_payload: Json
           p_preferred_time: string
-          p_recipient: string | null
-          p_reply_to: string | null
+          p_recipient: string
+          p_reply_to: string
           p_subject: string
         }
-        Returns: { outbox_id: string; request_id: string }[]
+        Returns: {
+          outbox_id: string
+          request_id: string
+        }[]
       }
       create_contact_submission_with_notification: {
         Args: {
@@ -251,11 +269,14 @@ export type Database = {
           p_lang: string
           p_message: string
           p_payload: Json
-          p_recipient: string | null
-          p_reply_to: string | null
+          p_recipient: string
+          p_reply_to: string
           p_subject: string
         }
-        Returns: { outbox_id: string; request_id: string }[]
+        Returns: {
+          outbox_id: string
+          request_id: string
+        }[]
       }
       create_service_start_request_with_notification: {
         Args: {
@@ -264,18 +285,21 @@ export type Database = {
           p_email: string
           p_idempotency_key: string
           p_lang: string
-          p_once_details: string | null
-          p_package_name: string | null
+          p_once_details: string
+          p_package_name: string
           p_payload: Json
-          p_recipient: string | null
-          p_reply_to: string | null
+          p_recipient: string
+          p_reply_to: string
           p_service_type: string
           p_start_date: string
           p_start_time: string
           p_subject: string
           p_work_address: string
         }
-        Returns: { outbox_id: string; request_id: string }[]
+        Returns: {
+          outbox_id: string
+          request_id: string
+        }[]
       }
       has_role: {
         Args: {
