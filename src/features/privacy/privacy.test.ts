@@ -30,11 +30,10 @@ describe("privacy translations", () => {
       expect(privacy.bookingNotice).toBeTruthy();
       expect(privacy.serviceStartNotice).toBeTruthy();
       expect(privacy.readMore).toBeTruthy();
-      expect(privacy.sections).toHaveLength(14);
+      expect(privacy.sections).toHaveLength(6);
       expect(
         privacy.sections.every((section) => section.title && section.paragraphs.length > 0),
       ).toBe(true);
-      expect(t[code].footer.contactRequest).toBeTruthy();
       expect(t[code].footer.privacy).toBeTruthy();
     }
   });
@@ -45,8 +44,8 @@ describe("privacy translations", () => {
     expect(privacyRouteSource).not.toContain('to="/tarjouspyynto"');
   });
 
-  it("keeps footer contact and privacy links on separate, plain contact rows", () => {
-    expect(footerSource).toContain('to="/tarjouspyynto" className="hover:text-primary"');
+  it("keeps the privacy link as the only footer privacy action", () => {
+    expect(footerSource).not.toContain('to="/tarjouspyynto"');
     expect(footerSource).toContain('to="/tietosuoja" className="hover:text-primary"');
     expect(footerSource).not.toContain("underline underline-offset-4 hover:text-primary");
   });

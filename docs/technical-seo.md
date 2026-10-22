@@ -39,9 +39,8 @@ reitit:
 - `/care-yrityksille`
 - `/hinnoittelu`
 - `/meista`
-- `/osta`
-- `/tarjouspyynto`
 - `/varaa`
+- `/tietosuoja`
 
 Admin-, auth-, keskeneräinen palveluseteli- ja uutisten ylläpitoreittejä ei
 lisätä. Yksittäisiä uutis-URL-osoitteita ei tällä hetkellä ole sovelluksen
@@ -50,6 +49,10 @@ julkisille sivuille luotettavia sisältökohtaisia muutospäiviä. Build-päivä
 esitetä virheellisesti sisällön muutosajankohtana. Kun sivuille tai uutisille
 on myöhemmin saatavilla oikeat muutospäivät, ne voidaan lisätä ISO 8601
 -muodossa erillisellä hyväksytyllä muutoksella.
+
+Vanha `/osta`-osoite ohjataan pysyvästi HTTP 308 -uudelleenohjauksella
+osoitteeseen `/hinnoittelu`, ja vanha `/tarjouspyynto`-osoite ohjataan
+osoitteeseen `/`. Uudelleenohjaukset on määritelty Vercelin asetuksissa.
 
 ## Julkaisun yhteydessä tehtävä indeksoinnin avaus
 

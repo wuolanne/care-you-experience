@@ -63,9 +63,6 @@ export function SiteFooter() {
             <a href={`tel:${publicPhone.replace(/\s/g, "")}`} className="hover:text-primary">{publicPhone}</a>
             {(contact?.public_address || PUBLIC_ADDRESS) && <p className="text-foreground/70">{contact?.public_address || PUBLIC_ADDRESS}</p>}
             <p className="text-foreground/70">{tr.footer.businessId}: {contact?.business_id || BUSINESS_ID}</p>
-            <Link to="/tarjouspyynto" className="hover:text-primary">
-                {tr.footer.contactRequest}
-            </Link>
             <Link to="/tietosuoja" className="hover:text-primary">
                 {tr.footer.privacy}
             </Link>

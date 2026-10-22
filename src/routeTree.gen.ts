@@ -17,9 +17,7 @@ import { Route as CarePalveluseteliRouteImport } from './routes/care-palvelusete
 import { Route as CareYrityksilleRouteImport } from './routes/care-yrityksille'
 import { Route as HinnoitteluRouteImport } from './routes/hinnoittelu'
 import { Route as MeistaRouteImport } from './routes/meista'
-import { Route as OstaRouteImport } from './routes/osta'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as TarjouspyyntoRouteImport } from './routes/tarjouspyynto'
 import { Route as TietosuojaRouteImport } from './routes/tietosuoja'
 import { Route as VaraaRouteImport } from './routes/varaa'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -78,19 +76,9 @@ const MeistaRoute = MeistaRouteImport.update({
   path: '/meista',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OstaRoute = OstaRouteImport.update({
-  id: '/osta',
-  path: '/osta',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TarjouspyyntoRoute = TarjouspyyntoRouteImport.update({
-  id: '/tarjouspyynto',
-  path: '/tarjouspyynto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TietosuojaRoute = TietosuojaRouteImport.update({
@@ -204,9 +192,7 @@ export interface FileRoutesByFullPath {
   '/care-yrityksille': typeof CareYrityksilleRoute
   '/hinnoittelu': typeof HinnoitteluRoute
   '/meista': typeof MeistaRoute
-  '/osta': typeof OstaRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/tietosuoja': typeof TietosuojaRoute
   '/varaa': typeof VaraaRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -234,9 +220,7 @@ export interface FileRoutesByTo {
   '/care-yrityksille': typeof CareYrityksilleRoute
   '/hinnoittelu': typeof HinnoitteluRoute
   '/meista': typeof MeistaRoute
-  '/osta': typeof OstaRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/tietosuoja': typeof TietosuojaRoute
   '/varaa': typeof VaraaRoute
   '/pyynnot': typeof AuthenticatedPyynnotRoute
@@ -265,9 +249,7 @@ export interface FileRoutesById {
   '/care-yrityksille': typeof CareYrityksilleRoute
   '/hinnoittelu': typeof HinnoitteluRoute
   '/meista': typeof MeistaRoute
-  '/osta': typeof OstaRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/tarjouspyynto': typeof TarjouspyyntoRoute
   '/tietosuoja': typeof TietosuojaRoute
   '/varaa': typeof VaraaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -297,9 +279,7 @@ export interface FileRouteTypes {
     | '/care-yrityksille'
     | '/hinnoittelu'
     | '/meista'
-    | '/osta'
     | '/reset-password'
-    | '/tarjouspyynto'
     | '/tietosuoja'
     | '/varaa'
     | '/admin'
@@ -327,9 +307,7 @@ export interface FileRouteTypes {
     | '/care-yrityksille'
     | '/hinnoittelu'
     | '/meista'
-    | '/osta'
     | '/reset-password'
-    | '/tarjouspyynto'
     | '/tietosuoja'
     | '/varaa'
     | '/pyynnot'
@@ -357,9 +335,7 @@ export interface FileRouteTypes {
     | '/care-yrityksille'
     | '/hinnoittelu'
     | '/meista'
-    | '/osta'
     | '/reset-password'
-    | '/tarjouspyynto'
     | '/tietosuoja'
     | '/varaa'
     | '/_authenticated/admin'
@@ -389,9 +365,7 @@ export interface RootRouteChildren {
   CareYrityksilleRoute: typeof CareYrityksilleRoute
   HinnoitteluRoute: typeof HinnoitteluRoute
   MeistaRoute: typeof MeistaRoute
-  OstaRoute: typeof OstaRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
-  TarjouspyyntoRoute: typeof TarjouspyyntoRoute
   TietosuojaRoute: typeof TietosuojaRoute
   VaraaRoute: typeof VaraaRoute
 }
@@ -454,25 +428,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MeistaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/osta': {
-      id: '/osta'
-      path: '/osta'
-      fullPath: '/osta'
-      preLoaderRoute: typeof OstaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/reset-password': {
       id: '/reset-password'
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tarjouspyynto': {
-      id: '/tarjouspyynto'
-      path: '/tarjouspyynto'
-      fullPath: '/tarjouspyynto'
-      preLoaderRoute: typeof TarjouspyyntoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tietosuoja': {
@@ -666,9 +626,7 @@ const rootRouteChildren: RootRouteChildren = {
   CareYrityksilleRoute: CareYrityksilleRoute,
   HinnoitteluRoute: HinnoitteluRoute,
   MeistaRoute: MeistaRoute,
-  OstaRoute: OstaRoute,
   ResetPasswordRoute: ResetPasswordRoute,
-  TarjouspyyntoRoute: TarjouspyyntoRoute,
   TietosuojaRoute: TietosuojaRoute,
   VaraaRoute: VaraaRoute,
 }
