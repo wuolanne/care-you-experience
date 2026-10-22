@@ -7,6 +7,7 @@ export const publicSitemapPages = [
   { path: "/osta", sitemap: { changefreq: "monthly", priority: 0.7 } },
   { path: "/tarjouspyynto", sitemap: { changefreq: "monthly", priority: 0.7 } },
   { path: "/varaa", sitemap: { changefreq: "monthly", priority: 0.7 } },
+  { path: "/tietosuoja", sitemap: { changefreq: "yearly", priority: 0.3 } },
 ] as const;
 
 export const publicSitemapPaths = publicSitemapPages.map(({ path }) => path);

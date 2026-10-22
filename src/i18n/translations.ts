@@ -75,7 +75,26 @@ type Dict = {
   quote: { title: string; lead: string };
   buy: { title: string; lead: string; from: string; select: string };
   splash: { kotiin: string; yrityksille: string };
-  footer: { tagline: string; contact: string; rights: string; businessId: string; follow: string; socialPending: string };
+  footer: {
+    tagline: string;
+    contact: string;
+    contactRequest: string;
+    privacy: string;
+    rights: string;
+    businessId: string;
+    follow: string;
+    socialPending: string;
+  };
+  privacy: {
+    title: string;
+    intro: string;
+    updated: string;
+    contact: string;
+    formNotice: string;
+    readMore: string;
+    home: string;
+    sections: { title: string; paragraphs: string[] }[];
+  };
 };
 
 export const t: Record<Lang, Dict> = {
@@ -197,7 +216,32 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Jätä yhteydenottopyyntö", lead: "Kerro lyhyesti tarpeistasi ja jätä yhteystietosi." },
     buy: { title: "Osta palvelu", lead: "Selkeät palvelupaketit, joilla pääset alkuun heti.", from: "alkaen", select: "Valitse" },
     splash: { kotiin: "TGN Kotiin", yrityksille: "TGN Yrityksille" },
-    footer: { tagline: "Luotettavaa kumppanuutta kotiin ja yrityksille.", contact: "Yhteystiedot", rights: "Kaikki oikeudet pidätetään.", businessId: "Y-tunnus", follow: "Seuraa meitä", socialPending: "ei vielä linkkiä" },
+    footer: { tagline: "Luotettavaa kumppanuutta kotiin ja yrityksille.", contact: "Yhteystiedot", contactRequest: "Ota yhteyttä", privacy: "Tietosuojaseloste", rights: "Kaikki oikeudet pidätetään.", businessId: "Y-tunnus", follow: "Seuraa meitä", socialPending: "ei vielä linkkiä" },
+    privacy: {
+      title: "Tietosuojaseloste",
+      intro: "Tämä seloste kuvaa, miten TGN Services käsittelee henkilötietoja verkkosivustolla ja sivuston lomakkeiden yhteydessä.",
+      updated: "Päivitetty viimeksi: 22.10.2026",
+      contact: "Ota yhteyttä tietosuoja-asiassa",
+      formNotice: "Käsittelemme antamiasi tietoja yhteydenottopyyntöösi vastaamiseksi.",
+      readMore: "Lue tietosuojaseloste",
+      home: "Takaisin etusivulle",
+      sections: [
+        { title: "1. Rekisterinpitäjä", paragraphs: ["TGN Services / T & G Nordic Services", "Y-tunnus: 3664346-2", "Yhteydenotot tietosuoja-asioissa: info@tgnservices.fi", "Mahdollisen tietosuojavastaavan erillisiä yhteystietoja ei ole määritelty tässä toteutuksessa. Jos yritys on nimennyt tietosuojavastaavan, hänen tietonsa lisätään tähän."] },
+        { title: "2. Mitä henkilötietoja kerätään", paragraphs: ["Yhteydenottopyynnössä kerätään sähköpostiosoite ja viesti sekä lomakkeen kieli.", "Videopalaveripyynnössä kerätään sähköpostiosoite, toivottu päivämäärä ja kellonaika sekä lomakkeen kieli.", "Palvelunaloituspyynnössä kerätään nimi, yhteyshenkilö, sähköpostiosoite, työkohteen osoite, aloituspäivä ja -aika, palvelun tyyppi sekä kertakäynnin lisätiedot tai kuukausipaketin nimi ja lomakkeen kieli.", "Pyyntöön liittyviä tietoja säilytetään myös sähköposti-ilmoituksen outboxissa, kuten viestin sisältö, vastausosoite, vastaanottaja, toimituksen tila ja idempotenssitunniste. Raakaa IP-osoitetta ei tallenneta; palvelin laskee IP-osoitteesta hashin roskapostin torjunnan rate limit -rajoitusta varten.", "Ylläpitotiliin liittyviä tunnistetietoja käsitellään Supabase Authissa ylläpitopalvelun käyttöä varten."] },
+        { title: "3. Mistä tiedot saadaan", paragraphs: ["Tiedot saadaan suoraan käyttäjältä verkkosivuston lomakkeella tai ylläpidon kirjautumisen yhteydessä. Lomakkeelle ei pidä kirjoittaa arkaluonteisia tietoja, joita palvelupyynnön käsittely ei edellytä."] },
+        { title: "4. Käsittelyn tarkoitukset", paragraphs: ["Tietoja käytetään yhteydenottopyyntöihin vastaamiseen, videopalaveripyyntöjen käsittelyyn ja palvelun aloituksen suunnitteluun.", "Tietoja käytetään myös ilmoituksen muodostamiseen yritykselle, roskapostin ja toistuvien lähetysten rajoittamiseen, ylläpitopalvelun suojaamiseen sekä pyyntöjen tilan seuraamiseen."] },
+        { title: "5. Käsittelyn oikeusperusteet", paragraphs: ["Käsittelyn oikeusperusteet ja niiden soveltaminen ovat rekisterinpitäjän vahvistettavia tietoja. Lähdekoodissa ei ole määritelty yrityksen lopullista oikeusperustekohtaista arviointia, joten tätä kohtaa ei esitetä lainmukaisesti vahvistettuna.", "Yrityksen on vahvistettava ennen tuotantokäyttöä, perustuuko kukin käyttötarkoitus esimerkiksi yhteydenottopyyntöön vastaamiseen, sopimusta edeltäviin toimiin, lakisääteiseen velvoitteeseen tai oikeutettuun etuun. Lomakkeisiin ei lisätä suostumuscheckboxia ilman tätä arviota."] },
+        { title: "6. Tietojen vastaanottajat ja käsittelijät", paragraphs: ["Tietoja käsitellään Supabase-palvelussa tietokantaan, kirjautumiseen ja sovelluksen tallennuksiin liittyen. Ylläpidon palvelinpuolen sähköposti-ilmoitukset lähetetään Resend-palvelun kautta, jos sähköpostiasetukset ovat käytössä.", "Viestin vastaanottaja määräytyy palvelimen ympäristöasetuksista. Lähdekoodissa ei ole vahvistettu palveluntarjoajien tarkkoja käsittelysopimuksia tai alikäsittelijöitä; rekisterinpitäjän on tarkistettava ne ennen julkaisemista.", "Sivusto lataa fontteja Google Fonts -palvelusta. Selaimen teknisiä pyyntötietoja voi välittyä tälle palvelulle. Muita analytiikka- tai markkinointiseurantoja ei lähdekoodista löytynyt."] },
+        { title: "7. Säilytysajat", paragraphs: ["Sovelluksessa ei ole toteutettu automaattista säilytysajan mukaista poistoa. Tietokantaan tallennetut pyynnöt, sähköposti-outboxin tiedot ja palveluntarjoajien lokit voivat säilyä, kunnes ne poistetaan kyseisen järjestelmän hyväksytyn käytännön mukaisesti.", "Säilytysajat ja niiden määräytymisperusteet ovat rekisterinpitäjän vahvistettavia tietoja. Varmuuskopioiden ja palveluntarjoajien lokien säilytysaikoja ei ole määritelty tässä sovelluksessa."] },
+        { title: "8. Tietojen suojaaminen", paragraphs: ["Lomaketiedot validoidaan palvelinpuolella ja pyyntö tallennetaan palvelinpuolen Supabase-funktioiden kautta. Sähköpostiavaimia ei toimiteta selaimelle. Ylläpitotietojen käyttöä rajoitetaan Supabase Authilla ja tietokannan käyttöoikeuksilla.", "Tietoturva ei poista riskiä kokonaan. Rekisterinpitäjän tulee huolehtia käyttöoikeuksien, palveluntarjoajien asetusten, lokien ja varmuuskopioiden asianmukaisesta hallinnasta."] },
+        { title: "9. Kansainväliset tiedonsiirrot", paragraphs: ["Tämän toteutuksen perusteella ei voida vahvistaa Supabasen, Resendin, Vercelin tai Google Fonts -palvelun tietojen sijaintia, mahdollisia kolmansiin maihin siirtoja tai käytettyjä suojatoimia. Rekisterinpitäjän on tarkistettava palvelusopimukset, käsittelijäehdot ja mahdolliset siirtoperusteet ennen julkaisemista."] },
+        { title: "10. Rekisteröidyn oikeudet", paragraphs: ["Rekisteröidyllä voi soveltuvin osin olla oikeus saada pääsy tietoihinsa, pyytää virheellisen tiedon oikaisua, pyytää tietojen poistamista tai käsittelyn rajoittamista sekä vastustaa käsittelyä. Oikeuksien soveltuminen riippuu käsittelyn oikeusperusteesta ja muista lain edellytyksistä."] },
+        { title: "11. Tarkastus-, oikaisu- ja poistopyynnöt", paragraphs: ["Pyynnöt voi lähettää osoitteeseen info@tgnservices.fi. Rekisterinpitäjä varmistaa pyynnön tekijän henkilöllisyyden tarvittaessa ja vastaa pyyntöön sovellettavan määräajan kuluessa.", "Tietoja voidaan joutua säilyttämään siltä osin kuin laki, riidan selvittäminen tai muu hyväksytty peruste sitä edellyttää. Tässä toteutuksessa ei ole automaattista poistotoimintoa."] },
+        { title: "12. Oikeus tehdä valitus", paragraphs: ["Rekisteröidyllä on oikeus tehdä valitus toimivaltaiselle valvontaviranomaiselle, Suomessa tietosuojavaltuutetun toimistolle. Lisätiedot: tietosuoja.fi."] },
+        { title: "13. Evästeet ja seuranta", paragraphs: ["Lähdekoodissa ei ole analytiikka- tai markkinointievästeitä. Kieli tallennetaan selaimen localStorageen, Supabase Auth käyttää istunnon säilyttämiseen selaimen tallennustilaa ja hallintapaneelin sivupalkki voi tallentaa käyttöasetuksen evästeenä. Nämä ovat toiminnallisia asetuksia, eivät markkinointiseurantaa.", "Sivuston fontit ladataan Google Fonts -palvelusta. Palvelun teknisten pyyntöjen käsittelyä koskevat tiedot on tarkistettava palveluntarjoajan ajantasaisista ehdoista."] },
+        { title: "14. Selosteen päivittäminen", paragraphs: ["Tätä selostetta päivitetään, jos henkilötietojen käsittely, palveluntarjoajat, käyttötarkoitukset tai rekisterinpitäjän yhteystiedot muuttuvat. Päivityspäivä ilmoitetaan selosteen alussa."] },
+      ],
+    },
   },
   sv: {
     nav: {
@@ -317,7 +361,32 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Be oss kontakta dig", lead: "Berätta kort om dina behov och lämna dina kontaktuppgifter." },
     buy: { title: "Köp tjänst", lead: "Tydliga servicepaket som gör att du kommer igång direkt.", from: "från", select: "Välj" },
     splash: { kotiin: "TGN Hem", yrityksille: "TGN för Företag" },
-    footer: { tagline: "Ett pålitligt partnerskap för hem och företag.", contact: "Kontakt", rights: "Alla rättigheter förbehållna.", businessId: "Y-tunnus", follow: "Följ oss", socialPending: "inte länkad ännu" },
+    footer: { tagline: "Ett pålitligt partnerskap för hem och företag.", contact: "Kontakt", contactRequest: "Kontakta oss", privacy: "Integritetspolicy", rights: "Alla rättigheter förbehållna.", businessId: "Y-tunnus", follow: "Följ oss", socialPending: "inte länkad ännu" },
+    privacy: {
+      title: "Integritetspolicy",
+      intro: "Den här policyn beskriver hur TGN Services behandlar personuppgifter på webbplatsen och i webbplatsens formulär.",
+      updated: "Senast uppdaterad: 22.10.2026",
+      contact: "Kontakta oss om dataskydd",
+      formNotice: "Vi behandlar uppgifterna du lämnar för att svara på din kontaktförfrågan.",
+      readMore: "Läs integritetspolicyn",
+      home: "Tillbaka till startsidan",
+      sections: [
+        { title: "1. Personuppgiftsansvarig", paragraphs: ["TGN Services / T & G Nordic Services", "FO-nummer: 3664346-2", "Kontakt i dataskyddsfrågor: info@tgnservices.fi", "Separata kontaktuppgifter för dataskyddsombud har inte definierats i denna implementation. Om företaget har utsett ett dataskyddsombud ska uppgifterna läggas till."] },
+        { title: "2. Vilka personuppgifter samlas in", paragraphs: ["Kontaktförfrågan: e-postadress, meddelande och formulärets språk.", "Videomötesförfrågan: e-postadress, önskat datum och klockslag samt formulärets språk.", "Tjänstestartsförfrågan: namn, kontaktperson, e-postadress, arbetsadress, startdatum och -tid, tjänstetyp samt tilläggsuppgifter eller paketnamn och formulärets språk.", "Uppgifter om förfrågningar finns också i e-postutkorgen, till exempel meddelande, svaradress, mottagare, status och idempotensnyckel. Rå IP-adress lagras inte; servern beräknar en hash av IP-adressen för rate limiting.", "Uppgifter som hör till ett administratörskonto behandlas i Supabase Auth."] },
+        { title: "3. Varifrån uppgifterna kommer", paragraphs: ["Uppgifterna lämnas direkt av användaren i ett webbformulär eller vid inloggning till administrationen. Skriv inte känsliga uppgifter som inte behövs för att behandla förfrågan."] },
+        { title: "4. Ändamål", paragraphs: ["Uppgifterna används för att svara på kontaktförfrågningar, hantera videomötesförfrågningar och planera tjänstestarter.", "De används också för att skapa e-postmeddelanden till företaget, begränsa spam och upprepade sändningar, skydda administrationen och följa statusen för förfrågningar."] },
+        { title: "5. Rättslig grund", paragraphs: ["Den rättsliga grunden och dess tillämpning ska bekräftas av den personuppgiftsansvarige. Källkoden innehåller inte företagets slutliga bedömning, så denna punkt ska inte ses som juridiskt fastställd.", "Företaget ska innan produktion bekräfta om respektive ändamål till exempel grundas på att svara på en kontaktförfrågan, åtgärder före avtal, rättslig skyldighet eller berättigat intresse. Ingen samtyckesruta läggs till utan denna bedömning."] },
+        { title: "6. Mottagare och personuppgiftsbiträden", paragraphs: ["Uppgifter behandlas i Supabase för databas, inloggning och lagring. E-postmeddelanden till företaget skickas via Resend om e-postinställningarna är aktiverade.", "Mottagaren bestäms av serverns miljöinställningar. Exakta biträdesavtal och underbiträden har inte verifierats i källkoden.", "Webbplatsen laddar typsnitt från Google Fonts. Teknisk information om webbläsarens förfrågan kan därför skickas till tjänsten. Ingen annan analys- eller marknadsföringsspårning hittades i källkoden."] },
+        { title: "7. Lagringstider", paragraphs: ["Applikationen har ingen automatisk radering enligt en lagringstid. Förfrågningar, e-postutkorgens uppgifter och leverantörernas loggar kan finnas kvar tills de raderas enligt en godkänd rutin.", "Lagringstider och grunderna för dem ska bekräftas av den personuppgiftsansvarige. Lagringstider för säkerhetskopior och leverantörsloggar definieras inte av applikationen."] },
+        { title: "8. Skydd av uppgifterna", paragraphs: ["Formulärdata valideras på servern och sparas via Supabase-funktioner på serversidan. E-postnycklar skickas inte till webbläsaren. Administrativa uppgifter skyddas med Supabase Auth och databasbehörigheter.", "Den personuppgiftsansvarige ansvarar också för behörigheter, leverantörsinställningar, loggar och säkerhetskopior."] },
+        { title: "9. Internationella överföringar", paragraphs: ["Källkoden bekräftar inte var Supabase, Resend, Vercel eller Google Fonts behandlar uppgifter eller vilka skyddsåtgärder som används. Detta ska kontrolleras i leverantörernas aktuella avtal och villkor."] },
+        { title: "10. Den registrerades rättigheter", paragraphs: ["Den registrerade kan i tillämpliga fall ha rätt att få tillgång till sina uppgifter, begära rättelse, radering eller begränsning samt invända mot behandling. Tillämpligheten beror bland annat på den rättsliga grunden."] },
+        { title: "11. Begäran om tillgång, rättelse eller radering", paragraphs: ["Begäran kan skickas till info@tgnservices.fi. Identiteten kan behöva verifieras och den personuppgiftsansvarige svarar inom tillämplig tidsfrist.", "Uppgifter kan behöva sparas om lag, tvist eller annan godkänd grund kräver det. Ingen automatisk radering finns i denna implementation."] },
+        { title: "12. Rätt att lämna klagomål", paragraphs: ["Den registrerade har rätt att lämna klagomål till behörig tillsynsmyndighet, i Finland Dataombudsmannens byrå. Mer information finns på tietosuoja.fi."] },
+        { title: "13. Kakor och spårning", paragraphs: ["Källkoden innehåller inga analys- eller marknadsföringskakor. Språket sparas i localStorage, Supabase Auth använder webbläsarens lagring för sessionen och administrationssidans sidofält kan spara en inställning som kaka. Dessa är funktionella inställningar.", "Typsnitt laddas från Google Fonts. Leverantörens aktuella villkor ska kontrolleras."] },
+        { title: "14. Uppdatering av policyn", paragraphs: ["Policyn uppdateras om behandlingen, leverantörerna, ändamålen eller kontaktuppgifterna ändras. Datumet i början visar senaste uppdatering."] },
+      ],
+    },
   },
   es: {
     nav: {
@@ -437,7 +506,32 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Solicitar contacto", lead: "Cuéntanos brevemente tus necesidades y deja tus datos de contacto." },
     buy: { title: "Comprar servicio", lead: "Paquetes claros para empezar de inmediato.", from: "desde", select: "Elegir" },
     splash: { kotiin: "TGN Hogar", yrityksille: "TGN para Empresas" },
-    footer: { tagline: "Una colaboración de confianza para hogares y empresas.", contact: "Contacto", rights: "Todos los derechos reservados.", businessId: "NIF", follow: "Síguenos", socialPending: "sin enlace todavía" },
+    footer: { tagline: "Una colaboración de confianza para hogares y empresas.", contact: "Contacto", contactRequest: "Contacta con nosotros", privacy: "Política de privacidad", rights: "Todos los derechos reservados.", businessId: "NIF", follow: "Síguenos", socialPending: "sin enlace todavía" },
+    privacy: {
+      title: "Política de privacidad",
+      intro: "Esta política describe cómo TGN Services trata los datos personales en el sitio web y en sus formularios.",
+      updated: "Última actualización: 22.10.2026",
+      contact: "Contacta sobre protección de datos",
+      formNotice: "Tratamos los datos que proporcionas para responder a tu solicitud de contacto.",
+      readMore: "Leer la política de privacidad",
+      home: "Volver al inicio",
+      sections: [
+        { title: "1. Responsable del tratamiento", paragraphs: ["TGN Services / T & G Nordic Services", "Identificación empresarial finlandesa: 3664346-2", "Contacto sobre protección de datos: info@tgnservices.fi", "Esta implementación no define datos separados de un delegado de protección de datos. Si la empresa ha designado uno, sus datos deben añadirse."] },
+        { title: "2. Datos personales que se recopilan", paragraphs: ["Solicitud de contacto: correo electrónico, mensaje e idioma del formulario.", "Solicitud de videollamada: correo electrónico, fecha y hora preferidas e idioma del formulario.", "Solicitud de inicio del servicio: nombre, persona de contacto, correo electrónico, dirección del trabajo, fecha y hora de inicio, tipo de servicio, detalles adicionales o nombre del paquete e idioma del formulario.", "Los datos de la solicitud también aparecen en la bandeja de correo, como el mensaje, la dirección de respuesta, el destinatario, el estado y la clave de idempotencia. No se guarda la IP sin procesar; el servidor calcula un hash de la IP para limitar el spam.", "Los datos de las cuentas de administración se tratan en Supabase Auth."] },
+        { title: "3. Origen de los datos", paragraphs: ["Los datos se reciben directamente de la persona usuaria mediante un formulario o al iniciar sesión en la administración. No introduzcas datos sensibles que no sean necesarios para gestionar la solicitud."] },
+        { title: "4. Finalidades", paragraphs: ["Los datos se utilizan para responder a solicitudes de contacto, gestionar solicitudes de videollamada y planificar el inicio de servicios.", "También se utilizan para crear avisos por correo a la empresa, limitar el spam y los envíos repetidos, proteger la administración y seguir el estado de las solicitudes."] },
+        { title: "5. Bases jurídicas", paragraphs: ["La base jurídica y su aplicación deben ser confirmadas por el responsable. El código fuente no contiene la evaluación jurídica definitiva de la empresa, por lo que esta parte no se presenta como confirmada.", "Antes de producción, la empresa debe confirmar si cada finalidad se basa, por ejemplo, en responder a una solicitud, medidas precontractuales, una obligación legal o un interés legítimo. No se añade una casilla de consentimiento sin esta evaluación."] },
+        { title: "6. Destinatarios y encargados", paragraphs: ["Los datos se tratan en Supabase para la base de datos, el inicio de sesión y el almacenamiento. Los avisos por correo se envían a la empresa mediante Resend si la configuración está activa.", "El destinatario depende de la configuración del servidor. Los contratos exactos y subencargados no se han verificado en el código fuente.", "El sitio carga fuentes desde Google Fonts. Por ello, puede transmitirse información técnica de la solicitud del navegador. No se encontró otra analítica o seguimiento de marketing en el código fuente."] },
+        { title: "7. Plazos de conservación", paragraphs: ["La aplicación no implementa borrado automático según un plazo. Las solicitudes, los datos de la bandeja de correo y los registros de proveedores pueden permanecer hasta que se borren conforme a un procedimiento aprobado.", "El responsable debe confirmar los plazos y sus criterios. La aplicación no define los plazos de copias de seguridad ni de registros de proveedores."] },
+        { title: "8. Protección de los datos", paragraphs: ["Los formularios se validan en el servidor y se guardan mediante funciones de Supabase en el servidor. Las claves de correo no se envían al navegador. Los datos de administración se protegen con Supabase Auth y permisos de base de datos.", "El responsable también debe gestionar adecuadamente permisos, configuraciones de proveedores, registros y copias de seguridad."] },
+        { title: "9. Transferencias internacionales", paragraphs: ["El código fuente no confirma dónde tratan los datos Supabase, Resend, Vercel o Google Fonts ni qué garantías aplican. Esto debe comprobarse en los contratos y condiciones vigentes de los proveedores."] },
+        { title: "10. Derechos de la persona", paragraphs: ["La persona puede tener, según corresponda, derecho de acceso, rectificación, supresión o limitación, y derecho a oponerse al tratamiento. La aplicación depende, entre otras cosas, de la base jurídica."] },
+        { title: "11. Solicitudes de acceso, rectificación o supresión", paragraphs: ["Las solicitudes pueden enviarse a info@tgnservices.fi. Puede ser necesario verificar la identidad y el responsable responderá dentro del plazo aplicable.", "Algunos datos pueden conservarse si lo exige la ley, una disputa u otra base válida. Esta implementación no tiene borrado automático."] },
+        { title: "12. Derecho a reclamar", paragraphs: ["La persona tiene derecho a reclamar ante la autoridad de control competente, en Finlandia la Oficina del Defensor de Protección de Datos. Más información: tietosuoja.fi."] },
+        { title: "13. Cookies y seguimiento", paragraphs: ["El código fuente no contiene cookies de analítica ni marketing. El idioma se guarda en localStorage, Supabase Auth utiliza el almacenamiento del navegador para la sesión y el panel de administración puede guardar una preferencia como cookie. Son ajustes funcionales.", "Las fuentes se cargan desde Google Fonts. Deben revisarse las condiciones vigentes del proveedor."] },
+        { title: "14. Actualización", paragraphs: ["La política se actualiza si cambian el tratamiento, los proveedores, las finalidades o los datos de contacto. La fecha inicial indica la última actualización."] },
+      ],
+    },
   },
   en: {
     nav: {
@@ -557,6 +651,31 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Request a callback", lead: "Briefly describe your needs and leave your contact details." },
     buy: { title: "Buy a service", lead: "Clear service packages so you can start immediately.", from: "from", select: "Select" },
     splash: { kotiin: "TGN Home", yrityksille: "TGN for Business" },
-    footer: { tagline: "Reliable partnership for homes and businesses.", contact: "Contact", rights: "All rights reserved.", businessId: "Business ID", follow: "Follow us", socialPending: "not linked yet" },
+    footer: { tagline: "Reliable partnership for homes and businesses.", contact: "Contact", contactRequest: "Get in touch", privacy: "Privacy policy", rights: "All rights reserved.", businessId: "Business ID", follow: "Follow us", socialPending: "not linked yet" },
+    privacy: {
+      title: "Privacy policy",
+      intro: "This policy describes how TGN Services processes personal data on the website and through its forms.",
+      updated: "Last updated: 22 October 2026",
+      contact: "Contact us about data protection",
+      formNotice: "We process the information you provide to respond to your contact request.",
+      readMore: "Read the privacy policy",
+      home: "Back to home",
+      sections: [
+        { title: "1. Controller", paragraphs: ["TGN Services / T & G Nordic Services", "Finnish Business ID: 3664346-2", "Data protection contact: info@tgnservices.fi", "This implementation does not define separate contact details for a data protection officer. If the company has appointed one, those details should be added."] },
+        { title: "2. Personal data collected", paragraphs: ["Contact request: email address, message and form language.", "Video meeting request: email address, preferred date and time, and form language.", "Service start request: name, contact person, email address, work address, start date and time, service type, additional details or package name, and form language.", "Request data is also present in the email outbox, such as the message, reply address, recipient, status and idempotency key. Raw IP addresses are not stored; the server calculates an IP hash for rate limiting.", "Administrator account details are processed in Supabase Auth."] },
+        { title: "3. Source of the data", paragraphs: ["The data is provided directly by the user through a web form or when signing in to administration. Do not enter sensitive information that is not needed to handle the request."] },
+        { title: "4. Purposes", paragraphs: ["The data is used to respond to contact requests, handle video meeting requests and plan service starts.", "It is also used to create email notifications for the company, limit spam and repeated submissions, protect administration and track request status."] },
+        { title: "5. Legal bases", paragraphs: ["The legal basis and its application must be confirmed by the controller. The source code does not contain the company’s final legal assessment, so this section is not presented as legally confirmed.", "Before production use, the company must confirm whether each purpose is based, for example, on responding to a request, pre-contractual steps, a legal obligation or legitimate interest. No consent checkbox is added without this assessment."] },
+        { title: "6. Recipients and processors", paragraphs: ["Data is processed in Supabase for the database, sign-in and storage. Email notifications are sent to the company through Resend when email configuration is enabled.", "The recipient is determined by server environment settings. Exact processor agreements and sub-processors have not been verified from the source code.", "The site loads fonts from Google Fonts. Technical browser request information may therefore be sent to that service. No other analytics or marketing tracking was found in the source code."] },
+        { title: "7. Retention", paragraphs: ["The application has no automatic retention-based deletion. Requests, email outbox data and provider logs may remain until they are deleted according to an approved procedure.", "The controller must confirm retention periods and their criteria. Backup and provider-log retention is not defined by the application."] },
+        { title: "8. Data security", paragraphs: ["Forms are validated server-side and saved through server-side Supabase functions. Email keys are not sent to the browser. Administration data is protected with Supabase Auth and database permissions.", "The controller is also responsible for properly managing permissions, provider settings, logs and backups."] },
+        { title: "9. International transfers", paragraphs: ["The source code does not confirm where Supabase, Resend, Vercel or Google Fonts process data or which safeguards apply. This must be checked in the providers’ current agreements and terms."] },
+        { title: "10. Data subject rights", paragraphs: ["Depending on the circumstances, a data subject may have the right to access, rectify, erase or restrict processing and to object to processing. Applicability depends, among other things, on the legal basis."] },
+        { title: "11. Access, correction and deletion requests", paragraphs: ["Requests can be sent to info@tgnservices.fi. Identity may need to be verified and the controller will respond within the applicable time limit.", "Some data may need to be retained where required by law, a dispute or another valid basis. This implementation has no automatic deletion."] },
+        { title: "12. Right to complain", paragraphs: ["A data subject has the right to lodge a complaint with the competent supervisory authority, in Finland the Office of the Data Protection Ombudsman. More information is available at tietosuoja.fi."] },
+        { title: "13. Cookies and tracking", paragraphs: ["The source code contains no analytics or marketing cookies. The language is stored in localStorage, Supabase Auth uses browser storage for the session, and the administration sidebar may store a preference as a cookie. These are functional settings.", "Fonts are loaded from Google Fonts. The provider’s current terms should be reviewed."] },
+        { title: "14. Updates", paragraphs: ["This policy is updated if processing, providers, purposes or contact details change. The date at the beginning shows the latest update."] },
+      ],
+    },
   },
 };

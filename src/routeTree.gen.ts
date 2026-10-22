@@ -20,6 +20,7 @@ import { Route as MeistaRouteImport } from './routes/meista'
 import { Route as OstaRouteImport } from './routes/osta'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TarjouspyyntoRouteImport } from './routes/tarjouspyynto'
+import { Route as TietosuojaRouteImport } from './routes/tietosuoja'
 import { Route as VaraaRouteImport } from './routes/varaa'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedPyynnotRouteImport } from './routes/_authenticated/pyynnot'
@@ -84,6 +85,11 @@ const TarjouspyyntoRoute = TarjouspyyntoRouteImport.update({
   path: '/tarjouspyynto',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TietosuojaRoute = TietosuojaRouteImport.update({
+  id: '/tietosuoja',
+  path: '/tietosuoja',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VaraaRoute = VaraaRouteImport.update({
   id: '/varaa',
   path: '/varaa',
@@ -146,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/osta': typeof OstaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
+  '/tietosuoja': typeof TietosuojaRoute
   '/varaa': typeof VaraaRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/pyynnot': typeof AuthenticatedPyynnotRoute
@@ -167,6 +174,7 @@ export interface FileRoutesByTo {
   '/osta': typeof OstaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
+  '/tietosuoja': typeof TietosuojaRoute
   '/varaa': typeof VaraaRoute
   '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
@@ -189,6 +197,7 @@ export interface FileRoutesById {
   '/osta': typeof OstaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarjouspyynto': typeof TarjouspyyntoRoute
+  '/tietosuoja': typeof TietosuojaRoute
   '/varaa': typeof VaraaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/pyynnot': typeof AuthenticatedPyynnotRoute
@@ -212,6 +221,7 @@ export interface FileRouteTypes {
     | '/osta'
     | '/reset-password'
     | '/tarjouspyynto'
+    | '/tietosuoja'
     | '/varaa'
     | '/admin'
     | '/pyynnot'
@@ -233,6 +243,7 @@ export interface FileRouteTypes {
     | '/osta'
     | '/reset-password'
     | '/tarjouspyynto'
+    | '/tietosuoja'
     | '/varaa'
     | '/pyynnot'
     | '/uutisten-yllapito'
@@ -254,6 +265,7 @@ export interface FileRouteTypes {
     | '/osta'
     | '/reset-password'
     | '/tarjouspyynto'
+    | '/tietosuoja'
     | '/varaa'
     | '/_authenticated/admin'
     | '/_authenticated/pyynnot'
@@ -277,6 +289,7 @@ export interface RootRouteChildren {
   OstaRoute: typeof OstaRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarjouspyyntoRoute: typeof TarjouspyyntoRoute
+  TietosuojaRoute: typeof TietosuojaRoute
   VaraaRoute: typeof VaraaRoute
 }
 
@@ -357,6 +370,13 @@ declare module '@tanstack/react-router' {
       path: '/tarjouspyynto'
       fullPath: '/tarjouspyynto'
       preLoaderRoute: typeof TarjouspyyntoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tietosuoja': {
+      id: '/tietosuoja'
+      path: '/tietosuoja'
+      fullPath: '/tietosuoja'
+      preLoaderRoute: typeof TietosuojaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/varaa': {
@@ -472,6 +492,7 @@ const rootRouteChildren: RootRouteChildren = {
   OstaRoute: OstaRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarjouspyyntoRoute: TarjouspyyntoRoute,
+  TietosuojaRoute: TietosuojaRoute,
   VaraaRoute: VaraaRoute,
 }
 export const routeTree = rootRouteImport

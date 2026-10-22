@@ -11,6 +11,7 @@ import { homeCopy } from './copy';
 import { contactSchema, startSchema } from './model';
 
 import { submitContact, submitServiceStart } from './requests.functions';
+import { PrivacyNotice } from '@/features/privacy/PrivacyNotice';
 
 export function RequestForm({kind,audience='home'}:{kind:'contact'|'start';audience?:'home'|'business'}) {
  const {lang}=useLang(); const t=homeCopy[lang];
@@ -40,6 +41,7 @@ export function RequestForm({kind,audience='home'}:{kind:'contact'|'start';audie
    </fieldset>
    <p className="text-sm text-muted-foreground">{t.startNote}</p>
   </>}
+  <PrivacyNotice />
   {error&&<p role="alert" className="text-sm text-destructive">{t.error}</p>}
   <Button type="submit" disabled={pending} className="min-h-12 w-full"><Mail aria-hidden="true"/>{pending?t.pending:t.send}</Button>
  </form>;

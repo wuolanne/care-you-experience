@@ -15,6 +15,7 @@ describe("public sitemap routes", () => {
       "/osta",
       "/tarjouspyynto",
       "/varaa",
+      "/tietosuoja",
     ]);
   });
 

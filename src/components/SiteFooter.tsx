@@ -53,6 +53,14 @@ export function SiteFooter() {
             <a href="mailto:info@tgnservices.fi" className="hover:text-primary">info@tgnservices.fi</a>
             <a href="tel:+3584578359301" className="hover:text-primary">+358 45 78359301</a>
             <p className="text-foreground/70">{tr.footer.businessId}: {BUSINESS_ID}</p>
+            <div className="mt-1 flex flex-wrap justify-center gap-x-3 gap-y-1 md:justify-start">
+              <Link to="/tarjouspyynto" className="underline underline-offset-4 hover:text-primary">
+                {tr.footer.contactRequest}
+              </Link>
+              <Link to="/tietosuoja" className="underline underline-offset-4 hover:text-primary">
+                {tr.footer.privacy}
+              </Link>
+            </div>
           </div>
         </div>
         <div className="flex flex-col items-center space-y-2 text-center md:space-y-3">

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLang } from "@/i18n/LanguageProvider";
 import { submitBookingRequest } from "./booking.functions";
+import { PrivacyNotice } from "@/features/privacy/PrivacyNotice";
 
 const locales = { fi, sv, es, en: enGB };
 const copy = {
@@ -100,6 +101,7 @@ export function BookingCalendar() {
             <Label htmlFor="booking-email">{text.email}</Label>
             <Input id="booking-email" type="email" autoComplete="email" maxLength={255} required value={email} onChange={(event) => setEmail(event.target.value)} />
           </div>
+          <PrivacyNotice />
           {failed && <p className="text-sm text-destructive" role="alert">{text.error}</p>}
           <Button type="submit" disabled={pending} className="h-auto min-h-10 w-full whitespace-normal py-3"><Mail aria-hidden="true" />{text.send}</Button>
         </form>
