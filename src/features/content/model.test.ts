@@ -43,6 +43,13 @@ describe("Admin v2 content safety helpers", () => {
     expect(sourceContentValues("home-service", "en").title).toBe("Our services TGN Kotiin");
   });
 
+  it("provides the localized service-voucher coming-soon fallback", () => {
+    expect(sourceContentValues("voucher", "fi").comingSoon).toBe("TULOSSA PIAN!");
+    expect(sourceContentValues("voucher", "sv").comingSoon).toBe("KOMMER SNART!");
+    expect(sourceContentValues("voucher", "es").comingSoon).toBe("¡PRÓXIMAMENTE!");
+    expect(sourceContentValues("voucher", "en").comingSoon).toBe("COMING SOON!");
+  });
+
   it("keeps the form success fallbacks separate for each form", () => {
     expect(sourceContentValues("forms", "fi")).toEqual({
       contactSuccessMessage: "Kiitos viestistäsi! Palaamme sinulle asiaan tämän päivän aikana.",

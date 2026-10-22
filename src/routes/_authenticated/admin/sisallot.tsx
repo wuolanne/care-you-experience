@@ -25,6 +25,7 @@ import {
   type ContentPageKey,
   type ContentValues,
 } from "@/features/content/model";
+import { PricingAdmin } from "@/features/pricing/PricingAdmin";
 
 export const Route = createFileRoute("/_authenticated/admin/sisallot")({
   component: ContentAdmin,
@@ -362,6 +363,8 @@ function ContentAdmin() {
           </p>
         </CardContent>
       </Card>
+
+      <PricingAdmin />
 
       <Card>
         <CardHeader>

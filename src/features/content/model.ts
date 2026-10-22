@@ -11,7 +11,7 @@ export const contentPages = [
   { key: "home", label: "Etusivu", fields: ["title", "body", "cta", "secondary"] },
   { key: "home-service", label: "TGN kotiin", fields: ["title", "body", "cta"] },
   { key: "business-service", label: "TGN yrityksille", fields: ["title", "body", "cta"] },
-  { key: "voucher", label: "TGN palveluseteli", fields: ["title", "body"] },
+  { key: "voucher", label: "TGN palveluseteli", fields: ["title", "body", "comingSoon"] },
   { key: "pricing", label: "Hinnoittelu", fields: ["title", "body", "note"] },
   { key: "about", label: "Lyhyesti meistä", fields: ["title", "body", "headline", "closing"] },
   {
@@ -27,6 +27,7 @@ export type ContentField =
   | "body"
   | "cta"
   | "secondary"
+  | "comingSoon"
   | "note"
   | "headline"
   | "closing"
@@ -56,6 +57,7 @@ export function contentFieldLabel(field: ContentField): string {
     body: "Esittelyteksti",
     cta: "Painikkeen teksti",
     secondary: "Toissijaisen painikkeen teksti",
+    comingSoon: "Tulossa pian -ilmoitus",
     note: "Lisätieto / hinnastoteksti",
     headline: "Väliotsikko",
     closing: "Lopetusteksti",
@@ -91,6 +93,12 @@ export function sourceContentValues(pageKey: ContentPageKey, lang: ContentLangua
       return {
         title: translations.services.palveluseteli.title,
         body: translations.services.palveluseteli.body,
+        comingSoon: {
+          fi: "TULOSSA PIAN!",
+          sv: "KOMMER SNART!",
+          es: "¡PRÓXIMAMENTE!",
+          en: "COMING SOON!",
+        }[lang],
       };
     case "pricing":
       return {

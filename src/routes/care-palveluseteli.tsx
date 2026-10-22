@@ -25,7 +25,7 @@ function Page() {
       <PageHero eyebrow={tr.services.eyebrow} title={managed.title || tr.services.palveluseteli.title} lead={managed.body || tr.services.palveluseteli.body} tone="lilac" />
 
       <section className="mx-auto max-w-6xl px-6 py-20 text-center md:py-24">
-        <h2 className="break-words text-4xl text-primary md:text-6xl">{comingSoon[lang]}</h2>
+        <h2 className="break-words text-4xl text-primary md:text-6xl">{managed.comingSoon || comingSoon[lang]}</h2>
       </section>
     </>
   );

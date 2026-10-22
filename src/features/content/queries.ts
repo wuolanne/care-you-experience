@@ -1,6 +1,12 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { asContentValues, isSafeExternalUrl, publicImageUrl } from "./model";
+import type { ContentLanguage } from "./model";
+import {
+  mergePublicPricing,
+  parseAdminPricing,
+  type PricingService,
+} from "@/features/pricing/model";
 
 export const publicContentQuery = (pageKey: string, lang: string) =>
   queryOptions({
@@ -115,6 +121,49 @@ export const adminImagesQuery = queryOptions({
     return data ?? [];
   },
 });
+
+export const adminPricingQuery = queryOptions({
+  queryKey: ["admin-pricing"],
+  queryFn: async () => {
+    const { data, error } = await supabase.rpc("admin_service_pricing");
+    if (error) throw new Error("Hinnoittelua ei voitu ladata.");
+    return parseAdminPricing(data);
+  },
+});
+
+export const publicPricingQuery = (serviceType: PricingService, lang: ContentLanguage) =>
+  queryOptions({
+    queryKey: ["public-pricing", serviceType, lang],
+    queryFn: async () => {
+      const [packages, packageTexts, settings, texts] = await Promise.all([
+        supabase
+          .from("public_service_pricing_packages")
+          .select("*")
+          .eq("service_type", serviceType)
+          .order("display_order"),
+        supabase.from("public_service_pricing_package_texts").select("*").eq("lang", lang),
+        supabase
+          .from("public_service_pricing_settings")
+          .select("*")
+          .eq("service_type", serviceType),
+        supabase
+          .from("public_service_pricing_texts")
+          .select("*")
+          .eq("service_type", serviceType)
+          .eq("lang", lang),
+      ]);
+      return mergePublicPricing(
+        serviceType,
+        lang,
+        packages.error ? [] : packages.data,
+        packageTexts.error ? [] : packageTexts.data,
+        settings.error ? [] : settings.data,
+        texts.error ? [] : texts.data,
+      );
+    },
+    staleTime: 30_000,
+    retry: false,
+  });
 
 export const adminReviewsQuery = queryOptions({
   queryKey: ["admin-customer-reviews"],

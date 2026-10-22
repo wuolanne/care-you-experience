@@ -239,6 +239,204 @@ export type Database = {
         }
         Relationships: []
       }
+      service_pricing_packages: {
+        Row: {
+          package_key: string
+          service_type: string
+          display_order: number
+          draft_name: string
+          published_name: string
+          draft_monthly_price: number
+          published_monthly_price: number
+          draft_hours: number
+          published_hours: number
+          draft_updated_at: string
+          published_at: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          package_key: string
+          service_type: string
+          display_order: number
+          draft_name: string
+          published_name: string
+          draft_monthly_price: number
+          published_monthly_price: number
+          draft_hours: number
+          published_hours: number
+          draft_updated_at?: string
+          published_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          package_key?: string
+          service_type?: string
+          display_order?: number
+          draft_name?: string
+          published_name?: string
+          draft_monthly_price?: number
+          published_monthly_price?: number
+          draft_hours?: number
+          published_hours?: number
+          draft_updated_at?: string
+          published_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      service_pricing_package_texts: {
+        Row: {
+          package_key: string
+          lang: string
+          draft_description: string
+          published_description: string | null
+          draft_updated_at: string
+          published_at: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          package_key: string
+          lang: string
+          draft_description: string
+          published_description?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          package_key?: string
+          lang?: string
+          draft_description?: string
+          published_description?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      service_pricing_settings: {
+        Row: {
+          service_type: string
+          draft_hourly_price: number
+          published_hourly_price: number
+          draft_updated_at: string
+          published_at: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          service_type: string
+          draft_hourly_price: number
+          published_hourly_price: number
+          draft_updated_at?: string
+          published_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          service_type?: string
+          draft_hourly_price?: number
+          published_hourly_price?: number
+          draft_updated_at?: string
+          published_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      service_pricing_texts: {
+        Row: {
+          service_type: string
+          lang: string
+          draft_pricing_heading: string
+          published_pricing_heading: string | null
+          draft_pricing_note: string
+          published_pricing_note: string | null
+          draft_monthly_heading: string
+          published_monthly_heading: string | null
+          draft_vat_notice: string
+          published_vat_notice: string | null
+          draft_package_description: string
+          published_package_description: string | null
+          draft_hourly_heading: string
+          published_hourly_heading: string | null
+          draft_hourly_description: string
+          published_hourly_description: string | null
+          draft_deduction_title: string | null
+          published_deduction_title: string | null
+          draft_deduction_body: string | null
+          published_deduction_body: string | null
+          draft_deduction_link_label: string | null
+          published_deduction_link_label: string | null
+          draft_updated_at: string
+          published_at: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          service_type: string
+          lang: string
+          draft_pricing_heading: string
+          published_pricing_heading?: string | null
+          draft_pricing_note: string
+          published_pricing_note?: string | null
+          draft_monthly_heading: string
+          published_monthly_heading?: string | null
+          draft_vat_notice: string
+          published_vat_notice?: string | null
+          draft_package_description: string
+          published_package_description?: string | null
+          draft_hourly_heading: string
+          published_hourly_heading?: string | null
+          draft_hourly_description: string
+          published_hourly_description?: string | null
+          draft_deduction_title?: string | null
+          published_deduction_title?: string | null
+          draft_deduction_body?: string | null
+          published_deduction_body?: string | null
+          draft_deduction_link_label?: string | null
+          published_deduction_link_label?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          service_type?: string
+          lang?: string
+          draft_pricing_heading?: string
+          published_pricing_heading?: string | null
+          draft_pricing_note?: string
+          published_pricing_note?: string | null
+          draft_monthly_heading?: string
+          published_monthly_heading?: string | null
+          draft_vat_notice?: string
+          published_vat_notice?: string | null
+          draft_package_description?: string
+          published_package_description?: string | null
+          draft_hourly_heading?: string
+          published_hourly_heading?: string | null
+          draft_hourly_description?: string
+          published_hourly_description?: string | null
+          draft_deduction_title?: string | null
+          published_deduction_title?: string | null
+          draft_deduction_body?: string | null
+          published_deduction_body?: string | null
+          draft_deduction_link_label?: string | null
+          published_deduction_link_label?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       site_contact_details: {
         Row: {
           business_id: string
@@ -439,6 +637,49 @@ export type Database = {
         }
         Relationships: []
       }
+      public_service_pricing_packages: {
+        Row: {
+          package_key: string
+          service_type: string
+          display_order: number
+          name: string
+          monthly_price: number
+          hours: number
+        }
+        Relationships: []
+      }
+      public_service_pricing_package_texts: {
+        Row: {
+          package_key: string
+          lang: string
+          description: string | null
+        }
+        Relationships: []
+      }
+      public_service_pricing_settings: {
+        Row: {
+          service_type: string
+          hourly_price: number
+        }
+        Relationships: []
+      }
+      public_service_pricing_texts: {
+        Row: {
+          service_type: string
+          lang: string
+          pricing_heading: string | null
+          pricing_note: string | null
+          monthly_heading: string | null
+          vat_notice: string | null
+          package_description: string | null
+          hourly_heading: string | null
+          hourly_description: string | null
+          deduction_title: string | null
+          deduction_body: string | null
+          deduction_link_label: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       admin_site_content: {
@@ -458,6 +699,21 @@ export type Database = {
           p_published_content: Json | null
         }
         Returns: Database["public"]["Tables"]["site_content"]["Row"]
+      }
+      admin_service_pricing: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      admin_upsert_service_pricing: {
+        Args: {
+          p_lang: string
+          p_packages: Json
+          p_publish?: boolean
+          p_service_type: string
+          p_settings: Json
+          p_texts: Json
+        }
+        Returns: Json
       }
       admin_upsert_site_image: {
         Args: {
