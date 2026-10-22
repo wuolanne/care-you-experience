@@ -106,13 +106,7 @@ export const publicReviewsQuery = queryOptions({
       .eq("hidden", false)
       .order("display_order")
       .order("published_at", { ascending: false });
-    if (error) {
-      console.error("[CustomerReviews] Public review query failed", {
-        code: error.code ?? "unknown",
-      });
-      return { reviews: [], error: true as const };
-    }
-    return { reviews: data ?? [], error: false as const };
+    return error ? [] : (data ?? []);
   },
   staleTime: 60_000,
   retry: false,

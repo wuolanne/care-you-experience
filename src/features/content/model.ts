@@ -20,7 +20,9 @@ export const contentPages = [
   },
 ] as const;
 
-export type ContentPageKey = (typeof contentPages)[number]["key"] | "pricing";
+export type ContentPageKey =
+  | (typeof contentPages)[number]["key"]
+  | "pricing";
 export type ContentField =
   | "title"
   | "body"
@@ -42,16 +44,6 @@ export type SiteImage = Tables<"site_images">;
 export type CustomerReview = Tables<"customer_reviews">;
 export type SocialLink = Tables<"social_links">;
 export type SiteContactDetails = Tables<"site_contact_details">;
-
-export function visibleCustomerReviews(
-  reviews: CustomerReview[],
-  lang: ContentLanguage,
-): CustomerReview[] {
-  return reviews.filter(
-    (review) =>
-      review.lang === lang && review.published && review.consent_granted && !review.hidden,
-  );
-}
 
 export const contentValueSchema = z.record(z.string().max(20_000));
 

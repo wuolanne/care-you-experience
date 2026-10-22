@@ -8,8 +8,6 @@ import {
   makeWhatsAppUrl,
   sourceContentValues,
   contentPages,
-  visibleCustomerReviews,
-  type CustomerReview,
 } from "./model";
 
 describe("Admin v2 content safety helpers", () => {
@@ -68,34 +66,6 @@ describe("Admin v2 content safety helpers", () => {
     expect(isSafeExternalUrl("https://www.linkedin.com/company/tgn")).toBe(true);
     expect(isSafeExternalUrl("javascript:alert(1)")).toBe(false);
     expect(isSafeExternalUrl("//example.com")).toBe(false);
-  });
-
-  it("shows only published, consented, visible reviews for the selected language", () => {
-    const base = {
-      id: "review-fi",
-      lang: "fi" as const,
-      public_name: "Asiakas",
-      customer_type: "private",
-      review_text: "Hyvä palvelu",
-      rating: 5,
-      consent_granted: true,
-      published: true,
-      hidden: false,
-      display_order: 0,
-    } as CustomerReview;
-
-    expect(
-      visibleCustomerReviews(
-        [
-          base,
-          { ...base, id: "draft", published: false },
-          { ...base, id: "no-consent", consent_granted: false },
-          { ...base, id: "hidden", hidden: true },
-          { ...base, id: "sv", lang: "sv" },
-        ],
-        "fi",
-      ).map((review) => review.id),
-    ).toEqual(["review-fi"]);
   });
 
   it("normalizes a WhatsApp phone number", () => {
