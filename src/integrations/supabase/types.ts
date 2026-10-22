@@ -437,6 +437,135 @@ export type Database = {
         }
         Relationships: []
       }
+      site_image_alt_texts: {
+        Row: {
+          image_key: string
+          lang: string
+          draft_alt_text: string
+          published_alt_text: string
+          draft_updated_at: string
+          published_at: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          image_key: string
+          lang: string
+          draft_alt_text?: string
+          published_alt_text?: string
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          image_key?: string
+          lang?: string
+          draft_alt_text?: string
+          published_alt_text?: string
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      staff_members: {
+        Row: {
+          id: string
+          draft_display_name: string
+          published_display_name: string
+          draft_display_order: number
+          published_display_order: number
+          draft_visible: boolean
+          published_visible: boolean
+          draft_image_path: string | null
+          published_image_path: string | null
+          draft_updated_at: string
+          published_at: string | null
+          created_at: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          id?: string
+          draft_display_name?: string
+          published_display_name?: string
+          draft_display_order?: number
+          published_display_order?: number
+          draft_visible?: boolean
+          published_visible?: boolean
+          draft_image_path?: string | null
+          published_image_path?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          created_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          id?: string
+          draft_display_name?: string
+          published_display_name?: string
+          draft_display_order?: number
+          published_display_order?: number
+          draft_visible?: boolean
+          published_visible?: boolean
+          draft_image_path?: string | null
+          published_image_path?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          created_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      staff_member_texts: {
+        Row: {
+          staff_id: string
+          lang: string
+          draft_job_title: string
+          published_job_title: string
+          draft_bio: string
+          published_bio: string
+          draft_alt_text: string
+          published_alt_text: string
+          draft_updated_at: string
+          published_at: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          staff_id: string
+          lang: string
+          draft_job_title?: string
+          published_job_title?: string
+          draft_bio?: string
+          published_bio?: string
+          draft_alt_text?: string
+          published_alt_text?: string
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          staff_id?: string
+          lang?: string
+          draft_job_title?: string
+          published_job_title?: string
+          draft_bio?: string
+          published_bio?: string
+          draft_alt_text?: string
+          published_alt_text?: string
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       site_contact_details: {
         Row: {
           business_id: string
@@ -680,6 +809,33 @@ export type Database = {
         }
         Relationships: []
       }
+      public_shared_about_image: {
+        Row: {
+          lang: string
+          published_path: string
+          published_alt_text: string
+        }
+        Relationships: []
+      }
+      public_staff_members: {
+        Row: {
+          id: string
+          display_name: string
+          display_order: number
+          image_path: string | null
+        }
+        Relationships: []
+      }
+      public_staff_member_texts: {
+        Row: {
+          staff_id: string
+          lang: string
+          job_title: string
+          bio: string
+          alt_text: string
+        }
+        Relationships: []
+      }
     }
     Functions: {
       admin_site_content: {
@@ -712,6 +868,45 @@ export type Database = {
           p_service_type: string
           p_settings: Json
           p_texts: Json
+        }
+        Returns: Json
+      }
+      admin_about_image: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      admin_upsert_about_image: {
+        Args: {
+          p_draft_path: string | null
+          p_published_path: string | null
+          p_publish?: boolean
+          p_texts: Json
+        }
+        Returns: Json
+      }
+      admin_staff_members: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      admin_upsert_staff_member: {
+        Args: {
+          p_id: string
+          p_member: Json
+          p_publish?: boolean
+          p_texts: Json
+        }
+        Returns: Json
+      }
+      admin_delete_staff_member: {
+        Args: {
+          p_id: string
+        }
+        Returns: Json
+      }
+      admin_set_staff_visibility: {
+        Args: {
+          p_id: string
+          p_visible: boolean
         }
         Returns: Json
       }

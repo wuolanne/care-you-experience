@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, ImagePlus, RotateCcw, Save, Upload } from "lucide-react";
+import { Check, RotateCcw, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,8 +11,6 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   adminContactQuery,
   adminContentQuery,
-  adminImagesQuery,
-  imageUrlForPath,
 } from "@/features/content/queries";
 import {
   asContentValues,
@@ -26,6 +24,8 @@ import {
   type ContentValues,
 } from "@/features/content/model";
 import { PricingAdmin } from "@/features/pricing/PricingAdmin";
+import { AboutImageAdmin } from "@/features/content/AboutImageAdmin";
+import { StaffAdmin } from "@/features/staff/StaffAdmin";
 
 export const Route = createFileRoute("/_authenticated/admin/sisallot")({
   component: ContentAdmin,
@@ -42,33 +42,18 @@ function ContentAdmin() {
   const queryClient = useQueryClient();
   const { data: contents = [], isLoading: contentsLoading } = useQuery(adminContentQuery);
   const { data: contact } = useQuery(adminContactQuery);
-  const { data: images = [] } = useQuery(adminImagesQuery);
   const [pageKey, setPageKey] = useState<ContentPageKey>("home");
   const [lang, setLang] = useState<ContentLanguage>("fi");
   const [values, setValues] = useState<ContentValues>({});
   const [contactForm, setContactForm] = useState(fallbackContact);
-  const [imagePage, setImagePage] = useState<ContentPageKey>("about");
-  const [imageLang, setImageLang] = useState<ContentLanguage>("fi");
-  const [imageAlt, setImageAlt] = useState("");
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [draftPreviewUrl, setDraftPreviewUrl] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const currentRecord = contents.find((item) => item.page_key === pageKey && item.lang === lang);
-  const currentImage = images.find(
-    (item) => item.page_key === imagePage && item.slot_key === "main" && item.lang === imageLang,
-  );
   const selectedPage = useMemo(
     () => contentPages.find((page) => page.key === pageKey) ?? contentPages[0],
     [pageKey],
   );
-  const localPreviewUrl = useMemo(
-    () => (imageFile ? URL.createObjectURL(imageFile) : null),
-    [imageFile],
-  );
-  const selectedImageUrl =
-    localPreviewUrl ?? draftPreviewUrl ?? imageUrlForPath(currentImage?.published_path ?? null);
 
   useEffect(() => {
     setValues(contentEditorValues(pageKey, lang, currentRecord));
@@ -83,32 +68,6 @@ function ContentAdmin() {
     });
   }, [contact]);
 
-  useEffect(() => {
-    setImageAlt(currentImage?.draft_alt_text ?? "");
-    setImageFile(null);
-  }, [currentImage]);
-
-  useEffect(() => {
-    if (!localPreviewUrl) return;
-    return () => URL.revokeObjectURL(localPreviewUrl);
-  }, [localPreviewUrl]);
-
-  useEffect(() => {
-    let active = true;
-    setDraftPreviewUrl(null);
-    if (!currentImage?.draft_path) return;
-
-    void supabase.storage
-      .from("site-images-drafts")
-      .createSignedUrl(currentImage.draft_path, 60 * 60)
-      .then(({ data, error }) => {
-        if (active && !error) setDraftPreviewUrl(data.signedUrl);
-      });
-
-    return () => {
-      active = false;
-    };
-  }, [currentImage?.draft_path]);
 
   async function saveContent(publish: boolean) {
     setBusy(true);
@@ -152,97 +111,6 @@ function ContentAdmin() {
     await queryClient.invalidateQueries({ queryKey: ["admin-site-contact"] });
     await queryClient.invalidateQueries({ queryKey: ["public-site-contact"] });
     setNotice("Yhteystiedot tallennettiin.");
-  }
-
-  async function saveImage(publish: boolean) {
-    const allowedImageTypes = ["image/png", "image/jpeg", "image/webp", "image/avif"];
-    if (
-      imageFile &&
-      (!allowedImageTypes.includes(imageFile.type) || imageFile.size > 5 * 1024 * 1024)
-    ) {
-      setNotice("Kuvan pitää olla tuettu kuvatiedosto ja enintään 5 Mt.");
-      return;
-    }
-    setBusy(true);
-    setNotice(null);
-    let draftPath = currentImage?.draft_path ?? null;
-    let newDraftPath: string | null = null;
-    if (imageFile) {
-      const extension = imageFile.type === "image/jpeg" ? "jpg" : imageFile.type.split("/")[1];
-      draftPath = `${imagePage}/${imageLang}/${crypto.randomUUID()}.${extension}`;
-      newDraftPath = draftPath;
-      const upload = await supabase.storage
-        .from("site-images-drafts")
-        .upload(draftPath, imageFile, {
-          contentType: imageFile.type,
-          upsert: false,
-        });
-      if (upload.error) {
-        setBusy(false);
-        setNotice("Kuvaa ei voitu ladata. Tarkista luonnosbucket ja ylläpitäjän oikeudet.");
-        return;
-      }
-    }
-
-    let publishedPath = currentImage?.published_path ?? null;
-    let newPublishedPath: string | null = null;
-    if (publish) {
-      if (!draftPath) {
-        setBusy(false);
-        setNotice("Julkaisemista varten kuvan luonnos puuttuu.");
-        return;
-      }
-      const extension = draftPath.split(".").pop() ?? "png";
-      newPublishedPath = `${imagePage}/${imageLang}/${crypto.randomUUID()}.${extension}`;
-      const copy = await supabase.storage
-        .from("site-images-drafts")
-        .copy(draftPath, newPublishedPath, {
-          destinationBucket: "site-images",
-        });
-      if (copy.error) {
-        if (newDraftPath) {
-          await supabase.storage.from("site-images-drafts").remove([newDraftPath]);
-        }
-        setBusy(false);
-        setNotice("Kuvaa ei voitu julkaista. Tarkista site-images-bucketin oikeudet.");
-        return;
-      }
-      publishedPath = newPublishedPath;
-    }
-
-    const { error } = await supabase.rpc("admin_upsert_site_image", {
-      p_page_key: imagePage,
-      p_slot_key: "main",
-      p_lang: imageLang,
-      p_draft_path: draftPath,
-      p_published_path: publishedPath,
-      p_draft_alt_text: imageAlt.trim(),
-      p_published_alt_text: publish ? imageAlt.trim() : (currentImage?.published_alt_text ?? ""),
-    });
-    setBusy(false);
-    if (error) {
-      if (newPublishedPath) {
-        await supabase.storage.from("site-images").remove([newPublishedPath]);
-      }
-      if (newDraftPath) {
-        await supabase.storage.from("site-images-drafts").remove([newDraftPath]);
-      }
-      setNotice("Kuvan tietoja ei voitu tallentaa.");
-      return;
-    }
-    if (
-      publish &&
-      currentImage?.published_path &&
-      currentImage.published_path !== newPublishedPath
-    ) {
-      await supabase.storage.from("site-images").remove([currentImage.published_path]);
-    }
-    await queryClient.invalidateQueries({ queryKey: ["admin-site-images"] });
-    await queryClient.invalidateQueries({
-      queryKey: ["public-site-image", imagePage, "main", imageLang],
-    });
-    setImageFile(null);
-    setNotice(publish ? "Kuva julkaistiin." : "Kuvan luonnos tallennettiin.");
   }
 
   if (contentsLoading) return <p className="text-muted-foreground">Ladataan sisältöjä…</p>;
@@ -405,86 +273,8 @@ function ContentAdmin() {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Kuvat</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-5">
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="space-y-2">
-              <Label htmlFor="image-page">Sivu</Label>
-              <select
-                id="image-page"
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-                value={imagePage}
-                onChange={(event) => setImagePage(event.target.value as ContentPageKey)}
-              >
-                {contentPages
-                  .filter((page) => page.key !== "forms")
-                  .map((page) => (
-                    <option key={page.key} value={page.key}>
-                      {page.label}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="image-language">Kieli</Label>
-              <select
-                id="image-language"
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-                value={imageLang}
-                onChange={(event) => setImageLang(event.target.value as ContentLanguage)}
-              >
-                {contentLanguages.map((value) => (
-                  <option key={value} value={value}>
-                    {value.toUpperCase()}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="image-file">Uusi kuva</Label>
-              <Input
-                id="image-file"
-                type="file"
-                accept="image/png,image/jpeg,image/webp,image/avif"
-                onChange={(event) => setImageFile(event.target.files?.[0] ?? null)}
-              />
-            </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="image-alt">Alt-teksti</Label>
-            <Input
-              id="image-alt"
-              value={imageAlt}
-              onChange={(event) => setImageAlt(event.target.value)}
-              maxLength={300}
-            />
-          </div>
-          {selectedImageUrl && (
-            <img
-              src={selectedImageUrl}
-              alt={imageAlt}
-              className="max-h-72 max-w-full rounded-md border object-contain"
-            />
-          )}
-          <div className="flex flex-wrap gap-3">
-            <Button disabled={busy} onClick={() => void saveImage(false)}>
-              <Upload aria-hidden="true" />
-              Tallenna kuvaluonnos
-            </Button>
-            <Button variant="secondary" disabled={busy} onClick={() => void saveImage(true)}>
-              <ImagePlus aria-hidden="true" />
-              Julkaise kuva
-            </Button>
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Luonnokset tallennetaan yksityiseen luonnosbucketiin ja julkaistut kuvat erilliseen
-            site-images-bucketiin. news-images-bucketia ei muuteta.
-          </p>
-        </CardContent>
-      </Card>
+      <AboutImageAdmin />
+      <StaffAdmin />
     </div>
   );
 }

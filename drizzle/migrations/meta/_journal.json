@@ -78,6 +78,13 @@
       "when": 1792601000000,
       "tag": "0011_admin_pricing_management",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1792602000000,
+      "tag": "0012_admin_staff_management",
+      "breakpoints": true
     }
   ]
 }

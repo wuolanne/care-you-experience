@@ -87,4 +87,20 @@ describe("Admin v2 content safety helpers", () => {
     expect(migration).toContain("public.admin_site_content");
     expect(migration).toContain("public.admin_site_images");
   });
+
+  it("defines shared about image and staff public boundaries in migration 0012", () => {
+    const migration = readFileSync(
+      new URL("../../../drizzle/migrations/0012_admin_staff_management.sql", import.meta.url),
+      "utf8",
+    );
+
+    expect(migration).toContain("public_shared_about_image");
+    expect(migration).toContain("public_staff_members");
+    expect(migration).toContain("public_staff_member_texts");
+    expect(migration).toContain("admin_upsert_staff_member");
+    expect(migration).toContain(
+      "REVOKE ALL ON public.staff_members FROM PUBLIC, anon, authenticated",
+    );
+    expect(migration).toContain("cannot publish an empty staff member");
+  });
 });

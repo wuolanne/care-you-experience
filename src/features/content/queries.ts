@@ -7,6 +7,7 @@ import {
   parseAdminPricing,
   type PricingService,
 } from "@/features/pricing/model";
+import { parseAdminStaff, publicStaffValues, type StaffLanguage } from "@/features/staff/model";
 
 export const publicContentQuery = (pageKey: string, lang: string) =>
   queryOptions({
@@ -43,12 +44,26 @@ export const publicImageQuery = (pageKey: string, slotKey: string, lang: string)
   queryOptions({
     queryKey: ["public-site-image", pageKey, slotKey, lang],
     queryFn: async () => {
+      if (pageKey === "about" && slotKey === "main") {
+        const shared = await supabase
+          .from("public_shared_about_image")
+          .select("lang,published_path,published_alt_text")
+          .eq("lang", lang)
+          .maybeSingle();
+        if (!shared.error && shared.data?.published_path) {
+          return {
+            url: publicImageUrl(shared.data.published_path),
+            alt: shared.data.published_alt_text,
+          };
+        }
+      }
+      const legacyLang = pageKey === "about" && slotKey === "main" ? "fi" : lang;
       const { data, error } = await supabase
         .from("public_site_images")
         .select("published_path,published_alt_text")
         .eq("page_key", pageKey)
         .eq("slot_key", slotKey)
-        .eq("lang", lang)
+        .eq("lang", legacyLang)
         .maybeSingle();
       return error || !data?.published_path
         ? null
@@ -121,6 +136,42 @@ export const adminImagesQuery = queryOptions({
     return data ?? [];
   },
 });
+
+export const adminAboutImageQuery = queryOptions({
+  queryKey: ["admin-about-image"],
+  queryFn: async () => {
+    const { data, error } = await supabase.rpc("admin_about_image");
+    if (error) throw new Error("Pääkuvaa ei voitu ladata.");
+    return data ?? {};
+  },
+});
+
+export const adminStaffQuery = queryOptions({
+  queryKey: ["admin-staff"],
+  queryFn: async () => {
+    const { data, error } = await supabase.rpc("admin_staff_members");
+    if (error) throw new Error("Henkilöstöä ei voitu ladata.");
+    return parseAdminStaff(data);
+  },
+});
+
+export const publicStaffQuery = (lang: StaffLanguage) =>
+  queryOptions({
+    queryKey: ["public-staff", lang],
+    queryFn: async () => {
+      const [members, texts] = await Promise.all([
+        supabase.from("public_staff_members").select("*").order("display_order"),
+        supabase.from("public_staff_member_texts").select("*").eq("lang", lang),
+      ]);
+      return publicStaffValues(
+        members.error ? [] : members.data,
+        texts.error ? [] : texts.data,
+        lang,
+      );
+    },
+    staleTime: 30_000,
+    retry: false,
+  });
 
 export const adminPricingQuery = queryOptions({
   queryKey: ["admin-pricing"],
