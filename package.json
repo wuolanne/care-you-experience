@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test:unit": "vitest run --passWithNoTests --exclude e2e/**",
+    "test:unit": "vitest run --passWithNoTests --exclude e2e",
     "test:e2e": "playwright test",
     "test:smoke": "playwright test e2e/public-smoke.spec.ts",
     "test:typecheck:e2e": "tsc --noEmit -p tsconfig.e2e.json",
