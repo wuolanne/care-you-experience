@@ -25,7 +25,7 @@ export function CustomerReviews() {
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
           {reviews.map((review) => (
             <div key={review.id} className="flex min-w-0 flex-col items-center">
-              <blockquote aria-label={t.feedback} className="relative min-h-16 w-full max-w-md rounded-sm border border-primary/20 bg-background px-4 py-3 text-sm leading-relaxed text-primary after:absolute after:-bottom-2 after:left-1/2 after:size-3 after:-translate-x-1/2 after:rotate-45 after:border-b after:border-r after:border-primary/20 after:bg-background">
+              <blockquote aria-label={t.feedback} className="relative min-h-16 w-full max-w-md rounded-2xl border border-primary/20 bg-background px-4 py-3 text-sm leading-relaxed text-primary after:absolute after:-bottom-2 after:left-1/2 after:size-3 after:-translate-x-1/2 after:rotate-45 after:border-b after:border-r after:border-primary/20 after:bg-background">
                 {review.review_text}
               </blockquote>
               <div role="img" aria-label={review.rating === null ? t.stars : `${review.rating}/5`} className="mt-5 flex justify-center gap-1.5 text-primary">
