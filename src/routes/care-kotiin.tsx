@@ -1,16 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HomeService } from "@/features/home-service/HomeService";
+import { pageHead } from "@/features/seo/head";
 
 export const Route = createFileRoute("/care-kotiin")({
-  head: () => ({
-    meta: [
-      { title: "TGN Kotiin — Kodinhoitoa ja siivousta sisälle ja ulos | TGN Services" },
-      { name: "description", content: "Kotisiivous, kodinhoito ja pihatyöt Uudellamaalla. Kiinteät kuukausipaketit, nimetyt vastuuhenkilöt ja TGN-laatutakuu." },
-      { property: "og:title", content: "TGN Kotiin | TGN Services" },
-      { property: "og:description", content: "Huolellista kodinhoitoa ja siivousta sisä- ja ulkotiloihin. Kuukausipaketit tai erillistunnit." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  head: () => pageHead({
+    path: "/care-kotiin",
+    title: "TGN Kotiin — Kodinhoitoa ja siivousta sisälle ja ulos | TGN Services",
+    description: "Kotisiivous, kodinhoito ja pihatyöt Uudellamaalla. Kiinteät kuukausipaketit, nimetyt vastuuhenkilöt ja TGN-laatutakuu.",
   }),
   component: Page,
 });

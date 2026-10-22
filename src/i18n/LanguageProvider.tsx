@@ -13,6 +13,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (stored && stored in t) setLangState(stored);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const setLang = (l: Lang) => {
     setLangState(l);
     window.localStorage.setItem("cys-lang", l);

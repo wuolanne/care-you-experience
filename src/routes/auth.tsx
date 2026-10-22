@@ -4,8 +4,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { pageHead } from '@/features/news/head';
-export const Route=createFileRoute('/auth')({ head:()=>pageHead('Uutisten ylläpito – kirjautuminen','Kirjaudu TGN Services -uutisten ylläpitoon.'),component:AuthPage });
+import { pageHead } from "@/features/seo/head";
+export const Route=createFileRoute('/auth')({ head:()=>pageHead({path:'/auth',title:'Uutisten ylläpito – kirjautuminen',description:'Kirjaudu TGN Services -uutisten ylläpitoon.',indexable:false}),component:AuthPage });
 function AuthPage(){
  const navigate=useNavigate();const [mode,setMode]=useState<'login'|'signup'|'reset'>('login');const [email,setEmail]=useState('');const [password,setPassword]=useState('');const [busy,setBusy]=useState(false);const [message,setMessage]=useState('');
  useEffect(()=>{void supabase.auth.getUser().then(({data})=>{if(data.user) void navigate({to:'/uutisten-yllapito'});});},[navigate]);

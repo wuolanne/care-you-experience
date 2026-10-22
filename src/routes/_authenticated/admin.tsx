@@ -3,9 +3,16 @@ import { LayoutDashboard, LogOut, Mail, Newspaper, Video, Wrench } from "lucide-
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { editorAccess } from "@/features/news/editor.functions";
+import { pageHead } from "@/features/seo/head";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   ssr: false,
+  head: () => pageHead({
+    path: "/admin",
+    title: "Hallintapaneeli | TGN Services",
+    description: "TGN Servicesin ylläpidon hallintapaneeli.",
+    indexable: false,
+  }),
   beforeLoad: async () => {
     if (!(await editorAccess())) throw redirect({ to: "/" });
   },

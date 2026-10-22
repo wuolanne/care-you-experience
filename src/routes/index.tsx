@@ -10,28 +10,22 @@ import { NewsSection } from '@/features/news/NewsSection';
 import { newsQuery } from '@/features/news/queries';
 import { homeCopy } from '@/features/home-service/copy';
 import { RequestForm } from '@/features/home-service/RequestForms';
+import { pageHead, SITE_URL, SOCIAL_IMAGE_URL } from "@/features/seo/head";
 
 export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(newsQuery),
-  head: () => ({
-    meta: [
-      { title: "TGN Services — Laadukasta siivousta koteihin ja toimitiloihin" },
-      {
-        name: "description",
-        content:
-          "TGN Services hoitaa kotisi ja toimitilasi niin sisältä kuin ulkoa ja kantaa kokonaisvaltaisen vastuun. Avoin viestintä, tuttu henkilöstö ja selkeä hinnoittelu ilman piilokuluja.",
-      },
-      {
-        property: "og:title",
-        content: "TGN Services — Laadukasta siivousta koteihin ja toimitiloihin",
-      },
-      {
-        property: "og:description",
-        content: "Laadukasta siivousta koteihin ja toimitiloihin – sisältä ja ulkoa. Pidämme huolta asiakkaistamme: luotettava kumppanuus ja tasalaatuinen siivous ilman piilokuluja.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  head: () => pageHead({
+    path: "/",
+    title: "TGN Services — Laadukasta siivousta koteihin ja toimitiloihin",
+    description:
+      "TGN Services hoitaa kotisi ja toimitilasi niin sisältä kuin ulkoa ja kantaa kokonaisvaltaisen vastuun. Avoin viestintä, tuttu henkilöstö ja selkeä hinnoittelu ilman piilokuluja.",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "TGN Services",
+      url: SITE_URL,
+      logo: SOCIAL_IMAGE_URL,
+    },
   }),
   component: Index,
 });

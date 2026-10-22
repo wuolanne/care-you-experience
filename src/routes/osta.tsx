@@ -1,17 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site-pieces";
 import { useLang } from "@/i18n/LanguageProvider";
+import { pageHead } from "@/features/seo/head";
 
 export const Route = createFileRoute("/osta")({
-  head: () => ({
-    meta: [
-      { title: "Osta palvelu | TGN Services" },
-      { name: "description", content: "Valmiit palvelupaketit kotihoivaan ja yrityksille – selkeä hinnoittelu, nopea aloitus." },
-      { property: "og:title", content: "Osta palvelu | TGN Services" },
-      { property: "og:description", content: "Valmiit palvelupaketit, joilla pääset alkuun heti." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  head: () => pageHead({
+    path: "/osta",
+    title: "Osta palvelu | TGN Services",
+    description: "Valmiit palvelupaketit kotihoivaan ja yrityksille – selkeä hinnoittelu, nopea aloitus.",
   }),
   component: Page,
 });

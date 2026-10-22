@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { editorAccess } from '@/features/news/editor.functions';
-import { pageHead } from '@/features/news/head';
+import { pageHead } from '@/features/seo/head';
 import type { NewsItem,NewsText } from '@/features/news/model';
 import type { Lang } from '@/i18n/translations';
 const editorQuery=queryOptions({queryKey:['news-editor'],queryFn:async()=>{
@@ -16,7 +16,7 @@ const editorQuery=queryOptions({queryKey:['news-editor'],queryFn:async()=>{
  const {data,error}=await supabase.from('news').select('*').order('news_date',{ascending:false});if(error)throw new Error('Uutisia ei voitu ladata.');
  const items=await Promise.all((data as NewsItem[]).map(async n=>{if(!n.image_path)return n;const {data:signed}=await supabase.storage.from('news-images').createSignedUrl(n.image_path,3600);return {...n,imageUrl:signed?.signedUrl??null};}));return {allowed:true,items};
 }});
-export const Route=createFileRoute('/_authenticated/uutisten-yllapito')({head:()=>pageHead('Uutisten ylläpito','Lisää ja muokkaa TGN Services -uutisia, kuvia ja julkaisupäivämääriä.'),loader:({context})=>context.queryClient.ensureQueryData(editorQuery),component:Editor,errorComponent:()=> <p className="p-12">Uutisia ei voitu ladata. Päivitä sivu ja yritä uudelleen.</p>});
+export const Route=createFileRoute('/_authenticated/uutisten-yllapito')({head:()=>pageHead({path:'/uutisten-yllapito',title:'Uutisten ylläpito',description:'Lisää ja muokkaa TGN Services -uutisia, kuvia ja julkaisupäivämääriä.',indexable:false}),loader:({context})=>context.queryClient.ensureQueryData(editorQuery),component:Editor,errorComponent:()=> <p className="p-12">Uutisia ei voitu ladata. Päivitä sivu ja yritä uudelleen.</p>});
 function Editor(){
  const {data}=useSuspenseQuery(editorQuery);const qc=useQueryClient();const [draft,setDraft]=useState<NewsItem|null>(null);const [language,setLanguage]=useState<Lang>('fi');const [file,setFile]=useState<File|null>(null);const [busy,setBusy]=useState(false);const [message,setMessage]=useState('');
  function newDraft(){setDraft({id:'',title:{},body:{},news_date:new Date().toISOString().slice(0,10),image_path:null,published:false});setFile(null);setMessage('');}

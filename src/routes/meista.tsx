@@ -7,17 +7,13 @@ import { useLang } from "@/i18n/LanguageProvider";
 import { homeCopy } from "@/features/home-service/copy";
 import { RequestForm } from "@/features/home-service/RequestForms";
 import { BUSINESS_ID } from "@/data/company";
+import { pageHead } from "@/features/seo/head";
 
 export const Route = createFileRoute("/meista")({
-  head: () => ({
-    meta: [
-      { title: "Meistä lyhyesti | TGN Services" },
-      { name: "description", content: "Tutustu TGN Servicesiin: ensiluokkaista siivousta, tuttua huolenpitoa, joustavaa hinnoittelua ja luotettavaa kumppanuutta koteihin ja toimitiloihin." },
-      { property: "og:title", content: "Meistä lyhyesti | TGN Services" },
-      { property: "og:description", content: "TGN Services – ensiluokkaista siivousta ja tuttua huolenpitoa. Tutustu palveluumme, hinnoitteluumme ja laatutakuuseemme." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+  head: () => pageHead({
+    path: "/meista",
+    title: "Meistä lyhyesti | TGN Services",
+    description: "Tutustu TGN Servicesiin: ensiluokkaista siivousta, tuttua huolenpitoa, joustavaa hinnoittelua ja luotettavaa kumppanuutta koteihin ja toimitiloihin.",
   }),
   component: AboutPage,
 });
