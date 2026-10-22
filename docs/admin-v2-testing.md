@@ -7,8 +7,9 @@ sisältömallit, luonnos/julkaisu-erottelun, kielifallbackit, palvelukorttien ja
 asiakasetujen näkyvyyden, hinnoittelun, henkilöstön, autentikoinnin ja
 käyttöoikeuksien apufunktiot sekä virhetilanteiden mallinnuksen.
 
-`npm run test:smoke` käynnistää paikallisen dev-palvelimen ja ajaa julkisten
-reittien read-only-savutestit desktop- ja mobiiliprofiileilla.
+`npm run test:smoke` käynnistää paikallisen dev-palvelimen ja vain lukevan
+Supabase-mockin. Se ajaa julkisten reittien read-only-savutestit desktop- ja
+mobiiliprofiileilla.
 
 `npm run test:e2e` ajaa julkiset savutestit ja anonyymin käyttäjän admin-reittien
 suojauksen. Se ajaa lisäksi autentikoidut Admin v2:n read-only-testit vain, jos
@@ -35,7 +36,8 @@ testien ympäristömuuttujina.
 
 ## GitHub Actions
 
-CI ajaa TypeScript-tarkistuksen, yksikkötestit, buildin ja julkiset smoke-testit.
+CI ajaa TypeScript-tarkistuksen, yksikkötestit, buildin ja paikalliseen mockiin
+perustuvat julkiset smoke- sekä anonyymin admin-suojauksen testit.
 Adminin autentikoitua E2E-testausta ei ajeta CI:ssä ilman erillistä, suojattua
 testiprojektia ja lyhytikäistä storage state -salaisuutta.
 
