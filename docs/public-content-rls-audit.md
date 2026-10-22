@@ -95,9 +95,10 @@ näkymissä. Asiakaspalautteiden ja sosiaalilinkkien 0010-politiikat ovat poikke
 ja voivat aiheuttaa permission denied for function has_role -virheen. Tätä ei
 merkitä live-vahvistetuksi ennen kyselyä oikeasta projektista.
 
-## Korjaussuunnitelma, ei toteutettu
+## Korjaussuunnitelma ja valmisteltu migraatio
 
-1. Luo uusi erillinen migraatio, joka korvaa 0010:n kaksi julkista politiikkaa:
+1. Uusi erillinen migraatio `0014_public_content_rls_fix.sql` on valmisteltu,
+   mutta sitä ei ole ajettu etätietokantaan. Se korvaa 0010:n kaksi julkista politiikkaa:
    - customer_reviews-julkinen SELECT käyttää vain published = true,
      consent_granted = true ja hidden = false;
    - social_links-julkinen SELECT käyttää vain visible = true;
@@ -114,5 +115,6 @@ merkitä live-vahvistetuksi ennen kyselyä oikeasta projektista.
    istunnolla. Tarkista myös luonnoksen, piilotetun palautteen, draft-bucketin
    tiedoston ja admin-RPC:n suora käyttö.
 
-Korjauksia, migraatioita, ympäristöasetuksia tai tietokantakirjoituksia ei tehty
-tämän auditin yhteydessä.
+Migraatio 0014 ja sen Drizzle-journalimerkintä ovat nyt repositoryssä. Etä-
+Supabaseen ei tehty tietokantakirjoituksia, eikä ympäristöasetuksia muutettu.
+Julkisten queryjen laajempi virheenkäsittely on edelleen erillinen jatkotehtävä.

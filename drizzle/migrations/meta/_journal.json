@@ -92,6 +92,13 @@
       "when": 1792603000000,
       "tag": "0013_admin_service_sections",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1792604000000,
+      "tag": "0014_public_content_rls_fix",
+      "breakpoints": true
     }
   ]
 }

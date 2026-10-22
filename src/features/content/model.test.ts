@@ -107,4 +107,29 @@ describe("Admin v2 content safety helpers", () => {
     );
     expect(migration).toContain("cannot publish an empty staff member");
   });
+
+  it("keeps public RLS policies independent from admin role checks", () => {
+    const migration = readFileSync(
+      new URL("../../../drizzle/migrations/0014_public_content_rls_fix.sql", import.meta.url),
+      "utf8",
+    );
+    const publicReviewsPolicy =
+      migration.match(/CREATE POLICY customer_reviews_public_read[\s\S]*?;/)?.[0] ?? "";
+    const adminReviewsPolicy =
+      migration.match(/CREATE POLICY customer_reviews_admin_read[\s\S]*?;/)?.[0] ?? "";
+    const publicSocialLinksPolicy =
+      migration.match(/CREATE POLICY social_links_public_read[\s\S]*?;/)?.[0] ?? "";
+    const adminSocialLinksPolicy =
+      migration.match(/CREATE POLICY social_links_admin_read[\s\S]*?;/)?.[0] ?? "";
+
+    expect(publicReviewsPolicy).toContain(
+      "published = true AND consent_granted = true AND hidden = false",
+    );
+    expect(publicReviewsPolicy).not.toContain("has_role");
+    expect(publicSocialLinksPolicy).toContain("visible = true");
+    expect(publicSocialLinksPolicy).not.toContain("has_role");
+    expect(adminReviewsPolicy).toContain("public.has_role(auth.uid(), 'admin')");
+    expect(adminSocialLinksPolicy).toContain("public.has_role(auth.uid(), 'admin')");
+    expect(migration).not.toMatch(/GRANT EXECUTE[\s\S]*\banon\b/i);
+  });
 });
