@@ -2,6 +2,7 @@ import { Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useLang } from "@/i18n/LanguageProvider";
 import { publicReviewsQuery } from "@/features/content/queries";
+import { visibleCustomerReviews } from "@/features/content/model";
 
 const copy = {
   fi: {
@@ -33,8 +34,8 @@ const copy = {
 export function CustomerReviews() {
   const { lang } = useLang();
   const t = copy[lang];
-  const { data: allReviews = [] } = useQuery(publicReviewsQuery);
-  const reviews = allReviews.filter((review) => review.lang === lang);
+  const { data: result = { reviews: [], error: false } } = useQuery(publicReviewsQuery);
+  const reviews = result.error ? [] : visibleCustomerReviews(result.reviews, lang);
 
   if (!reviews.length) return null;
 
