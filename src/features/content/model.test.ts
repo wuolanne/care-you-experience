@@ -7,9 +7,13 @@ import {
   isSafeExternalUrl,
   makeWhatsAppUrl,
   sourceContentValues,
+  contentPages,
 } from "./model";
 
 describe("Admin v2 content safety helpers", () => {
+  it("keeps pricing out of the generic content editor", () => {
+    expect(contentPages.some((page) => (page.key as string) === "pricing")).toBe(false);
+  });
   it("keeps only string content values for safe text rendering", () => {
     expect(asContentValues({ title: "Otsikko", body: 123, cta: "Lue lisää" })).toEqual({});
     expect(asContentValues({ title: "Otsikko", body: "Teksti" })).toEqual({

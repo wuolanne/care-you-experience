@@ -23,9 +23,6 @@ import {
   type ContentPageKey,
   type ContentValues,
 } from "@/features/content/model";
-import { PricingAdmin } from "@/features/pricing/PricingAdmin";
-import { AboutImageAdmin } from "@/features/content/AboutImageAdmin";
-import { StaffAdmin } from "@/features/staff/StaffAdmin";
 
 export const Route = createFileRoute("/_authenticated/admin/sisallot")({
   component: ContentAdmin,
@@ -232,8 +229,6 @@ function ContentAdmin() {
         </CardContent>
       </Card>
 
-      <PricingAdmin />
-
       <Card>
         <CardHeader>
           <CardTitle>Yrityksen yhteystiedot</CardTitle>
@@ -273,8 +268,6 @@ function ContentAdmin() {
         </CardContent>
       </Card>
 
-      <AboutImageAdmin />
-      <StaffAdmin />
     </div>
   );
 }

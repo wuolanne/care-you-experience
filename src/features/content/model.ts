@@ -12,7 +12,6 @@ export const contentPages = [
   { key: "home-service", label: "TGN kotiin", fields: ["title", "body", "cta"] },
   { key: "business-service", label: "TGN yrityksille", fields: ["title", "body", "cta"] },
   { key: "voucher", label: "TGN palveluseteli", fields: ["title", "body", "comingSoon"] },
-  { key: "pricing", label: "Hinnoittelu", fields: ["title", "body", "note"] },
   { key: "about", label: "Lyhyesti meistä", fields: ["title", "body", "headline", "closing"] },
   {
     key: "forms",
@@ -21,7 +20,9 @@ export const contentPages = [
   },
 ] as const;
 
-export type ContentPageKey = (typeof contentPages)[number]["key"];
+export type ContentPageKey =
+  | (typeof contentPages)[number]["key"]
+  | "pricing";
 export type ContentField =
   | "title"
   | "body"

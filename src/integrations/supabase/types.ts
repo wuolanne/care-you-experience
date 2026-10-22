@@ -470,6 +470,159 @@ export type Database = {
         }
         Relationships: []
       }
+      service_sections: {
+        Row: {
+          service_type: string
+          section_type: string
+          created_at: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          service_type: string
+          section_type: string
+          created_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          service_type?: string
+          section_type?: string
+          created_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      service_section_texts: {
+        Row: {
+          service_type: string
+          section_type: string
+          lang: string
+          draft_title: string
+          draft_body: string
+          published_title: string | null
+          published_body: string | null
+          draft_updated_at: string
+          published_at: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          service_type: string
+          section_type: string
+          lang: string
+          draft_title?: string
+          draft_body?: string
+          published_title?: string | null
+          published_body?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          service_type?: string
+          section_type?: string
+          lang?: string
+          draft_title?: string
+          draft_body?: string
+          published_title?: string | null
+          published_body?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      service_section_items: {
+        Row: {
+          id: string
+          service_type: string
+          section_type: string
+          draft_display_order: number
+          published_display_order: number | null
+          draft_icon: string
+          published_icon: string | null
+          draft_visible: boolean
+          published_visible: boolean | null
+          deleted_at: string | null
+          created_at: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          id?: string
+          service_type: string
+          section_type: string
+          draft_display_order?: number
+          published_display_order?: number | null
+          draft_icon?: string
+          published_icon?: string | null
+          draft_visible?: boolean
+          published_visible?: boolean | null
+          deleted_at?: string | null
+          created_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          id?: string
+          service_type?: string
+          section_type?: string
+          draft_display_order?: number
+          published_display_order?: number | null
+          draft_icon?: string
+          published_icon?: string | null
+          draft_visible?: boolean
+          published_visible?: boolean | null
+          deleted_at?: string | null
+          created_at?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      service_section_item_texts: {
+        Row: {
+          item_id: string
+          lang: string
+          draft_title: string
+          draft_description: string
+          published_title: string | null
+          published_description: string | null
+          draft_updated_at: string
+          published_at: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          item_id: string
+          lang: string
+          draft_title?: string
+          draft_description?: string
+          published_title?: string | null
+          published_description?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          item_id?: string
+          lang?: string
+          draft_title?: string
+          draft_description?: string
+          published_title?: string | null
+          published_description?: string | null
+          draft_updated_at?: string
+          published_at?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       staff_members: {
         Row: {
           id: string
@@ -836,6 +989,35 @@ export type Database = {
         }
         Relationships: []
       }
+      public_service_sections: {
+        Row: {
+          service_type: string
+          section_type: string
+          lang: string
+          title: string
+          body: string
+        }
+        Relationships: []
+      }
+      public_service_section_items: {
+        Row: {
+          id: string
+          service_type: string
+          section_type: string
+          display_order: number
+          icon: string
+        }
+        Relationships: []
+      }
+      public_service_section_item_texts: {
+        Row: {
+          item_id: string
+          lang: string
+          title: string
+          description: string
+        }
+        Relationships: []
+      }
     }
     Functions: {
       admin_site_content: {
@@ -908,6 +1090,26 @@ export type Database = {
           p_id: string
           p_visible: boolean
         }
+        Returns: Json
+      }
+      admin_service_sections: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      admin_upsert_service_section: {
+        Args: {
+          p_service_type: string
+          p_section_type: string
+          p_lang: string
+          p_title: string
+          p_body: string
+          p_items: Json
+          p_publish?: boolean
+        }
+        Returns: Json
+      }
+      admin_delete_service_section_item: {
+        Args: { p_id: string }
         Returns: Json
       }
       admin_upsert_site_image: {

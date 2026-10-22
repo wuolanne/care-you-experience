@@ -25,8 +25,13 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedPyynnotRouteImport } from './routes/_authenticated/pyynnot'
 import { Route as AuthenticatedUutistenYllapitoRouteImport } from './routes/_authenticated/uutisten-yllapito'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminAsiakasedutRouteImport } from './routes/_authenticated/admin/asiakasedut'
 import { Route as AuthenticatedAdminAsiakaspalautteetRouteImport } from './routes/_authenticated/admin/asiakaspalautteet'
+import { Route as AuthenticatedAdminHenkilostoRouteImport } from './routes/_authenticated/admin/henkilosto'
+import { Route as AuthenticatedAdminHinnoitteluRouteImport } from './routes/_authenticated/admin/hinnoittelu'
+import { Route as AuthenticatedAdminKuvatRouteImport } from './routes/_authenticated/admin/kuvat'
 import { Route as AuthenticatedAdminPalvelunaloituksetRouteImport } from './routes/_authenticated/admin/palvelunaloitukset'
+import { Route as AuthenticatedAdminPalvelutRouteImport } from './routes/_authenticated/admin/palvelut'
 import { Route as AuthenticatedAdminSisallotRouteImport } from './routes/_authenticated/admin/sisallot'
 import { Route as AuthenticatedAdminSosiaalinenMediaRouteImport } from './routes/_authenticated/admin/sosiaalinen-media'
 import { Route as AuthenticatedAdminUutisetRouteImport } from './routes/_authenticated/admin/uutiset'
@@ -113,16 +118,45 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminAsiakasedutRoute =
+  AuthenticatedAdminAsiakasedutRouteImport.update({
+    id: '/asiakasedut',
+    path: '/asiakasedut',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminAsiakaspalautteetRoute =
   AuthenticatedAdminAsiakaspalautteetRouteImport.update({
     id: '/asiakaspalautteet',
     path: '/asiakaspalautteet',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminHenkilostoRoute =
+  AuthenticatedAdminHenkilostoRouteImport.update({
+    id: '/henkilosto',
+    path: '/henkilosto',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminHinnoitteluRoute =
+  AuthenticatedAdminHinnoitteluRouteImport.update({
+    id: '/hinnoittelu',
+    path: '/hinnoittelu',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminKuvatRoute = AuthenticatedAdminKuvatRouteImport.update({
+  id: '/kuvat',
+  path: '/kuvat',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminPalvelunaloituksetRoute =
   AuthenticatedAdminPalvelunaloituksetRouteImport.update({
     id: '/palvelunaloitukset',
     path: '/palvelunaloitukset',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminPalvelutRoute =
+  AuthenticatedAdminPalvelutRouteImport.update({
+    id: '/palvelut',
+    path: '/palvelut',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminSisallotRoute =
@@ -171,8 +205,13 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/admin/asiakasedut': typeof AuthenticatedAdminAsiakasedutRoute
   '/admin/asiakaspalautteet': typeof AuthenticatedAdminAsiakaspalautteetRoute
+  '/admin/henkilosto': typeof AuthenticatedAdminHenkilostoRoute
+  '/admin/hinnoittelu': typeof AuthenticatedAdminHinnoitteluRoute
+  '/admin/kuvat': typeof AuthenticatedAdminKuvatRoute
   '/admin/palvelunaloitukset': typeof AuthenticatedAdminPalvelunaloituksetRoute
+  '/admin/palvelut': typeof AuthenticatedAdminPalvelutRoute
   '/admin/sisallot': typeof AuthenticatedAdminSisallotRoute
   '/admin/sosiaalinen-media': typeof AuthenticatedAdminSosiaalinenMediaRoute
   '/admin/uutiset': typeof AuthenticatedAdminUutisetRoute
@@ -194,8 +233,13 @@ export interface FileRoutesByTo {
   '/varaa': typeof VaraaRoute
   '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/admin/asiakasedut': typeof AuthenticatedAdminAsiakasedutRoute
   '/admin/asiakaspalautteet': typeof AuthenticatedAdminAsiakaspalautteetRoute
+  '/admin/henkilosto': typeof AuthenticatedAdminHenkilostoRoute
+  '/admin/hinnoittelu': typeof AuthenticatedAdminHinnoitteluRoute
+  '/admin/kuvat': typeof AuthenticatedAdminKuvatRoute
   '/admin/palvelunaloitukset': typeof AuthenticatedAdminPalvelunaloituksetRoute
+  '/admin/palvelut': typeof AuthenticatedAdminPalvelutRoute
   '/admin/sisallot': typeof AuthenticatedAdminSisallotRoute
   '/admin/sosiaalinen-media': typeof AuthenticatedAdminSosiaalinenMediaRoute
   '/admin/uutiset': typeof AuthenticatedAdminUutisetRoute
@@ -220,8 +264,13 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/pyynnot': typeof AuthenticatedPyynnotRoute
   '/_authenticated/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/_authenticated/admin/asiakasedut': typeof AuthenticatedAdminAsiakasedutRoute
   '/_authenticated/admin/asiakaspalautteet': typeof AuthenticatedAdminAsiakaspalautteetRoute
+  '/_authenticated/admin/henkilosto': typeof AuthenticatedAdminHenkilostoRoute
+  '/_authenticated/admin/hinnoittelu': typeof AuthenticatedAdminHinnoitteluRoute
+  '/_authenticated/admin/kuvat': typeof AuthenticatedAdminKuvatRoute
   '/_authenticated/admin/palvelunaloitukset': typeof AuthenticatedAdminPalvelunaloituksetRoute
+  '/_authenticated/admin/palvelut': typeof AuthenticatedAdminPalvelutRoute
   '/_authenticated/admin/sisallot': typeof AuthenticatedAdminSisallotRoute
   '/_authenticated/admin/sosiaalinen-media': typeof AuthenticatedAdminSosiaalinenMediaRoute
   '/_authenticated/admin/uutiset': typeof AuthenticatedAdminUutisetRoute
@@ -246,8 +295,13 @@ export interface FileRouteTypes {
     | '/admin'
     | '/pyynnot'
     | '/uutisten-yllapito'
+    | '/admin/asiakasedut'
     | '/admin/asiakaspalautteet'
+    | '/admin/henkilosto'
+    | '/admin/hinnoittelu'
+    | '/admin/kuvat'
     | '/admin/palvelunaloitukset'
+    | '/admin/palvelut'
     | '/admin/sisallot'
     | '/admin/sosiaalinen-media'
     | '/admin/uutiset'
@@ -269,8 +323,13 @@ export interface FileRouteTypes {
     | '/varaa'
     | '/pyynnot'
     | '/uutisten-yllapito'
+    | '/admin/asiakasedut'
     | '/admin/asiakaspalautteet'
+    | '/admin/henkilosto'
+    | '/admin/hinnoittelu'
+    | '/admin/kuvat'
     | '/admin/palvelunaloitukset'
+    | '/admin/palvelut'
     | '/admin/sisallot'
     | '/admin/sosiaalinen-media'
     | '/admin/uutiset'
@@ -294,8 +353,13 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/pyynnot'
     | '/_authenticated/uutisten-yllapito'
+    | '/_authenticated/admin/asiakasedut'
     | '/_authenticated/admin/asiakaspalautteet'
+    | '/_authenticated/admin/henkilosto'
+    | '/_authenticated/admin/hinnoittelu'
+    | '/_authenticated/admin/kuvat'
     | '/_authenticated/admin/palvelunaloitukset'
+    | '/_authenticated/admin/palvelut'
     | '/_authenticated/admin/sisallot'
     | '/_authenticated/admin/sosiaalinen-media'
     | '/_authenticated/admin/uutiset'
@@ -433,6 +497,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/asiakasedut': {
+      id: '/_authenticated/admin/asiakasedut'
+      path: '/asiakasedut'
+      fullPath: '/admin/asiakasedut'
+      preLoaderRoute: typeof AuthenticatedAdminAsiakasedutRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/asiakaspalautteet': {
       id: '/_authenticated/admin/asiakaspalautteet'
       path: '/asiakaspalautteet'
@@ -440,11 +511,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAsiakaspalautteetRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/henkilosto': {
+      id: '/_authenticated/admin/henkilosto'
+      path: '/henkilosto'
+      fullPath: '/admin/henkilosto'
+      preLoaderRoute: typeof AuthenticatedAdminHenkilostoRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/hinnoittelu': {
+      id: '/_authenticated/admin/hinnoittelu'
+      path: '/hinnoittelu'
+      fullPath: '/admin/hinnoittelu'
+      preLoaderRoute: typeof AuthenticatedAdminHinnoitteluRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/kuvat': {
+      id: '/_authenticated/admin/kuvat'
+      path: '/kuvat'
+      fullPath: '/admin/kuvat'
+      preLoaderRoute: typeof AuthenticatedAdminKuvatRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/palvelunaloitukset': {
       id: '/_authenticated/admin/palvelunaloitukset'
       path: '/palvelunaloitukset'
       fullPath: '/admin/palvelunaloitukset'
       preLoaderRoute: typeof AuthenticatedAdminPalvelunaloituksetRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/palvelut': {
+      id: '/_authenticated/admin/palvelut'
+      path: '/palvelut'
+      fullPath: '/admin/palvelut'
+      preLoaderRoute: typeof AuthenticatedAdminPalvelutRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/sisallot': {
@@ -486,8 +585,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAsiakasedutRoute: typeof AuthenticatedAdminAsiakasedutRoute
   AuthenticatedAdminAsiakaspalautteetRoute: typeof AuthenticatedAdminAsiakaspalautteetRoute
+  AuthenticatedAdminHenkilostoRoute: typeof AuthenticatedAdminHenkilostoRoute
+  AuthenticatedAdminHinnoitteluRoute: typeof AuthenticatedAdminHinnoitteluRoute
+  AuthenticatedAdminKuvatRoute: typeof AuthenticatedAdminKuvatRoute
   AuthenticatedAdminPalvelunaloituksetRoute: typeof AuthenticatedAdminPalvelunaloituksetRoute
+  AuthenticatedAdminPalvelutRoute: typeof AuthenticatedAdminPalvelutRoute
   AuthenticatedAdminSisallotRoute: typeof AuthenticatedAdminSisallotRoute
   AuthenticatedAdminSosiaalinenMediaRoute: typeof AuthenticatedAdminSosiaalinenMediaRoute
   AuthenticatedAdminUutisetRoute: typeof AuthenticatedAdminUutisetRoute
@@ -497,10 +601,15 @@ interface AuthenticatedAdminRouteChildren {
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAsiakasedutRoute: AuthenticatedAdminAsiakasedutRoute,
   AuthenticatedAdminAsiakaspalautteetRoute:
     AuthenticatedAdminAsiakaspalautteetRoute,
+  AuthenticatedAdminHenkilostoRoute: AuthenticatedAdminHenkilostoRoute,
+  AuthenticatedAdminHinnoitteluRoute: AuthenticatedAdminHinnoitteluRoute,
+  AuthenticatedAdminKuvatRoute: AuthenticatedAdminKuvatRoute,
   AuthenticatedAdminPalvelunaloituksetRoute:
     AuthenticatedAdminPalvelunaloituksetRoute,
+  AuthenticatedAdminPalvelutRoute: AuthenticatedAdminPalvelutRoute,
   AuthenticatedAdminSisallotRoute: AuthenticatedAdminSisallotRoute,
   AuthenticatedAdminSosiaalinenMediaRoute:
     AuthenticatedAdminSosiaalinenMediaRoute,

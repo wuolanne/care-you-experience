@@ -8,6 +8,12 @@ import {
   type PricingService,
 } from "@/features/pricing/model";
 import { parseAdminStaff, publicStaffValues, type StaffLanguage } from "@/features/staff/model";
+import {
+  parseAdminServiceSections,
+  publicServiceSectionValues,
+  type SectionType,
+  type ServiceType,
+} from "@/features/service-sections/model";
 
 export const publicContentQuery = (pageKey: string, lang: string) =>
   queryOptions({
@@ -173,12 +179,56 @@ export const publicStaffQuery = (lang: StaffLanguage) =>
     retry: false,
   });
 
+export const publicServiceSectionQuery = (
+  serviceType: ServiceType,
+  sectionType: SectionType,
+  lang: ContentLanguage,
+) =>
+  queryOptions({
+    queryKey: ["public-service-section", serviceType, sectionType, lang],
+    queryFn: async () => {
+      const [section, items, texts] = await Promise.all([
+        supabase
+          .from("public_service_sections")
+          .select("*")
+          .eq("service_type", serviceType)
+          .eq("section_type", sectionType)
+          .eq("lang", lang),
+        supabase
+          .from("public_service_section_items")
+          .select("*")
+          .eq("service_type", serviceType)
+          .eq("section_type", sectionType)
+          .order("display_order"),
+        supabase.from("public_service_section_item_texts").select("*").eq("lang", lang),
+      ]);
+      return publicServiceSectionValues(
+        serviceType,
+        sectionType,
+        lang,
+        section.error ? [] : section.data,
+        items.error ? [] : items.data,
+        texts.error ? [] : texts.data,
+      );
+    },
+    staleTime: 30_000,
+    retry: false,
+  });
+
 export const adminPricingQuery = queryOptions({
   queryKey: ["admin-pricing"],
   queryFn: async () => {
     const { data, error } = await supabase.rpc("admin_service_pricing");
     if (error) throw new Error("Hinnoittelua ei voitu ladata.");
     return parseAdminPricing(data);
+  },
+});
+
+export const adminServiceSectionsQuery = queryOptions({
+  queryKey: ["admin-service-sections"],
+  queryFn: async () => {
+    const { data, error } = await supabase.rpc("admin_service_sections");
+    return error ? parseAdminServiceSections(undefined) : parseAdminServiceSections(data);
   },
 });
 
