@@ -1,4 +1,5 @@
 import { useRef, useState, type FormEvent } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useServerFn } from '@tanstack/react-start';
 import { CheckCircle2, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,9 +12,11 @@ import { homeCopy } from './copy';
 import { contactSchema, startSchema } from './model';
 
 import { submitContact, submitServiceStart } from './requests.functions';
+import { publicContentQuery } from '@/features/content/queries';
 
 export function RequestForm({kind,audience='home'}:{kind:'contact'|'start';audience?:'home'|'business'}) {
  const {lang}=useLang(); const t=homeCopy[lang];
+ const {data:managed={}}=useQuery(publicContentQuery('forms',lang));
  const sendContact=useServerFn(submitContact); const sendStart=useServerFn(submitServiceStart);
  const [pending,setPending]=useState(false); const [sent,setSent]=useState(false); const [error,setError]=useState(false); const [type,setType]=useState('once');
  const idempotencyKey=useRef(crypto.randomUUID());
@@ -26,9 +29,10 @@ export function RequestForm({kind,audience='home'}:{kind:'contact'|'start';audie
   const website=String(f.get('website')??'');
   try{const result=kind==='contact'?await sendContact({data:{...contactSchema.parse(data.data),website,idempotencyKey:idempotencyKey.current}}):await sendStart({data:{...startSchema.parse(data.data),website,idempotencyKey:idempotencyKey.current}}); if(result.ok)setSent(true);else setError(true);}catch{setError(true);}finally{setPending(false);}
  }
- if(sent)return <div role="status" className="py-6 text-center"><CheckCircle2 className="mx-auto mb-4 size-8 text-primary"/><h2 className="text-2xl">{t.thanks}</h2><p className="mt-4 leading-relaxed text-muted-foreground">{kind==='contact'?t.contactThanks:t.startThanks}</p></div>;
+ if(sent)return <div role="status" className="py-6 text-center"><CheckCircle2 className="mx-auto mb-4 size-8 text-primary"/><h2 className="text-2xl">{t.thanks}</h2><p className="mt-4 leading-relaxed text-muted-foreground">{managed.successMessage || (kind==='contact'?t.contactThanks:t.startThanks)}</p></div>;
  const field=(name:string,label:string,inputType='text',maxLength=200)=><div className="space-y-2" key={name}><Label htmlFor={name}>{label}</Label><Input id={name} name={name} type={inputType} maxLength={maxLength} required /></div>;
  return <form onSubmit={submit} className="space-y-5">
+  {(kind==='contact'?managed.contactHelp:managed.startHelp) && <p className="text-sm leading-relaxed text-muted-foreground">{kind==='contact'?managed.contactHelp:managed.startHelp}</p>}
   <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true"><Label htmlFor="website">Website</Label><Input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
   {kind==='start'&&<>{field('customerName',t.name)}{field('contactPerson',t.person)}</>}
   {field('email',t.email,'email',255)}

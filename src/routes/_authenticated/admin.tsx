@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, redirect, useNavigate } from "@tanstack/react-router";
-import { LayoutDashboard, LogOut, Mail, Newspaper, Video, Wrench } from "lucide-react";
+import { LayoutDashboard, LogOut, Mail, Newspaper, Share2, Video, Wrench, FilePenLine, MessageSquareQuote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { editorAccess } from "@/features/news/editor.functions";
@@ -25,6 +25,9 @@ const links = [
   { to: "/admin/videopalaverit", label: "Videopalaverit", icon: Video },
   { to: "/admin/palvelunaloitukset", label: "Palvelun aloitukset", icon: Wrench },
   { to: "/admin/uutiset", label: "Uutiset", icon: Newspaper },
+  { to: "/admin/sisallot", label: "Sivuston sisällöt", icon: FilePenLine },
+  { to: "/admin/asiakaspalautteet", label: "Asiakaspalautteet", icon: MessageSquareQuote },
+  { to: "/admin/sosiaalinen-media", label: "Sosiaalinen media", icon: Share2 },
 ] as const;
 
 function AdminLayout() {

@@ -64,6 +64,13 @@
       "when": 1792590000000,
       "tag": "0008_admin_dashboard_read_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792600000000,
+      "tag": "0010_admin_content_management",
+      "breakpoints": true
     }
   ]
 }

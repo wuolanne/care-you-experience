@@ -14,8 +14,8 @@ const statCards = [
   ["contacts", "Yhteydenotot", "/admin/yhteydenotot"],
   ["bookings", "Videopalaverit", "/admin/videopalaverit"],
   ["starts", "Palvelun aloitukset", "/admin/palvelunaloitukset"],
-  ["publishedNews", "Julkaistut uutiset", "/uutisten-yllapito"],
-  ["draftNews", "Uutisluonnokset", "/uutisten-yllapito"],
+  ["publishedNews", "Julkaistut uutiset", "/admin/uutiset"],
+  ["draftNews", "Uutisluonnokset", "/admin/uutiset"],
 ] as const;
 
 function AdminDashboard() {

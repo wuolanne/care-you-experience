@@ -200,6 +200,204 @@ export type Database = {
         }
         Relationships: []
       }
+      site_content: {
+        Row: {
+          created_at: string
+          draft_content: Json
+          draft_updated_at: string
+          id: string
+          lang: string
+          page_key: string
+          published_at: string | null
+          published_content: Json | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          draft_content?: Json
+          draft_updated_at?: string
+          id?: string
+          lang: string
+          page_key: string
+          published_at?: string | null
+          published_content?: Json | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          draft_content?: Json
+          draft_updated_at?: string
+          id?: string
+          lang?: string
+          page_key?: string
+          published_at?: string | null
+          published_content?: Json | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      site_contact_details: {
+        Row: {
+          business_id: string
+          id: string
+          public_address: string | null
+          public_email: string | null
+          public_phone: string | null
+          public_text: Json
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          business_id?: string
+          id?: string
+          public_address?: string | null
+          public_email?: string | null
+          public_phone?: string | null
+          public_text?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          business_id?: string
+          id?: string
+          public_address?: string | null
+          public_email?: string | null
+          public_phone?: string | null
+          public_text?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      site_images: {
+        Row: {
+          created_at: string
+          draft_alt_text: string
+          draft_path: string | null
+          id: string
+          lang: string
+          page_key: string
+          published_alt_text: string
+          published_path: string | null
+          slot_key: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          draft_alt_text?: string
+          draft_path?: string | null
+          id?: string
+          lang: string
+          page_key: string
+          published_alt_text?: string
+          published_path?: string | null
+          slot_key: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          draft_alt_text?: string
+          draft_path?: string | null
+          id?: string
+          lang?: string
+          page_key?: string
+          published_alt_text?: string
+          published_path?: string | null
+          slot_key?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      customer_reviews: {
+        Row: {
+          consent_granted: boolean
+          created_at: string
+          customer_type: string
+          display_order: number
+          hidden: boolean
+          id: string
+          lang: string
+          public_name: string
+          published: boolean
+          published_at: string | null
+          rating: number | null
+          review_text: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          consent_granted?: boolean
+          created_at?: string
+          customer_type: string
+          display_order?: number
+          hidden?: boolean
+          id?: string
+          lang: string
+          public_name: string
+          published?: boolean
+          published_at?: string | null
+          rating?: number | null
+          review_text: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          consent_granted?: boolean
+          created_at?: string
+          customer_type?: string
+          display_order?: number
+          hidden?: boolean
+          id?: string
+          lang?: string
+          public_name?: string
+          published?: boolean
+          published_at?: string | null
+          rating?: number | null
+          review_text?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      social_links: {
+        Row: {
+          display_order: number
+          id: string
+          label: string
+          service_key: string
+          updated_at: string
+          updated_by: string | null
+          url: string
+          visible: boolean
+        }
+        Insert: {
+          display_order?: number
+          id?: string
+          label: string
+          service_key: string
+          updated_at?: string
+          updated_by?: string | null
+          url?: string
+          visible?: boolean
+        }
+        Update: {
+          display_order?: number
+          id?: string
+          label?: string
+          service_key?: string
+          updated_at?: string
+          updated_by?: string | null
+          url?: string
+          visible?: boolean
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string

@@ -25,7 +25,10 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedPyynnotRouteImport } from './routes/_authenticated/pyynnot'
 import { Route as AuthenticatedUutistenYllapitoRouteImport } from './routes/_authenticated/uutisten-yllapito'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminAsiakaspalautteetRouteImport } from './routes/_authenticated/admin/asiakaspalautteet'
 import { Route as AuthenticatedAdminPalvelunaloituksetRouteImport } from './routes/_authenticated/admin/palvelunaloitukset'
+import { Route as AuthenticatedAdminSisallotRouteImport } from './routes/_authenticated/admin/sisallot'
+import { Route as AuthenticatedAdminSosiaalinenMediaRouteImport } from './routes/_authenticated/admin/sosiaalinen-media'
 import { Route as AuthenticatedAdminUutisetRouteImport } from './routes/_authenticated/admin/uutiset'
 import { Route as AuthenticatedAdminVideopalaveritRouteImport } from './routes/_authenticated/admin/videopalaverit'
 import { Route as AuthenticatedAdminYhteydenototRouteImport } from './routes/_authenticated/admin/yhteydenotot'
@@ -110,10 +113,28 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminAsiakaspalautteetRoute =
+  AuthenticatedAdminAsiakaspalautteetRouteImport.update({
+    id: '/asiakaspalautteet',
+    path: '/asiakaspalautteet',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminPalvelunaloituksetRoute =
   AuthenticatedAdminPalvelunaloituksetRouteImport.update({
     id: '/palvelunaloitukset',
     path: '/palvelunaloitukset',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminSisallotRoute =
+  AuthenticatedAdminSisallotRouteImport.update({
+    id: '/sisallot',
+    path: '/sisallot',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminSosiaalinenMediaRoute =
+  AuthenticatedAdminSosiaalinenMediaRouteImport.update({
+    id: '/sosiaalinen-media',
+    path: '/sosiaalinen-media',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminUutisetRoute =
@@ -150,7 +171,10 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/admin/asiakaspalautteet': typeof AuthenticatedAdminAsiakaspalautteetRoute
   '/admin/palvelunaloitukset': typeof AuthenticatedAdminPalvelunaloituksetRoute
+  '/admin/sisallot': typeof AuthenticatedAdminSisallotRoute
+  '/admin/sosiaalinen-media': typeof AuthenticatedAdminSosiaalinenMediaRoute
   '/admin/uutiset': typeof AuthenticatedAdminUutisetRoute
   '/admin/videopalaverit': typeof AuthenticatedAdminVideopalaveritRoute
   '/admin/yhteydenotot': typeof AuthenticatedAdminYhteydenototRoute
@@ -170,7 +194,10 @@ export interface FileRoutesByTo {
   '/varaa': typeof VaraaRoute
   '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/admin/asiakaspalautteet': typeof AuthenticatedAdminAsiakaspalautteetRoute
   '/admin/palvelunaloitukset': typeof AuthenticatedAdminPalvelunaloituksetRoute
+  '/admin/sisallot': typeof AuthenticatedAdminSisallotRoute
+  '/admin/sosiaalinen-media': typeof AuthenticatedAdminSosiaalinenMediaRoute
   '/admin/uutiset': typeof AuthenticatedAdminUutisetRoute
   '/admin/videopalaverit': typeof AuthenticatedAdminVideopalaveritRoute
   '/admin/yhteydenotot': typeof AuthenticatedAdminYhteydenototRoute
@@ -193,7 +220,10 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/pyynnot': typeof AuthenticatedPyynnotRoute
   '/_authenticated/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/_authenticated/admin/asiakaspalautteet': typeof AuthenticatedAdminAsiakaspalautteetRoute
   '/_authenticated/admin/palvelunaloitukset': typeof AuthenticatedAdminPalvelunaloituksetRoute
+  '/_authenticated/admin/sisallot': typeof AuthenticatedAdminSisallotRoute
+  '/_authenticated/admin/sosiaalinen-media': typeof AuthenticatedAdminSosiaalinenMediaRoute
   '/_authenticated/admin/uutiset': typeof AuthenticatedAdminUutisetRoute
   '/_authenticated/admin/videopalaverit': typeof AuthenticatedAdminVideopalaveritRoute
   '/_authenticated/admin/yhteydenotot': typeof AuthenticatedAdminYhteydenototRoute
@@ -216,7 +246,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/pyynnot'
     | '/uutisten-yllapito'
+    | '/admin/asiakaspalautteet'
     | '/admin/palvelunaloitukset'
+    | '/admin/sisallot'
+    | '/admin/sosiaalinen-media'
     | '/admin/uutiset'
     | '/admin/videopalaverit'
     | '/admin/yhteydenotot'
@@ -236,7 +269,10 @@ export interface FileRouteTypes {
     | '/varaa'
     | '/pyynnot'
     | '/uutisten-yllapito'
+    | '/admin/asiakaspalautteet'
     | '/admin/palvelunaloitukset'
+    | '/admin/sisallot'
+    | '/admin/sosiaalinen-media'
     | '/admin/uutiset'
     | '/admin/videopalaverit'
     | '/admin/yhteydenotot'
@@ -258,7 +294,10 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/pyynnot'
     | '/_authenticated/uutisten-yllapito'
+    | '/_authenticated/admin/asiakaspalautteet'
     | '/_authenticated/admin/palvelunaloitukset'
+    | '/_authenticated/admin/sisallot'
+    | '/_authenticated/admin/sosiaalinen-media'
     | '/_authenticated/admin/uutiset'
     | '/_authenticated/admin/videopalaverit'
     | '/_authenticated/admin/yhteydenotot'
@@ -394,11 +433,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/asiakaspalautteet': {
+      id: '/_authenticated/admin/asiakaspalautteet'
+      path: '/asiakaspalautteet'
+      fullPath: '/admin/asiakaspalautteet'
+      preLoaderRoute: typeof AuthenticatedAdminAsiakaspalautteetRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/palvelunaloitukset': {
       id: '/_authenticated/admin/palvelunaloitukset'
       path: '/palvelunaloitukset'
       fullPath: '/admin/palvelunaloitukset'
       preLoaderRoute: typeof AuthenticatedAdminPalvelunaloituksetRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/sisallot': {
+      id: '/_authenticated/admin/sisallot'
+      path: '/sisallot'
+      fullPath: '/admin/sisallot'
+      preLoaderRoute: typeof AuthenticatedAdminSisallotRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/sosiaalinen-media': {
+      id: '/_authenticated/admin/sosiaalinen-media'
+      path: '/sosiaalinen-media'
+      fullPath: '/admin/sosiaalinen-media'
+      preLoaderRoute: typeof AuthenticatedAdminSosiaalinenMediaRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/uutiset': {
@@ -426,7 +486,10 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAsiakaspalautteetRoute: typeof AuthenticatedAdminAsiakaspalautteetRoute
   AuthenticatedAdminPalvelunaloituksetRoute: typeof AuthenticatedAdminPalvelunaloituksetRoute
+  AuthenticatedAdminSisallotRoute: typeof AuthenticatedAdminSisallotRoute
+  AuthenticatedAdminSosiaalinenMediaRoute: typeof AuthenticatedAdminSosiaalinenMediaRoute
   AuthenticatedAdminUutisetRoute: typeof AuthenticatedAdminUutisetRoute
   AuthenticatedAdminVideopalaveritRoute: typeof AuthenticatedAdminVideopalaveritRoute
   AuthenticatedAdminYhteydenototRoute: typeof AuthenticatedAdminYhteydenototRoute
@@ -434,8 +497,13 @@ interface AuthenticatedAdminRouteChildren {
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAsiakaspalautteetRoute:
+    AuthenticatedAdminAsiakaspalautteetRoute,
   AuthenticatedAdminPalvelunaloituksetRoute:
     AuthenticatedAdminPalvelunaloituksetRoute,
+  AuthenticatedAdminSisallotRoute: AuthenticatedAdminSisallotRoute,
+  AuthenticatedAdminSosiaalinenMediaRoute:
+    AuthenticatedAdminSosiaalinenMediaRoute,
   AuthenticatedAdminUutisetRoute: AuthenticatedAdminUutisetRoute,
   AuthenticatedAdminVideopalaveritRoute: AuthenticatedAdminVideopalaveritRoute,
   AuthenticatedAdminYhteydenototRoute: AuthenticatedAdminYhteydenototRoute,

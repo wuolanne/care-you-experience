@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Building2, Leaf, Snowflake, RefreshCw, UserRoundCheck, ShieldCheck, CalendarCheck, Mail, Video, ArrowRight } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 import { useLang } from '@/i18n/LanguageProvider';
@@ -8,20 +9,25 @@ import { HomePricing } from '../home-service/HomePricing';
 import { RequestForm } from '../home-service/RequestForms';
 import { homeCopy } from '../home-service/copy';
 import { businessCopy } from './copy';
+import { publicContentQuery } from '@/features/content/queries';
 
 export function BusinessService() {
   const { lang } = useLang();
   const t = businessCopy[lang];
   const h = homeCopy[lang];
+  const { data: managed = {} } = useQuery(publicContentQuery('business-service', lang));
+  const banner = managed.title || t.banner;
+  const intro = managed.body || t.intro;
+  const contact = managed.cta || h.contact;
   const [form, setForm] = useState<'contact' | 'start' | null>(null);
   const icons = [Building2, Leaf, Snowflake];
   const benefitIcons = [RefreshCw, UserRoundCheck, ShieldCheck, CalendarCheck];
   return <>
     <section className="border-b border-border bg-[image:var(--gradient-lilac)]"><div className="mx-auto max-w-6xl px-6 py-10 md:py-12">
-      <h1 className="text-4xl text-primary md:text-5xl">{t.banner}</h1>
+      <h1 className="text-4xl text-primary md:text-5xl">{banner}</h1>
       <h2 className="mt-4 text-2xl leading-tight md:text-3xl">{t.subtitle}</h2>
-      <p className="mt-5 text-base leading-relaxed text-plum">{t.intro}</p>
-      <div className="mt-8 grid gap-3 sm:grid-cols-3"><Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('contact')}><Mail aria-hidden="true" />{h.contact}</Button><Button asChild size="lg" className="h-auto min-h-12 whitespace-normal py-3"><Link to="/varaa"><Video aria-hidden="true" />{h.video}</Link></Button><Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('start')}><ArrowRight aria-hidden="true" />{h.start}</Button></div>
+      <p className="mt-5 text-base leading-relaxed text-plum">{intro}</p>
+      <div className="mt-8 grid gap-3 sm:grid-cols-3"><Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('contact')}><Mail aria-hidden="true" />{contact}</Button><Button asChild size="lg" className="h-auto min-h-12 whitespace-normal py-3"><Link to="/varaa"><Video aria-hidden="true" />{h.video}</Link></Button><Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('start')}><ArrowRight aria-hidden="true" />{h.start}</Button></div>
     </div></section>
     <section className="bg-background"><div className="mx-auto max-w-6xl px-6 py-14">
       <h2 className="text-3xl md:text-4xl">{t.partner}</h2><div className="mt-7 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">{t.benefits.map((benefit, index) => {
