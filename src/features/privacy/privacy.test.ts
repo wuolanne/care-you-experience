@@ -63,6 +63,16 @@ describe("privacy translations", () => {
     }
   });
 
+  it("states that form data is not used for separate direct marketing", () => {
+    for (const { code } of LANGS) {
+      const purposes = t[code].privacy.sections[1]!.paragraphs.join(" ");
+
+      expect(purposes).toMatch(
+        /direct marketing|direktmarknadsföring|marketing directo|suoramarkkinointiin/,
+      );
+    }
+  });
+
   it("keeps the privacy page free of redundant action buttons and nested main elements", () => {
     expect(privacyRouteSource).not.toContain("<main");
     expect(privacyRouteSource).toContain("href={`mailto:${email}`}");
