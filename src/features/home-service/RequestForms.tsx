@@ -33,10 +33,10 @@ export function RequestForm({kind,audience='home'}:{kind:'contact'|'start';audie
  const successMessage = kind === 'contact'
   ? managed.contactSuccessMessage || managed.successMessage || t.contactThanks
   : managed.startSuccessMessage || managed.successMessage || t.startThanks;
- if(sent)return <div role="status" className="py-6 text-center"><CheckCircle2 className="mx-auto mb-4 size-8 text-primary"/><h2 className="text-2xl">{t.thanks}</h2><p className="mt-4 leading-relaxed text-muted-foreground">{successMessage}</p></div>;
+ if(sent)return <div role="status" className="py-6 text-center"><CheckCircle2 className="mx-auto mb-4 size-8 text-primary"/><h2 className="text-2xl">{t.thanks}</h2><p className="managed-copy mt-4 break-words leading-relaxed text-muted-foreground">{successMessage}</p></div>;
  const field=(name:string,label:string,inputType='text',maxLength=200)=><div className="space-y-2" key={name}><Label htmlFor={name}>{label}</Label><Input id={name} name={name} type={inputType} maxLength={maxLength} required /></div>;
  return <form onSubmit={submit} className="space-y-5">
-  {(kind==='contact'?managed.contactHelp:managed.startHelp) && <p className="text-sm leading-relaxed text-muted-foreground">{kind==='contact'?managed.contactHelp:managed.startHelp}</p>}
+  {(kind==='contact'?managed.contactHelp:managed.startHelp) && <p className="managed-copy break-words text-sm leading-relaxed text-muted-foreground">{kind==='contact'?managed.contactHelp:managed.startHelp}</p>}
   <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true"><Label htmlFor="website">Website</Label><Input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
   {kind==='start'&&<>{field('customerName',t.name)}{field('contactPerson',t.person)}</>}
   {field('email',t.email,'email',255)}

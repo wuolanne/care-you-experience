@@ -70,7 +70,7 @@ function AboutPage() {
           <div className="min-w-0 md:col-start-2 md:row-start-2">
             <h2 className="text-2xl leading-tight md:text-3xl">{managed.headline || tr.about.headline}</h2>
             <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
-              {(managed.body ? managed.body.split("\n\n") : tr.about.intro).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {managed.body ? <p className="managed-copy break-words">{managed.body}</p> : tr.about.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
             {tr.about.sections.map((section) => (
               <div key={section.title} className="mt-8">

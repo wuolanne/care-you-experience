@@ -2,6 +2,7 @@ import { Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useLang } from "@/i18n/LanguageProvider";
 import { publicReviewsQuery } from "@/features/content/queries";
+import type { CustomerReview } from "@/features/content/model";
 
 const copy = {
   fi: { title: "ASIAKKAAMME ARVIO", feedback: "Asiakaspalaute", nickname: "Nimimerkki", stars: "Tähtiarvion paikka" },
@@ -14,7 +15,7 @@ export function CustomerReviews() {
   const { lang } = useLang();
   const t = copy[lang];
   const { data: allReviews = [] } = useQuery(publicReviewsQuery);
-  const reviews = allReviews.filter((review) => review.lang === lang);
+  const reviews = (allReviews as CustomerReview[]).filter((review) => review.lang === lang);
 
   if (!reviews.length) return null;
 
@@ -25,7 +26,7 @@ export function CustomerReviews() {
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
           {reviews.map((review) => (
             <div key={review.id} className="flex min-w-0 flex-col items-center">
-              <blockquote aria-label={t.feedback} className="relative min-h-16 w-full max-w-md rounded-2xl border border-primary/20 bg-background px-4 py-3 text-sm leading-relaxed text-primary after:absolute after:-bottom-2 after:left-1/2 after:size-3 after:-translate-x-1/2 after:rotate-45 after:border-b after:border-r after:border-primary/20 after:bg-background">
+              <blockquote aria-label={t.feedback} className="managed-copy relative min-h-16 w-full max-w-md break-words rounded-2xl border border-primary/20 bg-background px-4 py-3 text-sm leading-relaxed text-primary after:absolute after:-bottom-2 after:left-1/2 after:size-3 after:-translate-x-1/2 after:rotate-45 after:border-b after:border-r after:border-primary/20 after:bg-background">
                 {review.review_text}
               </blockquote>
               <div role="img" aria-label={review.rating === null ? t.stars : `${review.rating}/5`} className="mt-5 flex justify-center gap-1.5 text-primary">

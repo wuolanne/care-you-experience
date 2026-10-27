@@ -1,17 +1,30 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, EyeOff, Pencil, Plus, Save } from "lucide-react";
+import { Check, EyeOff, Pencil, Plus, Save, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { adminReviewsQuery } from "@/features/content/queries";
 import {
   customerTypeLabels,
   contentLanguages,
+  customerReviewFlags,
+  customerReviewVisibility,
   type CustomerReview,
+  type CustomerReviewVisibility,
 } from "@/features/content/model";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -26,8 +39,7 @@ type ReviewForm = {
   review_text: string;
   rating: string;
   consent_granted: boolean;
-  published: boolean;
-  hidden: boolean;
+  visibility: CustomerReviewVisibility;
   display_order: string;
 };
 
@@ -38,8 +50,7 @@ const emptyForm: ReviewForm = {
   review_text: "",
   rating: "",
   consent_granted: false,
-  published: false,
-  hidden: false,
+  visibility: "hidden",
   display_order: "0",
 };
 
@@ -51,8 +62,7 @@ function reviewToForm(review: CustomerReview): ReviewForm {
     review_text: review.review_text,
     rating: review.rating?.toString() ?? "",
     consent_granted: review.consent_granted,
-    published: review.published,
-    hidden: review.hidden,
+    visibility: customerReviewVisibility(review),
     display_order: review.display_order.toString(),
   };
 }
@@ -64,6 +74,7 @@ function ReviewsAdmin() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   function updateForm<K extends keyof ReviewForm>(key: K, value: ReviewForm[K]) {
     setForm((previous) => ({ ...previous, [key]: value }));
@@ -80,7 +91,17 @@ function ReviewsAdmin() {
       setNotice("Nimi ja palaute ovat pakollisia.");
       return;
     }
-    if (form.published && !form.consent_granted) {
+    if (form.visibility === "conflict") {
+      setNotice(
+        "Palautteen tietokannassa on ristiriitaiset näkyvyysarvot. Valitse Julkinen tai Piilossa ennen tallennusta.",
+      );
+      return;
+    }
+    if (form.visibility !== "public" && form.visibility !== "hidden") {
+      setNotice("Valitse palautteelle tila: Julkinen tai Piilossa.");
+      return;
+    }
+    if (form.visibility === "public" && !form.consent_granted) {
       setNotice("Palautetta ei voi julkaista ilman julkaisulupaa.");
       return;
     }
@@ -98,10 +119,9 @@ function ReviewsAdmin() {
       review_text: form.review_text.trim(),
       rating,
       consent_granted: form.consent_granted,
-      published: form.published,
-      hidden: form.hidden,
+      ...customerReviewFlags(form.visibility),
       display_order: Number(form.display_order) || 0,
-      published_at: form.published ? new Date().toISOString() : null,
+      published_at: form.visibility === "public" ? new Date().toISOString() : null,
     };
     const result = editingId
       ? await supabase.from("customer_reviews").update(payload).eq("id", editingId)
@@ -115,7 +135,25 @@ function ReviewsAdmin() {
     await queryClient.invalidateQueries({ queryKey: ["public-reviews"] });
     setForm(emptyForm);
     setEditingId(null);
-    setNotice(form.published ? "Palaute julkaistiin." : "Palaute tallennettiin luonnoksena.");
+    setNotice(form.visibility === "public" ? "Palaute julkaistiin." : "Palaute tallennettiin piiloon.");
+  }
+
+  async function removeReview() {
+    if (!editingId) return;
+    setBusy(true);
+    setNotice(null);
+    const { error } = await supabase.from("customer_reviews").delete().eq("id", editingId);
+    setBusy(false);
+    setDeleteOpen(false);
+    if (error) {
+      setNotice("Palautetta ei voitu poistaa. Tarkista ylläpitäjän oikeudet.");
+      return;
+    }
+    await queryClient.invalidateQueries({ queryKey: ["admin-customer-reviews"] });
+    await queryClient.invalidateQueries({ queryKey: ["public-reviews"] });
+    setForm(emptyForm);
+    setEditingId(null);
+    setNotice("Palaute poistettiin.");
   }
 
   if (isLoading) return <p className="text-muted-foreground">Ladataan palautteita…</p>;
@@ -221,24 +259,36 @@ function ReviewsAdmin() {
               Julkaisulupa koskee nimeä ja palautetekstiä
             </label>
           </div>
-          <div className="flex flex-wrap gap-5 text-sm">
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={form.published}
-                onChange={(event) => updateForm("published", event.target.checked)}
-              />{" "}
-              Julkaistu
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={form.hidden}
-                onChange={(event) => updateForm("hidden", event.target.checked)}
-              />{" "}
-              Piilotettu
-            </label>
-          </div>
+          <fieldset className="space-y-3">
+            <legend className="text-sm font-medium">Näkyvyys</legend>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {([
+                ["public", "Julkinen", "Palaute näkyy julkisella verkkosivustolla."],
+                ["hidden", "Piilossa", "Palaute säilyy hallintapaneelissa, mutta ei näy julkisella sivustolla."],
+              ] as const).map(([value, label, description]) => (
+                <label key={value} className="flex cursor-pointer items-start gap-3 rounded-md border p-3 text-sm">
+                  <input
+                    type="radio"
+                    name="review-visibility"
+                    value={value}
+                    required
+                    checked={form.visibility === value}
+                    onChange={() => updateForm("visibility", value)}
+                    className="mt-1"
+                  />
+                  <span>
+                    <span className="font-medium">{label}</span>
+                    <span className="mt-1 block text-muted-foreground">{description}</span>
+                  </span>
+                </label>
+              ))}
+            </div>
+            {form.visibility === "conflict" && (
+              <p role="alert" className="text-sm text-destructive">
+                Tietueella on ristiriitaiset julkaistu- ja piilotettu-arvot. Valitse tila uudelleen.
+              </p>
+            )}
+          </fieldset>
           <div className="flex flex-wrap gap-3">
             <Button disabled={busy} onClick={() => void save()}>
               <Save aria-hidden="true" />
@@ -255,6 +305,12 @@ function ReviewsAdmin() {
               <Plus aria-hidden="true" />
               Uusi palaute
             </Button>
+            {editingId && (
+              <Button variant="destructive" disabled={busy} onClick={() => setDeleteOpen(true)}>
+                <Trash2 aria-hidden="true" />
+                Poista palaute
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -266,7 +322,7 @@ function ReviewsAdmin() {
             </CardContent>
           </Card>
         )}
-        {reviews.map((review) => (
+        {reviews.map((review: CustomerReview) => (
           <Card key={review.id}>
             <CardContent className="space-y-3 pt-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
@@ -280,10 +336,14 @@ function ReviewsAdmin() {
                   </p>
                 </div>
                 <div className="flex gap-2 text-xs">
-                  {review.published && review.consent_granted && !review.hidden ? (
+                  {customerReviewVisibility(review) === "public" ? (
                     <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-1">
                       <Check className="size-3" />
                       Julkaistu
+                    </span>
+                  ) : customerReviewVisibility(review) === "conflict" ? (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-destructive/40 bg-destructive/10 px-2 py-1 text-destructive">
+                      Ristiriitainen tila
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-1">
@@ -305,6 +365,23 @@ function ReviewsAdmin() {
           </Card>
         ))}
       </div>
+      <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Poistetaanko palaute pysyvästi?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tämä on pysyvä toimenpide. Palaute poistetaan tietokannasta, eikä sitä voi palauttaa
+              hallintapaneelista.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={busy}>Peruuta</AlertDialogCancel>
+            <AlertDialogAction disabled={busy} onClick={() => void removeReview()}>
+              Vahvista poistaminen
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

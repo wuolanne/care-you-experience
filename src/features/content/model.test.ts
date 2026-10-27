@@ -8,6 +8,8 @@ import {
   makeWhatsAppUrl,
   sourceContentValues,
   contentPages,
+  customerReviewFlags,
+  customerReviewVisibility,
 } from "./model";
 
 describe("Admin v2 content safety helpers", () => {
@@ -26,7 +28,24 @@ describe("Admin v2 content safety helpers", () => {
     expect(contentEditorValues("home", "fi")).toMatchObject({
       title: t.fi.hero.title,
       body: t.fi.hero.lead,
+      pricingTitle: t.fi.pricingBanner.title,
+      pricingMonthlyDescription: t.fi.pricingBanner.paragraphs[0],
+      valuesTitle: t.fi.values.title,
+      value4Body: t.fi.values.items[3]?.body,
     });
+  });
+
+  it("keeps line breaks in managed home content values", () => {
+    const values = contentEditorValues("home", "fi", {
+      published_content: null,
+      draft_content: {
+        pricingMonthlyDescription: "Ensimmäinen rivi\nToinen rivi\n\nUusi kappale.",
+        value1Body: "Arvo yksi\nkuvaus jatkuu.",
+      },
+    });
+
+    expect(values.pricingMonthlyDescription).toBe("Ensimmäinen rivi\nToinen rivi\n\nUusi kappale.");
+    expect(values.value1Body).toBe("Arvo yksi\nkuvaus jatkuu.");
   });
 
   it("prioritizes a draft over published content and source translations", () => {
@@ -71,6 +90,15 @@ describe("Admin v2 content safety helpers", () => {
   it("normalizes a WhatsApp phone number", () => {
     expect(makeWhatsAppUrl("+358 45 783 9301")).toBe("https://wa.me/358457839301");
     expect(makeWhatsAppUrl("12")).toBeNull();
+  });
+
+  it("maps review visibility to one explicit UI state", () => {
+    expect(customerReviewVisibility({ published: true, hidden: false })).toBe("public");
+    expect(customerReviewVisibility({ published: false, hidden: true })).toBe("hidden");
+    expect(customerReviewVisibility({ published: false, hidden: false })).toBe("hidden");
+    expect(customerReviewVisibility({ published: true, hidden: true })).toBe("conflict");
+    expect(customerReviewFlags("public")).toEqual({ published: true, hidden: false });
+    expect(customerReviewFlags("hidden")).toEqual({ published: false, hidden: true });
   });
 
   it("keeps drafts behind admin functions and a private image bucket", () => {

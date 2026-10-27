@@ -43,6 +43,20 @@ function Index() {
   const heroLead = managed.body || tr.hero.lead;
   const heroContact = managed.cta || t.contact;
   const heroSecondary = managed.secondary || t.video;
+  const pricingTitle = managed.pricingTitle || tr.pricingBanner.title;
+  const pricingParagraphs = [
+    managed.pricingMonthlyDescription || tr.pricingBanner.paragraphs[0],
+    managed.pricingServiceDescription || tr.pricingBanner.paragraphs[1],
+  ];
+  const pricingLanguages = managed.pricingLanguages || tr.pricingBanner.languages;
+  const pricingHomeButton = managed.pricingHomeButton || tr.pricingBanner.home;
+  const pricingBusinessButton = managed.pricingBusinessButton || tr.pricingBanner.business;
+  const valuesEyebrow = managed.valuesEyebrow || tr.values.eyebrow;
+  const valuesTitle = managed.valuesTitle || tr.values.title;
+  const values = tr.values.items.map((value, index) => ({
+    title: managed[`value${index + 1}Title` as keyof typeof managed] || value.title,
+    body: managed[`value${index + 1}Body` as keyof typeof managed] || value.body,
+  }));
   const [form, setForm] = useState<'contact' | 'start' | null>(null);
 
   return (
@@ -55,9 +69,7 @@ function Index() {
               {heroTitle}
             </h1>
             <div className="mt-5 space-y-3 text-base leading-relaxed text-plum">
-              {heroLead.split("\n\n").map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+              <p className="managed-copy break-words">{heroLead}</p>
             </div>
           </div>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -71,17 +83,19 @@ function Index() {
 
       <section id="hinnoittelu" aria-labelledby="pricing-banner-title" className="border-b border-border/60 bg-background">
         <div className="mx-auto max-w-6xl px-6 py-12 text-center md:py-16">
-          <h2 id="pricing-banner-title" className="text-4xl leading-tight text-primary md:text-5xl">{tr.pricingBanner.title}</h2>
+          <h2 id="pricing-banner-title" className="text-4xl leading-tight text-primary md:text-5xl">{pricingTitle}</h2>
           <div className="mx-auto mt-6 max-w-4xl space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
-            {tr.pricingBanner.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            {pricingParagraphs.map((paragraph, index) => (
+              <p key={index} className="managed-copy break-words">{paragraph}</p>
+            ))}
           </div>
-          <p className="mt-6 text-base font-medium text-foreground">{tr.pricingBanner.languages}</p>
+          <p className="managed-copy mt-6 break-words text-base font-medium text-foreground">{pricingLanguages}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
-              <Link to="/care-kotiin">{tr.pricingBanner.home}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
+              <Link to="/care-kotiin">{pricingHomeButton}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
             </Button>
             <Button asChild size="lg" className="h-auto min-h-12 whitespace-normal px-8 py-3 text-base">
-              <Link to="/care-yrityksille">{tr.pricingBanner.business}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
+              <Link to="/care-yrityksille">{pricingBusinessButton}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>
             </Button>
           </div>
         </div>
@@ -90,17 +104,17 @@ function Index() {
       <section id="arvot" aria-labelledby="values-title" className="border-b border-border/60 bg-[image:var(--gradient-lilac)]">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="text-center">
-            <p className="eyebrow">{tr.values.eyebrow}</p>
-            <h2 id="values-title" className="mt-4 text-3xl md:text-4xl">{tr.values.title}</h2>
+            <p className="managed-copy eyebrow break-words">{valuesEyebrow}</p>
+            <h2 id="values-title" className="managed-copy mt-4 break-words text-3xl md:text-4xl">{valuesTitle}</h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {tr.values.items.map((value, index) => {
+            {values.map((value, index) => {
               const Icon = [ShieldCheck, MessagesSquare, HeartHandshake, Wallet][index] ?? ShieldCheck;
               return (
                 <div key={value.title} className="rounded-sm border border-border bg-card p-8">
                   <Icon className="size-6 text-accent" strokeWidth={1.25} />
-                  <h3 className="mt-5 text-xl leading-snug">{value.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{value.body}</p>
+                  <h3 className="managed-copy mt-5 break-words text-xl leading-snug">{value.title}</h3>
+                  <p className="managed-copy mt-3 text-sm leading-relaxed text-muted-foreground">{value.body}</p>
                 </div>
               );
             })}

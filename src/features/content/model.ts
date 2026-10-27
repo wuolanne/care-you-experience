@@ -8,7 +8,32 @@ export const contentLanguages = ["fi", "sv", "es", "en"] as const;
 export type ContentLanguage = (typeof contentLanguages)[number];
 
 export const contentPages = [
-  { key: "home", label: "Etusivu", fields: ["title", "body", "cta", "secondary"] },
+  {
+    key: "home",
+    label: "Etusivu",
+    fields: [
+      "title",
+      "body",
+      "cta",
+      "secondary",
+      "pricingTitle",
+      "pricingMonthlyDescription",
+      "pricingServiceDescription",
+      "pricingLanguages",
+      "pricingHomeButton",
+      "pricingBusinessButton",
+      "valuesEyebrow",
+      "valuesTitle",
+      "value1Title",
+      "value1Body",
+      "value2Title",
+      "value2Body",
+      "value3Title",
+      "value3Body",
+      "value4Title",
+      "value4Body",
+    ] as const,
+  },
   { key: "home-service", label: "TGN kotiin", fields: ["title", "body", "cta"] },
   { key: "business-service", label: "TGN yrityksille", fields: ["title", "body", "cta"] },
   { key: "voucher", label: "TGN palveluseteli", fields: ["title", "body", "comingSoon"] },
@@ -36,7 +61,23 @@ export type ContentField =
   | "contactSuccessMessage"
   | "successMessage"
   | "startHelp"
-  | "startSuccessMessage";
+  | "startSuccessMessage"
+  | "pricingTitle"
+  | "pricingMonthlyDescription"
+  | "pricingServiceDescription"
+  | "pricingLanguages"
+  | "pricingHomeButton"
+  | "pricingBusinessButton"
+  | "valuesEyebrow"
+  | "valuesTitle"
+  | "value1Title"
+  | "value1Body"
+  | "value2Title"
+  | "value2Body"
+  | "value3Title"
+  | "value3Body"
+  | "value4Title"
+  | "value4Body";
 export type ContentValues = Partial<Record<ContentField, string>>;
 
 export type SiteContent = Tables<"site_content">;
@@ -44,6 +85,21 @@ export type SiteImage = Tables<"site_images">;
 export type CustomerReview = Tables<"customer_reviews">;
 export type SocialLink = Tables<"social_links">;
 export type SiteContactDetails = Tables<"site_contact_details">;
+
+export type CustomerReviewVisibility = "public" | "hidden" | "conflict";
+
+export function customerReviewVisibility(
+  review: Pick<CustomerReview, "published" | "hidden">,
+): CustomerReviewVisibility {
+  if (review.published && review.hidden) return "conflict";
+  return review.published ? "public" : "hidden";
+}
+
+export function customerReviewFlags(visibility: Exclude<CustomerReviewVisibility, "conflict">) {
+  return visibility === "public"
+    ? { published: true, hidden: false }
+    : { published: false, hidden: true };
+}
 
 export const contentValueSchema = z.record(z.string().max(20_000));
 
@@ -67,6 +123,22 @@ export function contentFieldLabel(field: ContentField): string {
     successMessage: "Vanha yhteinen onnistumisviesti",
     startHelp: "Palvelun aloituslomakkeen ohjeteksti",
     startSuccessMessage: "Palvelun aloituksen onnistumisviesti",
+    pricingTitle: "Hinnoittelu-osion otsikko",
+    pricingMonthlyDescription: "Kuukausi- ja yksittäisten palvelutuntien kuvaus",
+    pricingServiceDescription: "Koti- ja yrityspalveluiden hinnoittelumallin kuvaus",
+    pricingLanguages: "Palvelukieliä käsittelevä teksti",
+    pricingHomeButton: "TGN Kotiin -painikkeen teksti",
+    pricingBusinessButton: "TGN Yrityksille -painikkeen teksti",
+    valuesEyebrow: "Arvomme-osion yläotsikko",
+    valuesTitle: "Arvomme-osion pääotsikko",
+    value1Title: "1. arvokortin otsikko",
+    value1Body: "1. arvokortin kuvausteksti",
+    value2Title: "2. arvokortin otsikko",
+    value2Body: "2. arvokortin kuvausteksti",
+    value3Title: "3. arvokortin otsikko",
+    value3Body: "3. arvokortin kuvausteksti",
+    value4Title: "4. arvokortin otsikko",
+    value4Body: "4. arvokortin kuvausteksti",
   }[field];
 }
 
@@ -76,12 +148,31 @@ export function sourceContentValues(pageKey: ContentPageKey, lang: ContentLangua
 
   switch (pageKey) {
     case "home":
-      return {
-        title: translations.hero.title,
-        body: translations.hero.lead,
-        cta: home.contact,
-        secondary: home.video,
-      };
+      {
+        const valueItems = translations.values.items;
+        return {
+          title: translations.hero.title,
+          body: translations.hero.lead,
+          cta: home.contact,
+          secondary: home.video,
+          pricingTitle: translations.pricingBanner.title,
+          pricingMonthlyDescription: translations.pricingBanner.paragraphs[0] ?? "",
+          pricingServiceDescription: translations.pricingBanner.paragraphs[1] ?? "",
+          pricingLanguages: translations.pricingBanner.languages,
+          pricingHomeButton: translations.pricingBanner.home,
+          pricingBusinessButton: translations.pricingBanner.business,
+          valuesEyebrow: translations.values.eyebrow,
+          valuesTitle: translations.values.title,
+          value1Title: valueItems[0]?.title ?? "",
+          value1Body: valueItems[0]?.body ?? "",
+          value2Title: valueItems[1]?.title ?? "",
+          value2Body: valueItems[1]?.body ?? "",
+          value3Title: valueItems[2]?.title ?? "",
+          value3Body: valueItems[2]?.body ?? "",
+          value4Title: valueItems[3]?.title ?? "",
+          value4Body: valueItems[3]?.body ?? "",
+        };
+      }
     case "home-service":
       return { title: home.banner, body: home.intro, cta: home.contact };
     case "business-service":

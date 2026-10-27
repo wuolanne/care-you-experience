@@ -51,6 +51,41 @@ function ContentAdmin() {
     () => contentPages.find((page) => page.key === pageKey) ?? contentPages[0],
     [pageKey],
   );
+  const fieldGroups =
+    pageKey === "home"
+      ? [
+          {
+            title: "Etusivun esittely",
+            fields: ["title", "body", "cta", "secondary"] as ContentField[],
+          },
+          {
+            title: "Hinnoittelu-osio",
+            fields: [
+              "pricingTitle",
+              "pricingMonthlyDescription",
+              "pricingServiceDescription",
+              "pricingLanguages",
+              "pricingHomeButton",
+              "pricingBusinessButton",
+            ] as ContentField[],
+          },
+          {
+            title: "Arvomme-osio",
+            fields: [
+              "valuesEyebrow",
+              "valuesTitle",
+              "value1Title",
+              "value1Body",
+              "value2Title",
+              "value2Body",
+              "value3Title",
+              "value3Body",
+              "value4Title",
+              "value4Body",
+            ] as ContentField[],
+          },
+        ]
+      : [{ title: "", fields: selectedPage.fields as unknown as readonly ContentField[] }];
 
   useEffect(() => {
     setValues(contentEditorValues(pageKey, lang, currentRecord));
@@ -166,27 +201,61 @@ function ContentAdmin() {
               </select>
             </div>
           </div>
-          {selectedPage.fields.map((field) => (
-            <div key={field} className="space-y-2">
-              <Label htmlFor={`content-${field}`}>{contentFieldLabel(field as ContentField)}</Label>
-              <Textarea
-                id={`content-${field}`}
-                rows={field === "body" ? 7 : 3}
-                value={values[field as ContentField] ?? ""}
-                onChange={(event) =>
-                  setValues((previous) => ({ ...previous, [field]: event.target.value }))
-                }
-              />
-            </div>
+          {fieldGroups.map((group) => (
+            <section key={group.title || "content-fields"} className="space-y-4">
+              {group.title && <h3 className="border-b border-border pb-2 text-2xl">{group.title}</h3>}
+              <div className="space-y-4">
+                {group.fields.map((field) => (
+                  <div key={field} className="space-y-2">
+                    <Label htmlFor={`content-${field}`}>{contentFieldLabel(field)}</Label>
+                    <Textarea
+                      id={`content-${field}`}
+                      rows={field === "body" ? 7 : field.endsWith("Body") ? 5 : 3}
+                      value={values[field] ?? ""}
+                      onChange={(event) =>
+                        setValues((previous) => ({ ...previous, [field]: event.target.value }))
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
           ))}
           <div className="rounded-md border border-dashed border-primary/40 bg-secondary/20 p-5">
             <p className="eyebrow">Luonnoksen esikatselu</p>
             <h3 className="mt-3 text-2xl text-primary">{values.title || "Otsikko"}</h3>
             {values.headline && <h4 className="mt-3 text-lg">{values.headline}</h4>}
             {values.body && (
-              <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-muted-foreground">
+              <p className="managed-copy mt-3 text-sm leading-relaxed text-muted-foreground">
                 {values.body}
               </p>
+            )}
+            {pageKey === "home" && (
+              <div className="mt-6 space-y-4 border-t border-border/70 pt-5">
+                <div>
+                  <p className="eyebrow">{values.pricingTitle || "Hinnoittelu"}</p>
+                  <p className="managed-copy mt-2 text-sm text-muted-foreground">
+                    {values.pricingMonthlyDescription}
+                  </p>
+                  <p className="managed-copy mt-2 text-sm text-muted-foreground">
+                    {values.pricingServiceDescription}
+                  </p>
+                </div>
+                <div>
+                  <p className="eyebrow">{values.valuesEyebrow || "Arvomme"}</p>
+                  <h4 className="mt-2 text-xl text-primary">{values.valuesTitle}</h4>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    {[1, 2, 3, 4].map((index) => (
+                      <div key={index} className="rounded-md border border-border bg-background p-3">
+                        <p className="font-medium">{values[`value${index}Title` as ContentField]}</p>
+                        <p className="managed-copy mt-1 text-sm text-muted-foreground">
+                          {values[`value${index}Body` as ContentField]}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             )}
             {(values.cta || values.secondary) && (
               <div className="mt-4 flex flex-wrap gap-2">
