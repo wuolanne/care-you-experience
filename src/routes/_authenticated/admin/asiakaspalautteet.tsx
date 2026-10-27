@@ -135,7 +135,9 @@ function ReviewsAdmin() {
     await queryClient.invalidateQueries({ queryKey: ["public-reviews"] });
     setForm(emptyForm);
     setEditingId(null);
-    setNotice(form.visibility === "public" ? "Palaute julkaistiin." : "Palaute tallennettiin piiloon.");
+    setNotice(
+      form.visibility === "public" ? "Palaute julkaistiin." : "Palaute tallennettiin piiloon.",
+    );
   }
 
   async function removeReview() {
@@ -262,11 +264,20 @@ function ReviewsAdmin() {
           <fieldset className="space-y-3">
             <legend className="text-sm font-medium">Näkyvyys</legend>
             <div className="grid gap-3 sm:grid-cols-2">
-              {([
-                ["public", "Julkinen", "Palaute näkyy julkisella verkkosivustolla."],
-                ["hidden", "Piilossa", "Palaute säilyy hallintapaneelissa, mutta ei näy julkisella sivustolla."],
-              ] as const).map(([value, label, description]) => (
-                <label key={value} className="flex cursor-pointer items-start gap-3 rounded-md border p-3 text-sm">
+              {(
+                [
+                  ["public", "Julkinen", "Palaute näkyy julkisella verkkosivustolla."],
+                  [
+                    "hidden",
+                    "Piilossa",
+                    "Palaute säilyy hallintapaneelissa, mutta ei näy julkisella sivustolla.",
+                  ],
+                ] as const
+              ).map(([value, label, description]) => (
+                <label
+                  key={value}
+                  className="flex cursor-pointer items-start gap-3 rounded-md border p-3 text-sm"
+                >
                   <input
                     type="radio"
                     name="review-visibility"
