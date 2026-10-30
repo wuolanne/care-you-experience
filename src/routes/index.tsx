@@ -13,6 +13,7 @@ import { homeCopy } from '@/features/home-service/copy';
 import { RequestForm } from '@/features/home-service/RequestForms';
 import { pageHead, SITE_URL, SOCIAL_IMAGE_URL } from "@/features/seo/head";
 import { publicContentQuery } from "@/features/content/queries";
+import { homeContentValues } from "@/features/content/model";
 
 export const Route = createFileRoute("/")({
   loader: ({ context }) => Promise.all([
@@ -39,10 +40,17 @@ function Index() {
   const { tr, lang } = useLang();
   const t = homeCopy[lang];
   const { data: managed = {} } = useQuery(publicContentQuery("home", lang));
-  const heroTitle = managed.title || tr.hero.title;
-  const heroLead = managed.body || tr.hero.lead;
-  const heroContact = managed.cta || t.contact;
-  const heroSecondary = managed.secondary || t.video;
+  const homeContent = homeContentValues(lang, { published_content: managed, draft_content: null });
+  const heroTitle = homeContent.title || tr.hero.title;
+  const heroLead = homeContent.intro || homeContent.body || tr.hero.lead;
+  const heroClosing = homeContent.closing;
+  const heroCards = [1, 2, 3].map((index) => ({
+    title: homeContent[`card${index}Title` as keyof typeof homeContent] ?? "",
+    body: homeContent[`card${index}Body` as keyof typeof homeContent] ?? "",
+  }));
+  const hasCompleteHeroCards = heroCards.every((card) => card.title.trim() && card.body.trim());
+  const heroContact = homeContent.cta || t.contact;
+  const heroSecondary = homeContent.secondary || t.video;
   const pricingTitle = managed.pricingTitle || tr.pricingBanner.title;
   const pricingParagraphs = [
     managed.pricingMonthlyDescription || tr.pricingBanner.paragraphs[0],
@@ -71,6 +79,28 @@ function Index() {
             <div className="mt-5 space-y-3 text-base leading-relaxed text-plum">
               <p className="managed-copy break-words">{heroLead}</p>
             </div>
+            {hasCompleteHeroCards && (
+              <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {heroCards.map((card) => (
+                  <article
+                    key={card.title}
+                    className="flex min-h-full min-w-0 flex-col rounded-sm border border-border bg-card p-6"
+                  >
+                    <h2 className="managed-copy break-words text-2xl leading-snug text-primary">
+                      {card.title}
+                    </h2>
+                    <p className="managed-copy mt-3 break-words text-sm leading-relaxed text-muted-foreground">
+                      {card.body}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            )}
+            {heroClosing && (
+              <p className="managed-copy mt-6 break-words text-base leading-relaxed text-plum">
+                {heroClosing}
+              </p>
+            )}
           </div>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             <Button size="lg" className="h-auto min-h-12 whitespace-normal py-3" onClick={() => setForm('contact')}><Mail aria-hidden="true" />{heroContact}</Button>
