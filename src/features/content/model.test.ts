@@ -10,6 +10,8 @@ import {
   contentPages,
   customerReviewFlags,
   customerReviewVisibility,
+  homeContentValues,
+  parseLegacyHomeContent,
 } from "./model";
 
 describe("Admin v2 content safety helpers", () => {
@@ -28,11 +30,65 @@ describe("Admin v2 content safety helpers", () => {
     expect(contentEditorValues("home", "fi")).toMatchObject({
       title: t.fi.hero.title,
       body: t.fi.hero.lead,
+      intro: t.fi.hero.lead.split("\n\n")[0],
       pricingTitle: t.fi.pricingBanner.title,
       pricingMonthlyDescription: t.fi.pricingBanner.paragraphs[0],
       valuesTitle: t.fi.values.title,
       value4Body: t.fi.values.items[3]?.body,
     });
+  });
+
+  it("splits a clearly numbered legacy homepage body without using indentation", () => {
+    const legacy = [
+      "Aina tutulla vastuuhenkilöllä, joustavilla ehdoilla ja 100 % laatutakuulla!",
+      "",
+      "1. Sisältä ja ulkoa",
+      "Hoidamme sovitut sisä- ja ulkotilat samalla huolellisuudella.",
+      "",
+      "2. Oma nimetty tiimi",
+      "Saat tutun tiimin ja vastuuhenkilön, joka tuntee kokonaisuuden.",
+      "",
+      "3. Avoin hinnoittelu & Jousto",
+      "Sovitamme palvelun tarpeisiisi ilman piilokuluja.",
+      "",
+      "Luotettavaa siivouspalvelua ilman turhaa säätöä ja räätälöity juuri teille.",
+    ].join("\n");
+
+    expect(parseLegacyHomeContent(legacy)).toEqual({
+      intro: "Aina tutulla vastuuhenkilöllä, joustavilla ehdoilla ja 100 % laatutakuulla!",
+      card1Title: "Sisältä ja ulkoa",
+      card1Body: "Hoidamme sovitut sisä- ja ulkotilat samalla huolellisuudella.",
+      card2Title: "Oma nimetty tiimi",
+      card2Body: "Saat tutun tiimin ja vastuuhenkilön, joka tuntee kokonaisuuden.",
+      card3Title: "Avoin hinnoittelu & Jousto",
+      card3Body: "Sovitamme palvelun tarpeisiisi ilman piilokuluja.",
+      closing: "Luotettavaa siivouspalvelua ilman turhaa säätöä ja räätälöity juuri teille.",
+    });
+  });
+
+  it("keeps an ambiguous legacy body intact instead of inventing card values", () => {
+    const body = "Aloitusteksti\n\n1. Kohta yksi\nKuvaus ilman turvallista lopetusrakennetta";
+    const values = homeContentValues("fi", {
+      published_content: { body },
+      draft_content: null,
+    });
+
+    expect(values.intro).toBe(body);
+    expect(values.card1Title).toBe("");
+    expect(values.card2Title).toBe("");
+    expect(values.card3Title).toBe("");
+    expect(values.closing).toBe("");
+  });
+
+  it("keeps structured homepage content isolated per language", () => {
+    const fi = contentEditorValues("home", "fi", {
+      published_content: { card1Title: "FI-kortti" },
+      draft_content: null,
+    });
+    const sv = contentEditorValues("home", "sv");
+
+    expect(fi.card1Title).toBe("FI-kortti");
+    expect(sv.card1Title).not.toBe("FI-kortti");
   });
 
   it("keeps line breaks in managed home content values", () => {

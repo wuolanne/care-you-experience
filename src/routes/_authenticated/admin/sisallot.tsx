@@ -56,7 +56,19 @@ function ContentAdmin() {
       ? [
           {
             title: "Etusivun esittely",
-            fields: ["title", "body", "cta", "secondary"] as ContentField[],
+            fields: [
+              "title",
+              "intro",
+              "card1Title",
+              "card1Body",
+              "card2Title",
+              "card2Body",
+              "card3Title",
+              "card3Body",
+              "closing",
+              "cta",
+              "secondary",
+            ] as ContentField[],
           },
           {
             title: "Hinnoittelu-osio",
@@ -210,7 +222,7 @@ function ContentAdmin() {
                     <Label htmlFor={`content-${field}`}>{contentFieldLabel(field)}</Label>
                     <Textarea
                       id={`content-${field}`}
-                      rows={field === "body" ? 7 : field.endsWith("Body") ? 5 : 3}
+                      rows={field === "body" || field === "intro" ? 7 : field.endsWith("Body") || field === "closing" ? 5 : 3}
                       value={values[field] ?? ""}
                       onChange={(event) =>
                         setValues((previous) => ({ ...previous, [field]: event.target.value }))
@@ -225,13 +237,33 @@ function ContentAdmin() {
             <p className="eyebrow">Luonnoksen esikatselu</p>
             <h3 className="mt-3 text-2xl text-primary">{values.title || "Otsikko"}</h3>
             {values.headline && <h4 className="mt-3 text-lg">{values.headline}</h4>}
-            {values.body && (
+            {pageKey === "home" && values.intro && (
+              <p className="managed-copy mt-3 text-sm leading-relaxed text-muted-foreground">
+                {values.intro}
+              </p>
+            )}
+            {pageKey !== "home" && values.body && (
               <p className="managed-copy mt-3 text-sm leading-relaxed text-muted-foreground">
                 {values.body}
               </p>
             )}
             {pageKey === "home" && (
               <div className="mt-6 space-y-4 border-t border-border/70 pt-5">
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {[1, 2, 3].map((index) => (
+                    <div key={index} className="flex min-h-full flex-col rounded-sm border border-border bg-background p-4">
+                      <p className="font-medium">{values[`card${index}Title` as ContentField]}</p>
+                      <p className="managed-copy mt-2 text-sm text-muted-foreground">
+                        {values[`card${index}Body` as ContentField]}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                {values.closing && (
+                  <p className="managed-copy text-sm leading-relaxed text-muted-foreground">
+                    {values.closing}
+                  </p>
+                )}
                 <div>
                   <p className="eyebrow">{values.pricingTitle || "Hinnoittelu"}</p>
                   <p className="managed-copy mt-2 text-sm text-muted-foreground">

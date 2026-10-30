@@ -13,7 +13,14 @@ export const contentPages = [
     label: "Etusivu",
     fields: [
       "title",
-      "body",
+      "intro",
+      "card1Title",
+      "card1Body",
+      "card2Title",
+      "card2Body",
+      "card3Title",
+      "card3Body",
+      "closing",
       "cta",
       "secondary",
       "pricingTitle",
@@ -51,12 +58,19 @@ export type ContentPageKey =
 export type ContentField =
   | "title"
   | "body"
+  | "intro"
+  | "card1Title"
+  | "card1Body"
+  | "card2Title"
+  | "card2Body"
+  | "card3Title"
+  | "card3Body"
+  | "closing"
   | "cta"
   | "secondary"
   | "comingSoon"
   | "note"
   | "headline"
-  | "closing"
   | "contactHelp"
   | "contactSuccessMessage"
   | "successMessage"
@@ -79,6 +93,19 @@ export type ContentField =
   | "value4Title"
   | "value4Body";
 export type ContentValues = Partial<Record<ContentField, string>>;
+
+export const homeIntroFields = [
+  "intro",
+  "card1Title",
+  "card1Body",
+  "card2Title",
+  "card2Body",
+  "card3Title",
+  "card3Body",
+  "closing",
+] as const satisfies readonly ContentField[];
+
+export type HomeIntroContent = Pick<Required<ContentValues>, (typeof homeIntroFields)[number]>;
 
 export type SiteContent = Tables<"site_content">;
 export type SiteImage = Tables<"site_images">;
@@ -112,12 +139,19 @@ export function contentFieldLabel(field: ContentField): string {
   return {
     title: "Otsikko",
     body: "Esittelyteksti",
+    intro: "Aloitusteksti",
+    card1Title: "Kortti 1 – otsikko",
+    card1Body: "Kortti 1 – kuvaus",
+    card2Title: "Kortti 2 – otsikko",
+    card2Body: "Kortti 2 – kuvaus",
+    card3Title: "Kortti 3 – otsikko",
+    card3Body: "Kortti 3 – kuvaus",
+    closing: "Lopetusteksti",
     cta: "Painikkeen teksti",
     secondary: "Toissijaisen painikkeen teksti",
     comingSoon: "Tulossa pian -ilmoitus",
     note: "Lisätieto / hinnastoteksti",
     headline: "Väliotsikko",
-    closing: "Lopetusteksti",
     contactHelp: "Yhteydenottolomakkeen ohjeteksti",
     contactSuccessMessage: "Yhteydenoton onnistumisviesti",
     successMessage: "Vanha yhteinen onnistumisviesti",
@@ -150,9 +184,24 @@ export function sourceContentValues(pageKey: ContentPageKey, lang: ContentLangua
     case "home":
       {
         const valueItems = translations.values.items;
+        const heroParagraphs = translations.hero.lead
+          .split(/\r?\n\s*\r?\n/)
+          .map((paragraph) => paragraph.trim())
+          .filter(Boolean);
         return {
           title: translations.hero.title,
           body: translations.hero.lead,
+          // The legacy source copy has no numbered markers. Keep its text intact
+          // while providing the existing translated value cards as a source-level
+          // fallback until a managed row supplies the structured homepage copy.
+          intro: heroParagraphs[0] ?? translations.hero.lead,
+          card1Title: valueItems[0]?.title ?? "",
+          card1Body: valueItems[0]?.body ?? heroParagraphs[1] ?? "",
+          card2Title: valueItems[1]?.title ?? "",
+          card2Body: valueItems[1]?.body ?? heroParagraphs[2] ?? "",
+          card3Title: valueItems[2]?.title ?? "",
+          card3Body: valueItems[2]?.body ?? heroParagraphs[3] ?? "",
+          closing: heroParagraphs.length > 1 ? (heroParagraphs.at(-1) ?? "") : "",
           cta: home.contact,
           secondary: home.video,
           pricingTitle: translations.pricingBanner.title,
@@ -213,11 +262,129 @@ export function sourceContentValues(pageKey: ContentPageKey, lang: ContentLangua
   }
 }
 
+const legacyHomeMarker = /^\s*([1-3])\s*[.)](?:\s+(.*?))?\s*$/;
+
+function nonEmptyLines(lines: string[]) {
+  return lines.map((line) => line.trim()).filter(Boolean);
+}
+
+/**
+ * Reads the old combined homepage body only when its numbered structure is
+ * unambiguous. It intentionally does not split content based on indentation or
+ * an arbitrary number of spaces.
+ */
+export function parseLegacyHomeContent(body: string): Partial<HomeIntroContent> | null {
+  const lines = body.replace(/\r\n?/g, "\n").split("\n");
+  const markers = lines.flatMap((line, index) => {
+    const match = line.match(legacyHomeMarker);
+    return match ? [{ index, number: Number(match[1]), title: match[2]?.trim() ?? "" }] : [];
+  });
+
+  if (markers.length !== 3 || markers.map((marker) => marker.number).join(",") !== "1,2,3") {
+    return null;
+  }
+
+  const [firstMarker, secondMarker, thirdMarker] = markers;
+  if (!firstMarker || !secondMarker || !thirdMarker) return null;
+  if (secondMarker.index <= firstMarker.index || thirdMarker.index <= secondMarker.index) {
+    return null;
+  }
+
+  const intro = lines.slice(0, firstMarker.index).join("\n").trim();
+  if (!intro) return null;
+
+  const parsedCards: Array<{ title: string; body: string }> = [];
+  for (const [index, marker] of markers.entries()) {
+    const nextIndex = markers[index + 1]?.index ?? lines.length;
+    const sectionLines = lines.slice(marker.index + 1, nextIndex);
+    let title = marker.title;
+    let bodyLines = sectionLines;
+
+    if (!title) {
+      const contentLines = nonEmptyLines(sectionLines);
+      const firstContentLine = contentLines[0];
+      if (!firstContentLine || contentLines.length < 2) return null;
+      title = firstContentLine;
+      bodyLines = sectionLines.slice(
+        sectionLines.findIndex((line) => line.trim() === firstContentLine) + 1,
+      );
+    }
+
+    const cardBody = bodyLines.join("\n").trim();
+    if (!title || !cardBody) return null;
+    parsedCards.push({ title, body: cardBody });
+  }
+
+  const [card1, card2, card3] = parsedCards;
+  if (!card1 || !card2 || !card3) return null;
+
+  const card3Section = lines.slice(thirdMarker.index + 1);
+  const card3Paragraphs = card3Section
+    .join("\n")
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+  if (card3Paragraphs.length < 2) return null;
+
+  const closing = card3Paragraphs.at(-1) ?? "";
+  const card3Body = card3Paragraphs.slice(0, -1).join("\n\n").trim();
+  if (!closing || !card3Body) return null;
+
+  return {
+    intro,
+    card1Title: card1.title,
+    card1Body: card1.body,
+    card2Title: card2.title,
+    card2Body: card2.body,
+    card3Title: card3.title,
+    card3Body,
+    closing,
+  };
+}
+
+export function homeContentValues(
+  lang: ContentLanguage,
+  record?: Pick<SiteContent, "draft_content" | "published_content"> | null,
+): ContentValues {
+  const source = sourceContentValues("home", lang);
+  const published = asContentValues(record?.published_content);
+  const draft = asContentValues(record?.draft_content);
+  const legacyBody = draft.body ?? published.body ?? "";
+  const legacy = parseLegacyHomeContent(legacyBody);
+  const hasStructuredFields = homeIntroFields.some(
+    (field) => field in published || field in draft,
+  );
+
+  if (legacyBody && !legacy && !hasStructuredFields) {
+    return {
+      ...source,
+      ...published,
+      ...draft,
+      intro: legacyBody,
+      card1Title: "",
+      card1Body: "",
+      card2Title: "",
+      card2Body: "",
+      card3Title: "",
+      card3Body: "",
+      closing: "",
+    };
+  }
+
+  return {
+    ...source,
+    ...(legacy ?? {}),
+    ...published,
+    ...draft,
+  };
+}
+
 export function contentEditorValues(
   pageKey: ContentPageKey,
   lang: ContentLanguage,
   record?: Pick<SiteContent, "draft_content" | "published_content"> | null,
 ): ContentValues {
+  if (pageKey === "home") return homeContentValues(lang, record);
   return {
     ...sourceContentValues(pageKey, lang),
     ...asContentValues(record?.published_content),
