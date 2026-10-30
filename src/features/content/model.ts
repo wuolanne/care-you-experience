@@ -183,25 +183,19 @@ export function sourceContentValues(pageKey: ContentPageKey, lang: ContentLangua
   switch (pageKey) {
     case "home":
       {
+        const legacySource = parseLegacyHomeContent(translations.hero.lead) ?? {};
         const valueItems = translations.values.items;
-        const heroParagraphs = translations.hero.lead
-          .split(/\r?\n\s*\r?\n/)
-          .map((paragraph) => paragraph.trim())
-          .filter(Boolean);
         return {
           title: translations.hero.title,
           body: translations.hero.lead,
-          // The legacy source copy has no numbered markers. Keep its text intact
-          // while providing the existing translated value cards as a source-level
-          // fallback until a managed row supplies the structured homepage copy.
-          intro: heroParagraphs[0] ?? translations.hero.lead,
-          card1Title: valueItems[0]?.title ?? "",
-          card1Body: valueItems[0]?.body ?? heroParagraphs[1] ?? "",
-          card2Title: valueItems[1]?.title ?? "",
-          card2Body: valueItems[1]?.body ?? heroParagraphs[2] ?? "",
-          card3Title: valueItems[2]?.title ?? "",
-          card3Body: valueItems[2]?.body ?? heroParagraphs[3] ?? "",
-          closing: heroParagraphs.length > 1 ? (heroParagraphs.at(-1) ?? "") : "",
+          intro: legacySource.intro ?? translations.hero.lead,
+          card1Title: legacySource.card1Title ?? "",
+          card1Body: legacySource.card1Body ?? "",
+          card2Title: legacySource.card2Title ?? "",
+          card2Body: legacySource.card2Body ?? "",
+          card3Title: legacySource.card3Title ?? "",
+          card3Body: legacySource.card3Body ?? "",
+          closing: legacySource.closing ?? "",
           cta: home.contact,
           secondary: home.video,
           pricingTitle: translations.pricingBanner.title,

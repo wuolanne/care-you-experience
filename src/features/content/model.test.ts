@@ -30,7 +30,7 @@ describe("Admin v2 content safety helpers", () => {
     expect(contentEditorValues("home", "fi")).toMatchObject({
       title: t.fi.hero.title,
       body: t.fi.hero.lead,
-      intro: t.fi.hero.lead.split("\n\n")[0],
+      intro: t.fi.hero.lead,
       pricingTitle: t.fi.pricingBanner.title,
       pricingMonthlyDescription: t.fi.pricingBanner.paragraphs[0],
       valuesTitle: t.fi.values.title,
