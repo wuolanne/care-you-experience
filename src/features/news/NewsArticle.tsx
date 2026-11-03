@@ -2,7 +2,7 @@ import { ArrowLeft, ImageIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { Lang } from "@/i18n/translations";
 import { newsCopy, newsText, type NewsItem } from "./model";
-import { newsImageUrl } from "./seo";
+import { newsImagePath } from "./seo";
 
 function dateLocale(lang: Lang) {
   return lang === "fi" ? "fi-FI" : lang === "sv" ? "sv-SE" : lang === "es" ? "es-ES" : "en-GB";
@@ -11,7 +11,7 @@ function dateLocale(lang: Lang) {
 export function NewsArticle({ item, lang }: { item: NewsItem; lang: Lang }) {
   const copy = newsCopy[lang];
   const title = newsText(item.title, lang);
-  const image = item.image_path ? newsImageUrl(item.id) : null;
+  const image = item.image_path ? newsImagePath(item.id) : null;
 
   return (
     <article className="border-b border-border/60 bg-background">

@@ -2,8 +2,22 @@ import type { Lang } from "@/i18n/translations";
 import { pageHead, SITE_URL } from "@/features/seo/head";
 import { newsPublicPath, newsText, type NewsItem } from "./model";
 
+export function newsImagePath(id: string): string {
+  return `/api/news-image/${encodeURIComponent(id)}`;
+}
+
+function newsSocialOrigin(): string {
+  if (typeof window !== "undefined") return window.location.origin;
+
+  const vercelEnvironment = typeof process !== "undefined" ? process.env["VERCEL_ENV"] : undefined;
+  const vercelUrl = typeof process !== "undefined" ? process.env["VERCEL_URL"] : undefined;
+  if (vercelEnvironment === "preview" && vercelUrl) return `https://${vercelUrl}`;
+
+  return SITE_URL;
+}
+
 export function newsImageUrl(id: string): string {
-  return `${SITE_URL}/api/news-image/${encodeURIComponent(id)}`;
+  return `${newsSocialOrigin()}${newsImagePath(id)}`;
 }
 
 function newsDescription(item: NewsItem, lang: Lang): string {
