@@ -18,11 +18,13 @@ import { Route as CareYrityksilleRouteImport } from './routes/care-yrityksille'
 import { Route as HinnoitteluRouteImport } from './routes/hinnoittelu'
 import { Route as MeistaRouteImport } from './routes/meista'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TietosuojaRouteImport } from './routes/tietosuoja'
 import { Route as VaraaRouteImport } from './routes/varaa'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedPyynnotRouteImport } from './routes/_authenticated/pyynnot'
 import { Route as AuthenticatedUutistenYllapitoRouteImport } from './routes/_authenticated/uutisten-yllapito'
+import { Route as UutisetIdRouteImport } from './routes/uutiset/$id'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAdminAsiakasedutRouteImport } from './routes/_authenticated/admin/asiakasedut'
 import { Route as AuthenticatedAdminAsiakaspalautteetRouteImport } from './routes/_authenticated/admin/asiakaspalautteet'
@@ -36,6 +38,8 @@ import { Route as AuthenticatedAdminSosiaalinenMediaRouteImport } from './routes
 import { Route as AuthenticatedAdminUutisetRouteImport } from './routes/_authenticated/admin/uutiset'
 import { Route as AuthenticatedAdminVideopalaveritRouteImport } from './routes/_authenticated/admin/videopalaverit'
 import { Route as AuthenticatedAdminYhteydenototRouteImport } from './routes/_authenticated/admin/yhteydenotot'
+import { Route as ApiNewsImageIdRouteImport } from './routes/api/news-image/$id'
+import { Route as UutisetLangIdRouteImport } from './routes/uutiset/$lang/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -81,6 +85,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TietosuojaRoute = TietosuojaRouteImport.update({
   id: '/tietosuoja',
   path: '/tietosuoja',
@@ -107,6 +116,11 @@ const AuthenticatedUutistenYllapitoRoute =
     path: '/uutisten-yllapito',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const UutisetIdRoute = UutisetIdRouteImport.update({
+  id: '/uutiset/$id',
+  path: '/uutiset/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -183,6 +197,16 @@ const AuthenticatedAdminYhteydenototRoute =
     path: '/yhteydenotot',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const ApiNewsImageIdRoute = ApiNewsImageIdRouteImport.update({
+  id: '/api/news-image/$id',
+  path: '/api/news-image/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UutisetLangIdRoute = UutisetLangIdRouteImport.update({
+  id: '/uutiset/$lang/$id',
+  path: '/uutiset/$lang/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -193,11 +217,13 @@ export interface FileRoutesByFullPath {
   '/hinnoittelu': typeof HinnoitteluRoute
   '/meista': typeof MeistaRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tietosuoja': typeof TietosuojaRoute
   '/varaa': typeof VaraaRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/uutiset/$id': typeof UutisetIdRoute
   '/admin/asiakasedut': typeof AuthenticatedAdminAsiakasedutRoute
   '/admin/asiakaspalautteet': typeof AuthenticatedAdminAsiakaspalautteetRoute
   '/admin/henkilosto': typeof AuthenticatedAdminHenkilostoRoute
@@ -210,6 +236,8 @@ export interface FileRoutesByFullPath {
   '/admin/uutiset': typeof AuthenticatedAdminUutisetRoute
   '/admin/videopalaverit': typeof AuthenticatedAdminVideopalaveritRoute
   '/admin/yhteydenotot': typeof AuthenticatedAdminYhteydenototRoute
+  '/api/news-image/$id': typeof ApiNewsImageIdRoute
+  '/uutiset/$lang/$id': typeof UutisetLangIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -221,10 +249,12 @@ export interface FileRoutesByTo {
   '/hinnoittelu': typeof HinnoitteluRoute
   '/meista': typeof MeistaRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tietosuoja': typeof TietosuojaRoute
   '/varaa': typeof VaraaRoute
   '/pyynnot': typeof AuthenticatedPyynnotRoute
   '/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/uutiset/$id': typeof UutisetIdRoute
   '/admin/asiakasedut': typeof AuthenticatedAdminAsiakasedutRoute
   '/admin/asiakaspalautteet': typeof AuthenticatedAdminAsiakaspalautteetRoute
   '/admin/henkilosto': typeof AuthenticatedAdminHenkilostoRoute
@@ -237,6 +267,8 @@ export interface FileRoutesByTo {
   '/admin/uutiset': typeof AuthenticatedAdminUutisetRoute
   '/admin/videopalaverit': typeof AuthenticatedAdminVideopalaveritRoute
   '/admin/yhteydenotot': typeof AuthenticatedAdminYhteydenototRoute
+  '/api/news-image/$id': typeof ApiNewsImageIdRoute
+  '/uutiset/$lang/$id': typeof UutisetLangIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -250,11 +282,13 @@ export interface FileRoutesById {
   '/hinnoittelu': typeof HinnoitteluRoute
   '/meista': typeof MeistaRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tietosuoja': typeof TietosuojaRoute
   '/varaa': typeof VaraaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/pyynnot': typeof AuthenticatedPyynnotRoute
   '/_authenticated/uutisten-yllapito': typeof AuthenticatedUutistenYllapitoRoute
+  '/uutiset/$id': typeof UutisetIdRoute
   '/_authenticated/admin/asiakasedut': typeof AuthenticatedAdminAsiakasedutRoute
   '/_authenticated/admin/asiakaspalautteet': typeof AuthenticatedAdminAsiakaspalautteetRoute
   '/_authenticated/admin/henkilosto': typeof AuthenticatedAdminHenkilostoRoute
@@ -267,6 +301,8 @@ export interface FileRoutesById {
   '/_authenticated/admin/uutiset': typeof AuthenticatedAdminUutisetRoute
   '/_authenticated/admin/videopalaverit': typeof AuthenticatedAdminVideopalaveritRoute
   '/_authenticated/admin/yhteydenotot': typeof AuthenticatedAdminYhteydenototRoute
+  '/api/news-image/$id': typeof ApiNewsImageIdRoute
+  '/uutiset/$lang/$id': typeof UutisetLangIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -280,11 +316,13 @@ export interface FileRouteTypes {
     | '/hinnoittelu'
     | '/meista'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/tietosuoja'
     | '/varaa'
     | '/admin'
     | '/pyynnot'
     | '/uutisten-yllapito'
+    | '/uutiset/$id'
     | '/admin/asiakasedut'
     | '/admin/asiakaspalautteet'
     | '/admin/henkilosto'
@@ -297,6 +335,8 @@ export interface FileRouteTypes {
     | '/admin/uutiset'
     | '/admin/videopalaverit'
     | '/admin/yhteydenotot'
+    | '/api/news-image/$id'
+    | '/uutiset/$lang/$id'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -308,10 +348,12 @@ export interface FileRouteTypes {
     | '/hinnoittelu'
     | '/meista'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/tietosuoja'
     | '/varaa'
     | '/pyynnot'
     | '/uutisten-yllapito'
+    | '/uutiset/$id'
     | '/admin/asiakasedut'
     | '/admin/asiakaspalautteet'
     | '/admin/henkilosto'
@@ -324,6 +366,8 @@ export interface FileRouteTypes {
     | '/admin/uutiset'
     | '/admin/videopalaverit'
     | '/admin/yhteydenotot'
+    | '/api/news-image/$id'
+    | '/uutiset/$lang/$id'
     | '/admin'
   id:
     | '__root__'
@@ -336,11 +380,13 @@ export interface FileRouteTypes {
     | '/hinnoittelu'
     | '/meista'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/tietosuoja'
     | '/varaa'
     | '/_authenticated/admin'
     | '/_authenticated/pyynnot'
     | '/_authenticated/uutisten-yllapito'
+    | '/uutiset/$id'
     | '/_authenticated/admin/asiakasedut'
     | '/_authenticated/admin/asiakaspalautteet'
     | '/_authenticated/admin/henkilosto'
@@ -353,6 +399,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/uutiset'
     | '/_authenticated/admin/videopalaverit'
     | '/_authenticated/admin/yhteydenotot'
+    | '/api/news-image/$id'
+    | '/uutiset/$lang/$id'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -366,8 +414,12 @@ export interface RootRouteChildren {
   HinnoitteluRoute: typeof HinnoitteluRoute
   MeistaRoute: typeof MeistaRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TietosuojaRoute: typeof TietosuojaRoute
   VaraaRoute: typeof VaraaRoute
+  UutisetIdRoute: typeof UutisetIdRoute
+  ApiNewsImageIdRoute: typeof ApiNewsImageIdRoute
+  UutisetLangIdRoute: typeof UutisetLangIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -435,6 +487,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tietosuoja': {
       id: '/tietosuoja'
       path: '/tietosuoja'
@@ -469,6 +528,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/uutisten-yllapito'
       preLoaderRoute: typeof AuthenticatedUutistenYllapitoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/uutiset/$id': {
+      id: '/uutiset/$id'
+      path: '/uutiset/$id'
+      fullPath: '/uutiset/$id'
+      preLoaderRoute: typeof UutisetIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -561,6 +627,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminYhteydenototRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/api/news-image/$id': {
+      id: '/api/news-image/$id'
+      path: '/api/news-image/$id'
+      fullPath: '/api/news-image/$id'
+      preLoaderRoute: typeof ApiNewsImageIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uutiset/$lang/$id': {
+      id: '/uutiset/$lang/$id'
+      path: '/uutiset/$lang/$id'
+      fullPath: '/uutiset/$lang/$id'
+      preLoaderRoute: typeof UutisetLangIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -627,8 +707,12 @@ const rootRouteChildren: RootRouteChildren = {
   HinnoitteluRoute: HinnoitteluRoute,
   MeistaRoute: MeistaRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TietosuojaRoute: TietosuojaRoute,
   VaraaRoute: VaraaRoute,
+  UutisetIdRoute: UutisetIdRoute,
+  ApiNewsImageIdRoute: ApiNewsImageIdRoute,
+  UutisetLangIdRoute: UutisetLangIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

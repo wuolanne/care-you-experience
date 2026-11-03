@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
-import { publicSitemapPaths } from "./sitemap";
-
-const sitemapXml = readFileSync(new URL("../../../public/sitemap.xml", import.meta.url), "utf8");
+import { buildSitemapXml, publicSitemapPaths } from "./sitemap";
 
 describe("public sitemap routes", () => {
   it("contains only finished public routes", () => {
@@ -30,10 +27,21 @@ describe("public sitemap routes", () => {
     ).toBe(false);
   });
 
-  it("does not claim that the build date is the content modification date", () => {
+  it("renders published news paths without inventing modification dates", () => {
+    const sitemapXml = buildSitemapXml([
+      { id: "123e4567-e89b-12d3-a456-426614174000", lang: "fi" },
+      { id: "123e4567-e89b-12d3-a456-426614174000", lang: "en" },
+    ]);
+
     expect(sitemapXml).not.toContain("<lastmod>");
     for (const path of publicSitemapPaths) {
       expect(sitemapXml).toContain(`<loc>https://tgnservices.fi${path}</loc>`);
     }
+    expect(sitemapXml).toContain(
+      "https://tgnservices.fi/uutiset/123e4567-e89b-12d3-a456-426614174000",
+    );
+    expect(sitemapXml).toContain(
+      "https://tgnservices.fi/uutiset/en/123e4567-e89b-12d3-a456-426614174000",
+    );
   });
 });

@@ -1,6 +1,6 @@
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { ImageIcon, Pencil, Plus, Save, Trash2, Upload } from "lucide-react";
+import { Copy, ExternalLink, ImageIcon, Pencil, Plus, Save, Trash2, Upload } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { newsEditorQuery } from "@/features/news/NewsEditor.query";
 import type { Lang } from "@/i18n/translations";
-import type { NewsItem, NewsText } from "@/features/news/model";
+import {
+  hasNewsTranslation,
+  newsPublicPath,
+  type NewsItem,
+  type NewsText,
+} from "@/features/news/model";
 
 export function NewsEditor() {
   const { data } = useSuspenseQuery(newsEditorQuery);
@@ -85,6 +90,17 @@ export function NewsEditor() {
       setMessage(error instanceof Error ? error.message : "Tallennus epäonnistui.");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function copyNewsLink(news: NewsItem) {
+    if (!news.published || !hasNewsTranslation(news, language)) return;
+    const url = new URL(newsPublicPath(news.id, language), window.location.origin).toString();
+    try {
+      await navigator.clipboard.writeText(url);
+      setMessage("Uutisen linkki kopioitiin.");
+    } catch {
+      setMessage("Linkin kopiointi epäonnistui.");
     }
   }
 
@@ -244,6 +260,31 @@ export function NewsEditor() {
             >
               <Pencil />
             </Button>
+            {news.published && hasNewsTranslation(news, language) && (
+              <>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  disabled={busy}
+                  aria-label="Kopioi uutisen linkki"
+                  title="Kopioi uutisen linkki"
+                  onClick={() => void copyNewsLink(news)}
+                >
+                  <Copy />
+                </Button>
+                <Button asChild variant="outline" size="icon">
+                  <a
+                    href={newsPublicPath(news.id, language)}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Avaa uutinen"
+                    title="Avaa uutinen"
+                  >
+                    <ExternalLink />
+                  </a>
+                </Button>
+              </>
+            )}
             <Button
               variant="outline"
               size="icon"

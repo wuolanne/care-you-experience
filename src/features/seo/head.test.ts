@@ -36,4 +36,35 @@ describe("SEO page head", () => {
     expect(head.links).toEqual([]);
     expect(head.meta).toContainEqual({ name: "robots", content: "noindex,nofollow" });
   });
+
+  it("supports article-specific social metadata", () => {
+    const head = pageHead({
+      path: "/uutiset/en/123e4567-e89b-12d3-a456-426614174000",
+      title: "New service launched",
+      description: "The new service is now available.",
+      imageUrl: "https://tgnservices.fi/api/news-image/123e4567-e89b-12d3-a456-426614174000",
+      imageAlt: "New service launched",
+      ogType: "article",
+      publishedTime: "2026-10-20T12:00:00.000Z",
+    });
+
+    expect(head.links).toEqual([
+      {
+        rel: "canonical",
+        href: "https://tgnservices.fi/uutiset/en/123e4567-e89b-12d3-a456-426614174000",
+      },
+    ]);
+    expect(head.meta).toEqual(
+      expect.arrayContaining([
+        { property: "og:type", content: "article" },
+        { property: "og:title", content: "New service launched" },
+        {
+          property: "og:image",
+          content: "https://tgnservices.fi/api/news-image/123e4567-e89b-12d3-a456-426614174000",
+        },
+        { property: "article:published_time", content: "2026-10-20T12:00:00.000Z" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ]),
+    );
+  });
 });

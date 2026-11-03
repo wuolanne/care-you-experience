@@ -25,14 +25,14 @@ nykyinen tarkoituksellinen indeksoinnin esto säilyy ennallaan.
   ole indeksoitavia.
 - `/care-palveluseteli` on merkitty `noindex`-tilaan, koska sivu ilmoittaa
   palvelun olevan tulossa myöhemmin.
-- Käännökset vaihtavat HTML:n `lang`-arvon asiakaspuolella. Erillisiä
-  kieliversioiden URL-osoitteita ei ole, joten `hreflang`-linkkejä ei lisätty.
+- Yleiset sivukäännökset vaihtavat HTML:n `lang`-arvon asiakaspuolella. Uutisilla
+  on erilliset kielikohtaiset jaettavat URL-osoitteet; yleisille sivuille ei ole
+  lisätty `hreflang`-linkkejä.
 
 ## Sitemap
 
-Versionhallittu `public/sitemap.xml` palvellaan osoitteessa
-`https://tgnservices.fi/sitemap.xml`. Sitemap sisältää vain valmiit julkiset
-reitit:
+`/sitemap.xml` palvellaan palvelinreittinä osoitteessa
+`https://tgnservices.fi/sitemap.xml`. Sitemap sisältää valmiit julkiset reitit:
 
 - `/`
 - `/care-kotiin`
@@ -42,13 +42,12 @@ reitit:
 - `/varaa`
 - `/tietosuoja`
 
-Admin-, auth-, keskeneräinen palveluseteli- ja uutisten ylläpitoreittejä ei
-lisätä. Yksittäisiä uutis-URL-osoitteita ei tällä hetkellä ole sovelluksen
-reitityksessä. Sitemapissa ei ole `lastmod`-kenttiä, koska lähdekoodissa ei ole
-julkisille sivuille luotettavia sisältökohtaisia muutospäiviä. Build-päivää ei
-esitetä virheellisesti sisällön muutosajankohtana. Kun sivuille tai uutisille
-on myöhemmin saatavilla oikeat muutospäivät, ne voidaan lisätä ISO 8601
--muodossa erillisellä hyväksytyllä muutoksella.
+Admin-, auth- ja keskeneräistä palvelusetelireittiä ei lisätä. Julkaistut uutiset
+lisätään sitemap-palvelussa niiden FI/SV/ES/EN-osoitteina. Luonnoksia ja
+piilotettuja uutisia ei kyselyn `published=true`-ehdon vuoksi lisätä. Sitemapissa
+ei ole `lastmod`-kenttiä, koska lähdekoodissa ei ole julkisille sivuille
+luotettavia sisältökohtaisia muutospäiviä. Build-päivää ei esitetä virheellisesti
+sisällön muutosajankohtana.
 
 Vanha `/osta`-osoite ohjataan pysyvästi HTTP 308 -uudelleenohjauksella
 osoitteeseen `/hinnoittelu`, ja vanha `/tarjouspyynto`-osoite ohjataan
