@@ -1,4 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/integrations/supabase/types";
+
+function createPublicSupabaseClient() {
+  const url = process.env["SUPABASE_URL"];
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
+  if (!url || !key) return null;
+
+  return createClient<Database>(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false },
+    global: {
+      fetch: (input, init) => {
+        const headers = new Headers(init?.headers);
+        if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) {
+          headers.delete("Authorization");
+        }
+        headers.set("apikey", key);
+        return fetch(input, { ...init, headers });
+      },
+    },
+  });
+}
 
 function notFoundResponse() {
   return new Response("Not found", {
@@ -19,8 +41,10 @@ export const Route = createFileRoute("/api/news-image/$id")({
           return notFoundResponse();
         }
 
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        const { data: item, error } = await supabaseAdmin
+        const client = createPublicSupabaseClient();
+        if (!client) return notFoundResponse();
+
+        const { data: item, error } = await client
           .from("news")
           .select("image_path")
           .eq("id", params.id)
@@ -28,7 +52,7 @@ export const Route = createFileRoute("/api/news-image/$id")({
           .maybeSingle();
         if (error || !item?.image_path) return notFoundResponse();
 
-        const { data: signed, error: signError } = await supabaseAdmin.storage
+        const { data: signed, error: signError } = await client.storage
           .from("news-images")
           .createSignedUrl(item.image_path, 3600);
         if (signError || !signed?.signedUrl) return notFoundResponse();
@@ -37,9 +61,16 @@ export const Route = createFileRoute("/api/news-image/$id")({
         if (!imageResponse.ok || !imageResponse.body) return notFoundResponse();
 
         const headers = new Headers();
-        const contentType = imageResponse.headers.get("content-type");
-        if (contentType) headers.set("Content-Type", contentType);
+        const contentType =
+          imageResponse.headers.get("content-type") ??
+          (item.image_path.toLowerCase().endsWith(".png")
+            ? "image/png"
+            : item.image_path.toLowerCase().endsWith(".webp")
+              ? "image/webp"
+              : "image/jpeg");
+        headers.set("Content-Type", contentType);
         headers.set("Cache-Control", "public, max-age=300, stale-while-revalidate=86400");
+        headers.set("X-Content-Type-Options", "nosniff");
         return new Response(imageResponse.body, { status: 200, headers });
       },
     },
