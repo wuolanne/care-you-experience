@@ -155,8 +155,12 @@ function AboutPage() {
             </>
           )}
           <h3 className="mt-10 text-2xl leading-tight">{tr.about.billing}</h3>
-          <div aria-label={tr.about.billing} className="mt-5 min-h-32 rounded-sm border border-dashed border-gold/60 px-5 py-4">
-            <p className="text-sm text-muted-foreground">{tr.footer.businessId}: <span className="text-foreground">{BUSINESS_ID}</span></p>
+          <div data-testid="billing-details" aria-label={tr.about.billing} className="mt-5 min-h-32 min-w-0 rounded-sm border border-dashed border-gold/60 px-5 py-4">
+            <div className="min-w-0 space-y-1">
+              <p className="break-words text-sm text-foreground">T&amp;G Nordic Services</p>
+              <p className="break-words text-sm text-muted-foreground">Alisa-pankki FI20 7140 1420 0611 43</p>
+              <p className="break-words text-sm text-muted-foreground">{tr.footer.businessId}: <span className="text-foreground">{BUSINESS_ID}</span></p>
+            </div>
           </div>
         </div>
 
