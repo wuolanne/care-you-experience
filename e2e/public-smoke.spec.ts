@@ -25,6 +25,63 @@ test("does not load Google Analytics in local development", async ({ page }) => 
   expect(analyticsRequests).toEqual([]);
 });
 
+const footerContactTranslations = {
+  fi: "Yhteystiedot",
+  sv: "Kontakt",
+  es: "Contacto",
+  en: "Contact",
+} as const;
+
+test("footer contact alignment stays responsive across languages and viewports", async ({
+  page,
+}) => {
+  const viewports = [320, 375, 390, 430, 768, 1440];
+
+  for (const width of viewports) {
+    await page.setViewportSize({ width, height: 900 });
+
+    for (const [language, heading] of Object.entries(footerContactTranslations)) {
+      await page.goto("/", { waitUntil: "domcontentloaded" });
+      await page.evaluate((lang) => window.localStorage.setItem("cys-lang", lang), language);
+      await page.reload({ waitUntil: "domcontentloaded" });
+
+      const contactHeading = page.getByRole("contentinfo").getByText(heading, { exact: true });
+      await expect(contactHeading).toBeVisible();
+
+      const alignment = await contactHeading.locator("xpath=..").evaluate((column) => {
+        const columnRect = column.getBoundingClientRect();
+        const headingRect = column.querySelector(":scope > p")?.getBoundingClientRect();
+        const list = column.querySelector(":scope > div");
+        const itemRects = Array.from(list?.children ?? []).map((item) => {
+          const rect = item.getBoundingClientRect();
+          return { left: rect.left, right: rect.right };
+        });
+
+        return {
+          columnCenter: (columnRect.left + columnRect.right) / 2,
+          headingLeft: headingRect?.left ?? null,
+          headingCenter: headingRect ? (headingRect.left + headingRect.right) / 2 : null,
+          itemCenters: itemRects.map((rect) => (rect.left + rect.right) / 2),
+          itemLefts: itemRects.map((rect) => rect.left),
+        };
+      });
+
+      expect(alignment.headingCenter).not.toBeNull();
+      expect(alignment.itemCenters.length).toBeGreaterThanOrEqual(4);
+
+      if (width < 768) {
+        expect(Math.abs(alignment.headingCenter! - alignment.columnCenter)).toBeLessThan(2);
+        for (const center of alignment.itemCenters) {
+          expect(Math.abs(center - alignment.columnCenter)).toBeLessThan(2);
+        }
+      } else {
+        expect(Math.max(...alignment.itemLefts) - Math.min(...alignment.itemLefts)).toBeLessThan(2);
+        expect(Math.abs(alignment.headingLeft! - alignment.itemLefts[0]!)).toBeLessThan(2);
+      }
+    }
+  }
+});
+
 const billingTranslations = {
   fi: { heading: "Laskutustiedot", businessId: "Y-tunnus" },
   sv: { heading: "Faktureringsuppgifter", businessId: "Y-tunnus" },

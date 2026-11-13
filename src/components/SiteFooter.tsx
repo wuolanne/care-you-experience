@@ -73,9 +73,9 @@ export function SiteFooter() {
             </Link>
           </div>
         </div>
-        <div className="flex flex-col items-start gap-2 text-left md:gap-3">
+        <div className="flex flex-col items-center gap-2 text-center md:items-start md:gap-3 md:text-left">
           <p className="eyebrow">{tr.footer.contact}</p>
-          <div className="flex flex-col items-start gap-2 text-sm text-foreground/80">
+          <div className="flex flex-col items-center gap-2 text-sm text-foreground/80 md:items-start">
             <a href={`mailto:${publicEmail}`} className="hover:text-primary">
               {publicEmail}
             </a>
@@ -92,7 +92,11 @@ export function SiteFooter() {
               {tr.footer.privacy}
             </Link>
             {isAnalyticsAvailable && (
-              <button type="button" onClick={openSettings} className="text-left hover:text-primary">
+              <button
+                type="button"
+                onClick={openSettings}
+                className="text-center hover:text-primary md:text-left"
+              >
                 {tr.footer.cookieSettings}
               </button>
             )}
