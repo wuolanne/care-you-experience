@@ -97,6 +97,16 @@ describe("privacy translations", () => {
     expect(footerSource).not.toContain("underline underline-offset-4 hover:text-primary");
   });
 
+  it("keeps the footer contact column left-aligned with consistent spacing", () => {
+    expect(footerSource).toContain(
+      'className="flex flex-col items-start gap-2 text-left md:gap-3"',
+    );
+    expect(footerSource).toContain(
+      'className="flex flex-col items-start gap-2 text-sm text-foreground/80"',
+    );
+    expect(footerSource).not.toContain('<div className="space-y-2 text-center md:space-y-3">');
+  });
+
   it("uses purpose-specific notices for all personal-data forms", () => {
     expect(requestFormsSource).toContain("kind === 'start' ? 'serviceStart' : 'contact'");
     expect(bookingSource).toContain('<PrivacyNotice kind="booking" />');

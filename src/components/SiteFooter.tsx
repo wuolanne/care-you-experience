@@ -4,11 +4,18 @@ import type { ComponentType } from "react";
 import logo from "@/assets/tgs-logo-g.png";
 import { useLang } from "@/i18n/LanguageProvider";
 import { useAnalyticsConsent } from "@/features/analytics/analytics-context";
-import { NewsAdminLink } from '@/features/news/NewsAdminLink';
-import { BUSINESS_ID, PUBLIC_ADDRESS, PUBLIC_EMAIL, PUBLIC_PHONE, SOCIAL_LINKS, type SocialKey } from '@/data/company';
+import { NewsAdminLink } from "@/features/news/NewsAdminLink";
+import {
+  BUSINESS_ID,
+  PUBLIC_ADDRESS,
+  PUBLIC_EMAIL,
+  PUBLIC_PHONE,
+  SOCIAL_LINKS,
+  type SocialKey,
+} from "@/data/company";
 import { publicSiteContactQuery, publicSocialLinksQuery } from "@/features/content/queries";
-import { Facebook, Instagram, Linkedin } from 'lucide-react';
-import { siTiktok, siWhatsapp } from 'simple-icons';
+import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { siTiktok, siWhatsapp } from "simple-icons";
 
 // TikTok and WhatsApp are not in the icon library, so their official glyphs are drawn here.
 function GlyphIcon({ path, className }: { path: string; className?: string }) {
@@ -37,7 +44,9 @@ export function SiteFooter() {
     const url = managedLinks.length ? linkByKey.get(key) : SOCIAL_LINKS[key];
     return Boolean(url);
   });
-  const socialRows = [visibleSocial.slice(0, 3), visibleSocial.slice(3)].filter((row) => row.length);
+  const socialRows = [visibleSocial.slice(0, 3), visibleSocial.slice(3)].filter(
+    (row) => row.length,
+  );
   const publicEmail = contact?.public_email || PUBLIC_EMAIL;
   const publicPhone = contact?.public_phone || PUBLIC_PHONE;
   const iconBase =
@@ -53,20 +62,34 @@ export function SiteFooter() {
         <div className="flex flex-col items-center space-y-2 text-center md:items-start md:space-y-3 md:text-left">
           <p className="eyebrow">{tr.services.eyebrow}</p>
           <div className="flex flex-col gap-1 text-base text-foreground/80 md:gap-2 lg:gap-3 lg:text-lg">
-            <Link to="/care-kotiin" className="hover:text-primary">{tr.nav.kotiin}</Link>
-            <Link to="/care-yrityksille" className="hover:text-primary">{tr.nav.yrityksille}</Link>
-            <Link to="/care-palveluseteli" className="hover:text-primary">{tr.nav.palveluseteli}</Link>
+            <Link to="/care-kotiin" className="hover:text-primary">
+              {tr.nav.kotiin}
+            </Link>
+            <Link to="/care-yrityksille" className="hover:text-primary">
+              {tr.nav.yrityksille}
+            </Link>
+            <Link to="/care-palveluseteli" className="hover:text-primary">
+              {tr.nav.palveluseteli}
+            </Link>
           </div>
         </div>
-        <div className="space-y-2 text-center md:space-y-3">
+        <div className="flex flex-col items-start gap-2 text-left md:gap-3">
           <p className="eyebrow">{tr.footer.contact}</p>
-          <div className="flex flex-col gap-1 text-sm text-foreground/80 md:gap-2">
-            <a href={`mailto:${publicEmail}`} className="hover:text-primary">{publicEmail}</a>
-            <a href={`tel:${publicPhone.replace(/\s/g, "")}`} className="hover:text-primary">{publicPhone}</a>
-            {(contact?.public_address || PUBLIC_ADDRESS) && <p className="text-foreground/70">{contact?.public_address || PUBLIC_ADDRESS}</p>}
-            <p className="text-foreground/70">{tr.footer.businessId}: {contact?.business_id || BUSINESS_ID}</p>
+          <div className="flex flex-col items-start gap-2 text-sm text-foreground/80">
+            <a href={`mailto:${publicEmail}`} className="hover:text-primary">
+              {publicEmail}
+            </a>
+            <a href={`tel:${publicPhone.replace(/\s/g, "")}`} className="hover:text-primary">
+              {publicPhone}
+            </a>
+            {(contact?.public_address || PUBLIC_ADDRESS) && (
+              <p className="text-foreground/70">{contact?.public_address || PUBLIC_ADDRESS}</p>
+            )}
+            <p className="text-foreground/70">
+              {tr.footer.businessId}: {contact?.business_id || BUSINESS_ID}
+            </p>
             <Link to="/tietosuoja" className="hover:text-primary">
-                {tr.footer.privacy}
+              {tr.footer.privacy}
             </Link>
             {isAnalyticsAvailable && (
               <button type="button" onClick={openSettings} className="text-left hover:text-primary">
