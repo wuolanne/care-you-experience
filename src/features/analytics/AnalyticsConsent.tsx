@@ -1,5 +1,5 @@
 import { useRouterState } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageProvider";
 import {
@@ -83,7 +83,6 @@ function AnalyticsTracker({
   analyticsEnabled: boolean;
 }) {
   const routeHref = useRouterState({ select: (state) => state.location.href });
-  const lastTrackedPage = useRef<string | null>(null);
 
   useEffect(() => {
     if (!analyticsEnabled || consent !== "granted") return;
@@ -91,10 +90,6 @@ function AnalyticsTracker({
     if (!initializeAnalytics(measurementId)) return;
 
     const page = new URL(routeHref, window.location.origin);
-    const pageKey = page.href;
-    if (lastTrackedPage.current === pageKey) return;
-
-    lastTrackedPage.current = pageKey;
     trackPageView({
       path: `${page.pathname}${page.search}${page.hash}`,
       location: page.href,
@@ -105,7 +100,6 @@ function AnalyticsTracker({
   useEffect(() => {
     if (!analyticsEnabled || consent !== "denied") return;
 
-    lastTrackedPage.current = null;
     revokeAnalytics(measurementId);
   }, [analyticsEnabled, consent]);
 

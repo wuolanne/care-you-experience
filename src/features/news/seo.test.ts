@@ -49,6 +49,10 @@ describe("news article SEO", () => {
     }
   });
 
+  it("keeps public news image URLs deterministic for SSR and the first client render", () => {
+    expect(newsImagePath(item.id)).toBe("/api/news-image/123e4567-e89b-12d3-a456-426614174000");
+  });
+
   it("uses the Preview deployment for social images without changing the canonical URL", () => {
     const originalEnvironment = process.env["VERCEL_ENV"];
     const originalUrl = process.env["VERCEL_URL"];

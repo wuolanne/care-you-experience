@@ -38,6 +38,7 @@ declare global {
     dataLayer?: unknown[];
     gtag?: Gtag;
     __tgnAnalyticsInitialized?: boolean;
+    __tgnLastTrackedPage?: string;
   }
 }
 
@@ -75,8 +76,10 @@ export function writeAnalyticsConsent(storage: ConsentStorage, consent: Analytic
 
 function createGtag(): Gtag {
   window.dataLayer = window.dataLayer ?? [];
-  return (...args: unknown[]) => {
-    window.dataLayer?.push(args);
+  return function gtag() {
+    // Google Tag expects each queued command as the arguments object.
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer?.push(arguments);
   };
 }
 
@@ -117,6 +120,10 @@ export function trackPageView(page: PageView): boolean {
     return false;
   }
 
+  if (window.__tgnLastTrackedPage === page.location) return false;
+
+  window.__tgnLastTrackedPage = page.location;
+
   window.gtag("event", "page_view", {
     page_title: page.title,
     page_location: page.location,
@@ -149,5 +156,6 @@ export function revokeAnalytics(measurementId: string): void {
 
   window.gtag?.("consent", "update", DEFAULT_CONSENT);
   window.__tgnAnalyticsInitialized = false;
+  delete window.__tgnLastTrackedPage;
   deleteAnalyticsCookies(measurementId);
 }

@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 import { hasNewsTranslation, type NewsItem } from "./model";
+import { newsImagePath } from "./seo";
 
 type PublicNewsRequest = { id: string; lang: "fi" | "sv" | "es" | "en" };
 
@@ -44,17 +45,10 @@ export const listNews = createServerFn({ method: "GET" }).handler(async () => {
     .order("news_date", { ascending: false })
     .order("created_at", { ascending: false });
   if (error) throw new Error("Uutisia ei voitu ladata.");
-  return await Promise.all(
-    (data as NewsItem[]).map(async (item) => {
-      if (!item.image_path) return { ...item, imageUrl: null };
-      const { data: signed } = await client.storage
-        .from("news-images")
-        .createSignedUrl(item.image_path, 3600);
-      const imageUrl =
-        signed?.signedUrl?.replace(url, import.meta.env["VITE_SUPABASE_URL"]) ?? null;
-      return { ...item, imageUrl };
-    }),
-  );
+  return (data as NewsItem[]).map((item) => ({
+    ...item,
+    imageUrl: item.image_path ? newsImagePath(item.id) : null,
+  }));
 });
 
 export const getNews = createServerFn({ method: "GET" })
