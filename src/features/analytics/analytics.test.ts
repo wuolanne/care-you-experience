@@ -3,6 +3,7 @@ import {
   ANALYTICS_CONSENT_STORAGE_KEY,
   readAnalyticsConsent,
   shouldEnableAnalytics,
+  shouldShowAnalyticsConsent,
   writeAnalyticsConsent,
 } from "./analytics";
 
@@ -30,6 +31,14 @@ describe("analytics runtime guard", () => {
     expect(shouldEnableAnalytics({ ...production, mode: "development" })).toBe(false);
     expect(shouldEnableAnalytics({ ...production, vercelEnv: "preview" })).toBe(false);
     expect(shouldEnableAnalytics({ ...production, measurementId: "" })).toBe(false);
+  });
+
+  it("shows the consent UI in Preview while keeping GA disabled", () => {
+    const preview = { ...production, measurementId: "", vercelEnv: "preview" };
+
+    expect(shouldShowAnalyticsConsent(preview)).toBe(true);
+    expect(shouldEnableAnalytics(preview)).toBe(false);
+    expect(shouldShowAnalyticsConsent({ ...preview, dev: true })).toBe(false);
   });
 });
 

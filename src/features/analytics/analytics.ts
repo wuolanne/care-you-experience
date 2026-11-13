@@ -52,6 +52,10 @@ export function shouldEnableAnalytics(runtime: AnalyticsRuntime): boolean {
   );
 }
 
+export function shouldShowAnalyticsConsent(runtime: AnalyticsRuntime): boolean {
+  return !runtime.dev && runtime.mode === "production";
+}
+
 export function readAnalyticsConsent(storage: ConsentStorage): StoredAnalyticsConsent {
   try {
     const value = storage.getItem(ANALYTICS_CONSENT_STORAGE_KEY);

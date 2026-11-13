@@ -14,6 +14,9 @@ sovellukseen.
   mainonnan consent-kentät jäävät estetyiksi.
 - Paikallisessa kehityksessä, muissa kuin production-buildissa ja Vercelin
   Preview-ympäristöissä GA4 ei käynnisty, vaikka tunnus olisi ympäristössä.
+- Preview- ja Production-ympäristöissä suostumusbanneri ja footerin
+  Evästeasetukset-linkki ovat käytettävissä. Previewssa valinta tallennetaan, mutta
+  analytiikkaskriptiä ei ladata eikä GA4-pyyntöjä tehdä.
 
 Verceliin lisätään `VITE_GA_MEASUREMENT_ID=G-3DG3SZ1G35` vain **Production**-
 ympäristöön. Muuttujaa ei lisätä Preview- tai Development-ympäristöihin.

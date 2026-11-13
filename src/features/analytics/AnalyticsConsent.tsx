@@ -7,27 +7,31 @@ import {
   readAnalyticsConsent,
   revokeAnalytics,
   shouldEnableAnalytics,
+  shouldShowAnalyticsConsent,
   trackPageView,
   writeAnalyticsConsent,
   type AnalyticsConsent,
+  type AnalyticsRuntime,
 } from "./analytics";
 import { AnalyticsConsentContext } from "./analytics-context";
 
 const measurementId = (import.meta.env.VITE_GA_MEASUREMENT_ID ?? "").trim();
-const analyticsAvailable = shouldEnableAnalytics({
+const analyticsRuntime: AnalyticsRuntime = {
   measurementId,
   dev: import.meta.env.DEV,
   mode: import.meta.env.MODE,
   vercelEnv: import.meta.env.VERCEL_ENV ?? "",
-});
+};
+const analyticsEnabled = shouldEnableAnalytics(analyticsRuntime);
+const consentUiAvailable = shouldShowAnalyticsConsent(analyticsRuntime);
 
 export function AnalyticsConsentProvider({ children }: { children: ReactNode }) {
   const [consent, setConsent] = useState<AnalyticsConsent | null>(null);
-  const [isConsentLoaded, setIsConsentLoaded] = useState(!analyticsAvailable);
+  const [isConsentLoaded, setIsConsentLoaded] = useState(!consentUiAvailable);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
-    if (!analyticsAvailable) return;
+    if (!consentUiAvailable) return;
 
     try {
       setConsent(readAnalyticsConsent(window.localStorage));
@@ -39,7 +43,7 @@ export function AnalyticsConsentProvider({ children }: { children: ReactNode }) 
   }, []);
 
   const chooseConsent = (nextConsent: AnalyticsConsent) => {
-    if (!analyticsAvailable) return;
+    if (!consentUiAvailable) return;
 
     try {
       writeAnalyticsConsent(window.localStorage, nextConsent);
@@ -52,9 +56,9 @@ export function AnalyticsConsentProvider({ children }: { children: ReactNode }) 
 
   const contextValue = useMemo(
     () => ({
-      isAvailable: analyticsAvailable,
+      isAvailable: consentUiAvailable,
       openSettings: () => {
-        if (analyticsAvailable) setSettingsOpen(true);
+        if (consentUiAvailable) setSettingsOpen(true);
       },
     }),
     [],
@@ -63,20 +67,26 @@ export function AnalyticsConsentProvider({ children }: { children: ReactNode }) 
   return (
     <AnalyticsConsentContext.Provider value={contextValue}>
       {children}
-      <AnalyticsTracker consent={consent} />
-      {analyticsAvailable && isConsentLoaded && (consent === null || settingsOpen) && (
+      <AnalyticsTracker consent={consent} analyticsEnabled={analyticsEnabled} />
+      {consentUiAvailable && isConsentLoaded && (consent === null || settingsOpen) && (
         <AnalyticsConsentBanner onChoose={chooseConsent} isSettings={consent !== null} />
       )}
     </AnalyticsConsentContext.Provider>
   );
 }
 
-function AnalyticsTracker({ consent }: { consent: AnalyticsConsent | null }) {
+function AnalyticsTracker({
+  consent,
+  analyticsEnabled,
+}: {
+  consent: AnalyticsConsent | null;
+  analyticsEnabled: boolean;
+}) {
   const routeHref = useRouterState({ select: (state) => state.location.href });
   const lastTrackedPage = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!analyticsAvailable || consent !== "granted") return;
+    if (!analyticsEnabled || consent !== "granted") return;
 
     if (!initializeAnalytics(measurementId)) return;
 
@@ -90,14 +100,14 @@ function AnalyticsTracker({ consent }: { consent: AnalyticsConsent | null }) {
       location: page.href,
       title: document.title,
     });
-  }, [consent, routeHref]);
+  }, [analyticsEnabled, consent, routeHref]);
 
   useEffect(() => {
-    if (!analyticsAvailable || consent !== "denied") return;
+    if (!analyticsEnabled || consent !== "denied") return;
 
     lastTrackedPage.current = null;
     revokeAnalytics(measurementId);
-  }, [consent]);
+  }, [analyticsEnabled, consent]);
 
   return null;
 }
