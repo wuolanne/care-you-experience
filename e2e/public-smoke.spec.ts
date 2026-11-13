@@ -12,6 +12,19 @@ for (const route of publicRoutes) {
   });
 }
 
+test("does not load Google Analytics in local development", async ({ page }) => {
+  const analyticsRequests: string[] = [];
+  page.on("request", (request) => {
+    if (/googletagmanager|google-analytics/.test(request.url())) {
+      analyticsRequests.push(request.url());
+    }
+  });
+
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+
+  expect(analyticsRequests).toEqual([]);
+});
+
 const billingTranslations = {
   fi: { heading: "Laskutustiedot", businessId: "Y-tunnus" },
   sv: { heading: "Faktureringsuppgifter", businessId: "Y-tunnus" },

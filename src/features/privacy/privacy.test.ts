@@ -73,6 +73,18 @@ describe("privacy translations", () => {
     }
   });
 
+  it("describes consent-gated Google Analytics in every supported language", () => {
+    for (const { code } of LANGS) {
+      const privacy = t[code].privacy;
+      const cookies = privacy.sections[5]!.paragraphs.join(" ");
+
+      expect(t[code].analyticsConsent.accept).toBeTruthy();
+      expect(t[code].analyticsConsent.reject).toBeTruthy();
+      expect(t[code].footer.cookieSettings).toBeTruthy();
+      expect(cookies).toContain("Google Analytics 4");
+    }
+  });
+
   it("keeps the privacy page free of redundant action buttons and nested main elements", () => {
     expect(privacyRouteSource).not.toContain("<main");
     expect(privacyRouteSource).toContain("href={`mailto:${email}`}");

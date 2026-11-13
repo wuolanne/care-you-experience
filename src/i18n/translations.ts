@@ -84,6 +84,15 @@ type Dict = {
     follow: string;
     socialPending: string;
     adminDashboard: string;
+    cookieSettings: string;
+  };
+  analyticsConsent: {
+    title: string;
+    body: string;
+    accept: string;
+    reject: string;
+    settings: string;
+    privacyLink: string;
   };
   privacy: {
     title: string;
@@ -217,11 +226,19 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Jätä yhteydenottopyyntö", lead: "Kerro lyhyesti tarpeistasi ja jätä yhteystietosi." },
     buy: { title: "Osta palvelu", lead: "Selkeät palvelupaketit, joilla pääset alkuun heti.", from: "alkaen", select: "Valitse" },
     splash: { kotiin: "TGN Kotiin", yrityksille: "TGN Yrityksille" },
-    footer: { tagline: "Luotettavaa kumppanuutta kotiin ja yrityksille.", contact: "Yhteystiedot", privacy: "Tietosuojaseloste", rights: "Kaikki oikeudet pidätetään.", businessId: "Y-tunnus", follow: "Seuraa meitä", socialPending: "ei vielä linkkiä", adminDashboard: "Hallintapaneeli" },
+    footer: { tagline: "Luotettavaa kumppanuutta kotiin ja yrityksille.", contact: "Yhteystiedot", privacy: "Tietosuojaseloste", rights: "Kaikki oikeudet pidätetään.", businessId: "Y-tunnus", follow: "Seuraa meitä", socialPending: "ei vielä linkkiä", adminDashboard: "Hallintapaneeli", cookieSettings: "Evästeasetukset" },
+    analyticsConsent: {
+      title: "Sallitko analytiikan?",
+      body: "Käytämme Google Analytics 4 -analytiikkaa sivuston käytön ymmärtämiseen. Analytiikka aktivoituu vain hyväksynnällä, ja voit muuttaa valintaasi myöhemmin.",
+      accept: "Hyväksy analytiikka",
+      reject: "Hylkää",
+      settings: "Analytiikka-asetukset",
+      privacyLink: "Lue tietosuojaseloste",
+    },
     privacy: {
       title: "Tietosuojaseloste",
       intro: "Tämä seloste kuvaa, miten TGN Services käsittelee henkilötietoja verkkosivustolla ja sivuston lomakkeiden yhteydessä.",
-      updated: "Päivitetty viimeksi: 22.10.2026",
+      updated: "Päivitetty viimeksi: 13.11.2026",
       contactNotice: "Käsittelemme antamiasi tietoja yhteydenottopyyntöösi vastaamiseksi.",
       bookingNotice: "Käsittelemme antamiasi tietoja videopalaveripyyntösi käsittelemiseksi.",
       serviceStartNotice: "Käsittelemme antamiasi tietoja palvelun aloituksen suunnittelemiseksi.",
@@ -233,7 +250,7 @@ export const t: Record<Lang, Dict> = {
         { title: "3. Tietojen lähde ja käsittelyn peruste", paragraphs: ["Tiedot saadaan suoraan sinulta lomakkeella tai ylläpitoon kirjautuessa. Älä lähetä lomakkeella tarpeettomia arkaluonteisia tietoja.", "Palvelunaloituspyynnön käsittely perustuu GDPR:n 6 artiklan 1 kohdan b alakohtaan: sopimusta edeltävät toimenpiteet rekisteröidyn pyynnöstä. Tavallisen yhteydenoton, videopalaveripyynnön ja väärinkäytösten torjunnan käsittelyperusteet arvioidaan erikseen. Lomakkeisiin ei lisätä suostumusvalintaa ilman tätä arviota."] },
         { title: "4. Vastaanottajat, suojaus ja siirrot", paragraphs: ["Tietoja käsitellään Supabasessa. Yritykselle lähetettävät sähköposti-ilmoitukset toimitetaan Resendin kautta. Sivustoa isännöi Vercel ja fontteja ladataan Google Fonts -palvelusta. Näiden palveluntarjoajien mahdolliset EU/ETA-alueen ulkopuoliset siirrot ja suojatoimet tarkistetaan ajantasaisista ehdoista."] },
         { title: "5. Tietojen säilyttäminen", paragraphs: ["Säilytämme henkilötietoja vain niin kauan kuin niitä tarvitaan yhteydenottopyynnön tai asiakkuuden hoitamiseen tai lakisääteisten velvoitteiden täyttämiseen.", "Poistamme tiedot, kun niiden säilyttämiselle ei enää ole perustetta. Voit myös pyytää tietojesi poistamista osoitteesta info@tgnservices.fi."] },
-        { title: "6. Oikeudet, evästeet ja selosteen päivitys", paragraphs: ["Voit soveltuvin osin pyytää pääsyä tietoihisi, niiden oikaisua, poistamista tai käsittelyn rajoittamista ja vastustaa käsittelyä. Lähetä pyyntö osoitteeseen info@tgnservices.fi; henkilöllisyys voidaan varmistaa. Voit tehdä valituksen tietosuojavaltuutetun toimistolle. Lisätiedot: tietosuoja.fi.", "Sivustolla ei käytetä analytiikka- tai markkinointiseurantaa. Kieli ja kirjautumisistunto tallennetaan selaimen toiminnalliseen tallennustilaan, ja ylläpidon käyttöasetus voi tallentua evästeenä. Selostetta päivitetään, kun käsittely, palveluntarjoajat, käyttötarkoitukset tai yhteystiedot muuttuvat."] },
+        { title: "6. Oikeudet, evästeet ja selosteen päivitys", paragraphs: ["Voit soveltuvin osin pyytää pääsyä tietoihisi, niiden oikaisua, poistamista tai käsittelyn rajoittamista ja vastustaa käsittelyä. Lähetä pyyntö osoitteeseen info@tgnservices.fi; henkilöllisyys voidaan varmistaa. Voit tehdä valituksen tietosuojavaltuutetun toimistolle. Lisätiedot: tietosuoja.fi.", "Käytämme Google Analytics 4 -analytiikkaa vain, jos hyväksyt analytiikkaevästeet. Suostumus tallennetaan selaimen tallennustilaan, ja voit muuttaa tai perua valintasi sivuston alatunnisteen Evästeasetukset-linkistä. Google Analyticsin käsittely perustuu suostumukseen (GDPR 6 artiklan 1 kohdan a alakohta). Analytiikka ei ole käytössä paikallisessa kehityksessä tai Vercelin Preview-ympäristöissä. Kieli ja kirjautumisistunto tallennetaan selaimen toiminnalliseen tallennustilaan, ja ylläpidon käyttöasetus voi tallentua evästeenä. Selostetta päivitetään, kun käsittely, palveluntarjoajat, käyttötarkoitukset tai yhteystiedot muuttuvat."] },
       ],
     },
   },
@@ -355,11 +372,19 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Be oss kontakta dig", lead: "Berätta kort om dina behov och lämna dina kontaktuppgifter." },
     buy: { title: "Köp tjänst", lead: "Tydliga servicepaket som gör att du kommer igång direkt.", from: "från", select: "Välj" },
     splash: { kotiin: "TGN Hem", yrityksille: "TGN för Företag" },
-      footer: { tagline: "Ett pålitligt partnerskap för hem och företag.", contact: "Kontakt", privacy: "Integritetspolicy", rights: "Alla rättigheter förbehållna.", businessId: "Y-tunnus", follow: "Följ oss", socialPending: "inte länkad ännu", adminDashboard: "Administrationspanel" },
+      footer: { tagline: "Ett pålitligt partnerskap för hem och företag.", contact: "Kontakt", privacy: "Integritetspolicy", rights: "Alla rättigheter förbehållna.", businessId: "Y-tunnus", follow: "Följ oss", socialPending: "inte länkad ännu", adminDashboard: "Administrationspanel", cookieSettings: "Cookie-inställningar" },
+    analyticsConsent: {
+      title: "Tillåter du analys?",
+      body: "Vi använder Google Analytics 4 för att förstå hur webbplatsen används. Analysen aktiveras endast med ditt godkännande, och du kan ändra ditt val senare.",
+      accept: "Godkänn analys",
+      reject: "Avvisa",
+      settings: "Analysinställningar",
+      privacyLink: "Läs integritetspolicyn",
+    },
     privacy: {
       title: "Integritetspolicy",
       intro: "Den här policyn beskriver hur TGN Services behandlar personuppgifter på webbplatsen och i webbplatsens formulär.",
-      updated: "Senast uppdaterad: 22.10.2026",
+      updated: "Senast uppdaterad: 13.11.2026",
       contactNotice: "Vi behandlar uppgifterna du lämnar för att svara på din kontaktförfrågan.",
       bookingNotice: "Vi behandlar uppgifterna du lämnar för att hantera din videomötesförfrågan.",
       serviceStartNotice: "Vi behandlar uppgifterna du lämnar för att planera tjänstens start.",
@@ -371,7 +396,7 @@ export const t: Record<Lang, Dict> = {
         { title: "3. Uppgifternas källa och rättslig grund", paragraphs: ["Uppgifterna lämnas direkt av dig i ett formulär eller vid inloggning till administrationen. Skicka inte onödiga känsliga uppgifter.", "Behandlingen av tjänstestartsförfrågningar grundar sig på artikel 6.1 b i GDPR: åtgärder före avtal på den registrerades begäran. Den rättsliga grunden för vanliga kontaktförfrågningar, videomötesförfrågningar och bekämpning av missbruk bedöms separat. Ingen samtyckesruta läggs till utan denna bedömning."] },
         { title: "4. Mottagare, skydd och överföringar", paragraphs: ["Uppgifter behandlas i Supabase. E-postmeddelanden till företaget skickas via Resend. Webbplatsen hostas av Vercel och typsnitt laddas från Google Fonts. Eventuella överföringar utanför EU/EES och tillämpliga skyddsåtgärder kontrolleras i leverantörernas aktuella villkor."] },
         { title: "5. Lagring", paragraphs: ["Vi sparar personuppgifter endast så länge de behövs för att hantera en kontaktförfrågan eller en kundrelation eller för att uppfylla lagstadgade skyldigheter.", "Vi raderar uppgifterna när det inte längre finns grund för att spara dem. Du kan också begära att dina uppgifter raderas genom att skriva till info@tgnservices.fi."] },
-        { title: "6. Rättigheter, kakor och uppdatering", paragraphs: ["Du kan i tillämpliga fall begära tillgång till, rättelse av, radering av eller begränsning av behandlingen av dina uppgifter och invända mot behandling. Skicka begäran till info@tgnservices.fi; identiteten kan behöva verifieras. Du kan klaga hos Dataombudsmannens byrå. Mer information finns på tietosuoja.fi.", "Webbplatsen använder inte analys- eller marknadsföringsspårning. Språk och inloggningssession sparas i webbläsarens funktionella lagring, och en administrationsinställning kan sparas som kaka. Policyn uppdateras när behandling, leverantörer, ändamål eller kontaktuppgifter ändras."] },
+        { title: "6. Rättigheter, kakor och uppdatering", paragraphs: ["Du kan i tillämpliga fall begära tillgång till, rättelse av, radering av eller begränsning av behandlingen av dina uppgifter och invända mot behandling. Skicka begäran till info@tgnservices.fi; identiteten kan behöva verifieras. Du kan klaga hos Dataombudsmannens byrå. Mer information finns på tietosuoja.fi.", "Vi använder Google Analytics 4 endast om du godkänner analysskakor. Samtycket sparas i webbläsarens lagring, och du kan ändra eller återkalla ditt val via länken Cookie-inställningar i sidfoten. Behandlingen i Google Analytics grundar sig på samtycke (artikel 6.1 a i GDPR). Analysen är inte aktiv i lokal utveckling eller i Vercels Preview-miljöer. Språk och inloggningssession sparas i webbläsarens funktionella lagring, och en administrationsinställning kan sparas som kaka. Policyn uppdateras när behandling, leverantörer, ändamål eller kontaktuppgifter ändras."] },
       ],
     },
   },
@@ -493,11 +518,19 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Solicitar contacto", lead: "Cuéntanos brevemente tus necesidades y deja tus datos de contacto." },
     buy: { title: "Comprar servicio", lead: "Paquetes claros para empezar de inmediato.", from: "desde", select: "Elegir" },
     splash: { kotiin: "TGN Hogar", yrityksille: "TGN para Empresas" },
-    footer: { tagline: "Una colaboración de confianza para hogares y empresas.", contact: "Contacto", privacy: "Política de privacidad", rights: "Todos los derechos reservados.", businessId: "NIF", follow: "Síguenos", socialPending: "sin enlace todavía", adminDashboard: "Panel de administración" },
+    footer: { tagline: "Una colaboración de confianza para hogares y empresas.", contact: "Contacto", privacy: "Política de privacidad", rights: "Todos los derechos reservados.", businessId: "NIF", follow: "Síguenos", socialPending: "sin enlace todavía", adminDashboard: "Panel de administración", cookieSettings: "Ajustes de cookies" },
+    analyticsConsent: {
+      title: "¿Permites el análisis?",
+      body: "Usamos Google Analytics 4 para comprender cómo se utiliza el sitio web. El análisis solo se activa con tu consentimiento y puedes cambiar tu elección más adelante.",
+      accept: "Aceptar análisis",
+      reject: "Rechazar",
+      settings: "Ajustes de análisis",
+      privacyLink: "Leer la política de privacidad",
+    },
     privacy: {
       title: "Política de privacidad",
       intro: "Esta política describe cómo TGN Services trata los datos personales en el sitio web y en sus formularios.",
-      updated: "Última actualización: 22.10.2026",
+      updated: "Última actualización: 13.11.2026",
       contactNotice: "Tratamos los datos que proporcionas para responder a tu solicitud de contacto.",
       bookingNotice: "Tratamos los datos que proporcionas para gestionar tu solicitud de videollamada.",
       serviceStartNotice: "Tratamos los datos que proporcionas para planificar el inicio del servicio.",
@@ -509,7 +542,7 @@ export const t: Record<Lang, Dict> = {
         { title: "3. Origen y base jurídica", paragraphs: ["Los datos se reciben directamente de ti mediante un formulario o al iniciar sesión en la administración. No envíes datos sensibles innecesarios.", "El tratamiento de las solicitudes de inicio del servicio se basa en el artículo 6, apartado 1, letra b del RGPD: medidas precontractuales a petición de la persona interesada. La base jurídica de las solicitudes de contacto ordinarias, las solicitudes de videollamada y la prevención de usos indebidos se evalúa por separado. No se añade una casilla de consentimiento sin esta evaluación."] },
         { title: "4. Destinatarios, protección y transferencias", paragraphs: ["Los datos se tratan en Supabase. Los avisos por correo a la empresa se envían mediante Resend. El sitio está alojado en Vercel y las fuentes se cargan desde Google Fonts. Las posibles transferencias fuera de la UE/EEE y las garantías aplicables se comprueban en las condiciones vigentes de los proveedores."] },
         { title: "5. Conservación", paragraphs: ["Conservamos los datos personales solo durante el tiempo necesario para gestionar una solicitud de contacto o una relación con el cliente, o para cumplir obligaciones legales.", "Eliminamos los datos cuando ya no existe una base para conservarlos. También puedes solicitar la eliminación de tus datos escribiendo a info@tgnservices.fi."] },
-        { title: "6. Derechos, cookies y actualización", paragraphs: ["Según corresponda, puedes solicitar acceso, rectificación, supresión o limitación del tratamiento y oponerte al mismo. Envía la solicitud a info@tgnservices.fi; puede ser necesario verificar tu identidad. Puedes reclamar ante la autoridad finlandesa de protección de datos. Más información: tietosuoja.fi.", "El sitio no utiliza seguimiento analítico ni de marketing. El idioma y la sesión de inicio de sesión se guardan en el almacenamiento funcional del navegador, y una preferencia de administración puede guardarse como cookie. La política se actualiza cuando cambian el tratamiento, los proveedores, las finalidades o los datos de contacto."] },
+        { title: "6. Derechos, cookies y actualización", paragraphs: ["Según corresponda, puedes solicitar acceso, rectificación, supresión o limitación del tratamiento y oponerte al mismo. Envía la solicitud a info@tgnservices.fi; puede ser necesario verificar tu identidad. Puedes reclamar ante la autoridad finlandesa de protección de datos. Más información: tietosuoja.fi.", "Usamos Google Analytics 4 solo si aceptas las cookies de análisis. El consentimiento se guarda en el almacenamiento del navegador, y puedes cambiar o retirar tu elección mediante el enlace Ajustes de cookies del pie de página. El tratamiento en Google Analytics se basa en el consentimiento (artículo 6, apartado 1, letra a del RGPD). El análisis no está activo en el desarrollo local ni en los entornos Preview de Vercel. El idioma y la sesión de inicio de sesión se guardan en el almacenamiento funcional del navegador, y una preferencia de administración puede guardarse como cookie. La política se actualiza cuando cambian el tratamiento, los proveedores, las finalidades o los datos de contacto."] },
       ],
     },
   },
@@ -631,11 +664,19 @@ export const t: Record<Lang, Dict> = {
     quote: { title: "Request a callback", lead: "Briefly describe your needs and leave your contact details." },
     buy: { title: "Buy a service", lead: "Clear service packages so you can start immediately.", from: "from", select: "Select" },
     splash: { kotiin: "TGN Home", yrityksille: "TGN for Business" },
-    footer: { tagline: "Reliable partnership for homes and businesses.", contact: "Contact", privacy: "Privacy policy", rights: "All rights reserved.", businessId: "Business ID", follow: "Follow us", socialPending: "not linked yet", adminDashboard: "Admin dashboard" },
+    footer: { tagline: "Reliable partnership for homes and businesses.", contact: "Contact", privacy: "Privacy policy", rights: "All rights reserved.", businessId: "Business ID", follow: "Follow us", socialPending: "not linked yet", adminDashboard: "Admin dashboard", cookieSettings: "Cookie settings" },
+    analyticsConsent: {
+      title: "Allow analytics?",
+      body: "We use Google Analytics 4 to understand how the website is used. Analytics is activated only with your consent, and you can change your choice later.",
+      accept: "Accept analytics",
+      reject: "Reject",
+      settings: "Analytics settings",
+      privacyLink: "Read the privacy policy",
+    },
     privacy: {
       title: "Privacy policy",
       intro: "This policy describes how TGN Services processes personal data on the website and through its forms.",
-      updated: "Last updated: 22 October 2026",
+      updated: "Last updated: 13 November 2026",
       contactNotice: "We process the information you provide to respond to your contact request.",
       bookingNotice: "We process the information you provide to handle your video meeting request.",
       serviceStartNotice: "We process the information you provide to plan the start of the service.",
@@ -647,7 +688,7 @@ export const t: Record<Lang, Dict> = {
         { title: "3. Source and legal basis", paragraphs: ["The data is provided directly by you through a form or when signing in to administration. Do not send unnecessary sensitive information.", "Processing service start requests is based on Article 6(1)(b) GDPR: taking steps at the data subject’s request prior to entering into a contract. The legal bases for ordinary contact requests, video meeting requests and preventing misuse are assessed separately. No consent checkbox is added without that assessment."] },
         { title: "4. Recipients, security and transfers", paragraphs: ["Data is processed in Supabase. Email notifications to the company are sent through Resend. The site is hosted by Vercel and fonts are loaded from Google Fonts. Any transfers outside the EU/EEA and the applicable safeguards are checked in the providers’ current terms."] },
         { title: "5. Retention", paragraphs: ["We retain personal data only for as long as it is needed to handle a contact request or customer relationship, or to fulfil legal obligations.", "We delete the data when there is no longer a basis for retaining it. You can also request deletion of your data by writing to info@tgnservices.fi."] },
-        { title: "6. Rights, cookies and updates", paragraphs: ["Where applicable, you may request access to, correction or deletion of your data, restriction of processing, or object to processing. Send requests to info@tgnservices.fi; your identity may need to be verified. You may complain to the Finnish Data Protection Ombudsman. More information: tietosuoja.fi.", "The site does not use analytics or marketing tracking. Language and the sign-in session are stored in functional browser storage, and an administration preference may be stored as a cookie. This policy is updated when processing, providers, purposes or contact details change."] },
+        { title: "6. Rights, cookies and updates", paragraphs: ["Where applicable, you may request access to, correction or deletion of your data, restriction of processing, or object to processing. Send requests to info@tgnservices.fi; your identity may need to be verified. You may complain to the Finnish Data Protection Ombudsman. More information: tietosuoja.fi.", "We use Google Analytics 4 only if you accept analytics cookies. Consent is stored in browser storage, and you can change or withdraw your choice through the Cookie settings link in the footer. Google Analytics processing is based on consent (Article 6(1)(a) GDPR). Analytics is not active in local development or Vercel Preview environments. Language and the sign-in session are stored in functional browser storage, and an administration preference may be stored as a cookie. This policy is updated when processing, providers, purposes or contact details change."] },
       ],
     },
   },

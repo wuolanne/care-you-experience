@@ -18,6 +18,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { CustomerReviews } from "@/components/CustomerReviews";
 import { supabase } from '@/integrations/supabase/client';
 import { publicReviewsQuery, publicSiteContactQuery, publicSocialLinksQuery } from "@/features/content/queries";
+import { AnalyticsConsentProvider } from "@/features/analytics/AnalyticsConsent";
 
 
 function NotFoundComponent() {
@@ -138,15 +139,17 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <div className="flex min-h-screen flex-col">
-          <SiteHeader />
-          <main className="flex-1">
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <Outlet />
-          </main>
-          {pathname !== "/tietosuoja" && <CustomerReviews />}
-          <SiteFooter />
-        </div>
+        <AnalyticsConsentProvider>
+          <div className="flex min-h-screen flex-col">
+            <SiteHeader />
+            <main className="flex-1">
+              {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+              <Outlet />
+            </main>
+            {pathname !== "/tietosuoja" && <CustomerReviews />}
+            <SiteFooter />
+          </div>
+        </AnalyticsConsentProvider>
       </LanguageProvider>
     </QueryClientProvider>
   );

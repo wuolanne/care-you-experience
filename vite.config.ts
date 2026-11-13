@@ -7,6 +7,13 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  vite: {
+    // Vercel exposes this build-time value without the VITE_ prefix. Expose only
+    // the deployment environment to the client so Preview builds can stay dark.
+    define: {
+      "import.meta.env.VERCEL_ENV": JSON.stringify(process.env["VERCEL_ENV"] ?? ""),
+    },
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

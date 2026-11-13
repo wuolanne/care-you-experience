@@ -13,7 +13,20 @@ Tämä dokumentti kuvaa tämän version lähdekoodiin perustuvan nykytilan. Se e
 
 `email_outbox` sisältää ilmoituksen muodostamiseen tarvittavan payloadin sekä viestin vastaanottajan, vastausosoitteen, tilan, yrityksen Resend-tunnisteen, yrityskertojen määrän ja idempotenssitunnisteen. Raakaa IP-osoitetta ei tallenneta. Rate limiting käyttää IP-osoitteesta laskettua hashia `form_rate_limits`-taulussa; hashin säilytysaikaa ei ole määritelty sovelluksessa.
 
-Lähdekoodista ei löytynyt analytiikka- tai markkinointiseurantaa. Selain tallentaa kielivalinnan `localStorageen`, Supabase Auth istunnon selaimen tallennustilaan ja admin-sivupalkki voi tallentaa asetuksen evästeenä. Sivusto lataa fontit Google Fonts -palvelusta, joten sen tekninen tiedonsiirto pitää huomioida palveluntarjoaja-arviossa.
+Google Analytics 4 on käytössä vain tuotantobuildissa käyttäjän hyväksynnällä. Suostumus
+tallennetaan selaimen `localStorageen` avaimella `tgn-analytics-consent`, ja valinnan
+voi muuttaa footerin Evästeasetukset-linkistä. GA4:n analytiikkaevästeet ja tapahtumat
+aktivoidaan vasta hyväksynnän jälkeen; paikallisessa kehityksessä ja Vercelin Preview-
+ympäristöissä seuranta on build-aikaisesti estetty. Sivusto ei käytä Google Tag
+Manageria eikä markkinointiseurantaa. Selain tallentaa kielivalinnan `localStorageen`,
+Supabase Auth istunnon selaimen tallennustilaan ja admin-sivupalkki voi tallentaa
+asetuksen evästeenä. Sivusto lataa fontit Google Fonts -palvelusta, joten sen tekninen
+tiedonsiirto pitää huomioida palveluntarjoaja-arviossa.
+
+GA4-käsittelyn peruste on analytiikkasuostumus (GDPR 6(1)(a)). Google Consent Mode v2
+asetetaan oletuksena estettynä (`analytics_storage`, `ad_storage`, `ad_user_data` ja
+`ad_personalization`), ja vain analytiikkasuostumus päivittää `analytics_storage`-
+arvon sallituksi. Mainonnan suostumukset jäävät estetyiksi.
 
 ## Tietopyynnön käsittely
 

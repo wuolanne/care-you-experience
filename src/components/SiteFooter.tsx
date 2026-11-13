@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { ComponentType } from "react";
 import logo from "@/assets/tgs-logo-g.png";
 import { useLang } from "@/i18n/LanguageProvider";
+import { useAnalyticsConsent } from "@/features/analytics/analytics-context";
 import { NewsAdminLink } from '@/features/news/NewsAdminLink';
 import { BUSINESS_ID, PUBLIC_ADDRESS, PUBLIC_EMAIL, PUBLIC_PHONE, SOCIAL_LINKS, type SocialKey } from '@/data/company';
 import { publicSiteContactQuery, publicSocialLinksQuery } from "@/features/content/queries";
@@ -28,6 +29,7 @@ const SOCIAL: { key: SocialKey; name: string; Icon: ComponentType<{ className?: 
 
 export function SiteFooter() {
   const { tr } = useLang();
+  const { isAvailable: isAnalyticsAvailable, openSettings } = useAnalyticsConsent();
   const { data: contact } = useQuery(publicSiteContactQuery);
   const { data: managedLinks = [] } = useQuery(publicSocialLinksQuery);
   const linkByKey = new Map(managedLinks.map((link) => [link.service_key, link.url]));
@@ -66,6 +68,11 @@ export function SiteFooter() {
             <Link to="/tietosuoja" className="hover:text-primary">
                 {tr.footer.privacy}
             </Link>
+            {isAnalyticsAvailable && (
+              <button type="button" onClick={openSettings} className="text-left hover:text-primary">
+                {tr.footer.cookieSettings}
+              </button>
+            )}
           </div>
         </div>
         <div className="flex flex-col items-center space-y-2 text-center md:space-y-3">
