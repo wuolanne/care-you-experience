@@ -7,9 +7,11 @@ import { useLang } from '@/i18n/LanguageProvider';
 import { newsQuery } from './queries';
 import { NEWS_PAGE_SIZE, newsCopy, newsText, type NewsItem } from './model';
 
-export function NewsSection() {
+export function NewsSection({
+  initialItems,
+}: { initialItems: Array<NewsItem & { imageUrl: string | null }> }) {
   const { lang } = useLang(); const copy = newsCopy[lang];
-  const { data: items } = useSuspenseQuery(newsQuery);
+  const { data: items } = useSuspenseQuery({ ...newsQuery, initialData: initialItems });
   const [count,setCount] = useState(NEWS_PAGE_SIZE);
   const [selected,setSelected] = useState<NewsItem | null>(null);
   return <section id="uutiset" aria-labelledby="news-title" className="border-b border-border/60 bg-background">

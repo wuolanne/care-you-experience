@@ -38,8 +38,14 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { tr, lang } = useLang();
+  const [initialNews, initialHomeContent] = Route.useLoaderData();
   const t = homeCopy[lang];
-  const { data: managed = {} } = useQuery(publicContentQuery("home", lang));
+  const homeContentQuery = publicContentQuery("home", lang);
+  const { data: managed = {} } = useQuery(
+    lang === "fi"
+      ? { ...homeContentQuery, initialData: initialHomeContent }
+      : homeContentQuery,
+  );
   const homeContent = homeContentValues(lang, { published_content: managed, draft_content: null });
   const heroTitle = homeContent.title || tr.hero.title;
   const heroLead = homeContent.intro || homeContent.body || tr.hero.lead;
@@ -154,7 +160,7 @@ function Index() {
 
 
 
-      <NewsSection />
+      <NewsSection initialItems={initialNews} />
 
       <Dialog open={form !== null} onOpenChange={open => { if (!open) setForm(null); }}><DialogContent className="max-h-[90dvh] w-[calc(100%-2rem)] overflow-y-auto rounded-md"><DialogTitle className="pr-6 text-2xl font-normal">{form === 'start' ? t.start : t.contact}</DialogTitle><DialogDescription className="sr-only">{form === 'start' ? t.startNote : t.message}</DialogDescription>{form && <RequestForm key={form} kind={form} audience="home" />}</DialogContent></Dialog>
     </>

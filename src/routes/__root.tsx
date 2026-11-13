@@ -125,6 +125,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [initialContact, initialSocialLinks, initialReviews] = Route.useLoaderData();
   const router = useRouter();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   useEffect(() => {
@@ -146,8 +147,8 @@ function RootComponent() {
               {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
               <Outlet />
             </main>
-            {pathname !== "/tietosuoja" && <CustomerReviews />}
-            <SiteFooter />
+            {pathname !== "/tietosuoja" && <CustomerReviews initialReviews={initialReviews} />}
+            <SiteFooter initialContact={initialContact} initialManagedLinks={initialSocialLinks} />
           </div>
         </AnalyticsConsentProvider>
       </LanguageProvider>

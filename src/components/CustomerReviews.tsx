@@ -11,10 +11,13 @@ const copy = {
   en: { title: "OUR CUSTOMERS’ REVIEWS", feedback: "Customer feedback", nickname: "Nickname", stars: "Star rating placeholder" },
 };
 
-export function CustomerReviews() {
+export function CustomerReviews({ initialReviews }: { initialReviews: CustomerReview[] }) {
   const { lang } = useLang();
   const t = copy[lang];
-  const { data: allReviews = [] } = useQuery(publicReviewsQuery);
+  const { data: allReviews = [] } = useQuery({
+    ...publicReviewsQuery,
+    initialData: initialReviews,
+  });
   const reviews = (allReviews as CustomerReview[]).filter((review) => review.lang === lang);
 
   if (!reviews.length) return null;

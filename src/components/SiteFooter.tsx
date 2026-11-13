@@ -14,6 +14,7 @@ import {
   type SocialKey,
 } from "@/data/company";
 import { publicSiteContactQuery, publicSocialLinksQuery } from "@/features/content/queries";
+import type { SiteContactDetails, SocialLink } from "@/features/content/model";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { siTiktok, siWhatsapp } from "simple-icons";
 
@@ -34,11 +35,23 @@ const SOCIAL: { key: SocialKey; name: string; Icon: ComponentType<{ className?: 
   { key: "whatsapp", name: "WhatsApp", Icon: (p) => <GlyphIcon path={siWhatsapp.path} {...p} /> },
 ];
 
-export function SiteFooter() {
+export function SiteFooter({
+  initialContact,
+  initialManagedLinks,
+}: {
+  initialContact: SiteContactDetails | null;
+  initialManagedLinks: SocialLink[];
+}) {
   const { tr } = useLang();
   const { isAvailable: isAnalyticsAvailable, openSettings } = useAnalyticsConsent();
-  const { data: contact } = useQuery(publicSiteContactQuery);
-  const { data: managedLinks = [] } = useQuery(publicSocialLinksQuery);
+  const { data: contact } = useQuery({
+    ...publicSiteContactQuery,
+    initialData: initialContact,
+  });
+  const { data: managedLinks = [] } = useQuery({
+    ...publicSocialLinksQuery,
+    initialData: initialManagedLinks,
+  });
   const linkByKey = new Map(managedLinks.map((link) => [link.service_key, link.url]));
   const visibleSocial = SOCIAL.filter(({ key }) => {
     const url = managedLinks.length ? linkByKey.get(key) : SOCIAL_LINKS[key];
